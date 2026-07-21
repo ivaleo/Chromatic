@@ -1,0 +1,5 @@
+.venv/
+chromatic/
+combigeo/
+voronoi/
+.DS_Store
