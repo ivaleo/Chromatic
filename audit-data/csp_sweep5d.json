@@ -1,0 +1,66 @@
+{
+ "A5*": {
+  "nF": 992,
+  "min_k": null
+ },
+ "D5": {
+  "nF": 1530,
+  "min_k": null
+ },
+ "g0": {
+  "nF": 992,
+  "min_k": null
+ },
+ "g1": {
+  "nF": 1230,
+  "min_k": null
+ },
+ "g2": {
+  "nF": 1030,
+  "min_k": null
+ },
+ "g3": {
+  "nF": 1227,
+  "min_k": null
+ },
+ "g4": {
+  "nF": 1027,
+  "min_k": null
+ },
+ "g5": {
+  "nF": 1128,
+  "min_k": null
+ },
+ "g6": {
+  "nF": 1040,
+  "min_k": null
+ },
+ "g7": {
+  "nF": 1232,
+  "min_k": null
+ },
+ "g8": {
+  "nF": 1025,
+  "min_k": null
+ },
+ "g9": {
+  "nF": 1179,
+  "min_k": null
+ },
+ "g10": {
+  "nF": 1211,
+  "min_k": null
+ },
+ "g11": {
+  "nF": 1206,
+  "min_k": null
+ },
+ "g12": {
+  "nF": 1006,
+  "min_k": null
+ },
+ "g13": {
+  "nF": 1110,
+  "min_k": null
+ }
+}
