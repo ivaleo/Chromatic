@@ -3,3 +3,12 @@ chromatic/
 combigeo/
 voronoi/
 .DS_Store
+
+# LaTeX build artifacts
+paper/*.aux
+paper/*.log
+paper/*.out
+paper/*.toc
+paper/*.synctex.gz
+__pycache__/
+*.pyc
