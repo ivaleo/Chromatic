@@ -1,0 +1,47 @@
+[build-system]
+requires = ["setuptools>=77"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "voronoi4d"
+version = "1.1.0"  # единый источник версии (читается в __init__ через importlib.metadata)
+description = "Поиск хроматического числа R^4 через разбиения Вороного 4-мерных решёток"
+readme = "README.md"
+requires-python = ">=3.10"
+license = "MIT"
+license-files = ["LICENSE"]
+authors = [
+    {name = "Леонид Иванов / Leonid Ivanov", email = "leo.ivadev@gmail.com"},
+]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Science/Research",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Scientific/Engineering :: Mathematics",
+]
+dependencies = [
+    "numpy",
+    "scipy",
+    "sympy",
+]
+
+[project.urls]
+Homepage = "https://github.com/ivaleo/Chromatic"
+Repository = "https://github.com/ivaleo/Chromatic"
+
+[project.optional-dependencies]
+fast = ["fpylll"]       # быстрая C-реализация LLL (иначе — чистый python)
+plot = ["matplotlib"]   # построение графиков результатов
+progress = ["tqdm"]     # прогресс-бар при переборе целочисленных решёток
+dev = ["pytest"]
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["src"]

@@ -1,0 +1,17 @@
+# сборка
+build*/
+dist/
+*.o
+*.so
+*.dylib
+*.egg-info/
+
+# python
+__pycache__/
+.venv/
+
+# IDE / OS
+.cache/
+.DS_Store
+compile_commands.json
+.pytest_cache/

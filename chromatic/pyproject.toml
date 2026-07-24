@@ -1,0 +1,39 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "chromatic"
+version = "1.1.0"
+description = "Единый фасад над бэкендами voronoi4d и combigeo для периодических раскрасок R^n"
+readme = "README.md"
+requires-python = ">=3.10"
+license = { text = "MIT" }
+authors = [{ name = "Leonid Ivanov", email = "leo.ivadev@gmail.com" }]
+keywords = ["chromatic-number", "lattice", "voronoi"]
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Topic :: Scientific/Engineering :: Mathematics",
+]
+# Бэкенды НЕ являются жёсткими зависимостями: устанавливаются отдельно
+# (см. README). Фасад работает с любым из доступных, выбор — явный по имени.
+dependencies = []
+
+[project.urls]
+Homepage = "https://github.com/ivaleo/Chromatic"
+Repository = "https://github.com/ivaleo/Chromatic"
+
+[project.optional-dependencies]
+# Бэкенды voronoi4d/combigeo — локальные проекты монорепо, а не пакеты PyPI,
+# поэтому extras для них нет: ставьте по пути (см. README):
+#   pip install -e ../voronoi   # voronoi4d
+#   pip install ../combigeo     # combigeo (нужен компилятор + pybind11)
+dev = ["pytest", "numpy"]
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["src"]

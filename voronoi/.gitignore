@@ -1,0 +1,25 @@
+# python
+__pycache__/
+*.pyc
+*.egg-info/
+build/
+dist/
+venv/
+.venv/
+
+# jupyter
+.ipynb_checkpoints/
+
+# pytest
+.pytest_cache/
+
+# локальные настройки
+.claude/
+
+# macOS
+.DS_Store
+
+# результаты экспериментов
+results.txt
+results/
+data/

@@ -1,6 +1,12 @@
-"""Генерация иллюстраций для статьи (векторные PDF)."""
+"""Генерация иллюстраций для статьи (векторные PDF).
+
+Запуск:  python figures.py   (из каталога paper/ или любого другого — пути
+относительны расположению этого файла). Читает json из ../audit-data,
+пишет fig_*.pdf рядом с собой.
+"""
 import json
 import math
+from pathlib import Path
 import numpy as np
 import matplotlib
 matplotlib.use("Agg")
@@ -10,8 +16,9 @@ plt.rcParams.update({
     "font.size": 11, "axes.grid": True, "grid.alpha": 0.3,
     "figure.dpi": 140, "savefig.bbox": "tight", "axes.axisbelow": True,
 })
-DATA = "/Users/mac/Documents/_My_code/Chromatic/audit-data"
-OUT = "/Users/mac/Documents/_My_code/Chromatic/paper"
+_HERE = Path(__file__).resolve().parent
+DATA = str(_HERE.parent / "audit-data")   # ../audit-data
+OUT = str(_HERE)                          # каталог этого файла (paper/)
 BLUE, RED, GREEN, ORANGE, PURPLE = "#2456a6", "#c0392b", "#1e8449", "#e08a00", "#7d3c98"
 
 
