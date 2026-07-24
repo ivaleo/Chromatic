@@ -1,7 +1,4 @@
 .venv/
-chromatic/
-combigeo/
-voronoi/
 .DS_Store
 
 # LaTeX build artifacts
@@ -10,5 +7,8 @@ paper/*.log
 paper/*.out
 paper/*.toc
 paper/*.synctex.gz
+
+# Python / logs
 __pycache__/
 *.pyc
+*.log

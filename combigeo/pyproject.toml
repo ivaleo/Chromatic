@@ -1,0 +1,31 @@
+[build-system]
+requires = ["setuptools>=68", "pybind11>=2.12"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "combigeo"
+version = "1.1.0"
+description = "Периодические раскраски R^n по решётчатым разбиениям Вороного (C++ ядро)"
+readme = "README.md"
+requires-python = ">=3.10"
+license = {text = "MIT"}
+authors = [
+    {name = "Leonid Ivanov", email = "leo.ivadev@gmail.com"},
+]
+keywords = ["chromatic-number", "lattice", "voronoi", "computational-geometry"]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Science/Research",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+    "Programming Language :: C++",
+    "Programming Language :: Python :: 3",
+    "Topic :: Scientific/Engineering :: Mathematics",
+]
+
+[project.urls]
+Homepage = "https://github.com/ivaleo/Chromatic"
+Repository = "https://github.com/ivaleo/Chromatic"
+
+[project.optional-dependencies]
+dev = ["pytest", "numpy"]
