@@ -24,7 +24,8 @@
 
 **Зависимости рисунков статьи** (`../paper/figures.py` читает их напрямую):
 `campaign_a.json`, `campaign_c.json`, `n2_4d_frontier.json`, `n5_cascade.json`,
-`n4_push46.json`, `n6_push45.json`, `r5_push48.json`.
+`n4_push46.json`, `n6_push45.json`, `r5_push48.json`, `n8_cma44_ladder.json`,
+`n7_push44.json`, `n10_push44.json`.
 
 ## Разведочные скрипты (по темам)
 
@@ -37,6 +38,14 @@
 - **Спуск χ(ℝ⁴) 49→45:** `n4_push46.py`, `n6_push45.py`, `n7_push44.py`,
   `n5_cascade.py`, `n5p_cascade.py`, `joint.py`, `joint_optimize.py`,
   `r1_r3_refine.py`, `r2_cone48.py`, `r5_push48.py` (+ соответствующие json).
+- **Кампания «ниже 45» (27.07.2026, барьер k=31..44):** `n8_cma44_ladder.py`
+  (CMA-ES по формам Грама: атака k=44 восемью инстансами × 2200 точных оценок +
+  лестница k=43..31; результат `n8_cma44_ladder.json` — все max d < 1, данные
+  рис. спуска), `n9_bk4d.py` (+ json; диагностика best_killed: ровно 1
+  неотделимый запрещённый вектор при k=36..44 на всех формах — сигнатура
+  жёсткого препятствия, как в 5D/6D), `n10_push44.py` (+ json; NM-дожим k=44 от
+  CMA-чемпиона по рецепту, пробившему 45), `n8_pause_resume.sh` (пауза/статус/
+  возобновление долгих прогонов).
 - **3D-интервалы и Q-поиск:** `o1_widths4d.py`, `o2_r3.py`, `n1_r3_full.py`,
   `qsearch.py`, `q_frontier.py` (порт `../articles/Qpoisk.c`).
 - **5D/6D — ранние черновики** (вытеснены `hd-2026-07/`, оставлены для истории):

@@ -1,0 +1,468 @@
+[
+ {
+  "form": "rec44",
+  "k": 44,
+  "nF": 220,
+  "best_killed": 1,
+  "structure": [
+   2,
+   22
+  ],
+  "found": false
+ },
+ {
+  "form": "W45",
+  "k": 44,
+  "nF": 209,
+  "best_killed": 1,
+  "structure": [
+   2,
+   22
+  ],
+  "found": false
+ },
+ {
+  "form": "W46",
+  "k": 44,
+  "nF": 222,
+  "best_killed": 1,
+  "structure": [
+   2,
+   22
+  ],
+  "found": false
+ },
+ {
+  "form": "D4",
+  "k": 44,
+  "nF": 204,
+  "best_killed": 1,
+  "structure": [
+   2,
+   22
+  ],
+  "found": false
+ },
+ {
+  "form": "A4*",
+  "k": 44,
+  "nF": 185,
+  "best_killed": 1,
+  "structure": [
+   2,
+   22
+  ],
+  "found": false
+ },
+ {
+  "form": "rec44",
+  "k": 43,
+  "nF": 220,
+  "best_killed": 1,
+  "structure": [
+   43
+  ],
+  "found": false
+ },
+ {
+  "form": "W45",
+  "k": 43,
+  "nF": 209,
+  "best_killed": 1,
+  "structure": [
+   43
+  ],
+  "found": false
+ },
+ {
+  "form": "W46",
+  "k": 43,
+  "nF": 222,
+  "best_killed": 1,
+  "structure": [
+   43
+  ],
+  "found": false
+ },
+ {
+  "form": "D4",
+  "k": 43,
+  "nF": 204,
+  "best_killed": 1,
+  "structure": [
+   43
+  ],
+  "found": false
+ },
+ {
+  "form": "A4*",
+  "k": 43,
+  "nF": 185,
+  "best_killed": 1,
+  "structure": [
+   43
+  ],
+  "found": false
+ },
+ {
+  "form": "rec44",
+  "k": 42,
+  "nF": 220,
+  "best_killed": 1,
+  "structure": [
+   42
+  ],
+  "found": false
+ },
+ {
+  "form": "W45",
+  "k": 42,
+  "nF": 209,
+  "best_killed": 1,
+  "structure": [
+   42
+  ],
+  "found": false
+ },
+ {
+  "form": "W46",
+  "k": 42,
+  "nF": 222,
+  "best_killed": 1,
+  "structure": [
+   42
+  ],
+  "found": false
+ },
+ {
+  "form": "D4",
+  "k": 42,
+  "nF": 204,
+  "best_killed": 1,
+  "structure": [
+   42
+  ],
+  "found": false
+ },
+ {
+  "form": "A4*",
+  "k": 42,
+  "nF": 185,
+  "best_killed": 1,
+  "structure": [
+   42
+  ],
+  "found": false
+ },
+ {
+  "form": "rec44",
+  "k": 41,
+  "nF": 220,
+  "best_killed": 1,
+  "structure": [
+   41
+  ],
+  "found": false
+ },
+ {
+  "form": "W45",
+  "k": 41,
+  "nF": 209,
+  "best_killed": 1,
+  "structure": [
+   41
+  ],
+  "found": false
+ },
+ {
+  "form": "W46",
+  "k": 41,
+  "nF": 222,
+  "best_killed": 1,
+  "structure": [
+   41
+  ],
+  "found": false
+ },
+ {
+  "form": "D4",
+  "k": 41,
+  "nF": 204,
+  "best_killed": 1,
+  "structure": [
+   41
+  ],
+  "found": false
+ },
+ {
+  "form": "A4*",
+  "k": 41,
+  "nF": 185,
+  "best_killed": 1,
+  "structure": [
+   41
+  ],
+  "found": false
+ },
+ {
+  "form": "rec44",
+  "k": 40,
+  "nF": 220,
+  "best_killed": 1,
+  "structure": [
+   2,
+   20
+  ],
+  "found": false
+ },
+ {
+  "form": "W45",
+  "k": 40,
+  "nF": 209,
+  "best_killed": 1,
+  "structure": [
+   2,
+   2,
+   10
+  ],
+  "found": false
+ },
+ {
+  "form": "W46",
+  "k": 40,
+  "nF": 222,
+  "best_killed": 1,
+  "structure": [
+   2,
+   20
+  ],
+  "found": false
+ },
+ {
+  "form": "D4",
+  "k": 40,
+  "nF": 204,
+  "best_killed": 1,
+  "structure": [
+   2,
+   20
+  ],
+  "found": false
+ },
+ {
+  "form": "A4*",
+  "k": 40,
+  "nF": 185,
+  "best_killed": 1,
+  "structure": [
+   2,
+   2,
+   10
+  ],
+  "found": false
+ },
+ {
+  "form": "rec44",
+  "k": 39,
+  "nF": 220,
+  "best_killed": 1,
+  "structure": [
+   39
+  ],
+  "found": false
+ },
+ {
+  "form": "W45",
+  "k": 39,
+  "nF": 209,
+  "best_killed": 1,
+  "structure": [
+   39
+  ],
+  "found": false
+ },
+ {
+  "form": "W46",
+  "k": 39,
+  "nF": 222,
+  "best_killed": 1,
+  "structure": [
+   39
+  ],
+  "found": false
+ },
+ {
+  "form": "D4",
+  "k": 39,
+  "nF": 204,
+  "best_killed": 1,
+  "structure": [
+   39
+  ],
+  "found": false
+ },
+ {
+  "form": "A4*",
+  "k": 39,
+  "nF": 185,
+  "best_killed": 1,
+  "structure": [
+   39
+  ],
+  "found": false
+ },
+ {
+  "form": "rec44",
+  "k": 36,
+  "nF": 220,
+  "best_killed": 1,
+  "structure": [
+   2,
+   18
+  ],
+  "found": false
+ },
+ {
+  "form": "W45",
+  "k": 36,
+  "nF": 209,
+  "best_killed": 1,
+  "structure": [
+   2,
+   18
+  ],
+  "found": false
+ },
+ {
+  "form": "W46",
+  "k": 36,
+  "nF": 222,
+  "best_killed": 1,
+  "structure": [
+   36
+  ],
+  "found": false
+ },
+ {
+  "form": "D4",
+  "k": 36,
+  "nF": 204,
+  "best_killed": 1,
+  "structure": [
+   3,
+   12
+  ],
+  "found": false
+ },
+ {
+  "form": "A4*",
+  "k": 36,
+  "nF": 185,
+  "best_killed": 1,
+  "structure": [
+   2,
+   18
+  ],
+  "found": false
+ },
+ {
+  "form": "rec44",
+  "k": 33,
+  "nF": 220,
+  "best_killed": 2,
+  "structure": [
+   33
+  ],
+  "found": false
+ },
+ {
+  "form": "W45",
+  "k": 33,
+  "nF": 209,
+  "best_killed": 1,
+  "structure": [
+   33
+  ],
+  "found": false
+ },
+ {
+  "form": "W46",
+  "k": 33,
+  "nF": 222,
+  "best_killed": 2,
+  "structure": [
+   33
+  ],
+  "found": false
+ },
+ {
+  "form": "D4",
+  "k": 33,
+  "nF": 204,
+  "best_killed": 2,
+  "structure": [
+   33
+  ],
+  "found": false
+ },
+ {
+  "form": "A4*",
+  "k": 33,
+  "nF": 185,
+  "best_killed": 2,
+  "structure": [
+   33
+  ],
+  "found": false
+ },
+ {
+  "form": "rec44",
+  "k": 31,
+  "nF": 220,
+  "best_killed": 2,
+  "structure": [
+   31
+  ],
+  "found": false
+ },
+ {
+  "form": "W45",
+  "k": 31,
+  "nF": 209,
+  "best_killed": 2,
+  "structure": [
+   31
+  ],
+  "found": false
+ },
+ {
+  "form": "W46",
+  "k": 31,
+  "nF": 222,
+  "best_killed": 2,
+  "structure": [
+   31
+  ],
+  "found": false
+ },
+ {
+  "form": "D4",
+  "k": 31,
+  "nF": 204,
+  "best_killed": 3,
+  "structure": [
+   31
+  ],
+  "found": false
+ },
+ {
+  "form": "A4*",
+  "k": 31,
+  "nF": 185,
+  "best_killed": 2,
+  "structure": [
+   31
+  ],
+  "found": false
+ }
+]
