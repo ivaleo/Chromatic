@@ -80,13 +80,25 @@ best_at = {
 }
 for k in range(49, 57):
     best_at[k] = n2[f"width{k}"]["d"]
+# кампания «ниже 45» (n8: CMA-ES по формам, лестница 31..44; n7/n10: NM-дожимы 44)
+n8 = json.load(open(f"{DATA}/n8_cma44_ladder.json"))
+for k in range(31, 45):
+    best_at[k] = n8[f"k{k}"]["d"]
+for extra in ("n7_push44.json", "n10_push44.json"):
+    try:
+        j = json.load(open(f"{DATA}/{extra}"))
+        best_at[44] = max(best_at[44], j.get("k44", j).get("d", 0.0))
+    except Exception:
+        pass
 ks = sorted(best_at)
 ds = [best_at[k] for k in ks]
 fig, ax = plt.subplots(figsize=(7.2, 4.3))
 above = [k >= 1.0 for k in ds]
 ax.axhline(1.0, color="k", ls="--", lw=1.2)
 ax.axhspan(1.0, 1.25, color=GREEN, alpha=0.06)
-ax.axhspan(0.9, 1.0, color=RED, alpha=0.06)
+ax.axhspan(0.78, 1.0, color=RED, alpha=0.06)
+ax.axvline(31, color="k", ls=":", lw=1.0, alpha=0.7)
+ax.text(31.4, 1.13, "предел Кулсона\n$k=2^{n+1}-1=31$", fontsize=8.5, color="k")
 for k, d in zip(ks, ds):
     col = GREEN if d >= 1.0 else RED
     ax.plot([k], [d], "o", color=col, ms=5.5, zorder=5)
@@ -99,10 +111,13 @@ ax.annotate(r"$k=48$: $d=1.0433$", (48, best_at[48]), (49.5, 1.17), fontsize=9, 
 ax.annotate(r"$k=47$: $d=%.4f<1$" % best_at[47], (47, best_at[47]), (47, 0.93),
             fontsize=9, color=RED, ha="center",
             arrowprops=dict(arrowstyle="->", color=RED))
+ax.annotate(r"$k=44$: $d=%.4f<1$" % best_at[44], (44, best_at[44]), (37.5, 1.04),
+            fontsize=9, color=RED,
+            arrowprops=dict(arrowstyle="->", color=RED))
 ax.text(53.3, 1.02, "область пригодных\nраскрасок ($d\\geq1$)", fontsize=8.5, color=GREEN)
 ax.set_xlabel(r"число цветов $k$ (точный индекс подрешётки)")
 ax.set_ylabel(r"наилучшая найденная ширина $d(k)$")
-ax.set_xlim(44.3, 56.5); ax.set_ylim(0.9, 1.22)
+ax.set_xlim(30.2, 56.5); ax.set_ylim(0.78, 1.22)
 fig.savefig(f"{OUT}/fig_descent.pdf")
 plt.close(fig)
 print("fig_descent.pdf, d(45) =", d45)

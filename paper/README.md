@@ -47,4 +47,5 @@ BibTeX-прогона не требуется.
 - `cert45.json` — точный рациональный сертификат главной теоремы (χ(ℝ⁴) ≤ 45);
 - `cert46.json`, `cert48.json` — сертификаты вторичных конструкций;
 - рисунки читают `campaign_a/c.json`, `n2_4d_frontier.json`, `n5_cascade.json`,
-  `n4_push46.json`, `n6_push45.json`, `r5_push48.json`.
+  `n4_push46.json`, `n6_push45.json`, `r5_push48.json`, а также данные кампании
+  «ниже 45»: `n8_cma44_ladder.json`, `n7_push44.json`, `n10_push44.json`.
