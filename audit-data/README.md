@@ -21,6 +21,7 @@
 | `cert48.json` | Сертификат более широкого интервала (k=48, ℓ≤1.0396). |
 | `cert_generic.py` | Параметрический генератор/проверщик сертификатов. |
 | `cert48.py` | Генератор `cert48.json`. |
+| `hd-2026-07/metric_deform_e7_1323_certificate.json` | Рациональный сертификат **χ(ℝ⁷) ≤ 1323**; генератор-проверщик — `hd-2026-07/verify_metric_candidate.py`. |
 
 **Зависимости рисунков статьи** (`../paper/figures.py` читает их напрямую):
 `campaign_a.json`, `campaign_c.json`, `n2_4d_frontier.json`, `n5_cascade.json`,
@@ -52,6 +53,13 @@
   `csp_campaign5d.py`, `csp_sweep5d.py`, `cyclic_csp.py`, `general_csp.py`,
   `minconf_csp.py`, `mc_attack5d.py`, `probe5d.py`, `smart_sub.py`, `dim6.py`,
   `r4_beat343.py`, `cma_form.py`, `n3_5d_probe.py`.
+- **Экраны 8D/9D после результата 1323:** `hd-2026-07/prime_screen_e8_2400.json`,
+  `prime_weighted_e8_2400.json`, `metric_deform_e8_2400.json`,
+  `e8_neighbor_2400.json`, `lazy_prime_a9_16875.json`,
+  `lazy_prime_a9_16384.json`, `lazy_cxx_a9_17150.json`,
+  `a9_orbit_16875.json`, `a9_orbit_17150.json`. Нового рекорда не получено;
+  полный разбор и следующий механизм — в
+  `hd-2026-07/README.md` и `hd-2026-07/NEXT_MECHANISM.md`.
 
 ## Как воспроизвести
 
