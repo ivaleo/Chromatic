@@ -15,3 +15,6 @@ paper/*.fls
 __pycache__/
 *.pyc
 *.log
+
+# Reproducible but expensive high-dimensional forbidden-set caches
+audit-data/hd-2026-07/.search-cache/
