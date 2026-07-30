@@ -38,6 +38,7 @@ from prime_radon import (
     nullspace_mod,
     smith_diagonal,
 )
+from symlat import kernel_minimal_to_fundamental
 
 
 C9 = np.asarray(
@@ -54,6 +55,14 @@ C9 = np.asarray(
     ],
     dtype=np.int64,
 )
+
+# ABPR's C9 is expressed in the minimal-weight coordinate basis used by
+# ``M_Anstar``.  ``parent_geometry("A9*")`` uses the fundamental-weight basis
+# from ``lattices.Astar``.  The distinction matters for modular characters:
+# final geometric validation made the old campaign safe, but its supposedly
+# frozen F_3 block did not belong to the published coloring.  Convert the
+# kernel before taking annihilators.
+C9_FUNDAMENTAL = kernel_minimal_to_fundamental(C9)
 
 
 def full_payload(
@@ -90,9 +99,16 @@ def main(argv: Sequence[str] | None = None) -> int:
     args = parser.parse_args(argv)
 
     basis, diameter, facets = parent_geometry("A9*")
+    published_separation = separate_kernel(
+        basis, diameter, facets, C9_FUNDAMENTAL
+    )
+    if not published_separation["valid"]:
+        raise AssertionError(
+            "coordinate-converted ABPR C9 kernel did not validate"
+        )
     fixed_rows = [
         np.asarray(row, dtype=np.int64)
-        for row in nullspace_mod(C9.T, 3)
+        for row in nullspace_mod(C9_FUNDAMENTAL.T, 3)
     ]
     if len(fixed_rows) != 5:
         raise AssertionError("the ABPR C9 matrix must have five F_3 annihilators")
@@ -122,6 +138,13 @@ def main(argv: Sequence[str] | None = None) -> int:
         "diameter": diameter,
         "facet_count": len(facets),
         "published_index": 17253,
+        "published_kernel_coordinate_convention": (
+            "ABPR minimal weights converted exactly to fundamental weights"
+        ),
+        "published_kernel_columns": C9_FUNDAMENTAL.astype(int).tolist(),
+        "published_minimum_distance_ratio": published_separation[
+            "minimum_distance_ratio"
+        ],
         "target_index": target,
         "fixed_moduli": fixed_moduli,
         "fixed_rows": [row.astype(int).tolist() for row in fixed_rows],

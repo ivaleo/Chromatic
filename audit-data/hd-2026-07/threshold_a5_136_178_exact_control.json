@@ -1,0 +1,248 @@
+{
+  "method": "complete bitmask-product threshold enumeration with exact row-space symmetry reduction",
+  "source_metric": "audit-data/hd-2026-07/active_metric_a5_136_postcross.json",
+  "lattice": "A5*",
+  "dimension": 5,
+  "structure": [
+    17,
+    8
+  ],
+  "target_index": 136,
+  "threshold": 1.000814,
+  "forbidden_projective_pairs": 1049,
+  "below_threshold_pairs": 1049,
+  "groups": [
+    {
+      "label": "row-mod-17",
+      "moduli": [
+        17
+      ],
+      "options": 88741,
+      "mask_words": 17
+    },
+    {
+      "label": "row-mod-8",
+      "moduli": [
+        8
+      ],
+      "options": 7936,
+      "mask_words": 17
+    }
+  ],
+  "enumeration": {
+    "status": "FEASIBLE",
+    "tested": 686308020,
+    "total_tuples": 704248576,
+    "elapsed_seconds": 0.864958,
+    "choices": [
+      86479,
+      2739
+    ],
+    "stderr": ""
+  },
+  "candidate": {
+    "label": "threshold-1.000814",
+    "beta": 1.000814,
+    "moduli": [
+      17,
+      8
+    ],
+    "rows": [
+      [
+        0,
+        1,
+        10,
+        4,
+        0
+      ],
+      [
+        1,
+        5,
+        2,
+        6,
+        3
+      ]
+    ],
+    "target_product": 136,
+    "image_index": 136,
+    "killed": 0,
+    "weighted_loss": 0.0,
+    "minimum_conflict_ratio": null,
+    "conflicts": [],
+    "search_seconds": 1.3098369170038495,
+    "search": {
+      "choices": [
+        86479,
+        2739
+      ],
+      "enumeration": {
+        "status": "FEASIBLE",
+        "tested": 686308020,
+        "total_tuples": 704248576,
+        "elapsed_seconds": 0.864958,
+        "choices": [
+          86479,
+          2739
+        ],
+        "stderr": ""
+      }
+    },
+    "kernel_basis_columns": [
+      [
+        8,
+        3,
+        3,
+        1,
+        5
+      ],
+      [
+        0,
+        17,
+        7,
+        13,
+        0
+      ],
+      [
+        0,
+        0,
+        1,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        1,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        1
+      ]
+    ],
+    "kernel_determinant": 136,
+    "kernel_smith": [
+      1,
+      1,
+      1,
+      1,
+      136
+    ],
+    "complete_separation": {
+      "valid": true,
+      "checked_kernel_vectors": 28,
+      "enumerated_including_zero": 29,
+      "minimum_distance_ratio": 1.000814579645917,
+      "conflict_count_with_sign": 0,
+      "conflicts": [],
+      "seconds": 0.0033215000003110617
+    }
+  },
+  "valid_candidate": {
+    "label": "threshold-1.000814",
+    "beta": 1.000814,
+    "moduli": [
+      17,
+      8
+    ],
+    "rows": [
+      [
+        0,
+        1,
+        10,
+        4,
+        0
+      ],
+      [
+        1,
+        5,
+        2,
+        6,
+        3
+      ]
+    ],
+    "target_product": 136,
+    "image_index": 136,
+    "killed": 0,
+    "weighted_loss": 0.0,
+    "minimum_conflict_ratio": null,
+    "conflicts": [],
+    "search_seconds": 1.3098369170038495,
+    "search": {
+      "choices": [
+        86479,
+        2739
+      ],
+      "enumeration": {
+        "status": "FEASIBLE",
+        "tested": 686308020,
+        "total_tuples": 704248576,
+        "elapsed_seconds": 0.864958,
+        "choices": [
+          86479,
+          2739
+        ],
+        "stderr": ""
+      }
+    },
+    "kernel_basis_columns": [
+      [
+        8,
+        3,
+        3,
+        1,
+        5
+      ],
+      [
+        0,
+        17,
+        7,
+        13,
+        0
+      ],
+      [
+        0,
+        0,
+        1,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        1,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        1
+      ]
+    ],
+    "kernel_determinant": 136,
+    "kernel_smith": [
+      1,
+      1,
+      1,
+      1,
+      136
+    ],
+    "complete_separation": {
+      "valid": true,
+      "checked_kernel_vectors": 28,
+      "enumerated_including_zero": 29,
+      "minimum_distance_ratio": 1.000814579645917,
+      "conflict_count_with_sign": 0,
+      "conflicts": [],
+      "seconds": 0.0033215000003110617
+    }
+  },
+  "elapsed_seconds": 1.3146712080051657
+}

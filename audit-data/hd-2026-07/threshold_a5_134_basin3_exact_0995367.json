@@ -1,0 +1,706 @@
+{
+  "method": "projective-chart CP-SAT threshold oracle for a large prime block",
+  "source_metric": "audit-data/hd-2026-07/frontier_active_a5_134_basin3.json",
+  "lattice": "A5*",
+  "dimension": 5,
+  "large_prime": 67,
+  "small_modulus": 2,
+  "threshold": 0.995367,
+  "forbidden_projective_pairs": 970,
+  "small_rows_total": 31,
+  "settings": {
+    "time_limit_per_chart": 30.0,
+    "workers": 8,
+    "seed": 20260730
+  },
+  "small_rows": [
+    {
+      "small_row": [
+        0,
+        1,
+        0,
+        1,
+        1
+      ],
+      "bad_vectors_before_modular_dedup": 472,
+      "bad_projective_rows_mod_large_prime": 457,
+      "charts": [
+        {
+          "status": "INFEASIBLE",
+          "tested": 20456441,
+          "elapsed_seconds": 0.641541,
+          "stderr": "",
+          "backend": "exact_cpp_projective_enumeration"
+        }
+      ],
+      "proved_unsat": true,
+      "elapsed_seconds": 1.0643801670000244
+    },
+    {
+      "small_row": [
+        1,
+        0,
+        0,
+        0,
+        1
+      ],
+      "bad_vectors_before_modular_dedup": 481,
+      "bad_projective_rows_mod_large_prime": 465,
+      "charts": [
+        {
+          "status": "INFEASIBLE",
+          "tested": 20456441,
+          "elapsed_seconds": 0.894676,
+          "stderr": "",
+          "backend": "exact_cpp_projective_enumeration"
+        }
+      ],
+      "proved_unsat": true,
+      "elapsed_seconds": 0.9054079999999942
+    },
+    {
+      "small_row": [
+        1,
+        0,
+        0,
+        1,
+        0
+      ],
+      "bad_vectors_before_modular_dedup": 483,
+      "bad_projective_rows_mod_large_prime": 467,
+      "charts": [
+        {
+          "status": "INFEASIBLE",
+          "tested": 20456441,
+          "elapsed_seconds": 0.848847,
+          "stderr": "",
+          "backend": "exact_cpp_projective_enumeration"
+        }
+      ],
+      "proved_unsat": true,
+      "elapsed_seconds": 0.8571573340000214
+    },
+    {
+      "small_row": [
+        1,
+        0,
+        0,
+        1,
+        1
+      ],
+      "bad_vectors_before_modular_dedup": 473,
+      "bad_projective_rows_mod_large_prime": 458,
+      "charts": [
+        {
+          "status": "INFEASIBLE",
+          "tested": 20456441,
+          "elapsed_seconds": 0.743636,
+          "stderr": "",
+          "backend": "exact_cpp_projective_enumeration"
+        }
+      ],
+      "proved_unsat": true,
+      "elapsed_seconds": 0.7519270840000161
+    },
+    {
+      "small_row": [
+        1,
+        0,
+        1,
+        0,
+        0
+      ],
+      "bad_vectors_before_modular_dedup": 477,
+      "bad_projective_rows_mod_large_prime": 461,
+      "charts": [
+        {
+          "status": "INFEASIBLE",
+          "tested": 20456441,
+          "elapsed_seconds": 0.770345,
+          "stderr": "",
+          "backend": "exact_cpp_projective_enumeration"
+        }
+      ],
+      "proved_unsat": true,
+      "elapsed_seconds": 0.7808444160000079
+    },
+    {
+      "small_row": [
+        1,
+        0,
+        1,
+        0,
+        1
+      ],
+      "bad_vectors_before_modular_dedup": 481,
+      "bad_projective_rows_mod_large_prime": 466,
+      "charts": [
+        {
+          "status": "INFEASIBLE",
+          "tested": 20456441,
+          "elapsed_seconds": 0.778255,
+          "stderr": "",
+          "backend": "exact_cpp_projective_enumeration"
+        }
+      ],
+      "proved_unsat": true,
+      "elapsed_seconds": 0.7898660410000105
+    },
+    {
+      "small_row": [
+        1,
+        0,
+        1,
+        1,
+        0
+      ],
+      "bad_vectors_before_modular_dedup": 481,
+      "bad_projective_rows_mod_large_prime": 466,
+      "charts": [
+        {
+          "status": "INFEASIBLE",
+          "tested": 20456441,
+          "elapsed_seconds": 0.746441,
+          "stderr": "",
+          "backend": "exact_cpp_projective_enumeration"
+        }
+      ],
+      "proved_unsat": true,
+      "elapsed_seconds": 0.7545346249999909
+    },
+    {
+      "small_row": [
+        1,
+        0,
+        1,
+        1,
+        1
+      ],
+      "bad_vectors_before_modular_dedup": 487,
+      "bad_projective_rows_mod_large_prime": 471,
+      "charts": [
+        {
+          "status": "INFEASIBLE",
+          "tested": 20456441,
+          "elapsed_seconds": 0.761727,
+          "stderr": "",
+          "backend": "exact_cpp_projective_enumeration"
+        }
+      ],
+      "proved_unsat": true,
+      "elapsed_seconds": 0.7697299169999781
+    },
+    {
+      "small_row": [
+        1,
+        1,
+        0,
+        0,
+        0
+      ],
+      "bad_vectors_before_modular_dedup": 476,
+      "bad_projective_rows_mod_large_prime": 460,
+      "charts": [
+        {
+          "status": "INFEASIBLE",
+          "tested": 20456441,
+          "elapsed_seconds": 0.747997,
+          "stderr": "",
+          "backend": "exact_cpp_projective_enumeration"
+        }
+      ],
+      "proved_unsat": true,
+      "elapsed_seconds": 0.7561604999999929
+    },
+    {
+      "small_row": [
+        1,
+        1,
+        0,
+        0,
+        1
+      ],
+      "bad_vectors_before_modular_dedup": 490,
+      "bad_projective_rows_mod_large_prime": 475,
+      "charts": [
+        {
+          "status": "INFEASIBLE",
+          "tested": 20456441,
+          "elapsed_seconds": 0.793469,
+          "stderr": "",
+          "backend": "exact_cpp_projective_enumeration"
+        }
+      ],
+      "proved_unsat": true,
+      "elapsed_seconds": 0.8022404159999894
+    },
+    {
+      "small_row": [
+        1,
+        1,
+        0,
+        1,
+        0
+      ],
+      "bad_vectors_before_modular_dedup": 484,
+      "bad_projective_rows_mod_large_prime": 469,
+      "charts": [
+        {
+          "status": "INFEASIBLE",
+          "tested": 20456441,
+          "elapsed_seconds": 0.772129,
+          "stderr": "",
+          "backend": "exact_cpp_projective_enumeration"
+        }
+      ],
+      "proved_unsat": true,
+      "elapsed_seconds": 0.7798298339999974
+    },
+    {
+      "small_row": [
+        1,
+        1,
+        0,
+        1,
+        1
+      ],
+      "bad_vectors_before_modular_dedup": 480,
+      "bad_projective_rows_mod_large_prime": 464,
+      "charts": [
+        {
+          "status": "INFEASIBLE",
+          "tested": 20456441,
+          "elapsed_seconds": 0.900509,
+          "stderr": "",
+          "backend": "exact_cpp_projective_enumeration"
+        }
+      ],
+      "proved_unsat": true,
+      "elapsed_seconds": 0.9085999579999964
+    },
+    {
+      "small_row": [
+        1,
+        1,
+        1,
+        0,
+        0
+      ],
+      "bad_vectors_before_modular_dedup": 474,
+      "bad_projective_rows_mod_large_prime": 459,
+      "charts": [
+        {
+          "status": "INFEASIBLE",
+          "tested": 20456441,
+          "elapsed_seconds": 0.817794,
+          "stderr": "",
+          "backend": "exact_cpp_projective_enumeration"
+        }
+      ],
+      "proved_unsat": true,
+      "elapsed_seconds": 0.8261518330000115
+    },
+    {
+      "small_row": [
+        1,
+        1,
+        1,
+        0,
+        1
+      ],
+      "bad_vectors_before_modular_dedup": 468,
+      "bad_projective_rows_mod_large_prime": 452,
+      "charts": [
+        {
+          "status": "INFEASIBLE",
+          "tested": 20456441,
+          "elapsed_seconds": 0.806877,
+          "stderr": "",
+          "backend": "exact_cpp_projective_enumeration"
+        }
+      ],
+      "proved_unsat": true,
+      "elapsed_seconds": 0.8158263340000076
+    },
+    {
+      "small_row": [
+        1,
+        1,
+        1,
+        1,
+        0
+      ],
+      "bad_vectors_before_modular_dedup": 476,
+      "bad_projective_rows_mod_large_prime": 460,
+      "charts": [
+        {
+          "status": "INFEASIBLE",
+          "tested": 20456441,
+          "elapsed_seconds": 0.782692,
+          "stderr": "",
+          "backend": "exact_cpp_projective_enumeration"
+        }
+      ],
+      "proved_unsat": true,
+      "elapsed_seconds": 0.7926830419999931
+    },
+    {
+      "small_row": [
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "bad_vectors_before_modular_dedup": 476,
+      "bad_projective_rows_mod_large_prime": 461,
+      "charts": [
+        {
+          "status": "INFEASIBLE",
+          "tested": 20456441,
+          "elapsed_seconds": 0.763307,
+          "stderr": "",
+          "backend": "exact_cpp_projective_enumeration"
+        }
+      ],
+      "proved_unsat": true,
+      "elapsed_seconds": 0.77189525
+    },
+    {
+      "small_row": [
+        0,
+        1,
+        0,
+        0,
+        0
+      ],
+      "bad_vectors_before_modular_dedup": 478,
+      "bad_projective_rows_mod_large_prime": 463,
+      "charts": [
+        {
+          "status": "INFEASIBLE",
+          "tested": 20456441,
+          "elapsed_seconds": 0.771229,
+          "stderr": "",
+          "backend": "exact_cpp_projective_enumeration"
+        }
+      ],
+      "proved_unsat": true,
+      "elapsed_seconds": 0.7814527499999997
+    },
+    {
+      "small_row": [
+        0,
+        1,
+        0,
+        0,
+        1
+      ],
+      "bad_vectors_before_modular_dedup": 484,
+      "bad_projective_rows_mod_large_prime": 468,
+      "charts": [
+        {
+          "status": "INFEASIBLE",
+          "tested": 20456441,
+          "elapsed_seconds": 0.85252,
+          "stderr": "",
+          "backend": "exact_cpp_projective_enumeration"
+        }
+      ],
+      "proved_unsat": true,
+      "elapsed_seconds": 0.8623123329999771
+    },
+    {
+      "small_row": [
+        0,
+        1,
+        0,
+        1,
+        0
+      ],
+      "bad_vectors_before_modular_dedup": 488,
+      "bad_projective_rows_mod_large_prime": 472,
+      "charts": [
+        {
+          "status": "INFEASIBLE",
+          "tested": 20456441,
+          "elapsed_seconds": 0.839351,
+          "stderr": "",
+          "backend": "exact_cpp_projective_enumeration"
+        }
+      ],
+      "proved_unsat": true,
+      "elapsed_seconds": 0.8500841659999878
+    },
+    {
+      "small_row": [
+        1,
+        0,
+        0,
+        0,
+        0
+      ],
+      "bad_vectors_before_modular_dedup": 469,
+      "bad_projective_rows_mod_large_prime": 454,
+      "charts": [
+        {
+          "status": "INFEASIBLE",
+          "tested": 20456441,
+          "elapsed_seconds": 0.933127,
+          "stderr": "",
+          "backend": "exact_cpp_projective_enumeration"
+        }
+      ],
+      "proved_unsat": true,
+      "elapsed_seconds": 0.9436780000000056
+    },
+    {
+      "small_row": [
+        0,
+        1,
+        1,
+        0,
+        0
+      ],
+      "bad_vectors_before_modular_dedup": 478,
+      "bad_projective_rows_mod_large_prime": 462,
+      "charts": [
+        {
+          "status": "INFEASIBLE",
+          "tested": 20456441,
+          "elapsed_seconds": 0.814574,
+          "stderr": "",
+          "backend": "exact_cpp_projective_enumeration"
+        }
+      ],
+      "proved_unsat": true,
+      "elapsed_seconds": 0.8255182910000087
+    },
+    {
+      "small_row": [
+        0,
+        1,
+        1,
+        0,
+        1
+      ],
+      "bad_vectors_before_modular_dedup": 480,
+      "bad_projective_rows_mod_large_prime": 465,
+      "charts": [
+        {
+          "status": "INFEASIBLE",
+          "tested": 20456441,
+          "elapsed_seconds": 0.778747,
+          "stderr": "",
+          "backend": "exact_cpp_projective_enumeration"
+        }
+      ],
+      "proved_unsat": true,
+      "elapsed_seconds": 0.7886467499999981
+    },
+    {
+      "small_row": [
+        0,
+        1,
+        1,
+        1,
+        0
+      ],
+      "bad_vectors_before_modular_dedup": 470,
+      "bad_projective_rows_mod_large_prime": 455,
+      "charts": [
+        {
+          "status": "INFEASIBLE",
+          "tested": 20456441,
+          "elapsed_seconds": 0.670933,
+          "stderr": "",
+          "backend": "exact_cpp_projective_enumeration"
+        }
+      ],
+      "proved_unsat": true,
+      "elapsed_seconds": 0.6793268749999868
+    },
+    {
+      "small_row": [
+        0,
+        1,
+        1,
+        1,
+        1
+      ],
+      "bad_vectors_before_modular_dedup": 474,
+      "bad_projective_rows_mod_large_prime": 458,
+      "charts": [
+        {
+          "status": "INFEASIBLE",
+          "tested": 20456441,
+          "elapsed_seconds": 0.883644,
+          "stderr": "",
+          "backend": "exact_cpp_projective_enumeration"
+        }
+      ],
+      "proved_unsat": true,
+      "elapsed_seconds": 0.892512666999977
+    },
+    {
+      "small_row": [
+        0,
+        0,
+        1,
+        0,
+        0
+      ],
+      "bad_vectors_before_modular_dedup": 485,
+      "bad_projective_rows_mod_large_prime": 470,
+      "charts": [
+        {
+          "status": "INFEASIBLE",
+          "tested": 20456441,
+          "elapsed_seconds": 0.865333,
+          "stderr": "",
+          "backend": "exact_cpp_projective_enumeration"
+        }
+      ],
+      "proved_unsat": true,
+      "elapsed_seconds": 0.8734009579999906
+    },
+    {
+      "small_row": [
+        0,
+        0,
+        1,
+        0,
+        1
+      ],
+      "bad_vectors_before_modular_dedup": 477,
+      "bad_projective_rows_mod_large_prime": 461,
+      "charts": [
+        {
+          "status": "INFEASIBLE",
+          "tested": 20456441,
+          "elapsed_seconds": 0.774026,
+          "stderr": "",
+          "backend": "exact_cpp_projective_enumeration"
+        }
+      ],
+      "proved_unsat": true,
+      "elapsed_seconds": 0.7827568750000182
+    },
+    {
+      "small_row": [
+        0,
+        0,
+        1,
+        1,
+        0
+      ],
+      "bad_vectors_before_modular_dedup": 483,
+      "bad_projective_rows_mod_large_prime": 467,
+      "charts": [
+        {
+          "status": "INFEASIBLE",
+          "tested": 20456441,
+          "elapsed_seconds": 0.779127,
+          "stderr": "",
+          "backend": "exact_cpp_projective_enumeration"
+        }
+      ],
+      "proved_unsat": true,
+      "elapsed_seconds": 0.7893469579999817
+    },
+    {
+      "small_row": [
+        0,
+        0,
+        1,
+        1,
+        1
+      ],
+      "bad_vectors_before_modular_dedup": 473,
+      "bad_projective_rows_mod_large_prime": 458,
+      "charts": [
+        {
+          "status": "INFEASIBLE",
+          "tested": 20456441,
+          "elapsed_seconds": 0.688558,
+          "stderr": "",
+          "backend": "exact_cpp_projective_enumeration"
+        }
+      ],
+      "proved_unsat": true,
+      "elapsed_seconds": 0.6978458330000024
+    },
+    {
+      "small_row": [
+        0,
+        0,
+        0,
+        1,
+        0
+      ],
+      "bad_vectors_before_modular_dedup": 471,
+      "bad_projective_rows_mod_large_prime": 456,
+      "charts": [
+        {
+          "status": "INFEASIBLE",
+          "tested": 20456441,
+          "elapsed_seconds": 0.740037,
+          "stderr": "",
+          "backend": "exact_cpp_projective_enumeration"
+        }
+      ],
+      "proved_unsat": true,
+      "elapsed_seconds": 0.7510046250000073
+    },
+    {
+      "small_row": [
+        0,
+        0,
+        0,
+        1,
+        1
+      ],
+      "bad_vectors_before_modular_dedup": 493,
+      "bad_projective_rows_mod_large_prime": 477,
+      "charts": [
+        {
+          "status": "INFEASIBLE",
+          "tested": 20456441,
+          "elapsed_seconds": 0.861485,
+          "stderr": "",
+          "backend": "exact_cpp_projective_enumeration"
+        }
+      ],
+      "proved_unsat": true,
+      "elapsed_seconds": 0.8700072500000147
+    },
+    {
+      "small_row": [
+        0,
+        0,
+        0,
+        0,
+        1
+      ],
+      "bad_vectors_before_modular_dedup": 475,
+      "bad_projective_rows_mod_large_prime": 460,
+      "charts": [
+        {
+          "status": "INFEASIBLE",
+          "tested": 20456441,
+          "elapsed_seconds": 0.553745,
+          "stderr": "",
+          "backend": "exact_cpp_projective_enumeration"
+        }
+      ],
+      "proved_unsat": true,
+      "elapsed_seconds": 0.5621110830000191
+    }
+  ],
+  "best_candidate": null,
+  "valid_candidate": null,
+  "small_rows_completed": 31,
+  "all_completed_small_rows_proved_unsat": true,
+  "elapsed_seconds": 25.201154875000014,
+  "all_small_rows_proved_unsat": true
+}

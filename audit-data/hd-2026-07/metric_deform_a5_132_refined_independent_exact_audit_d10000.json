@@ -1,0 +1,2514 @@
+{
+  "method": "exact parity classes + exact one-skeleton traversal + exact short-vector/KKT audit",
+  "source_certificate": "audit-data/hd-2026-07/metric_deform_a5_132_refined_certificate_d10000.json",
+  "dimension": 5,
+  "denominator": 10000,
+  "positive_definite": true,
+  "voronoi_relevant_audit": {
+    "parity_classes": 31,
+    "relevant_pairs": 31,
+    "facet_count": 62,
+    "relevant_vectors_one_per_sign_pair": [
+      [
+        0,
+        0,
+        0,
+        0,
+        1
+      ],
+      [
+        0,
+        0,
+        0,
+        1,
+        -1
+      ],
+      [
+        0,
+        0,
+        0,
+        1,
+        0
+      ],
+      [
+        0,
+        0,
+        1,
+        -1,
+        -1
+      ],
+      [
+        0,
+        0,
+        1,
+        -1,
+        0
+      ],
+      [
+        0,
+        0,
+        1,
+        0,
+        -1
+      ],
+      [
+        0,
+        0,
+        1,
+        0,
+        0
+      ],
+      [
+        0,
+        1,
+        -2,
+        1,
+        1
+      ],
+      [
+        0,
+        1,
+        -1,
+        0,
+        0
+      ],
+      [
+        0,
+        1,
+        -1,
+        0,
+        1
+      ],
+      [
+        0,
+        1,
+        -1,
+        1,
+        -1
+      ],
+      [
+        0,
+        1,
+        -1,
+        1,
+        0
+      ],
+      [
+        0,
+        1,
+        0,
+        -1,
+        0
+      ],
+      [
+        0,
+        1,
+        0,
+        0,
+        -1
+      ],
+      [
+        1,
+        -1,
+        0,
+        0,
+        0
+      ],
+      [
+        1,
+        -1,
+        0,
+        0,
+        1
+      ],
+      [
+        1,
+        -1,
+        0,
+        1,
+        0
+      ],
+      [
+        1,
+        -1,
+        1,
+        -1,
+        0
+      ],
+      [
+        1,
+        -1,
+        1,
+        -1,
+        1
+      ],
+      [
+        1,
+        -1,
+        1,
+        0,
+        -1
+      ],
+      [
+        1,
+        -1,
+        1,
+        0,
+        0
+      ],
+      [
+        1,
+        -1,
+        2,
+        -1,
+        -1
+      ],
+      [
+        1,
+        0,
+        -1,
+        0,
+        0
+      ],
+      [
+        1,
+        0,
+        -1,
+        0,
+        1
+      ],
+      [
+        1,
+        0,
+        -1,
+        1,
+        0
+      ],
+      [
+        1,
+        0,
+        -1,
+        1,
+        1
+      ],
+      [
+        1,
+        0,
+        0,
+        -1,
+        0
+      ],
+      [
+        1,
+        0,
+        0,
+        -1,
+        1
+      ],
+      [
+        1,
+        0,
+        0,
+        0,
+        -1
+      ],
+      [
+        1,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        2,
+        -1,
+        0,
+        0,
+        0
+      ]
+    ],
+    "classes": [
+      {
+        "parity": [
+          0,
+          0,
+          0,
+          0,
+          1
+        ],
+        "initial_upper_bound": 14808,
+        "coordinate_bounds": [
+          1,
+          1,
+          1,
+          1,
+          1
+        ],
+        "enumerated": 2,
+        "minimum_norm_integer": 14808,
+        "minimizers": [
+          [
+            0,
+            0,
+            0,
+            0,
+            -1
+          ],
+          [
+            0,
+            0,
+            0,
+            0,
+            1
+          ]
+        ],
+        "relevant": true
+      },
+      {
+        "parity": [
+          0,
+          0,
+          0,
+          1,
+          0
+        ],
+        "initial_upper_bound": 18173,
+        "coordinate_bounds": [
+          1,
+          1,
+          1,
+          1,
+          1
+        ],
+        "enumerated": 2,
+        "minimum_norm_integer": 18173,
+        "minimizers": [
+          [
+            0,
+            0,
+            0,
+            -1,
+            0
+          ],
+          [
+            0,
+            0,
+            0,
+            1,
+            0
+          ]
+        ],
+        "relevant": true
+      },
+      {
+        "parity": [
+          0,
+          0,
+          0,
+          1,
+          1
+        ],
+        "initial_upper_bound": 47311,
+        "coordinate_bounds": [
+          3,
+          2,
+          2,
+          2,
+          2
+        ],
+        "enumerated": 108,
+        "minimum_norm_integer": 18651,
+        "minimizers": [
+          [
+            0,
+            0,
+            0,
+            -1,
+            1
+          ],
+          [
+            0,
+            0,
+            0,
+            1,
+            -1
+          ]
+        ],
+        "relevant": true
+      },
+      {
+        "parity": [
+          0,
+          0,
+          1,
+          0,
+          0
+        ],
+        "initial_upper_bound": 29657,
+        "coordinate_bounds": [
+          2,
+          2,
+          2,
+          1,
+          1
+        ],
+        "enumerated": 18,
+        "minimum_norm_integer": 29657,
+        "minimizers": [
+          [
+            0,
+            0,
+            -1,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            1,
+            0,
+            0
+          ]
+        ],
+        "relevant": true
+      },
+      {
+        "parity": [
+          0,
+          0,
+          1,
+          0,
+          1
+        ],
+        "initial_upper_bound": 72571,
+        "coordinate_bounds": [
+          3,
+          3,
+          3,
+          2,
+          3
+        ],
+        "enumerated": 432,
+        "minimum_norm_integer": 16359,
+        "minimizers": [
+          [
+            0,
+            0,
+            -1,
+            0,
+            1
+          ],
+          [
+            0,
+            0,
+            1,
+            0,
+            -1
+          ]
+        ],
+        "relevant": true
+      },
+      {
+        "parity": [
+          0,
+          0,
+          1,
+          1,
+          0
+        ],
+        "initial_upper_bound": 80564,
+        "coordinate_bounds": [
+          4,
+          3,
+          3,
+          3,
+          3
+        ],
+        "enumerated": 720,
+        "minimum_norm_integer": 15096,
+        "minimizers": [
+          [
+            0,
+            0,
+            -1,
+            1,
+            0
+          ],
+          [
+            0,
+            0,
+            1,
+            -1,
+            0
+          ]
+        ],
+        "relevant": true
+      },
+      {
+        "parity": [
+          0,
+          0,
+          1,
+          1,
+          1
+        ],
+        "initial_upper_bound": 137808,
+        "coordinate_bounds": [
+          5,
+          4,
+          4,
+          3,
+          4
+        ],
+        "enumerated": 1600,
+        "minimum_norm_integer": 16128,
+        "minimizers": [
+          [
+            0,
+            0,
+            -1,
+            1,
+            1
+          ],
+          [
+            0,
+            0,
+            1,
+            -1,
+            -1
+          ]
+        ],
+        "relevant": true
+      },
+      {
+        "parity": [
+          0,
+          1,
+          0,
+          0,
+          0
+        ],
+        "initial_upper_bound": 25454,
+        "coordinate_bounds": [
+          2,
+          1,
+          2,
+          1,
+          1
+        ],
+        "enumerated": 18,
+        "minimum_norm_integer": 22674,
+        "minimizers": [
+          [
+            -2,
+            1,
+            0,
+            0,
+            0
+          ],
+          [
+            2,
+            -1,
+            0,
+            0,
+            0
+          ]
+        ],
+        "relevant": true
+      },
+      {
+        "parity": [
+          0,
+          1,
+          0,
+          0,
+          1
+        ],
+        "initial_upper_bound": 60688,
+        "coordinate_bounds": [
+          3,
+          2,
+          3,
+          2,
+          2
+        ],
+        "enumerated": 108,
+        "minimum_norm_integer": 19836,
+        "minimizers": [
+          [
+            0,
+            -1,
+            0,
+            0,
+            1
+          ],
+          [
+            0,
+            1,
+            0,
+            0,
+            -1
+          ]
+        ],
+        "relevant": true
+      },
+      {
+        "parity": [
+          0,
+          1,
+          0,
+          1,
+          0
+        ],
+        "initial_upper_bound": 63879,
+        "coordinate_bounds": [
+          3,
+          2,
+          3,
+          2,
+          2
+        ],
+        "enumerated": 108,
+        "minimum_norm_integer": 23375,
+        "minimizers": [
+          [
+            0,
+            -1,
+            0,
+            1,
+            0
+          ],
+          [
+            0,
+            1,
+            0,
+            -1,
+            0
+          ]
+        ],
+        "relevant": true
+      },
+      {
+        "parity": [
+          0,
+          1,
+          0,
+          1,
+          1
+        ],
+        "initial_upper_bound": 113443,
+        "coordinate_bounds": [
+          4,
+          3,
+          4,
+          3,
+          3
+        ],
+        "enumerated": 1600,
+        "minimum_norm_integer": 23667,
+        "minimizers": [
+          [
+            0,
+            -1,
+            2,
+            -1,
+            -1
+          ],
+          [
+            0,
+            1,
+            -2,
+            1,
+            1
+          ]
+        ],
+        "relevant": true
+      },
+      {
+        "parity": [
+          0,
+          1,
+          1,
+          0,
+          0
+        ],
+        "initial_upper_bound": 98473,
+        "coordinate_bounds": [
+          4,
+          3,
+          4,
+          3,
+          3
+        ],
+        "enumerated": 720,
+        "minimum_norm_integer": 11749,
+        "minimizers": [
+          [
+            0,
+            -1,
+            1,
+            0,
+            0
+          ],
+          [
+            0,
+            1,
+            -1,
+            0,
+            0
+          ]
+        ],
+        "relevant": true
+      },
+      {
+        "parity": [
+          0,
+          1,
+          1,
+          0,
+          1
+        ],
+        "initial_upper_bound": 161813,
+        "coordinate_bounds": [
+          5,
+          4,
+          5,
+          4,
+          4
+        ],
+        "enumerated": 2400,
+        "minimum_norm_integer": 18877,
+        "minimizers": [
+          [
+            0,
+            -1,
+            1,
+            0,
+            -1
+          ],
+          [
+            0,
+            1,
+            -1,
+            0,
+            1
+          ]
+        ],
+        "relevant": true
+      },
+      {
+        "parity": [
+          0,
+          1,
+          1,
+          1,
+          0
+        ],
+        "initial_upper_bound": 169632,
+        "coordinate_bounds": [
+          5,
+          4,
+          5,
+          4,
+          4
+        ],
+        "enumerated": 2400,
+        "minimum_norm_integer": 17440,
+        "minimizers": [
+          [
+            0,
+            -1,
+            1,
+            -1,
+            0
+          ],
+          [
+            0,
+            1,
+            -1,
+            1,
+            0
+          ]
+        ],
+        "relevant": true
+      },
+      {
+        "parity": [
+          0,
+          1,
+          1,
+          1,
+          1
+        ],
+        "initial_upper_bound": 247302,
+        "coordinate_bounds": [
+          7,
+          5,
+          6,
+          5,
+          5
+        ],
+        "enumerated": 9072,
+        "minimum_norm_integer": 25598,
+        "minimizers": [
+          [
+            0,
+            -1,
+            1,
+            -1,
+            1
+          ],
+          [
+            0,
+            1,
+            -1,
+            1,
+            -1
+          ]
+        ],
+        "relevant": true
+      },
+      {
+        "parity": [
+          1,
+          0,
+          0,
+          0,
+          0
+        ],
+        "initial_upper_bound": 7933,
+        "coordinate_bounds": [
+          1,
+          1,
+          1,
+          0,
+          0
+        ],
+        "enumerated": 2,
+        "minimum_norm_integer": 7933,
+        "minimizers": [
+          [
+            -1,
+            0,
+            0,
+            0,
+            0
+          ],
+          [
+            1,
+            0,
+            0,
+            0,
+            0
+          ]
+        ],
+        "relevant": true
+      },
+      {
+        "parity": [
+          1,
+          0,
+          0,
+          0,
+          1
+        ],
+        "initial_upper_bound": 28041,
+        "coordinate_bounds": [
+          2,
+          1,
+          2,
+          1,
+          1
+        ],
+        "enumerated": 12,
+        "minimum_norm_integer": 17441,
+        "minimizers": [
+          [
+            -1,
+            0,
+            0,
+            0,
+            1
+          ],
+          [
+            1,
+            0,
+            0,
+            0,
+            -1
+          ]
+        ],
+        "relevant": true
+      },
+      {
+        "parity": [
+          1,
+          0,
+          0,
+          1,
+          0
+        ],
+        "initial_upper_bound": 33334,
+        "coordinate_bounds": [
+          2,
+          2,
+          2,
+          1,
+          2
+        ],
+        "enumerated": 108,
+        "minimum_norm_integer": 18878,
+        "minimizers": [
+          [
+            -1,
+            0,
+            0,
+            1,
+            0
+          ],
+          [
+            1,
+            0,
+            0,
+            -1,
+            0
+          ]
+        ],
+        "relevant": true
+      },
+      {
+        "parity": [
+          1,
+          0,
+          0,
+          1,
+          1
+        ],
+        "initial_upper_bound": 67772,
+        "coordinate_bounds": [
+          3,
+          3,
+          3,
+          2,
+          2
+        ],
+        "enumerated": 144,
+        "minimum_norm_integer": 24656,
+        "minimizers": [
+          [
+            -1,
+            0,
+            0,
+            1,
+            -1
+          ],
+          [
+            1,
+            0,
+            0,
+            -1,
+            1
+          ]
+        ],
+        "relevant": true
+      },
+      {
+        "parity": [
+          1,
+          0,
+          1,
+          0,
+          0
+        ],
+        "initial_upper_bound": 51510,
+        "coordinate_bounds": [
+          3,
+          2,
+          3,
+          2,
+          2
+        ],
+        "enumerated": 432,
+        "minimum_norm_integer": 23670,
+        "minimizers": [
+          [
+            -1,
+            0,
+            1,
+            0,
+            0
+          ],
+          [
+            1,
+            0,
+            -1,
+            0,
+            0
+          ]
+        ],
+        "relevant": true
+      },
+      {
+        "parity": [
+          1,
+          0,
+          1,
+          0,
+          1
+        ],
+        "initial_upper_bound": 99724,
+        "coordinate_bounds": [
+          4,
+          3,
+          4,
+          3,
+          3
+        ],
+        "enumerated": 576,
+        "minimum_norm_integer": 15672,
+        "minimizers": [
+          [
+            -1,
+            0,
+            1,
+            0,
+            -1
+          ],
+          [
+            1,
+            0,
+            -1,
+            0,
+            1
+          ]
+        ],
+        "relevant": true
+      },
+      {
+        "parity": [
+          1,
+          0,
+          1,
+          1,
+          0
+        ],
+        "initial_upper_bound": 109645,
+        "coordinate_bounds": [
+          4,
+          3,
+          4,
+          3,
+          3
+        ],
+        "enumerated": 576,
+        "minimum_norm_integer": 16337,
+        "minimizers": [
+          [
+            -1,
+            0,
+            1,
+            -1,
+            0
+          ],
+          [
+            1,
+            0,
+            -1,
+            1,
+            0
+          ]
+        ],
+        "relevant": true
+      },
+      {
+        "parity": [
+          1,
+          0,
+          1,
+          1,
+          1
+        ],
+        "initial_upper_bound": 172189,
+        "coordinate_bounds": [
+          5,
+          4,
+          5,
+          4,
+          4
+        ],
+        "enumerated": 2880,
+        "minimum_norm_integer": 22669,
+        "minimizers": [
+          [
+            -1,
+            0,
+            1,
+            -1,
+            -1
+          ],
+          [
+            1,
+            0,
+            -1,
+            1,
+            1
+          ]
+        ],
+        "relevant": true
+      },
+      {
+        "parity": [
+          1,
+          1,
+          0,
+          0,
+          0
+        ],
+        "initial_upper_bound": 50643,
+        "coordinate_bounds": [
+          3,
+          2,
+          3,
+          2,
+          2
+        ],
+        "enumerated": 216,
+        "minimum_norm_integer": 16131,
+        "minimizers": [
+          [
+            -1,
+            1,
+            0,
+            0,
+            0
+          ],
+          [
+            1,
+            -1,
+            0,
+            0,
+            0
+          ]
+        ],
+        "relevant": true
+      },
+      {
+        "parity": [
+          1,
+          1,
+          0,
+          0,
+          1
+        ],
+        "initial_upper_bound": 91177,
+        "coordinate_bounds": [
+          4,
+          3,
+          4,
+          3,
+          3
+        ],
+        "enumerated": 960,
+        "minimum_norm_integer": 15813,
+        "minimizers": [
+          [
+            -1,
+            1,
+            0,
+            0,
+            -1
+          ],
+          [
+            1,
+            -1,
+            0,
+            0,
+            1
+          ]
+        ],
+        "relevant": true
+      },
+      {
+        "parity": [
+          1,
+          1,
+          0,
+          1,
+          0
+        ],
+        "initial_upper_bound": 96296,
+        "coordinate_bounds": [
+          4,
+          3,
+          4,
+          3,
+          3
+        ],
+        "enumerated": 960,
+        "minimum_norm_integer": 21280,
+        "minimizers": [
+          [
+            -1,
+            1,
+            0,
+            -1,
+            0
+          ],
+          [
+            1,
+            -1,
+            0,
+            1,
+            0
+          ]
+        ],
+        "relevant": true
+      },
+      {
+        "parity": [
+          1,
+          1,
+          0,
+          1,
+          1
+        ],
+        "initial_upper_bound": 151160,
+        "coordinate_bounds": [
+          5,
+          4,
+          5,
+          4,
+          4
+        ],
+        "enumerated": 1920,
+        "minimum_norm_integer": 29656,
+        "minimizers": [
+          [
+            -1,
+            1,
+            -2,
+            1,
+            1
+          ],
+          [
+            1,
+            -1,
+            2,
+            -1,
+            -1
+          ]
+        ],
+        "relevant": true
+      },
+      {
+        "parity": [
+          1,
+          1,
+          1,
+          0,
+          0
+        ],
+        "initial_upper_bound": 137582,
+        "coordinate_bounds": [
+          5,
+          4,
+          4,
+          3,
+          4
+        ],
+        "enumerated": 1440,
+        "minimum_norm_integer": 16346,
+        "minimizers": [
+          [
+            -1,
+            1,
+            -1,
+            0,
+            0
+          ],
+          [
+            1,
+            -1,
+            1,
+            0,
+            0
+          ]
+        ],
+        "relevant": true
+      },
+      {
+        "parity": [
+          1,
+          1,
+          1,
+          0,
+          1
+        ],
+        "initial_upper_bound": 206222,
+        "coordinate_bounds": [
+          6,
+          5,
+          6,
+          4,
+          5
+        ],
+        "enumerated": 6480,
+        "minimum_norm_integer": 18174,
+        "minimizers": [
+          [
+            -1,
+            1,
+            -1,
+            0,
+            1
+          ],
+          [
+            1,
+            -1,
+            1,
+            0,
+            -1
+          ]
+        ],
+        "relevant": true
+      },
+      {
+        "parity": [
+          1,
+          1,
+          1,
+          1,
+          0
+        ],
+        "initial_upper_bound": 215969,
+        "coordinate_bounds": [
+          6,
+          5,
+          6,
+          4,
+          5
+        ],
+        "enumerated": 4320,
+        "minimum_norm_integer": 14809,
+        "minimizers": [
+          [
+            -1,
+            1,
+            -1,
+            1,
+            0
+          ],
+          [
+            1,
+            -1,
+            1,
+            -1,
+            0
+          ]
+        ],
+        "relevant": true
+      },
+      {
+        "parity": [
+          1,
+          1,
+          1,
+          1,
+          1
+        ],
+        "initial_upper_bound": 298939,
+        "coordinate_bounds": [
+          7,
+          6,
+          7,
+          5,
+          6
+        ],
+        "enumerated": 13824,
+        "minimum_norm_integer": 28267,
+        "minimizers": [
+          [
+            -1,
+            1,
+            -1,
+            1,
+            -1
+          ],
+          [
+            1,
+            -1,
+            1,
+            -1,
+            1
+          ]
+        ],
+        "relevant": true
+      }
+    ]
+  },
+  "exact_polytope_graph": {
+    "vertices": 720,
+    "edges": 1800,
+    "degree": 5,
+    "connected": true,
+    "all_facets_incident": true,
+    "farthest_vertex_count": 12,
+    "covering_radius_squared": "3094033183901047888261753/4000328571570245135240000"
+  },
+  "kernel": {
+    "index": 132,
+    "lll_index": 132,
+    "all_lll_rows_in_modular_kernel": true,
+    "coefficient_bounds_squared": [
+      "29054714490100736190107906446900897220566264/10891789145679767515245758301748487958784329",
+      "2933628113955583097284162685398976493292937/1210198793964418612805084255749831995420481",
+      "11560310805626977523609430454500143425034293/4840795175857674451220337022999327981681924",
+      "2498819691124129338458108104388088940611353/1210198793964418612805084255749831995420481",
+      "11561247416058143930626209687144313863932125/4840795175857674451220337022999327981681924"
+    ],
+    "short_vector_count": 36
+  },
+  "projection_audit": {
+    "certificate_count": 36,
+    "minimum_distance_squared": "4332648395020087/1370751757870000",
+    "diameter_squared": "3094033183901047888261753/1000082142892561283810000",
+    "squared_margin": "1148160819390382209662120000251817/17135804442304686329115768388558750",
+    "distance_ratio": 1.0107707605138536,
+    "all_kkt_checks": [
+      {
+        "coordinate": [
+          -3,
+          0,
+          0,
+          0,
+          0
+        ],
+        "distance_squared": "7933/2500",
+        "active_facets": [
+          [
+            -1,
+            0,
+            0,
+            0,
+            0
+          ]
+        ],
+        "multipliers": [
+          "1"
+        ]
+      },
+      {
+        "coordinate": [
+          -3,
+          0,
+          3,
+          -2,
+          -1
+        ],
+        "distance_squared": "1777562866169/528561057500",
+        "active_facets": [
+          [
+            -1,
+            0,
+            1,
+            -1,
+            0
+          ],
+          [
+            -1,
+            0,
+            1,
+            0,
+            -1
+          ]
+        ],
+        "multipliers": [
+          "135744335/211424423",
+          "32252891/211424423"
+        ]
+      },
+      {
+        "coordinate": [
+          -3,
+          1,
+          1,
+          1,
+          -3
+        ],
+        "distance_squared": "9433457039119553/2719683767210000",
+        "active_facets": [
+          [
+            -1,
+            0,
+            1,
+            0,
+            -1
+          ],
+          [
+            -1,
+            1,
+            0,
+            0,
+            -1
+          ],
+          [
+            -1,
+            0,
+            0,
+            1,
+            -1
+          ]
+        ],
+        "multipliers": [
+          "273984234425/543936753442",
+          "117324770161/543936753442",
+          "26287857813/271968376721"
+        ]
+      },
+      {
+        "coordinate": [
+          -3,
+          2,
+          -1,
+          -1,
+          2
+        ],
+        "distance_squared": "845838571/267510554",
+        "active_facets": [
+          [
+            -1,
+            0,
+            1,
+            -1,
+            0
+          ],
+          [
+            -1,
+            1,
+            -1,
+            0,
+            1
+          ]
+        ],
+        "multipliers": [
+          "17285336/133755277",
+          "81672921/133755277"
+        ]
+      },
+      {
+        "coordinate": [
+          -3,
+          3,
+          -3,
+          2,
+          0
+        ],
+        "distance_squared": "1580518356229/499837082500",
+        "active_facets": [
+          [
+            -1,
+            1,
+            -1,
+            0,
+            0
+          ],
+          [
+            -1,
+            1,
+            -1,
+            1,
+            0
+          ]
+        ],
+        "multipliers": [
+          "26996069/199934833",
+          "131951819/199934833"
+        ]
+      },
+      {
+        "coordinate": [
+          -3,
+          3,
+          0,
+          0,
+          -1
+        ],
+        "distance_squared": "7545654093/1922422000",
+        "active_facets": [
+          [
+            -1,
+            1,
+            0,
+            0,
+            0
+          ],
+          [
+            -1,
+            1,
+            0,
+            0,
+            -1
+          ]
+        ],
+        "multipliers": [
+          "1289651/1922422",
+          "171428/961211"
+        ]
+      },
+      {
+        "coordinate": [
+          -2,
+          -1,
+          1,
+          0,
+          2
+        ],
+        "distance_squared": "5519280179101/1745762450000",
+        "active_facets": [
+          [
+            0,
+            -1,
+            1,
+            0,
+            0
+          ],
+          [
+            -1,
+            0,
+            0,
+            0,
+            1
+          ]
+        ],
+        "multipliers": [
+          "32863482/174576245",
+          "208951673/349152490"
+        ]
+      },
+      {
+        "coordinate": [
+          -2,
+          0,
+          -1,
+          3,
+          0
+        ],
+        "distance_squared": "255313985599/80762245000",
+        "active_facets": [
+          [
+            -1,
+            0,
+            0,
+            1,
+            0
+          ],
+          [
+            0,
+            0,
+            -1,
+            1,
+            0
+          ]
+        ],
+        "multipliers": [
+          "19354417/32304898",
+          "2209886/16152449"
+        ]
+      },
+      {
+        "coordinate": [
+          -2,
+          0,
+          2,
+          1,
+          -1
+        ],
+        "distance_squared": "4333233617532187/1370622726095000",
+        "active_facets": [
+          [
+            -1,
+            0,
+            1,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            0,
+            1,
+            0
+          ],
+          [
+            -1,
+            0,
+            1,
+            0,
+            -1
+          ]
+        ],
+        "multipliers": [
+          "136461735815/548249090438",
+          "66101469872/274124545219",
+          "79178395047/274124545219"
+        ]
+      },
+      {
+        "coordinate": [
+          -1,
+          0,
+          1,
+          -3,
+          0
+        ],
+        "distance_squared": "939642024857/297239890000",
+        "active_facets": [
+          [
+            0,
+            0,
+            0,
+            -1,
+            0
+          ],
+          [
+            -1,
+            0,
+            1,
+            -1,
+            0
+          ]
+        ],
+        "multipliers": [
+          "36298449/59447978",
+          "3840070/29723989"
+        ]
+      },
+      {
+        "coordinate": [
+          -1,
+          1,
+          -1,
+          0,
+          -2
+        ],
+        "distance_squared": "71831662843/22719485000",
+        "active_facets": [
+          [
+            -1,
+            1,
+            -1,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            0,
+            0,
+            -1
+          ]
+        ],
+        "multipliers": [
+          "1226905/9087794",
+          "5997657/9087794"
+        ]
+      },
+      {
+        "coordinate": [
+          -1,
+          1,
+          2,
+          -2,
+          -3
+        ],
+        "distance_squared": "1782124826021/454139270000",
+        "active_facets": [
+          [
+            -1,
+            1,
+            0,
+            0,
+            -1
+          ],
+          [
+            0,
+            0,
+            1,
+            -1,
+            -1
+          ]
+        ],
+        "multipliers": [
+          "16194023/90827854",
+          "121866755/181655708"
+        ]
+      },
+      {
+        "coordinate": [
+          -1,
+          3,
+          -2,
+          -1,
+          0
+        ],
+        "distance_squared": "97932337954/28181719375",
+        "active_facets": [
+          [
+            0,
+            1,
+            -1,
+            0,
+            0
+          ],
+          [
+            -1,
+            1,
+            0,
+            -1,
+            0
+          ]
+        ],
+        "multipliers": [
+          "36038771/45090751",
+          "14200719/180363004"
+        ]
+      },
+      {
+        "coordinate": [
+          0,
+          -3,
+          3,
+          -2,
+          0
+        ],
+        "distance_squared": "344921308453/109102810000",
+        "active_facets": [
+          [
+            0,
+            -1,
+            1,
+            0,
+            0
+          ],
+          [
+            0,
+            -1,
+            1,
+            -1,
+            0
+          ]
+        ],
+        "multipliers": [
+          "4107591/21820562",
+          "52234981/87282248"
+        ]
+      },
+      {
+        "coordinate": [
+          0,
+          -2,
+          1,
+          1,
+          -2
+        ],
+        "distance_squared": "2042432240023/646034457500",
+        "active_facets": [
+          [
+            0,
+            0,
+            -1,
+            1,
+            0
+          ],
+          [
+            0,
+            -1,
+            1,
+            0,
+            -1
+          ]
+        ],
+        "multipliers": [
+          "35359886/258413783",
+          "154825031/258413783"
+        ]
+      },
+      {
+        "coordinate": [
+          0,
+          -2,
+          4,
+          -1,
+          -3
+        ],
+        "distance_squared": "4332648395020087/1370751757870000",
+        "active_facets": [
+          [
+            -1,
+            0,
+            1,
+            0,
+            -1
+          ],
+          [
+            1,
+            -1,
+            1,
+            0,
+            -1
+          ],
+          [
+            0,
+            -1,
+            2,
+            -1,
+            -1
+          ]
+        ],
+        "multipliers": [
+          "118727955191/411225527361",
+          "198244769077/822451054722",
+          "68269672003/274150351574"
+        ]
+      },
+      {
+        "coordinate": [
+          0,
+          -1,
+          -1,
+          -1,
+          3
+        ],
+        "distance_squared": "23726064615832611/7347789808630000",
+        "active_facets": [
+          [
+            0,
+            0,
+            -1,
+            0,
+            1
+          ],
+          [
+            0,
+            -1,
+            0,
+            0,
+            1
+          ],
+          [
+            0,
+            0,
+            0,
+            -1,
+            1
+          ]
+        ],
+        "multipliers": [
+          "692318147023/1469557961726",
+          "217614484117/1469557961726",
+          "116092366628/734778980863"
+        ]
+      },
+      {
+        "coordinate": [
+          0,
+          0,
+          -3,
+          2,
+          1
+        ],
+        "distance_squared": "180860599839/57213850000",
+        "active_facets": [
+          [
+            0,
+            0,
+            -1,
+            1,
+            0
+          ],
+          [
+            0,
+            0,
+            -1,
+            0,
+            1
+          ]
+        ],
+        "multipliers": [
+          "14984143/22885540",
+          "1546083/11442770"
+        ]
+      },
+      {
+        "coordinate": [
+          0,
+          0,
+          3,
+          -2,
+          -1
+        ],
+        "distance_squared": "180860599839/57213850000",
+        "active_facets": [
+          [
+            0,
+            0,
+            1,
+            -1,
+            0
+          ],
+          [
+            0,
+            0,
+            1,
+            0,
+            -1
+          ]
+        ],
+        "multipliers": [
+          "14984143/22885540",
+          "1546083/11442770"
+        ]
+      },
+      {
+        "coordinate": [
+          0,
+          1,
+          1,
+          1,
+          -3
+        ],
+        "distance_squared": "23726064615832611/7347789808630000",
+        "active_facets": [
+          [
+            0,
+            0,
+            1,
+            0,
+            -1
+          ],
+          [
+            0,
+            1,
+            0,
+            0,
+            -1
+          ],
+          [
+            0,
+            0,
+            0,
+            1,
+            -1
+          ]
+        ],
+        "multipliers": [
+          "692318147023/1469557961726",
+          "217614484117/1469557961726",
+          "116092366628/734778980863"
+        ]
+      },
+      {
+        "coordinate": [
+          0,
+          2,
+          -4,
+          1,
+          3
+        ],
+        "distance_squared": "4332648395020087/1370751757870000",
+        "active_facets": [
+          [
+            1,
+            0,
+            -1,
+            0,
+            1
+          ],
+          [
+            -1,
+            1,
+            -1,
+            0,
+            1
+          ],
+          [
+            0,
+            1,
+            -2,
+            1,
+            1
+          ]
+        ],
+        "multipliers": [
+          "118727955191/411225527361",
+          "198244769077/822451054722",
+          "68269672003/274150351574"
+        ]
+      },
+      {
+        "coordinate": [
+          0,
+          2,
+          -1,
+          -1,
+          2
+        ],
+        "distance_squared": "2042432240023/646034457500",
+        "active_facets": [
+          [
+            0,
+            0,
+            1,
+            -1,
+            0
+          ],
+          [
+            0,
+            1,
+            -1,
+            0,
+            1
+          ]
+        ],
+        "multipliers": [
+          "35359886/258413783",
+          "154825031/258413783"
+        ]
+      },
+      {
+        "coordinate": [
+          0,
+          3,
+          -3,
+          2,
+          0
+        ],
+        "distance_squared": "344921308453/109102810000",
+        "active_facets": [
+          [
+            0,
+            1,
+            -1,
+            0,
+            0
+          ],
+          [
+            0,
+            1,
+            -1,
+            1,
+            0
+          ]
+        ],
+        "multipliers": [
+          "4107591/21820562",
+          "52234981/87282248"
+        ]
+      },
+      {
+        "coordinate": [
+          1,
+          -3,
+          2,
+          1,
+          0
+        ],
+        "distance_squared": "97932337954/28181719375",
+        "active_facets": [
+          [
+            0,
+            -1,
+            1,
+            0,
+            0
+          ],
+          [
+            1,
+            -1,
+            0,
+            1,
+            0
+          ]
+        ],
+        "multipliers": [
+          "36038771/45090751",
+          "14200719/180363004"
+        ]
+      },
+      {
+        "coordinate": [
+          1,
+          -1,
+          -2,
+          2,
+          3
+        ],
+        "distance_squared": "1782124826021/454139270000",
+        "active_facets": [
+          [
+            1,
+            -1,
+            0,
+            0,
+            1
+          ],
+          [
+            0,
+            0,
+            -1,
+            1,
+            1
+          ]
+        ],
+        "multipliers": [
+          "16194023/90827854",
+          "121866755/181655708"
+        ]
+      },
+      {
+        "coordinate": [
+          1,
+          -1,
+          1,
+          0,
+          2
+        ],
+        "distance_squared": "71831662843/22719485000",
+        "active_facets": [
+          [
+            1,
+            -1,
+            1,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            0,
+            0,
+            1
+          ]
+        ],
+        "multipliers": [
+          "1226905/9087794",
+          "5997657/9087794"
+        ]
+      },
+      {
+        "coordinate": [
+          1,
+          0,
+          -1,
+          3,
+          0
+        ],
+        "distance_squared": "939642024857/297239890000",
+        "active_facets": [
+          [
+            0,
+            0,
+            0,
+            1,
+            0
+          ],
+          [
+            1,
+            0,
+            -1,
+            1,
+            0
+          ]
+        ],
+        "multipliers": [
+          "36298449/59447978",
+          "3840070/29723989"
+        ]
+      },
+      {
+        "coordinate": [
+          2,
+          0,
+          -2,
+          -1,
+          1
+        ],
+        "distance_squared": "4333233617532187/1370622726095000",
+        "active_facets": [
+          [
+            1,
+            0,
+            -1,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            0,
+            -1,
+            0
+          ],
+          [
+            1,
+            0,
+            -1,
+            0,
+            1
+          ]
+        ],
+        "multipliers": [
+          "136461735815/548249090438",
+          "66101469872/274124545219",
+          "79178395047/274124545219"
+        ]
+      },
+      {
+        "coordinate": [
+          2,
+          0,
+          1,
+          -3,
+          0
+        ],
+        "distance_squared": "255313985599/80762245000",
+        "active_facets": [
+          [
+            1,
+            0,
+            0,
+            -1,
+            0
+          ],
+          [
+            0,
+            0,
+            1,
+            -1,
+            0
+          ]
+        ],
+        "multipliers": [
+          "19354417/32304898",
+          "2209886/16152449"
+        ]
+      },
+      {
+        "coordinate": [
+          2,
+          1,
+          -1,
+          0,
+          -2
+        ],
+        "distance_squared": "5519280179101/1745762450000",
+        "active_facets": [
+          [
+            0,
+            1,
+            -1,
+            0,
+            0
+          ],
+          [
+            1,
+            0,
+            0,
+            0,
+            -1
+          ]
+        ],
+        "multipliers": [
+          "32863482/174576245",
+          "208951673/349152490"
+        ]
+      },
+      {
+        "coordinate": [
+          3,
+          -3,
+          0,
+          0,
+          1
+        ],
+        "distance_squared": "7545654093/1922422000",
+        "active_facets": [
+          [
+            1,
+            -1,
+            0,
+            0,
+            0
+          ],
+          [
+            1,
+            -1,
+            0,
+            0,
+            1
+          ]
+        ],
+        "multipliers": [
+          "1289651/1922422",
+          "171428/961211"
+        ]
+      },
+      {
+        "coordinate": [
+          3,
+          -3,
+          3,
+          -2,
+          0
+        ],
+        "distance_squared": "1580518356229/499837082500",
+        "active_facets": [
+          [
+            1,
+            -1,
+            1,
+            0,
+            0
+          ],
+          [
+            1,
+            -1,
+            1,
+            -1,
+            0
+          ]
+        ],
+        "multipliers": [
+          "26996069/199934833",
+          "131951819/199934833"
+        ]
+      },
+      {
+        "coordinate": [
+          3,
+          -2,
+          1,
+          1,
+          -2
+        ],
+        "distance_squared": "845838571/267510554",
+        "active_facets": [
+          [
+            1,
+            0,
+            -1,
+            1,
+            0
+          ],
+          [
+            1,
+            -1,
+            1,
+            0,
+            -1
+          ]
+        ],
+        "multipliers": [
+          "17285336/133755277",
+          "81672921/133755277"
+        ]
+      },
+      {
+        "coordinate": [
+          3,
+          -1,
+          -1,
+          -1,
+          3
+        ],
+        "distance_squared": "9433457039119553/2719683767210000",
+        "active_facets": [
+          [
+            1,
+            0,
+            -1,
+            0,
+            1
+          ],
+          [
+            1,
+            -1,
+            0,
+            0,
+            1
+          ],
+          [
+            1,
+            0,
+            0,
+            -1,
+            1
+          ]
+        ],
+        "multipliers": [
+          "273984234425/543936753442",
+          "117324770161/543936753442",
+          "26287857813/271968376721"
+        ]
+      },
+      {
+        "coordinate": [
+          3,
+          0,
+          -3,
+          2,
+          1
+        ],
+        "distance_squared": "1777562866169/528561057500",
+        "active_facets": [
+          [
+            1,
+            0,
+            -1,
+            1,
+            0
+          ],
+          [
+            1,
+            0,
+            -1,
+            0,
+            1
+          ]
+        ],
+        "multipliers": [
+          "135744335/211424423",
+          "32252891/211424423"
+        ]
+      },
+      {
+        "coordinate": [
+          3,
+          0,
+          0,
+          0,
+          0
+        ],
+        "distance_squared": "7933/2500",
+        "active_facets": [
+          [
+            1,
+            0,
+            0,
+            0,
+            0
+          ]
+        ],
+        "multipliers": [
+          "1"
+        ]
+      }
+    ]
+  },
+  "interval_audit": {
+    "upper_endpoint": "101/100",
+    "squared_margin": "6605721893847041795875629825046663189/1370864355384374906329261471084700000000"
+  },
+  "certified_upper_bound": 132,
+  "elapsed_seconds": 15.547554041000694
+}

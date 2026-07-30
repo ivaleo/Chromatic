@@ -1,0 +1,241 @@
+{
+  "method": "hybrid exact large-prime coordinate and complete small-block best-response search",
+  "source_metric": "audit-data/hd-2026-07/metric_deform_e7_1323.json",
+  "lattice": "E7*-ABPR",
+  "n": 7,
+  "dimension": 7,
+  "parent_diameter": 1.8517568105753752,
+  "parent_facet_count": 254,
+  "forbidden_projective_pairs": 21188,
+  "structures": [
+    [
+      661,
+      2
+    ]
+  ],
+  "budget": {
+    "restarts": 1200,
+    "sweeps": 10,
+    "stall_sweeps": 3,
+    "kick": 2,
+    "pair_moves": 0,
+    "objective": "lexicographic",
+    "weight_power": 2.0,
+    "seed": 914,
+    "small_pool_sizes": [
+      127
+    ]
+  },
+  "results": [
+    {
+      "label": "lexicographic-power-2",
+      "beta": 2.0,
+      "moduli": [
+        661,
+        2
+      ],
+      "rows": [
+        [
+          1,
+          98,
+          50,
+          343,
+          141,
+          88,
+          457
+        ],
+        [
+          0,
+          0,
+          1,
+          1,
+          0,
+          0,
+          1
+        ]
+      ],
+      "target_product": 1322,
+      "image_index": 1322,
+      "killed": 2,
+      "weighted_loss": 1.100372473257202,
+      "minimum_conflict_ratio": 0.0,
+      "conflicts": [
+        {
+          "coordinate": [
+            -2,
+            -4,
+            -3,
+            -2,
+            -1,
+            0,
+            3
+          ],
+          "distance_ratio": 0.0,
+          "weight": 1.0
+        },
+        {
+          "coordinate": [
+            -4,
+            -8,
+            -6,
+            -4,
+            -2,
+            0,
+            6
+          ],
+          "distance_ratio": 0.6831838494375609,
+          "weight": 0.10037247325720206
+        }
+      ],
+      "search_seconds": 10.413377917000162,
+      "search": {
+        "restart": 372,
+        "sweep": 6,
+        "score": [
+          2,
+          1.100372473257202
+        ]
+      },
+      "kernel_basis_columns": [
+        [
+          661,
+          563,
+          561,
+          268,
+          520,
+          573,
+          154
+        ],
+        [
+          0,
+          1,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          2,
+          1,
+          0,
+          0,
+          1
+        ],
+        [
+          0,
+          0,
+          0,
+          1,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          1,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          1,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          1
+        ]
+      ],
+      "kernel_determinant": 1322,
+      "kernel_smith": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1322
+      ],
+      "complete_separation": {
+        "valid": false,
+        "checked_kernel_vectors": 36,
+        "enumerated_including_zero": 37,
+        "minimum_distance_ratio": 0.0,
+        "conflict_count_with_sign": 4,
+        "conflicts": [
+          {
+            "coordinate": [
+              2,
+              4,
+              3,
+              2,
+              1,
+              0,
+              -3
+            ],
+            "distance_ratio": 0.0,
+            "norm_squared": 1.600453583722307
+          },
+          {
+            "coordinate": [
+              -2,
+              -4,
+              -3,
+              -2,
+              -1,
+              0,
+              3
+            ],
+            "distance_ratio": 0.0,
+            "norm_squared": 1.600453583722307
+          },
+          {
+            "coordinate": [
+              4,
+              8,
+              6,
+              4,
+              2,
+              0,
+              -6
+            ],
+            "distance_ratio": 0.6831838494375609,
+            "norm_squared": 6.401814334889228
+          },
+          {
+            "coordinate": [
+              -4,
+              -8,
+              -6,
+              -4,
+              -2,
+              0,
+              6
+            ],
+            "distance_ratio": 0.6831838494375609,
+            "norm_squared": 6.401814334889228
+          }
+        ],
+        "seconds": 0.029469957999936014
+      }
+    }
+  ],
+  "valid_candidate": null,
+  "restarts_completed": 1200,
+  "elapsed_seconds": 32.46991337500003
+}

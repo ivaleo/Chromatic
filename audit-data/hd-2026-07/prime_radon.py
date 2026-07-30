@@ -837,6 +837,163 @@ class PrimarySearch:
                 break
         return best, best_rows
 
+    def pair_improve_weighted(
+        self,
+        rows: Sequence[np.ndarray],
+        first_index: int,
+        second_index: int,
+        weights: Sequence[float] | np.ndarray,
+        *,
+        first_top: int = 512,
+        progress_every: int = 100,
+    ) -> tuple[float, list[np.ndarray]]:
+        """Geometry-weighted two-row look-ahead.
+
+        ``descend`` computes an exact best response for one block while all
+        others remain fixed.  That can be trapped when two blocks must change
+        together.  Here the most promising ``first_top`` rows of the first
+        block are retained and the second block is solved globally for each.
+        All candidate rankings use floating weights, but every accepted loss
+        is recomputed directly on the exact modular zero mask.
+        """
+        if first_index == second_index:
+            raise ValueError("pair indices must differ")
+        weights_array = np.asarray(weights, dtype=np.float64)
+        if weights_array.shape != (len(self.forbidden),):
+            raise ValueError(
+                f"weights must have shape {(len(self.forbidden),)}, "
+                f"got {weights_array.shape}"
+            )
+        if not np.all(np.isfinite(weights_array)) or np.any(
+            weights_array < 0
+        ):
+            raise ValueError("weights must be finite and nonnegative")
+
+        rows = [np.asarray(row, dtype=np.int64).copy() for row in rows]
+        ignored = {first_index, second_index}
+        active = np.ones(len(self.forbidden), dtype=bool)
+        for index, (row, modulus) in enumerate(zip(rows, self.moduli)):
+            if index in ignored:
+                continue
+            active &= (self.forbidden @ row) % modulus == 0
+        vectors = self.forbidden[active]
+        active_weights = weights_array[active]
+
+        first_pool = self.pools[first_index]
+        first_scores = score_forms(
+            vectors,
+            self.moduli[first_index],
+            first_pool,
+            active_weights,
+        )
+        request = min(len(first_pool), max(first_top * 4, 64))
+        ids = np.argpartition(first_scores, request - 1)[:request]
+        ids = ids[np.argsort(first_scores[ids], kind="stable")]
+        first_candidates: list[np.ndarray] = []
+        for candidate_id in ids:
+            candidate = first_pool[int(candidate_id)]
+            if self._independent_against(
+                candidate, first_index, rows, ignored
+            ):
+                first_candidates.append(candidate.copy())
+            if len(first_candidates) >= first_top:
+                break
+
+        current_mask = killed_mask(self.forbidden, rows, self.moduli)
+        best = float(weights_array[current_mask].sum())
+        best_rows = [row.copy() for row in rows]
+        second_pool = self.pools[second_index]
+        same_prime = (
+            _prime_power(self.moduli[first_index])[0]
+            == _prime_power(self.moduli[second_index])[0]
+        )
+        for number, first in enumerate(first_candidates, start=1):
+            first_zero = (
+                (vectors @ first) % self.moduli[first_index] == 0
+            )
+            residual = vectors[first_zero]
+            residual_weights = active_weights[first_zero]
+            second_scores = score_forms(
+                residual,
+                self.moduli[second_index],
+                second_pool,
+                residual_weights,
+            )
+            second_ids = np.argsort(second_scores, kind="stable")
+            for second_id in second_ids:
+                second = second_pool[int(second_id)]
+                extra = [first] if same_prime else []
+                if not self._independent_against(
+                    second, second_index, rows, ignored, extra
+                ):
+                    continue
+                zero = (
+                    (residual @ second)
+                    % self.moduli[second_index]
+                    == 0
+                )
+                exact = float(residual_weights[zero].sum())
+                if exact < best - 1e-15:
+                    best = exact
+                    best_rows = [row.copy() for row in rows]
+                    best_rows[first_index] = first.copy()
+                    best_rows[second_index] = second.copy()
+                    print(
+                        f"    weighted pair ({first_index},{second_index}) "
+                        f"best={best:.9g} after "
+                        f"{number}/{len(first_candidates)} first rows",
+                        flush=True,
+                    )
+                break
+            if best <= 1e-15:
+                return best, best_rows
+            if progress_every and number % progress_every == 0:
+                print(
+                    f"    weighted pair ({first_index},{second_index}) "
+                    f"{number}/{len(first_candidates)} best={best:.9g}",
+                    flush=True,
+                )
+        return best, best_rows
+
+    def pair_polish_weighted(
+        self,
+        rows: Sequence[np.ndarray],
+        weights: Sequence[float] | np.ndarray,
+        *,
+        first_top: int = 512,
+    ) -> tuple[float, list[np.ndarray]]:
+        """Try weighted two-block look-ahead for every ordered block pair."""
+        weights_array = np.asarray(weights, dtype=np.float64)
+        best_rows = [
+            np.asarray(row, dtype=np.int64).copy() for row in rows
+        ]
+        best = float(
+            weights_array[
+                killed_mask(self.forbidden, best_rows, self.moduli)
+            ].sum()
+        )
+        pairs = list(itertools.combinations(range(len(rows)), 2))
+        pairs.sort(
+            key=lambda pair: -max(
+                len(self.pools[pair[0]]), len(self.pools[pair[1]])
+            )
+        )
+        for left, right in pairs:
+            if len(self.pools[left]) < len(self.pools[right]):
+                left, right = right, left
+            loss, candidate_rows = self.pair_improve_weighted(
+                best_rows,
+                left,
+                right,
+                weights_array,
+                first_top=first_top,
+            )
+            if loss < best - 1e-15:
+                best, best_rows = loss, candidate_rows
+            if best <= 1e-15:
+                break
+        return best, best_rows
+
     def descend(
         self,
         initial: Sequence[np.ndarray] | None = None,

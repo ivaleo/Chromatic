@@ -1,0 +1,2686 @@
+{
+  "method": "projective-chart CP-SAT threshold oracle for a large prime block",
+  "source_metric": "audit-data/hd-2026-07/active_metric_a5_129_on132_stage1.json",
+  "lattice": "A5*",
+  "dimension": 5,
+  "large_prime": 43,
+  "small_modulus": 3,
+  "threshold": 0.98,
+  "forbidden_projective_pairs": 1033,
+  "small_rows_total": 121,
+  "settings": {
+    "time_limit_per_chart": 30.0,
+    "workers": 8,
+    "seed": 791
+  },
+  "small_rows": [
+    {
+      "small_row": [
+        1,
+        1,
+        1,
+        2,
+        1
+      ],
+      "bad_vectors_before_modular_dedup": 335,
+      "bad_projective_rows_mod_large_prime": 325,
+      "charts": [
+        {
+          "status": "INFEASIBLE",
+          "tested": 3500201,
+          "elapsed_seconds": 0.198903,
+          "stderr": "",
+          "backend": "exact_cpp_projective_enumeration"
+        }
+      ],
+      "proved_unsat": true,
+      "elapsed_seconds": 0.22885012499864388
+    },
+    {
+      "small_row": [
+        1,
+        0,
+        0,
+        0,
+        1
+      ],
+      "bad_vectors_before_modular_dedup": 327,
+      "bad_projective_rows_mod_large_prime": 316,
+      "charts": [
+        {
+          "status": "INFEASIBLE",
+          "tested": 3500201,
+          "elapsed_seconds": 0.207532,
+          "stderr": "",
+          "backend": "exact_cpp_projective_enumeration"
+        }
+      ],
+      "proved_unsat": true,
+      "elapsed_seconds": 0.22319470799993724
+    },
+    {
+      "small_row": [
+        1,
+        0,
+        0,
+        0,
+        2
+      ],
+      "bad_vectors_before_modular_dedup": 330,
+      "bad_projective_rows_mod_large_prime": 318,
+      "charts": [
+        {
+          "status": "INFEASIBLE",
+          "tested": 3500201,
+          "elapsed_seconds": 0.191978,
+          "stderr": "",
+          "backend": "exact_cpp_projective_enumeration"
+        }
+      ],
+      "proved_unsat": true,
+      "elapsed_seconds": 0.21820170799946936
+    },
+    {
+      "small_row": [
+        1,
+        0,
+        0,
+        1,
+        0
+      ],
+      "bad_vectors_before_modular_dedup": 330,
+      "bad_projective_rows_mod_large_prime": 317,
+      "charts": [
+        {
+          "status": "INFEASIBLE",
+          "tested": 3500201,
+          "elapsed_seconds": 0.179689,
+          "stderr": "",
+          "backend": "exact_cpp_projective_enumeration"
+        }
+      ],
+      "proved_unsat": true,
+      "elapsed_seconds": 0.19028187500043714
+    },
+    {
+      "small_row": [
+        1,
+        0,
+        0,
+        1,
+        1
+      ],
+      "bad_vectors_before_modular_dedup": 330,
+      "bad_projective_rows_mod_large_prime": 320,
+      "charts": [
+        {
+          "status": "INFEASIBLE",
+          "tested": 3500201,
+          "elapsed_seconds": 0.167431,
+          "stderr": "",
+          "backend": "exact_cpp_projective_enumeration"
+        }
+      ],
+      "proved_unsat": true,
+      "elapsed_seconds": 0.1748151659994619
+    },
+    {
+      "small_row": [
+        1,
+        0,
+        0,
+        1,
+        2
+      ],
+      "bad_vectors_before_modular_dedup": 321,
+      "bad_projective_rows_mod_large_prime": 312,
+      "charts": [
+        {
+          "status": "INFEASIBLE",
+          "tested": 3500201,
+          "elapsed_seconds": 0.226904,
+          "stderr": "",
+          "backend": "exact_cpp_projective_enumeration"
+        }
+      ],
+      "proved_unsat": true,
+      "elapsed_seconds": 0.23546020799949474
+    },
+    {
+      "small_row": [
+        1,
+        0,
+        0,
+        2,
+        0
+      ],
+      "bad_vectors_before_modular_dedup": 329,
+      "bad_projective_rows_mod_large_prime": 319,
+      "charts": [
+        {
+          "status": "INFEASIBLE",
+          "tested": 3500201,
+          "elapsed_seconds": 0.268334,
+          "stderr": "",
+          "backend": "exact_cpp_projective_enumeration"
+        }
+      ],
+      "proved_unsat": true,
+      "elapsed_seconds": 0.28022745799898985
+    },
+    {
+      "small_row": [
+        1,
+        0,
+        0,
+        2,
+        1
+      ],
+      "bad_vectors_before_modular_dedup": 329,
+      "bad_projective_rows_mod_large_prime": 318,
+      "charts": [
+        {
+          "status": "INFEASIBLE",
+          "tested": 3500201,
+          "elapsed_seconds": 0.2904,
+          "stderr": "",
+          "backend": "exact_cpp_projective_enumeration"
+        }
+      ],
+      "proved_unsat": true,
+      "elapsed_seconds": 0.3591715840011602
+    },
+    {
+      "small_row": [
+        1,
+        0,
+        0,
+        2,
+        2
+      ],
+      "bad_vectors_before_modular_dedup": 335,
+      "bad_projective_rows_mod_large_prime": 324,
+      "charts": [
+        {
+          "status": "INFEASIBLE",
+          "tested": 3500201,
+          "elapsed_seconds": 0.227788,
+          "stderr": "",
+          "backend": "exact_cpp_projective_enumeration"
+        }
+      ],
+      "proved_unsat": true,
+      "elapsed_seconds": 0.2356490420006594
+    },
+    {
+      "small_row": [
+        1,
+        0,
+        1,
+        0,
+        0
+      ],
+      "bad_vectors_before_modular_dedup": 327,
+      "bad_projective_rows_mod_large_prime": 316,
+      "charts": [
+        {
+          "status": "INFEASIBLE",
+          "tested": 3500201,
+          "elapsed_seconds": 0.1916,
+          "stderr": "",
+          "backend": "exact_cpp_projective_enumeration"
+        }
+      ],
+      "proved_unsat": true,
+      "elapsed_seconds": 0.20018537499890954
+    },
+    {
+      "small_row": [
+        1,
+        0,
+        1,
+        0,
+        1
+      ],
+      "bad_vectors_before_modular_dedup": 317,
+      "bad_projective_rows_mod_large_prime": 307,
+      "charts": [
+        {
+          "status": "INFEASIBLE",
+          "tested": 3500201,
+          "elapsed_seconds": 0.220353,
+          "stderr": "",
+          "backend": "exact_cpp_projective_enumeration"
+        }
+      ],
+      "proved_unsat": true,
+      "elapsed_seconds": 0.2318569170001865
+    },
+    {
+      "small_row": [
+        1,
+        0,
+        1,
+        0,
+        2
+      ],
+      "bad_vectors_before_modular_dedup": 328,
+      "bad_projective_rows_mod_large_prime": 317,
+      "charts": [
+        {
+          "status": "INFEASIBLE",
+          "tested": 3500201,
+          "elapsed_seconds": 0.292442,
+          "stderr": "",
+          "backend": "exact_cpp_projective_enumeration"
+        }
+      ],
+      "proved_unsat": true,
+      "elapsed_seconds": 0.2995347910000419
+    },
+    {
+      "small_row": [
+        1,
+        0,
+        1,
+        1,
+        0
+      ],
+      "bad_vectors_before_modular_dedup": 342,
+      "bad_projective_rows_mod_large_prime": 331,
+      "charts": [
+        {
+          "status": "INFEASIBLE",
+          "tested": 3500201,
+          "elapsed_seconds": 0.130653,
+          "stderr": "",
+          "backend": "exact_cpp_projective_enumeration"
+        }
+      ],
+      "proved_unsat": true,
+      "elapsed_seconds": 0.13936250000006112
+    },
+    {
+      "small_row": [
+        1,
+        0,
+        1,
+        1,
+        1
+      ],
+      "bad_vectors_before_modular_dedup": 320,
+      "bad_projective_rows_mod_large_prime": 309,
+      "charts": [
+        {
+          "status": "INFEASIBLE",
+          "tested": 3500201,
+          "elapsed_seconds": 0.262362,
+          "stderr": "",
+          "backend": "exact_cpp_projective_enumeration"
+        }
+      ],
+      "proved_unsat": true,
+      "elapsed_seconds": 0.2855617080003867
+    },
+    {
+      "small_row": [
+        1,
+        0,
+        1,
+        1,
+        2
+      ],
+      "bad_vectors_before_modular_dedup": 328,
+      "bad_projective_rows_mod_large_prime": 318,
+      "charts": [
+        {
+          "status": "INFEASIBLE",
+          "tested": 3500201,
+          "elapsed_seconds": 0.141691,
+          "stderr": "",
+          "backend": "exact_cpp_projective_enumeration"
+        }
+      ],
+      "proved_unsat": true,
+      "elapsed_seconds": 0.1601722499999596
+    },
+    {
+      "small_row": [
+        1,
+        0,
+        1,
+        2,
+        0
+      ],
+      "bad_vectors_before_modular_dedup": 332,
+      "bad_projective_rows_mod_large_prime": 322,
+      "charts": [
+        {
+          "status": "INFEASIBLE",
+          "tested": 3500201,
+          "elapsed_seconds": 0.277143,
+          "stderr": "",
+          "backend": "exact_cpp_projective_enumeration"
+        }
+      ],
+      "proved_unsat": true,
+      "elapsed_seconds": 0.28556054099863104
+    },
+    {
+      "small_row": [
+        1,
+        0,
+        1,
+        2,
+        1
+      ],
+      "bad_vectors_before_modular_dedup": 328,
+      "bad_projective_rows_mod_large_prime": 317,
+      "charts": [
+        {
+          "status": "INFEASIBLE",
+          "tested": 3500201,
+          "elapsed_seconds": 0.177836,
+          "stderr": "",
+          "backend": "exact_cpp_projective_enumeration"
+        }
+      ],
+      "proved_unsat": true,
+      "elapsed_seconds": 0.18968200000017532
+    },
+    {
+      "small_row": [
+        1,
+        0,
+        1,
+        2,
+        2
+      ],
+      "bad_vectors_before_modular_dedup": 324,
+      "bad_projective_rows_mod_large_prime": 316,
+      "charts": [
+        {
+          "status": "INFEASIBLE",
+          "tested": 3500201,
+          "elapsed_seconds": 0.337652,
+          "stderr": "",
+          "backend": "exact_cpp_projective_enumeration"
+        }
+      ],
+      "proved_unsat": true,
+      "elapsed_seconds": 0.3546803329991235
+    },
+    {
+      "small_row": [
+        1,
+        0,
+        2,
+        0,
+        0
+      ],
+      "bad_vectors_before_modular_dedup": 322,
+      "bad_projective_rows_mod_large_prime": 311,
+      "charts": [
+        {
+          "status": "INFEASIBLE",
+          "tested": 3500201,
+          "elapsed_seconds": 0.244537,
+          "stderr": "",
+          "backend": "exact_cpp_projective_enumeration"
+        }
+      ],
+      "proved_unsat": true,
+      "elapsed_seconds": 0.2506523329993797
+    },
+    {
+      "small_row": [
+        1,
+        0,
+        2,
+        0,
+        1
+      ],
+      "bad_vectors_before_modular_dedup": 329,
+      "bad_projective_rows_mod_large_prime": 319,
+      "charts": [
+        {
+          "status": "INFEASIBLE",
+          "tested": 3500201,
+          "elapsed_seconds": 0.24016,
+          "stderr": "",
+          "backend": "exact_cpp_projective_enumeration"
+        }
+      ],
+      "proved_unsat": true,
+      "elapsed_seconds": 0.24852800000007846
+    },
+    {
+      "small_row": [
+        1,
+        0,
+        2,
+        0,
+        2
+      ],
+      "bad_vectors_before_modular_dedup": 321,
+      "bad_projective_rows_mod_large_prime": 310,
+      "charts": [
+        {
+          "status": "INFEASIBLE",
+          "tested": 3500201,
+          "elapsed_seconds": 0.284414,
+          "stderr": "",
+          "backend": "exact_cpp_projective_enumeration"
+        }
+      ],
+      "proved_unsat": true,
+      "elapsed_seconds": 0.30235445799917215
+    },
+    {
+      "small_row": [
+        1,
+        0,
+        2,
+        1,
+        0
+      ],
+      "bad_vectors_before_modular_dedup": 331,
+      "bad_projective_rows_mod_large_prime": 321,
+      "charts": [
+        {
+          "status": "INFEASIBLE",
+          "tested": 3500201,
+          "elapsed_seconds": 0.23437,
+          "stderr": "",
+          "backend": "exact_cpp_projective_enumeration"
+        }
+      ],
+      "proved_unsat": true,
+      "elapsed_seconds": 0.2561089169994375
+    },
+    {
+      "small_row": [
+        1,
+        0,
+        2,
+        1,
+        1
+      ],
+      "bad_vectors_before_modular_dedup": 320,
+      "bad_projective_rows_mod_large_prime": 310,
+      "charts": [
+        {
+          "status": "INFEASIBLE",
+          "tested": 3500201,
+          "elapsed_seconds": 0.234311,
+          "stderr": "",
+          "backend": "exact_cpp_projective_enumeration"
+        }
+      ],
+      "proved_unsat": true,
+      "elapsed_seconds": 0.2584235409995017
+    },
+    {
+      "small_row": [
+        1,
+        0,
+        2,
+        1,
+        2
+      ],
+      "bad_vectors_before_modular_dedup": 330,
+      "bad_projective_rows_mod_large_prime": 321,
+      "charts": [
+        {
+          "status": "INFEASIBLE",
+          "tested": 3500201,
+          "elapsed_seconds": 0.241247,
+          "stderr": "",
+          "backend": "exact_cpp_projective_enumeration"
+        }
+      ],
+      "proved_unsat": true,
+      "elapsed_seconds": 0.2579188330000761
+    },
+    {
+      "small_row": [
+        1,
+        0,
+        2,
+        2,
+        0
+      ],
+      "bad_vectors_before_modular_dedup": 330,
+      "bad_projective_rows_mod_large_prime": 319,
+      "charts": [
+        {
+          "status": "INFEASIBLE",
+          "tested": 3500201,
+          "elapsed_seconds": 0.283821,
+          "stderr": "",
+          "backend": "exact_cpp_projective_enumeration"
+        }
+      ],
+      "proved_unsat": true,
+      "elapsed_seconds": 0.2916468330004136
+    },
+    {
+      "small_row": [
+        1,
+        0,
+        2,
+        2,
+        1
+      ],
+      "bad_vectors_before_modular_dedup": 340,
+      "bad_projective_rows_mod_large_prime": 331,
+      "charts": [
+        {
+          "status": "INFEASIBLE",
+          "tested": 3500201,
+          "elapsed_seconds": 0.222955,
+          "stderr": "",
+          "backend": "exact_cpp_projective_enumeration"
+        }
+      ],
+      "proved_unsat": true,
+      "elapsed_seconds": 0.230608415999086
+    },
+    {
+      "small_row": [
+        1,
+        0,
+        2,
+        2,
+        2
+      ],
+      "bad_vectors_before_modular_dedup": 323,
+      "bad_projective_rows_mod_large_prime": 311,
+      "charts": [
+        {
+          "status": "INFEASIBLE",
+          "tested": 3500201,
+          "elapsed_seconds": 0.130853,
+          "stderr": "",
+          "backend": "exact_cpp_projective_enumeration"
+        }
+      ],
+      "proved_unsat": true,
+      "elapsed_seconds": 0.13941991700085055
+    },
+    {
+      "small_row": [
+        1,
+        1,
+        0,
+        0,
+        0
+      ],
+      "bad_vectors_before_modular_dedup": 309,
+      "bad_projective_rows_mod_large_prime": 294,
+      "charts": [
+        {
+          "status": "INFEASIBLE",
+          "tested": 3500201,
+          "elapsed_seconds": 0.163628,
+          "stderr": "",
+          "backend": "exact_cpp_projective_enumeration"
+        }
+      ],
+      "proved_unsat": true,
+      "elapsed_seconds": 0.170706542001426
+    },
+    {
+      "small_row": [
+        1,
+        1,
+        0,
+        0,
+        1
+      ],
+      "bad_vectors_before_modular_dedup": 334,
+      "bad_projective_rows_mod_large_prime": 323,
+      "charts": [
+        {
+          "status": "INFEASIBLE",
+          "tested": 3500201,
+          "elapsed_seconds": 0.233017,
+          "stderr": "",
+          "backend": "exact_cpp_projective_enumeration"
+        }
+      ],
+      "proved_unsat": true,
+      "elapsed_seconds": 0.23950137499923585
+    },
+    {
+      "small_row": [
+        1,
+        1,
+        0,
+        0,
+        2
+      ],
+      "bad_vectors_before_modular_dedup": 329,
+      "bad_projective_rows_mod_large_prime": 317,
+      "charts": [
+        {
+          "status": "INFEASIBLE",
+          "tested": 3500201,
+          "elapsed_seconds": 0.341686,
+          "stderr": "",
+          "backend": "exact_cpp_projective_enumeration"
+        }
+      ],
+      "proved_unsat": true,
+      "elapsed_seconds": 0.3504370829996333
+    },
+    {
+      "small_row": [
+        1,
+        1,
+        0,
+        1,
+        0
+      ],
+      "bad_vectors_before_modular_dedup": 318,
+      "bad_projective_rows_mod_large_prime": 307,
+      "charts": [
+        {
+          "status": "INFEASIBLE",
+          "tested": 3500201,
+          "elapsed_seconds": 0.447544,
+          "stderr": "",
+          "backend": "exact_cpp_projective_enumeration"
+        }
+      ],
+      "proved_unsat": true,
+      "elapsed_seconds": 0.4568234159996791
+    },
+    {
+      "small_row": [
+        1,
+        1,
+        0,
+        1,
+        1
+      ],
+      "bad_vectors_before_modular_dedup": 328,
+      "bad_projective_rows_mod_large_prime": 317,
+      "charts": [
+        {
+          "status": "INFEASIBLE",
+          "tested": 3500201,
+          "elapsed_seconds": 0.324708,
+          "stderr": "",
+          "backend": "exact_cpp_projective_enumeration"
+        }
+      ],
+      "proved_unsat": true,
+      "elapsed_seconds": 0.3340451670010225
+    },
+    {
+      "small_row": [
+        1,
+        1,
+        0,
+        1,
+        2
+      ],
+      "bad_vectors_before_modular_dedup": 329,
+      "bad_projective_rows_mod_large_prime": 319,
+      "charts": [
+        {
+          "status": "INFEASIBLE",
+          "tested": 3500201,
+          "elapsed_seconds": 0.291219,
+          "stderr": "",
+          "backend": "exact_cpp_projective_enumeration"
+        }
+      ],
+      "proved_unsat": true,
+      "elapsed_seconds": 0.2994366250004532
+    },
+    {
+      "small_row": [
+        1,
+        1,
+        0,
+        2,
+        0
+      ],
+      "bad_vectors_before_modular_dedup": 329,
+      "bad_projective_rows_mod_large_prime": 317,
+      "charts": [
+        {
+          "status": "INFEASIBLE",
+          "tested": 3500201,
+          "elapsed_seconds": 0.251846,
+          "stderr": "",
+          "backend": "exact_cpp_projective_enumeration"
+        }
+      ],
+      "proved_unsat": true,
+      "elapsed_seconds": 0.2591329999995651
+    },
+    {
+      "small_row": [
+        1,
+        1,
+        0,
+        2,
+        1
+      ],
+      "bad_vectors_before_modular_dedup": 327,
+      "bad_projective_rows_mod_large_prime": 317,
+      "charts": [
+        {
+          "status": "INFEASIBLE",
+          "tested": 3500201,
+          "elapsed_seconds": 0.224205,
+          "stderr": "",
+          "backend": "exact_cpp_projective_enumeration"
+        }
+      ],
+      "proved_unsat": true,
+      "elapsed_seconds": 0.23094770799980324
+    },
+    {
+      "small_row": [
+        1,
+        1,
+        0,
+        2,
+        2
+      ],
+      "bad_vectors_before_modular_dedup": 316,
+      "bad_projective_rows_mod_large_prime": 306,
+      "charts": [
+        {
+          "status": "INFEASIBLE",
+          "tested": 3500201,
+          "elapsed_seconds": 0.20065,
+          "stderr": "",
+          "backend": "exact_cpp_projective_enumeration"
+        }
+      ],
+      "proved_unsat": true,
+      "elapsed_seconds": 0.20952550000038173
+    },
+    {
+      "small_row": [
+        1,
+        1,
+        1,
+        0,
+        0
+      ],
+      "bad_vectors_before_modular_dedup": 324,
+      "bad_projective_rows_mod_large_prime": 310,
+      "charts": [
+        {
+          "status": "INFEASIBLE",
+          "tested": 3500201,
+          "elapsed_seconds": 0.196879,
+          "stderr": "",
+          "backend": "exact_cpp_projective_enumeration"
+        }
+      ],
+      "proved_unsat": true,
+      "elapsed_seconds": 0.20382387500103505
+    },
+    {
+      "small_row": [
+        1,
+        1,
+        1,
+        0,
+        1
+      ],
+      "bad_vectors_before_modular_dedup": 321,
+      "bad_projective_rows_mod_large_prime": 308,
+      "charts": [
+        {
+          "status": "INFEASIBLE",
+          "tested": 3500201,
+          "elapsed_seconds": 0.211521,
+          "stderr": "",
+          "backend": "exact_cpp_projective_enumeration"
+        }
+      ],
+      "proved_unsat": true,
+      "elapsed_seconds": 0.2205368750001071
+    },
+    {
+      "small_row": [
+        1,
+        1,
+        1,
+        0,
+        2
+      ],
+      "bad_vectors_before_modular_dedup": 330,
+      "bad_projective_rows_mod_large_prime": 319,
+      "charts": [
+        {
+          "status": "INFEASIBLE",
+          "tested": 3500201,
+          "elapsed_seconds": 0.118146,
+          "stderr": "",
+          "backend": "exact_cpp_projective_enumeration"
+        }
+      ],
+      "proved_unsat": true,
+      "elapsed_seconds": 0.12464195800021116
+    },
+    {
+      "small_row": [
+        1,
+        1,
+        1,
+        1,
+        0
+      ],
+      "bad_vectors_before_modular_dedup": 306,
+      "bad_projective_rows_mod_large_prime": 291,
+      "charts": [
+        {
+          "status": "INFEASIBLE",
+          "tested": 3500201,
+          "elapsed_seconds": 0.0923854,
+          "stderr": "",
+          "backend": "exact_cpp_projective_enumeration"
+        }
+      ],
+      "proved_unsat": true,
+      "elapsed_seconds": 0.10014129199953459
+    },
+    {
+      "small_row": [
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "bad_vectors_before_modular_dedup": 327,
+      "bad_projective_rows_mod_large_prime": 312,
+      "charts": [
+        {
+          "status": "INFEASIBLE",
+          "tested": 3500201,
+          "elapsed_seconds": 0.126217,
+          "stderr": "",
+          "backend": "exact_cpp_projective_enumeration"
+        }
+      ],
+      "proved_unsat": true,
+      "elapsed_seconds": 0.14856458400026895
+    },
+    {
+      "small_row": [
+        1,
+        1,
+        1,
+        1,
+        2
+      ],
+      "bad_vectors_before_modular_dedup": 327,
+      "bad_projective_rows_mod_large_prime": 319,
+      "charts": [
+        {
+          "status": "INFEASIBLE",
+          "tested": 3500201,
+          "elapsed_seconds": 0.25123,
+          "stderr": "",
+          "backend": "exact_cpp_projective_enumeration"
+        }
+      ],
+      "proved_unsat": true,
+      "elapsed_seconds": 0.2579433749997406
+    },
+    {
+      "small_row": [
+        1,
+        1,
+        1,
+        2,
+        0
+      ],
+      "bad_vectors_before_modular_dedup": 323,
+      "bad_projective_rows_mod_large_prime": 314,
+      "charts": [
+        {
+          "status": "INFEASIBLE",
+          "tested": 3500201,
+          "elapsed_seconds": 0.13237,
+          "stderr": "",
+          "backend": "exact_cpp_projective_enumeration"
+        }
+      ],
+      "proved_unsat": true,
+      "elapsed_seconds": 0.13855729200076894
+    },
+    {
+      "small_row": [
+        1,
+        0,
+        0,
+        0,
+        0
+      ],
+      "bad_vectors_before_modular_dedup": 315,
+      "bad_projective_rows_mod_large_prime": 300,
+      "charts": [
+        {
+          "status": "INFEASIBLE",
+          "tested": 3500201,
+          "elapsed_seconds": 0.187952,
+          "stderr": "",
+          "backend": "exact_cpp_projective_enumeration"
+        }
+      ],
+      "proved_unsat": true,
+      "elapsed_seconds": 0.19965804200001003
+    },
+    {
+      "small_row": [
+        1,
+        1,
+        1,
+        2,
+        2
+      ],
+      "bad_vectors_before_modular_dedup": 326,
+      "bad_projective_rows_mod_large_prime": 319,
+      "charts": [
+        {
+          "status": "INFEASIBLE",
+          "tested": 3500201,
+          "elapsed_seconds": 0.108302,
+          "stderr": "",
+          "backend": "exact_cpp_projective_enumeration"
+        }
+      ],
+      "proved_unsat": true,
+      "elapsed_seconds": 0.11372187500091968
+    },
+    {
+      "small_row": [
+        1,
+        1,
+        2,
+        0,
+        0
+      ],
+      "bad_vectors_before_modular_dedup": 322,
+      "bad_projective_rows_mod_large_prime": 314,
+      "charts": [
+        {
+          "status": "INFEASIBLE",
+          "tested": 3500201,
+          "elapsed_seconds": 0.119466,
+          "stderr": "",
+          "backend": "exact_cpp_projective_enumeration"
+        }
+      ],
+      "proved_unsat": true,
+      "elapsed_seconds": 0.12716658399949665
+    },
+    {
+      "small_row": [
+        1,
+        1,
+        2,
+        0,
+        1
+      ],
+      "bad_vectors_before_modular_dedup": 324,
+      "bad_projective_rows_mod_large_prime": 314,
+      "charts": [
+        {
+          "status": "INFEASIBLE",
+          "tested": 3500201,
+          "elapsed_seconds": 0.0926766,
+          "stderr": "",
+          "backend": "exact_cpp_projective_enumeration"
+        }
+      ],
+      "proved_unsat": true,
+      "elapsed_seconds": 0.10367329099972267
+    },
+    {
+      "small_row": [
+        1,
+        1,
+        2,
+        0,
+        2
+      ],
+      "bad_vectors_before_modular_dedup": 323,
+      "bad_projective_rows_mod_large_prime": 315,
+      "charts": [
+        {
+          "status": "INFEASIBLE",
+          "tested": 3500201,
+          "elapsed_seconds": 0.130179,
+          "stderr": "",
+          "backend": "exact_cpp_projective_enumeration"
+        }
+      ],
+      "proved_unsat": true,
+      "elapsed_seconds": 0.15042408299996168
+    },
+    {
+      "small_row": [
+        1,
+        1,
+        2,
+        1,
+        0
+      ],
+      "bad_vectors_before_modular_dedup": 328,
+      "bad_projective_rows_mod_large_prime": 317,
+      "charts": [
+        {
+          "status": "INFEASIBLE",
+          "tested": 3500201,
+          "elapsed_seconds": 0.121366,
+          "stderr": "",
+          "backend": "exact_cpp_projective_enumeration"
+        }
+      ],
+      "proved_unsat": true,
+      "elapsed_seconds": 0.12752116699994076
+    },
+    {
+      "small_row": [
+        1,
+        1,
+        2,
+        1,
+        1
+      ],
+      "bad_vectors_before_modular_dedup": 333,
+      "bad_projective_rows_mod_large_prime": 322,
+      "charts": [
+        {
+          "status": "INFEASIBLE",
+          "tested": 3500201,
+          "elapsed_seconds": 0.158106,
+          "stderr": "",
+          "backend": "exact_cpp_projective_enumeration"
+        }
+      ],
+      "proved_unsat": true,
+      "elapsed_seconds": 0.1663842090001708
+    },
+    {
+      "small_row": [
+        1,
+        1,
+        2,
+        1,
+        2
+      ],
+      "bad_vectors_before_modular_dedup": 329,
+      "bad_projective_rows_mod_large_prime": 319,
+      "charts": [
+        {
+          "status": "INFEASIBLE",
+          "tested": 3500201,
+          "elapsed_seconds": 0.177629,
+          "stderr": "",
+          "backend": "exact_cpp_projective_enumeration"
+        }
+      ],
+      "proved_unsat": true,
+      "elapsed_seconds": 0.19347116700009792
+    },
+    {
+      "small_row": [
+        1,
+        1,
+        2,
+        2,
+        0
+      ],
+      "bad_vectors_before_modular_dedup": 309,
+      "bad_projective_rows_mod_large_prime": 302,
+      "charts": [
+        {
+          "status": "INFEASIBLE",
+          "tested": 3500201,
+          "elapsed_seconds": 0.116077,
+          "stderr": "",
+          "backend": "exact_cpp_projective_enumeration"
+        }
+      ],
+      "proved_unsat": true,
+      "elapsed_seconds": 0.12705041600020195
+    },
+    {
+      "small_row": [
+        1,
+        1,
+        2,
+        2,
+        1
+      ],
+      "bad_vectors_before_modular_dedup": 329,
+      "bad_projective_rows_mod_large_prime": 318,
+      "charts": [
+        {
+          "status": "INFEASIBLE",
+          "tested": 3500201,
+          "elapsed_seconds": 0.143101,
+          "stderr": "",
+          "backend": "exact_cpp_projective_enumeration"
+        }
+      ],
+      "proved_unsat": true,
+      "elapsed_seconds": 0.15070699999887438
+    },
+    {
+      "small_row": [
+        1,
+        1,
+        2,
+        2,
+        2
+      ],
+      "bad_vectors_before_modular_dedup": 322,
+      "bad_projective_rows_mod_large_prime": 314,
+      "charts": [
+        {
+          "status": "INFEASIBLE",
+          "tested": 3500201,
+          "elapsed_seconds": 0.169895,
+          "stderr": "",
+          "backend": "exact_cpp_projective_enumeration"
+        }
+      ],
+      "proved_unsat": true,
+      "elapsed_seconds": 0.1804552909998165
+    },
+    {
+      "small_row": [
+        1,
+        2,
+        0,
+        0,
+        0
+      ],
+      "bad_vectors_before_modular_dedup": 317,
+      "bad_projective_rows_mod_large_prime": 310,
+      "charts": [
+        {
+          "status": "INFEASIBLE",
+          "tested": 3500201,
+          "elapsed_seconds": 0.190517,
+          "stderr": "",
+          "backend": "exact_cpp_projective_enumeration"
+        }
+      ],
+      "proved_unsat": true,
+      "elapsed_seconds": 0.19879362500068964
+    },
+    {
+      "small_row": [
+        1,
+        2,
+        0,
+        0,
+        1
+      ],
+      "bad_vectors_before_modular_dedup": 340,
+      "bad_projective_rows_mod_large_prime": 331,
+      "charts": [
+        {
+          "status": "INFEASIBLE",
+          "tested": 3500201,
+          "elapsed_seconds": 0.122814,
+          "stderr": "",
+          "backend": "exact_cpp_projective_enumeration"
+        }
+      ],
+      "proved_unsat": true,
+      "elapsed_seconds": 0.13265312499970605
+    },
+    {
+      "small_row": [
+        1,
+        2,
+        0,
+        0,
+        2
+      ],
+      "bad_vectors_before_modular_dedup": 330,
+      "bad_projective_rows_mod_large_prime": 320,
+      "charts": [
+        {
+          "status": "INFEASIBLE",
+          "tested": 3500201,
+          "elapsed_seconds": 0.170321,
+          "stderr": "",
+          "backend": "exact_cpp_projective_enumeration"
+        }
+      ],
+      "proved_unsat": true,
+      "elapsed_seconds": 0.19446729199989932
+    },
+    {
+      "small_row": [
+        1,
+        2,
+        0,
+        1,
+        0
+      ],
+      "bad_vectors_before_modular_dedup": 326,
+      "bad_projective_rows_mod_large_prime": 316,
+      "charts": [
+        {
+          "status": "INFEASIBLE",
+          "tested": 3500201,
+          "elapsed_seconds": 0.116988,
+          "stderr": "",
+          "backend": "exact_cpp_projective_enumeration"
+        }
+      ],
+      "proved_unsat": true,
+      "elapsed_seconds": 0.12553754100008518
+    },
+    {
+      "small_row": [
+        1,
+        2,
+        0,
+        1,
+        1
+      ],
+      "bad_vectors_before_modular_dedup": 319,
+      "bad_projective_rows_mod_large_prime": 309,
+      "charts": [
+        {
+          "status": "INFEASIBLE",
+          "tested": 3500201,
+          "elapsed_seconds": 0.152776,
+          "stderr": "",
+          "backend": "exact_cpp_projective_enumeration"
+        }
+      ],
+      "proved_unsat": true,
+      "elapsed_seconds": 0.15713208299894177
+    },
+    {
+      "small_row": [
+        1,
+        2,
+        0,
+        1,
+        2
+      ],
+      "bad_vectors_before_modular_dedup": 321,
+      "bad_projective_rows_mod_large_prime": 312,
+      "charts": [
+        {
+          "status": "INFEASIBLE",
+          "tested": 3500201,
+          "elapsed_seconds": 0.200083,
+          "stderr": "",
+          "backend": "exact_cpp_projective_enumeration"
+        }
+      ],
+      "proved_unsat": true,
+      "elapsed_seconds": 0.20515566600079183
+    },
+    {
+      "small_row": [
+        1,
+        2,
+        0,
+        2,
+        0
+      ],
+      "bad_vectors_before_modular_dedup": 340,
+      "bad_projective_rows_mod_large_prime": 331,
+      "charts": [
+        {
+          "status": "INFEASIBLE",
+          "tested": 3500201,
+          "elapsed_seconds": 0.0968695,
+          "stderr": "",
+          "backend": "exact_cpp_projective_enumeration"
+        }
+      ],
+      "proved_unsat": true,
+      "elapsed_seconds": 0.10408149999966554
+    },
+    {
+      "small_row": [
+        1,
+        2,
+        0,
+        2,
+        1
+      ],
+      "bad_vectors_before_modular_dedup": 324,
+      "bad_projective_rows_mod_large_prime": 314,
+      "charts": [
+        {
+          "status": "INFEASIBLE",
+          "tested": 3500201,
+          "elapsed_seconds": 0.218617,
+          "stderr": "",
+          "backend": "exact_cpp_projective_enumeration"
+        }
+      ],
+      "proved_unsat": true,
+      "elapsed_seconds": 0.24935079100032453
+    },
+    {
+      "small_row": [
+        1,
+        2,
+        0,
+        2,
+        2
+      ],
+      "bad_vectors_before_modular_dedup": 311,
+      "bad_projective_rows_mod_large_prime": 301,
+      "charts": [
+        {
+          "status": "INFEASIBLE",
+          "tested": 3500201,
+          "elapsed_seconds": 0.142599,
+          "stderr": "",
+          "backend": "exact_cpp_projective_enumeration"
+        }
+      ],
+      "proved_unsat": true,
+      "elapsed_seconds": 0.14905637499941804
+    },
+    {
+      "small_row": [
+        1,
+        2,
+        1,
+        0,
+        0
+      ],
+      "bad_vectors_before_modular_dedup": 326,
+      "bad_projective_rows_mod_large_prime": 314,
+      "charts": [
+        {
+          "status": "INFEASIBLE",
+          "tested": 3500201,
+          "elapsed_seconds": 0.122115,
+          "stderr": "",
+          "backend": "exact_cpp_projective_enumeration"
+        }
+      ],
+      "proved_unsat": true,
+      "elapsed_seconds": 0.1259829999999056
+    },
+    {
+      "small_row": [
+        1,
+        2,
+        1,
+        0,
+        1
+      ],
+      "bad_vectors_before_modular_dedup": 330,
+      "bad_projective_rows_mod_large_prime": 319,
+      "charts": [
+        {
+          "status": "INFEASIBLE",
+          "tested": 3500201,
+          "elapsed_seconds": 0.122699,
+          "stderr": "",
+          "backend": "exact_cpp_projective_enumeration"
+        }
+      ],
+      "proved_unsat": true,
+      "elapsed_seconds": 0.1382225830002426
+    },
+    {
+      "small_row": [
+        1,
+        2,
+        1,
+        0,
+        2
+      ],
+      "bad_vectors_before_modular_dedup": 328,
+      "bad_projective_rows_mod_large_prime": 319,
+      "charts": [
+        {
+          "status": "INFEASIBLE",
+          "tested": 3500201,
+          "elapsed_seconds": 0.0831131,
+          "stderr": "",
+          "backend": "exact_cpp_projective_enumeration"
+        }
+      ],
+      "proved_unsat": true,
+      "elapsed_seconds": 0.09717424999871582
+    },
+    {
+      "small_row": [
+        1,
+        2,
+        1,
+        1,
+        0
+      ],
+      "bad_vectors_before_modular_dedup": 332,
+      "bad_projective_rows_mod_large_prime": 321,
+      "charts": [
+        {
+          "status": "INFEASIBLE",
+          "tested": 3500201,
+          "elapsed_seconds": 0.257894,
+          "stderr": "",
+          "backend": "exact_cpp_projective_enumeration"
+        }
+      ],
+      "proved_unsat": true,
+      "elapsed_seconds": 0.26857216700045683
+    },
+    {
+      "small_row": [
+        1,
+        2,
+        1,
+        1,
+        1
+      ],
+      "bad_vectors_before_modular_dedup": 330,
+      "bad_projective_rows_mod_large_prime": 319,
+      "charts": [
+        {
+          "status": "INFEASIBLE",
+          "tested": 3500201,
+          "elapsed_seconds": 0.115157,
+          "stderr": "",
+          "backend": "exact_cpp_projective_enumeration"
+        }
+      ],
+      "proved_unsat": true,
+      "elapsed_seconds": 0.13151408300109324
+    },
+    {
+      "small_row": [
+        1,
+        2,
+        1,
+        1,
+        2
+      ],
+      "bad_vectors_before_modular_dedup": 328,
+      "bad_projective_rows_mod_large_prime": 318,
+      "charts": [
+        {
+          "status": "INFEASIBLE",
+          "tested": 3500201,
+          "elapsed_seconds": 0.187521,
+          "stderr": "",
+          "backend": "exact_cpp_projective_enumeration"
+        }
+      ],
+      "proved_unsat": true,
+      "elapsed_seconds": 0.1945945829993434
+    },
+    {
+      "small_row": [
+        1,
+        2,
+        1,
+        2,
+        0
+      ],
+      "bad_vectors_before_modular_dedup": 328,
+      "bad_projective_rows_mod_large_prime": 319,
+      "charts": [
+        {
+          "status": "INFEASIBLE",
+          "tested": 3500201,
+          "elapsed_seconds": 0.115077,
+          "stderr": "",
+          "backend": "exact_cpp_projective_enumeration"
+        }
+      ],
+      "proved_unsat": true,
+      "elapsed_seconds": 0.12307520800095517
+    },
+    {
+      "small_row": [
+        1,
+        2,
+        1,
+        2,
+        1
+      ],
+      "bad_vectors_before_modular_dedup": 332,
+      "bad_projective_rows_mod_large_prime": 322,
+      "charts": [
+        {
+          "status": "INFEASIBLE",
+          "tested": 3500201,
+          "elapsed_seconds": 0.106166,
+          "stderr": "",
+          "backend": "exact_cpp_projective_enumeration"
+        }
+      ],
+      "proved_unsat": true,
+      "elapsed_seconds": 0.11290070900031424
+    },
+    {
+      "small_row": [
+        1,
+        2,
+        1,
+        2,
+        2
+      ],
+      "bad_vectors_before_modular_dedup": 321,
+      "bad_projective_rows_mod_large_prime": 311,
+      "charts": [
+        {
+          "status": "INFEASIBLE",
+          "tested": 3500201,
+          "elapsed_seconds": 0.175657,
+          "stderr": "",
+          "backend": "exact_cpp_projective_enumeration"
+        }
+      ],
+      "proved_unsat": true,
+      "elapsed_seconds": 0.18439041599958728
+    },
+    {
+      "small_row": [
+        1,
+        2,
+        2,
+        0,
+        0
+      ],
+      "bad_vectors_before_modular_dedup": 330,
+      "bad_projective_rows_mod_large_prime": 321,
+      "charts": [
+        {
+          "status": "INFEASIBLE",
+          "tested": 3500201,
+          "elapsed_seconds": 0.133482,
+          "stderr": "",
+          "backend": "exact_cpp_projective_enumeration"
+        }
+      ],
+      "proved_unsat": true,
+      "elapsed_seconds": 0.13849308299904806
+    },
+    {
+      "small_row": [
+        1,
+        2,
+        2,
+        0,
+        1
+      ],
+      "bad_vectors_before_modular_dedup": 324,
+      "bad_projective_rows_mod_large_prime": 316,
+      "charts": [
+        {
+          "status": "INFEASIBLE",
+          "tested": 3500201,
+          "elapsed_seconds": 0.149589,
+          "stderr": "",
+          "backend": "exact_cpp_projective_enumeration"
+        }
+      ],
+      "proved_unsat": true,
+      "elapsed_seconds": 0.1567780829991534
+    },
+    {
+      "small_row": [
+        1,
+        2,
+        2,
+        0,
+        2
+      ],
+      "bad_vectors_before_modular_dedup": 327,
+      "bad_projective_rows_mod_large_prime": 318,
+      "charts": [
+        {
+          "status": "INFEASIBLE",
+          "tested": 3500201,
+          "elapsed_seconds": 0.224624,
+          "stderr": "",
+          "backend": "exact_cpp_projective_enumeration"
+        }
+      ],
+      "proved_unsat": true,
+      "elapsed_seconds": 0.2346239999988029
+    },
+    {
+      "small_row": [
+        1,
+        2,
+        2,
+        1,
+        0
+      ],
+      "bad_vectors_before_modular_dedup": 333,
+      "bad_projective_rows_mod_large_prime": 323,
+      "charts": [
+        {
+          "status": "INFEASIBLE",
+          "tested": 3500201,
+          "elapsed_seconds": 0.151734,
+          "stderr": "",
+          "backend": "exact_cpp_projective_enumeration"
+        }
+      ],
+      "proved_unsat": true,
+      "elapsed_seconds": 0.15744995800014294
+    },
+    {
+      "small_row": [
+        1,
+        2,
+        2,
+        1,
+        1
+      ],
+      "bad_vectors_before_modular_dedup": 321,
+      "bad_projective_rows_mod_large_prime": 308,
+      "charts": [
+        {
+          "status": "INFEASIBLE",
+          "tested": 3500201,
+          "elapsed_seconds": 0.148108,
+          "stderr": "",
+          "backend": "exact_cpp_projective_enumeration"
+        }
+      ],
+      "proved_unsat": true,
+      "elapsed_seconds": 0.15473579199897358
+    },
+    {
+      "small_row": [
+        1,
+        2,
+        2,
+        1,
+        2
+      ],
+      "bad_vectors_before_modular_dedup": 324,
+      "bad_projective_rows_mod_large_prime": 315,
+      "charts": [
+        {
+          "status": "INFEASIBLE",
+          "tested": 3500201,
+          "elapsed_seconds": 0.134083,
+          "stderr": "",
+          "backend": "exact_cpp_projective_enumeration"
+        }
+      ],
+      "proved_unsat": true,
+      "elapsed_seconds": 0.13906345799841802
+    },
+    {
+      "small_row": [
+        1,
+        2,
+        2,
+        2,
+        0
+      ],
+      "bad_vectors_before_modular_dedup": 317,
+      "bad_projective_rows_mod_large_prime": 310,
+      "charts": [
+        {
+          "status": "INFEASIBLE",
+          "tested": 3500201,
+          "elapsed_seconds": 0.120539,
+          "stderr": "",
+          "backend": "exact_cpp_projective_enumeration"
+        }
+      ],
+      "proved_unsat": true,
+      "elapsed_seconds": 0.13784204099829367
+    },
+    {
+      "small_row": [
+        1,
+        2,
+        2,
+        2,
+        1
+      ],
+      "bad_vectors_before_modular_dedup": 338,
+      "bad_projective_rows_mod_large_prime": 327,
+      "charts": [
+        {
+          "status": "INFEASIBLE",
+          "tested": 3500201,
+          "elapsed_seconds": 0.132064,
+          "stderr": "",
+          "backend": "exact_cpp_projective_enumeration"
+        }
+      ],
+      "proved_unsat": true,
+      "elapsed_seconds": 0.14019679100056237
+    },
+    {
+      "small_row": [
+        1,
+        2,
+        2,
+        2,
+        2
+      ],
+      "bad_vectors_before_modular_dedup": 314,
+      "bad_projective_rows_mod_large_prime": 306,
+      "charts": [
+        {
+          "status": "INFEASIBLE",
+          "tested": 3500201,
+          "elapsed_seconds": 0.146688,
+          "stderr": "",
+          "backend": "exact_cpp_projective_enumeration"
+        }
+      ],
+      "proved_unsat": true,
+      "elapsed_seconds": 0.15180716699978802
+    },
+    {
+      "small_row": [
+        0,
+        1,
+        0,
+        0,
+        0
+      ],
+      "bad_vectors_before_modular_dedup": 300,
+      "bad_projective_rows_mod_large_prime": 284,
+      "charts": [
+        {
+          "status": "INFEASIBLE",
+          "tested": 3500201,
+          "elapsed_seconds": 0.141086,
+          "stderr": "",
+          "backend": "exact_cpp_projective_enumeration"
+        }
+      ],
+      "proved_unsat": true,
+      "elapsed_seconds": 0.14685933299915632
+    },
+    {
+      "small_row": [
+        0,
+        1,
+        0,
+        0,
+        1
+      ],
+      "bad_vectors_before_modular_dedup": 349,
+      "bad_projective_rows_mod_large_prime": 338,
+      "charts": [
+        {
+          "status": "INFEASIBLE",
+          "tested": 3500201,
+          "elapsed_seconds": 0.0538349,
+          "stderr": "",
+          "backend": "exact_cpp_projective_enumeration"
+        }
+      ],
+      "proved_unsat": true,
+      "elapsed_seconds": 0.06055429099978937
+    },
+    {
+      "small_row": [
+        0,
+        1,
+        0,
+        0,
+        2
+      ],
+      "bad_vectors_before_modular_dedup": 338,
+      "bad_projective_rows_mod_large_prime": 327,
+      "charts": [
+        {
+          "status": "INFEASIBLE",
+          "tested": 3500201,
+          "elapsed_seconds": 0.12424,
+          "stderr": "",
+          "backend": "exact_cpp_projective_enumeration"
+        }
+      ],
+      "proved_unsat": true,
+      "elapsed_seconds": 0.13601608399949328
+    },
+    {
+      "small_row": [
+        0,
+        1,
+        0,
+        1,
+        0
+      ],
+      "bad_vectors_before_modular_dedup": 331,
+      "bad_projective_rows_mod_large_prime": 322,
+      "charts": [
+        {
+          "status": "INFEASIBLE",
+          "tested": 3500201,
+          "elapsed_seconds": 0.141711,
+          "stderr": "",
+          "backend": "exact_cpp_projective_enumeration"
+        }
+      ],
+      "proved_unsat": true,
+      "elapsed_seconds": 0.14731716700043762
+    },
+    {
+      "small_row": [
+        0,
+        1,
+        0,
+        1,
+        1
+      ],
+      "bad_vectors_before_modular_dedup": 326,
+      "bad_projective_rows_mod_large_prime": 315,
+      "charts": [
+        {
+          "status": "INFEASIBLE",
+          "tested": 3500201,
+          "elapsed_seconds": 0.0474585,
+          "stderr": "",
+          "backend": "exact_cpp_projective_enumeration"
+        }
+      ],
+      "proved_unsat": true,
+      "elapsed_seconds": 0.05499283300014213
+    },
+    {
+      "small_row": [
+        0,
+        1,
+        0,
+        1,
+        2
+      ],
+      "bad_vectors_before_modular_dedup": 321,
+      "bad_projective_rows_mod_large_prime": 309,
+      "charts": [
+        {
+          "status": "INFEASIBLE",
+          "tested": 3500201,
+          "elapsed_seconds": 0.107879,
+          "stderr": "",
+          "backend": "exact_cpp_projective_enumeration"
+        }
+      ],
+      "proved_unsat": true,
+      "elapsed_seconds": 0.14951762500095356
+    },
+    {
+      "small_row": [
+        0,
+        1,
+        0,
+        2,
+        0
+      ],
+      "bad_vectors_before_modular_dedup": 343,
+      "bad_projective_rows_mod_large_prime": 330,
+      "charts": [
+        {
+          "status": "INFEASIBLE",
+          "tested": 3500201,
+          "elapsed_seconds": 0.121618,
+          "stderr": "",
+          "backend": "exact_cpp_projective_enumeration"
+        }
+      ],
+      "proved_unsat": true,
+      "elapsed_seconds": 0.1365200839991303
+    },
+    {
+      "small_row": [
+        0,
+        1,
+        0,
+        2,
+        1
+      ],
+      "bad_vectors_before_modular_dedup": 332,
+      "bad_projective_rows_mod_large_prime": 322,
+      "charts": [
+        {
+          "status": "INFEASIBLE",
+          "tested": 3500201,
+          "elapsed_seconds": 0.101268,
+          "stderr": "",
+          "backend": "exact_cpp_projective_enumeration"
+        }
+      ],
+      "proved_unsat": true,
+      "elapsed_seconds": 0.10985645900109375
+    },
+    {
+      "small_row": [
+        0,
+        1,
+        0,
+        2,
+        2
+      ],
+      "bad_vectors_before_modular_dedup": 324,
+      "bad_projective_rows_mod_large_prime": 315,
+      "charts": [
+        {
+          "status": "INFEASIBLE",
+          "tested": 3500201,
+          "elapsed_seconds": 0.23885,
+          "stderr": "",
+          "backend": "exact_cpp_projective_enumeration"
+        }
+      ],
+      "proved_unsat": true,
+      "elapsed_seconds": 0.24425779200100806
+    },
+    {
+      "small_row": [
+        0,
+        1,
+        1,
+        0,
+        0
+      ],
+      "bad_vectors_before_modular_dedup": 296,
+      "bad_projective_rows_mod_large_prime": 281,
+      "charts": [
+        {
+          "status": "INFEASIBLE",
+          "tested": 3500201,
+          "elapsed_seconds": 0.163817,
+          "stderr": "",
+          "backend": "exact_cpp_projective_enumeration"
+        }
+      ],
+      "proved_unsat": true,
+      "elapsed_seconds": 0.17004029199961224
+    },
+    {
+      "small_row": [
+        0,
+        1,
+        1,
+        0,
+        1
+      ],
+      "bad_vectors_before_modular_dedup": 275,
+      "bad_projective_rows_mod_large_prime": 259,
+      "charts": [
+        {
+          "status": "INFEASIBLE",
+          "tested": 3500201,
+          "elapsed_seconds": 0.144247,
+          "stderr": "",
+          "backend": "exact_cpp_projective_enumeration"
+        }
+      ],
+      "proved_unsat": true,
+      "elapsed_seconds": 0.15031029200144985
+    },
+    {
+      "small_row": [
+        0,
+        1,
+        1,
+        0,
+        2
+      ],
+      "bad_vectors_before_modular_dedup": 320,
+      "bad_projective_rows_mod_large_prime": 313,
+      "charts": [
+        {
+          "status": "INFEASIBLE",
+          "tested": 3500201,
+          "elapsed_seconds": 0.116894,
+          "stderr": "",
+          "backend": "exact_cpp_projective_enumeration"
+        }
+      ],
+      "proved_unsat": true,
+      "elapsed_seconds": 0.14383437499964202
+    },
+    {
+      "small_row": [
+        0,
+        1,
+        1,
+        1,
+        0
+      ],
+      "bad_vectors_before_modular_dedup": 285,
+      "bad_projective_rows_mod_large_prime": 269,
+      "charts": [
+        {
+          "status": "INFEASIBLE",
+          "tested": 3500201,
+          "elapsed_seconds": 0.118392,
+          "stderr": "",
+          "backend": "exact_cpp_projective_enumeration"
+        }
+      ],
+      "proved_unsat": true,
+      "elapsed_seconds": 0.1242595829990023
+    },
+    {
+      "small_row": [
+        0,
+        1,
+        1,
+        1,
+        1
+      ],
+      "bad_vectors_before_modular_dedup": 273,
+      "bad_projective_rows_mod_large_prime": 258,
+      "charts": [
+        {
+          "status": "INFEASIBLE",
+          "tested": 3500201,
+          "elapsed_seconds": 0.145602,
+          "stderr": "",
+          "backend": "exact_cpp_projective_enumeration"
+        }
+      ],
+      "proved_unsat": true,
+      "elapsed_seconds": 0.155913958000383
+    },
+    {
+      "small_row": [
+        0,
+        1,
+        1,
+        1,
+        2
+      ],
+      "bad_vectors_before_modular_dedup": 333,
+      "bad_projective_rows_mod_large_prime": 326,
+      "charts": [
+        {
+          "status": "INFEASIBLE",
+          "tested": 3500201,
+          "elapsed_seconds": 0.125305,
+          "stderr": "",
+          "backend": "exact_cpp_projective_enumeration"
+        }
+      ],
+      "proved_unsat": true,
+      "elapsed_seconds": 0.12968604199886613
+    },
+    {
+      "small_row": [
+        0,
+        1,
+        1,
+        2,
+        0
+      ],
+      "bad_vectors_before_modular_dedup": 318,
+      "bad_projective_rows_mod_large_prime": 311,
+      "charts": [
+        {
+          "status": "INFEASIBLE",
+          "tested": 3500201,
+          "elapsed_seconds": 0.142525,
+          "stderr": "",
+          "backend": "exact_cpp_projective_enumeration"
+        }
+      ],
+      "proved_unsat": true,
+      "elapsed_seconds": 0.14914587499879417
+    },
+    {
+      "small_row": [
+        0,
+        1,
+        1,
+        2,
+        1
+      ],
+      "bad_vectors_before_modular_dedup": 327,
+      "bad_projective_rows_mod_large_prime": 320,
+      "charts": [
+        {
+          "status": "INFEASIBLE",
+          "tested": 3500201,
+          "elapsed_seconds": 0.189262,
+          "stderr": "",
+          "backend": "exact_cpp_projective_enumeration"
+        }
+      ],
+      "proved_unsat": true,
+      "elapsed_seconds": 0.1966959580004186
+    },
+    {
+      "small_row": [
+        0,
+        1,
+        1,
+        2,
+        2
+      ],
+      "bad_vectors_before_modular_dedup": 348,
+      "bad_projective_rows_mod_large_prime": 336,
+      "charts": [
+        {
+          "status": "INFEASIBLE",
+          "tested": 3500201,
+          "elapsed_seconds": 0.105262,
+          "stderr": "",
+          "backend": "exact_cpp_projective_enumeration"
+        }
+      ],
+      "proved_unsat": true,
+      "elapsed_seconds": 0.11594712499936577
+    },
+    {
+      "small_row": [
+        0,
+        1,
+        2,
+        0,
+        0
+      ],
+      "bad_vectors_before_modular_dedup": 323,
+      "bad_projective_rows_mod_large_prime": 314,
+      "charts": [
+        {
+          "status": "INFEASIBLE",
+          "tested": 3500201,
+          "elapsed_seconds": 0.107869,
+          "stderr": "",
+          "backend": "exact_cpp_projective_enumeration"
+        }
+      ],
+      "proved_unsat": true,
+      "elapsed_seconds": 0.11505587499959802
+    },
+    {
+      "small_row": [
+        0,
+        1,
+        2,
+        0,
+        1
+      ],
+      "bad_vectors_before_modular_dedup": 322,
+      "bad_projective_rows_mod_large_prime": 315,
+      "charts": [
+        {
+          "status": "INFEASIBLE",
+          "tested": 3500201,
+          "elapsed_seconds": 0.120864,
+          "stderr": "",
+          "backend": "exact_cpp_projective_enumeration"
+        }
+      ],
+      "proved_unsat": true,
+      "elapsed_seconds": 0.16366604200084112
+    },
+    {
+      "small_row": [
+        0,
+        1,
+        2,
+        0,
+        2
+      ],
+      "bad_vectors_before_modular_dedup": 330,
+      "bad_projective_rows_mod_large_prime": 320,
+      "charts": [
+        {
+          "status": "INFEASIBLE",
+          "tested": 3500201,
+          "elapsed_seconds": 0.13466,
+          "stderr": "",
+          "backend": "exact_cpp_projective_enumeration"
+        }
+      ],
+      "proved_unsat": true,
+      "elapsed_seconds": 0.14480995800113305
+    },
+    {
+      "small_row": [
+        0,
+        1,
+        2,
+        1,
+        0
+      ],
+      "bad_vectors_before_modular_dedup": 339,
+      "bad_projective_rows_mod_large_prime": 330,
+      "charts": [
+        {
+          "status": "INFEASIBLE",
+          "tested": 3500201,
+          "elapsed_seconds": 0.170205,
+          "stderr": "",
+          "backend": "exact_cpp_projective_enumeration"
+        }
+      ],
+      "proved_unsat": true,
+      "elapsed_seconds": 0.1786852910008747
+    },
+    {
+      "small_row": [
+        0,
+        1,
+        2,
+        1,
+        1
+      ],
+      "bad_vectors_before_modular_dedup": 323,
+      "bad_projective_rows_mod_large_prime": 309,
+      "charts": [
+        {
+          "status": "INFEASIBLE",
+          "tested": 3500201,
+          "elapsed_seconds": 0.0945042,
+          "stderr": "",
+          "backend": "exact_cpp_projective_enumeration"
+        }
+      ],
+      "proved_unsat": true,
+      "elapsed_seconds": 0.10747512499983713
+    },
+    {
+      "small_row": [
+        0,
+        1,
+        2,
+        1,
+        2
+      ],
+      "bad_vectors_before_modular_dedup": 340,
+      "bad_projective_rows_mod_large_prime": 331,
+      "charts": [
+        {
+          "status": "INFEASIBLE",
+          "tested": 3500201,
+          "elapsed_seconds": 0.138757,
+          "stderr": "",
+          "backend": "exact_cpp_projective_enumeration"
+        }
+      ],
+      "proved_unsat": true,
+      "elapsed_seconds": 0.15804099999877508
+    },
+    {
+      "small_row": [
+        0,
+        1,
+        2,
+        2,
+        0
+      ],
+      "bad_vectors_before_modular_dedup": 324,
+      "bad_projective_rows_mod_large_prime": 316,
+      "charts": [
+        {
+          "status": "INFEASIBLE",
+          "tested": 3500201,
+          "elapsed_seconds": 0.126891,
+          "stderr": "",
+          "backend": "exact_cpp_projective_enumeration"
+        }
+      ],
+      "proved_unsat": true,
+      "elapsed_seconds": 0.13481570800104237
+    },
+    {
+      "small_row": [
+        0,
+        1,
+        2,
+        2,
+        1
+      ],
+      "bad_vectors_before_modular_dedup": 341,
+      "bad_projective_rows_mod_large_prime": 330,
+      "charts": [
+        {
+          "status": "INFEASIBLE",
+          "tested": 3500201,
+          "elapsed_seconds": 0.207045,
+          "stderr": "",
+          "backend": "exact_cpp_projective_enumeration"
+        }
+      ],
+      "proved_unsat": true,
+      "elapsed_seconds": 0.21337975000096776
+    },
+    {
+      "small_row": [
+        0,
+        1,
+        2,
+        2,
+        2
+      ],
+      "bad_vectors_before_modular_dedup": 322,
+      "bad_projective_rows_mod_large_prime": 315,
+      "charts": [
+        {
+          "status": "INFEASIBLE",
+          "tested": 3500201,
+          "elapsed_seconds": 0.166091,
+          "stderr": "",
+          "backend": "exact_cpp_projective_enumeration"
+        }
+      ],
+      "proved_unsat": true,
+      "elapsed_seconds": 0.17605187499975727
+    },
+    {
+      "small_row": [
+        0,
+        0,
+        1,
+        0,
+        0
+      ],
+      "bad_vectors_before_modular_dedup": 316,
+      "bad_projective_rows_mod_large_prime": 303,
+      "charts": [
+        {
+          "status": "INFEASIBLE",
+          "tested": 3500201,
+          "elapsed_seconds": 0.14885,
+          "stderr": "",
+          "backend": "exact_cpp_projective_enumeration"
+        }
+      ],
+      "proved_unsat": true,
+      "elapsed_seconds": 0.15752225000142062
+    },
+    {
+      "small_row": [
+        0,
+        0,
+        1,
+        0,
+        1
+      ],
+      "bad_vectors_before_modular_dedup": 324,
+      "bad_projective_rows_mod_large_prime": 310,
+      "charts": [
+        {
+          "status": "INFEASIBLE",
+          "tested": 3500201,
+          "elapsed_seconds": 0.135702,
+          "stderr": "",
+          "backend": "exact_cpp_projective_enumeration"
+        }
+      ],
+      "proved_unsat": true,
+      "elapsed_seconds": 0.1480345829986618
+    },
+    {
+      "small_row": [
+        0,
+        0,
+        1,
+        0,
+        2
+      ],
+      "bad_vectors_before_modular_dedup": 326,
+      "bad_projective_rows_mod_large_prime": 315,
+      "charts": [
+        {
+          "status": "INFEASIBLE",
+          "tested": 3500201,
+          "elapsed_seconds": 0.109636,
+          "stderr": "",
+          "backend": "exact_cpp_projective_enumeration"
+        }
+      ],
+      "proved_unsat": true,
+      "elapsed_seconds": 0.1460542919994623
+    },
+    {
+      "small_row": [
+        0,
+        0,
+        1,
+        1,
+        0
+      ],
+      "bad_vectors_before_modular_dedup": 278,
+      "bad_projective_rows_mod_large_prime": 262,
+      "charts": [
+        {
+          "status": "INFEASIBLE",
+          "tested": 3500201,
+          "elapsed_seconds": 0.147803,
+          "stderr": "",
+          "backend": "exact_cpp_projective_enumeration"
+        }
+      ],
+      "proved_unsat": true,
+      "elapsed_seconds": 0.15306454100027622
+    },
+    {
+      "small_row": [
+        0,
+        0,
+        1,
+        1,
+        1
+      ],
+      "bad_vectors_before_modular_dedup": 292,
+      "bad_projective_rows_mod_large_prime": 277,
+      "charts": [
+        {
+          "status": "INFEASIBLE",
+          "tested": 3500201,
+          "elapsed_seconds": 0.115384,
+          "stderr": "",
+          "backend": "exact_cpp_projective_enumeration"
+        }
+      ],
+      "proved_unsat": true,
+      "elapsed_seconds": 0.13642966599945794
+    },
+    {
+      "small_row": [
+        0,
+        0,
+        1,
+        1,
+        2
+      ],
+      "bad_vectors_before_modular_dedup": 321,
+      "bad_projective_rows_mod_large_prime": 314,
+      "charts": [
+        {
+          "status": "INFEASIBLE",
+          "tested": 3500201,
+          "elapsed_seconds": 0.121264,
+          "stderr": "",
+          "backend": "exact_cpp_projective_enumeration"
+        }
+      ],
+      "proved_unsat": true,
+      "elapsed_seconds": 0.12680250000084925
+    },
+    {
+      "small_row": [
+        0,
+        0,
+        1,
+        2,
+        0
+      ],
+      "bad_vectors_before_modular_dedup": 326,
+      "bad_projective_rows_mod_large_prime": 317,
+      "charts": [
+        {
+          "status": "INFEASIBLE",
+          "tested": 3500201,
+          "elapsed_seconds": 0.0851851,
+          "stderr": "",
+          "backend": "exact_cpp_projective_enumeration"
+        }
+      ],
+      "proved_unsat": true,
+      "elapsed_seconds": 0.09163375000025553
+    },
+    {
+      "small_row": [
+        0,
+        0,
+        1,
+        2,
+        1
+      ],
+      "bad_vectors_before_modular_dedup": 331,
+      "bad_projective_rows_mod_large_prime": 322,
+      "charts": [
+        {
+          "status": "INFEASIBLE",
+          "tested": 3500201,
+          "elapsed_seconds": 0.0844417,
+          "stderr": "",
+          "backend": "exact_cpp_projective_enumeration"
+        }
+      ],
+      "proved_unsat": true,
+      "elapsed_seconds": 0.09254991600028006
+    },
+    {
+      "small_row": [
+        0,
+        0,
+        1,
+        2,
+        2
+      ],
+      "bad_vectors_before_modular_dedup": 324,
+      "bad_projective_rows_mod_large_prime": 316,
+      "charts": [
+        {
+          "status": "INFEASIBLE",
+          "tested": 3500201,
+          "elapsed_seconds": 0.109286,
+          "stderr": "",
+          "backend": "exact_cpp_projective_enumeration"
+        }
+      ],
+      "proved_unsat": true,
+      "elapsed_seconds": 0.11765816600018297
+    },
+    {
+      "small_row": [
+        0,
+        0,
+        0,
+        1,
+        0
+      ],
+      "bad_vectors_before_modular_dedup": 294,
+      "bad_projective_rows_mod_large_prime": 279,
+      "charts": [
+        {
+          "status": "INFEASIBLE",
+          "tested": 3500201,
+          "elapsed_seconds": 0.0895813,
+          "stderr": "",
+          "backend": "exact_cpp_projective_enumeration"
+        }
+      ],
+      "proved_unsat": true,
+      "elapsed_seconds": 0.0980499580000469
+    },
+    {
+      "small_row": [
+        0,
+        0,
+        0,
+        1,
+        1
+      ],
+      "bad_vectors_before_modular_dedup": 342,
+      "bad_projective_rows_mod_large_prime": 331,
+      "charts": [
+        {
+          "status": "INFEASIBLE",
+          "tested": 3500201,
+          "elapsed_seconds": 0.0677168,
+          "stderr": "",
+          "backend": "exact_cpp_projective_enumeration"
+        }
+      ],
+      "proved_unsat": true,
+      "elapsed_seconds": 0.07317729199894529
+    },
+    {
+      "small_row": [
+        0,
+        0,
+        0,
+        1,
+        2
+      ],
+      "bad_vectors_before_modular_dedup": 345,
+      "bad_projective_rows_mod_large_prime": 333,
+      "charts": [
+        {
+          "status": "INFEASIBLE",
+          "tested": 3500201,
+          "elapsed_seconds": 0.070095,
+          "stderr": "",
+          "backend": "exact_cpp_projective_enumeration"
+        }
+      ],
+      "proved_unsat": true,
+      "elapsed_seconds": 0.07626916700064612
+    },
+    {
+      "small_row": [
+        0,
+        0,
+        0,
+        0,
+        1
+      ],
+      "bad_vectors_before_modular_dedup": 272,
+      "bad_projective_rows_mod_large_prime": 257,
+      "charts": [
+        {
+          "status": "INFEASIBLE",
+          "tested": 3500201,
+          "elapsed_seconds": 0.0503533,
+          "stderr": "",
+          "backend": "exact_cpp_projective_enumeration"
+        }
+      ],
+      "proved_unsat": true,
+      "elapsed_seconds": 0.05820124999991094
+    }
+  ],
+  "best_candidate": null,
+  "valid_candidate": null,
+  "small_rows_completed": 121,
+  "all_completed_small_rows_proved_unsat": true,
+  "elapsed_seconds": 22.004025165999337,
+  "all_small_rows_proved_unsat": true
+}

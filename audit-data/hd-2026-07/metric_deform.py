@@ -58,6 +58,31 @@ def parse_moduli(text: str) -> list[int]:
     return [int(value) for value in values]
 
 
+def resolve_saved_path(anchor: Path, saved: str | Path) -> Path:
+    """Resolve a path stored in a checkpoint, including after it was moved."""
+    path = Path(saved)
+    if path.is_absolute() or path.exists():
+        return path
+    relative = anchor.resolve().parent / path
+    if relative.exists():
+        return relative
+    sibling = anchor.resolve().parent / path.name
+    if sibling.exists():
+        return sibling
+    raise FileNotFoundError(f"cannot resolve saved path {str(saved)!r}")
+
+
+def checkpoint_base_metric(payload: dict) -> str | None:
+    """Return the base-metric reference used by a metric checkpoint."""
+    direct = payload.get("base_metric")
+    if direct:
+        return str(direct)
+    optimizer = payload.get("optimizer")
+    if isinstance(optimizer, dict) and optimizer.get("base_metric"):
+        return str(optimizer["base_metric"])
+    return None
+
+
 def trace_free_matrix(parameters: Sequence[float], n: int) -> np.ndarray:
     """Symmetric trace-zero matrix from n(n+1)/2-1 free parameters."""
     parameters = np.asarray(parameters, dtype=np.float64)
@@ -167,7 +192,11 @@ class MetricEvaluator:
         self.max_h_norm = float(max_h_norm)
 
     def evaluate(
-        self, parameters: Sequence[float], *, with_witnesses: bool = False
+        self,
+        parameters: Sequence[float],
+        *,
+        with_witnesses: bool = False,
+        witness_window: float = 1e-7,
     ) -> MetricEvaluation:
         parameters_array = np.asarray(parameters, dtype=np.float64)
         deformation = trace_free_matrix(parameters_array, self.n)
@@ -228,7 +257,7 @@ class MetricEvaluator:
 
         witnesses: list[dict] = []
         if with_witnesses:
-            cutoff = min_ratio + 1e-7
+            cutoff = min_ratio + float(witness_window)
             for ratio, distance, coordinate in sorted(values, key=lambda item: item[0]):
                 if ratio > cutoff:
                     break
@@ -297,14 +326,64 @@ def _worker_evaluate(parameters: Sequence[float]) -> dict:
         }
 
 
-def select_record(
-    payload: dict, moduli: Sequence[int] | None, beta: float | None
-) -> dict:
-    candidates = [
+def campaign_records(payload: dict) -> list[dict]:
+    """Return deduplicated modular candidates from every campaign format.
+
+    The original Radon and block searches store candidates in ``results``.
+    Exact threshold-frontier searches instead keep one candidate under each
+    ``small_rows`` entry.  Treating both as first-class campaign sources lets
+    metric optimization start from a geometrically diverse exact frontier
+    without copying records into ad-hoc JSON files.
+    """
+    raw: list[dict] = []
+    raw.extend(
         record
-        for record in payload["results"]
-        if record.get("killed", 0) > 0
-    ]
+        for record in payload.get("results", [])
+        if isinstance(record, dict)
+    )
+    raw.extend(
+        entry["candidate"]
+        for entry in payload.get("small_rows", [])
+        if isinstance(entry, dict) and isinstance(entry.get("candidate"), dict)
+    )
+    for key in (
+        "candidate",
+        "best_candidate",
+        "best_by_minimum_ratio",
+        "valid_candidate",
+    ):
+        record = payload.get(key)
+        if isinstance(record, dict):
+            raw.append(record)
+
+    records: list[dict] = []
+    seen: set[tuple[tuple[int, ...], tuple[tuple[int, ...], ...]]] = set()
+    for record in raw:
+        if record.get("killed", 0) <= 0:
+            continue
+        moduli = tuple(int(value) for value in record.get("moduli", []))
+        rows = tuple(
+            tuple(int(value) for value in row)
+            for row in record.get("rows", [])
+        )
+        if not moduli or not rows:
+            continue
+        key = (moduli, rows)
+        if key not in seen:
+            seen.add(key)
+            records.append(record)
+    return records
+
+
+def select_record(
+    payload: dict,
+    moduli: Sequence[int] | None,
+    beta: float | None,
+    *,
+    rank: int = 0,
+    rows: Sequence[Sequence[int]] | None = None,
+) -> dict:
+    candidates = campaign_records(payload)
     if moduli is not None:
         candidates = [
             record for record in candidates if record["moduli"] == list(moduli)
@@ -315,19 +394,60 @@ def select_record(
             for record in candidates
             if math.isclose(float(record["beta"]), beta, abs_tol=1e-12)
         ]
+    if rows is not None:
+        expected_rows = [
+            [int(value) for value in row]
+            for row in rows
+        ]
+        candidates = [
+            record for record in candidates
+            if record.get("rows") == expected_rows
+        ]
     if not candidates:
         raise ValueError("no matching non-valid campaign record")
-    return max(
-        candidates,
-        key=lambda record: float(record.get("minimum_conflict_ratio") or -1.0),
+    candidates.sort(
+        key=lambda record: (
+            float(record.get("minimum_conflict_ratio") or -1.0),
+            -int(record.get("killed", 0)),
+        ),
+        reverse=True,
     )
+    if not 0 <= rank < len(candidates):
+        raise ValueError(
+            f"record rank {rank} outside matching candidates "
+            f"[0:{len(candidates)}]"
+        )
+    return candidates[rank]
 
 
 def span_stretch_seed(
     basis0: np.ndarray, record: dict, amount: float
 ) -> np.ndarray:
+    conflict_records = record.get("conflicts", [])
+    # A weighted modular screen can leave several geometrically distinct
+    # shells.  Stretching the span of *all* of them is often a no-op because
+    # their union has full rank.  The max-min objective is controlled locally
+    # by the deepest active shell, so use only conflicts tied with its minimum.
+    # The full exhaustive evaluator below still guards against a different
+    # shell becoming active after the step.
+    finite_ratios = [
+        float(item["distance_ratio"])
+        for item in conflict_records
+        if item.get("distance_ratio") is not None
+        and math.isfinite(float(item["distance_ratio"]))
+    ]
+    if finite_ratios:
+        minimum_ratio = min(finite_ratios)
+        active_records = [
+            item
+            for item in conflict_records
+            if item.get("distance_ratio") is not None
+            and float(item["distance_ratio"]) <= minimum_ratio + 1e-7
+        ]
+    else:
+        active_records = conflict_records
     conflicts = np.asarray(
-        [item["coordinate"] for item in record.get("conflicts", [])],
+        [item["coordinate"] for item in active_records],
         dtype=np.float64,
     )
     if not len(conflicts) or amount == 0:
@@ -364,6 +484,10 @@ def checkpoint_payload(
     return {
         "method": "fixed-kernel exhaustive-Voronoi metric deformation",
         "source_campaign": str(source),
+        # Keep this at top level as well as in ``optimizer`` so that every
+        # downstream verifier can reconstruct the parameterization without
+        # knowing which optimizer produced the checkpoint.
+        "base_metric": optimizer.get("base_metric"),
         "source_record": {
             "moduli": record["moduli"],
             "rows": record["rows"],
@@ -390,6 +514,24 @@ def main(argv: Sequence[str] | None = None) -> int:
     parser.add_argument("campaign", type=Path)
     parser.add_argument("--moduli", type=parse_moduli)
     parser.add_argument("--beta", type=float)
+    parser.add_argument(
+        "--record-rank",
+        type=int,
+        default=0,
+        help=(
+            "rank by decreasing fixed-metric minimum ratio among matching "
+            "modular/threshold campaign records"
+        ),
+    )
+    parser.add_argument(
+        "--candidate-rank",
+        type=int,
+        default=0,
+        help=(
+            "rank in the best[] list of a determinant_repair.py campaign; "
+            "ignored for modular campaign JSON"
+        ),
+    )
     parser.add_argument("--generations", type=int, default=60)
     parser.add_argument("--population", type=int, default=18)
     parser.add_argument("--sigma", type=float, default=0.035)
@@ -400,21 +542,102 @@ def main(argv: Sequence[str] | None = None) -> int:
     parser.add_argument("--max-h-norm", type=float, default=0.8)
     parser.add_argument("--target-margin", type=float, default=2e-4)
     parser.add_argument(
+        "--base-metric",
+        type=Path,
+        help=(
+            "optional metric JSON whose best.basis is used as the undeformed "
+            "parent form; useful when a modular campaign was run on an "
+            "already-deformed lattice"
+        ),
+    )
+    parser.add_argument(
+        "--resume",
+        type=Path,
+        help=(
+            "optional earlier metric_deform JSON; restart CMA-ES from its "
+            "best deformation parameters"
+        ),
+    )
+    parser.add_argument(
         "--output",
         type=Path,
         default=Path(__file__).resolve().parent / "metric_deform_best.json",
     )
     args = parser.parse_args(argv)
+    if args.record_rank < 0:
+        parser.error("--record-rank must be nonnegative")
+
+    resume_payload: dict | None = None
+    if args.resume is not None:
+        try:
+            resume_payload = json.loads(args.resume.read_text())
+        except (OSError, json.JSONDecodeError) as error:
+            parser.error(f"invalid --resume JSON: {error}")
+        inherited_base = checkpoint_base_metric(resume_payload)
+        if inherited_base is not None:
+            try:
+                inherited_path = resolve_saved_path(args.resume, inherited_base)
+            except FileNotFoundError as error:
+                parser.error(str(error))
+            if args.base_metric is None:
+                args.base_metric = inherited_path
 
     source_payload = json.loads(args.campaign.read_text())
     lattice_name = source_payload.get("lattice")
     if not lattice_name:
         parser.error("campaign JSON has no lattice name")
-    record = select_record(source_payload, args.moduli, args.beta)
-    rows = [np.asarray(row, dtype=np.int64) for row in record["rows"]]
-    n = int(source_payload.get("n", len(rows[0])))
-    kernel = hnf_columns(kernel_basis(rows, record["moduli"], n))
-    if lattice_name == "E7*-ABPR":
+    repair_candidates = source_payload.get("best")
+    if (
+        isinstance(repair_candidates, list)
+        and source_payload.get("target_index") is not None
+    ):
+        if not 0 <= args.candidate_rank < len(repair_candidates):
+            parser.error(
+                f"candidate rank {args.candidate_rank} outside "
+                f"best[0:{len(repair_candidates)}]"
+            )
+        candidate = repair_candidates[args.candidate_rank]
+        kernel = np.asarray(
+            candidate["kernel_basis_columns"], dtype=np.int64
+        )
+        n = len(kernel)
+        record = {
+            "moduli": [
+                int(value)
+                for value in candidate.get("smith", [])
+                if int(value) > 1
+            ],
+            "rows": [],
+            "image_index": int(source_payload["target_index"]),
+            "killed": int(candidate.get("conflict_count_with_sign", 1)),
+            "beta": float(args.candidate_rank),
+            "minimum_conflict_ratio": candidate.get("distance_ratio"),
+            "conflicts": candidate.get("conflicts", []),
+        }
+    else:
+        record = select_record(
+            source_payload,
+            args.moduli,
+            args.beta,
+            rank=args.record_rank,
+        )
+        rows = [np.asarray(row, dtype=np.int64) for row in record["rows"]]
+        n = int(source_payload.get("n", len(rows[0])))
+        kernel = hnf_columns(kernel_basis(rows, record["moduli"], n))
+    if args.base_metric is not None:
+        base_payload = json.loads(args.base_metric.read_text())
+        try:
+            basis0 = np.asarray(
+                base_payload["best"]["basis"], dtype=np.float64
+            )
+        except (KeyError, TypeError, ValueError) as error:
+            parser.error(f"invalid --base-metric JSON: {error}")
+        if basis0.shape != (n, n) or not np.all(np.isfinite(basis0)):
+            parser.error(
+                f"--base-metric basis has shape {basis0.shape}, "
+                f"expected {(n, n)} with finite entries"
+            )
+    elif lattice_name == "E7*-ABPR":
         basis0 = np.linalg.cholesky(M_E7().T @ M_E7())
     else:
         basis0, _, _ = load_forbidden(lattice_name)
@@ -426,8 +649,46 @@ def main(argv: Sequence[str] | None = None) -> int:
     )
     zero = np.zeros(n * (n + 1) // 2 - 1, dtype=np.float64)
     baseline = evaluator.evaluate(zero, with_witnesses=True)
-    initial = span_stretch_seed(basis0, record, args.initial_stretch)
+    if resume_payload is not None:
+        resume_kernel = np.asarray(
+            resume_payload.get("kernel_basis_columns"), dtype=np.int64
+        )
+        if resume_kernel.shape != kernel.shape or not np.array_equal(
+            resume_kernel, kernel
+        ):
+            parser.error(
+                "--resume checkpoint belongs to a different coloring kernel"
+            )
+        initial = np.asarray(
+            resume_payload["best"]["parameters"], dtype=np.float64
+        )
+        expected = n * (n + 1) // 2 - 1
+        if initial.shape != (expected,):
+            parser.error(
+                f"resume parameters have shape {initial.shape}, expected {(expected,)}"
+            )
+    else:
+        initial = span_stretch_seed(basis0, record, args.initial_stretch)
     seeded = evaluator.evaluate(initial, with_witnesses=True)
+    if resume_payload is not None:
+        try:
+            recorded_resume_ratio = float(
+                resume_payload["best"]["min_ratio"]
+            )
+        except (KeyError, TypeError, ValueError) as error:
+            parser.error(f"invalid --resume best.min_ratio: {error}")
+        consistency_tolerance = max(
+            5e-8, 5e-7 * abs(recorded_resume_ratio)
+        )
+        if (
+            abs(seeded.min_ratio - recorded_resume_ratio)
+            > consistency_tolerance
+        ):
+            parser.error(
+                "--resume metric parameterization mismatch: recomputed "
+                f"{seeded.min_ratio:.12g} != recorded "
+                f"{recorded_resume_ratio:.12g}; check the base-metric chain"
+            )
     print(
         f"record: moduli={record['moduli']} index={record['image_index']} "
         f"killed={record['killed']} source-ratio="
@@ -440,8 +701,13 @@ def main(argv: Sequence[str] | None = None) -> int:
         f"vertices={baseline.vertex_count}",
         flush=True,
     )
+    seed_label = (
+        f"resume={args.resume}"
+        if args.resume is not None
+        else f"stretch={args.initial_stretch:g}"
+    )
     print(
-        f"seed stretch={args.initial_stretch:g}: min={seeded.min_ratio:.9f} "
+        f"seed {seed_label}: min={seeded.min_ratio:.9f} "
         f"soft={seeded.soft_min:.9f} diam={seeded.diameter:.9f} "
         f"|H|={seeded.h_norm:.5f}",
         flush=True,
@@ -469,6 +735,11 @@ def main(argv: Sequence[str] | None = None) -> int:
         "workers": args.workers,
         "seed": args.seed,
         "initial_stretch": args.initial_stretch,
+        "record_rank": args.record_rank,
+        "resume": str(args.resume) if args.resume is not None else None,
+        "base_metric": (
+            str(args.base_metric) if args.base_metric is not None else None
+        ),
         "temperature": args.temperature,
         "max_h_norm": args.max_h_norm,
     }

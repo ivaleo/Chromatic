@@ -13,6 +13,11 @@ to an explicitly rational matrix Q = Q_integer / denominator.  The verifier:
 6. independently rebuilds the parent forbidden set and checks that none of
    its vectors lies in the modular kernel.
 
+With ``--diagnostic`` the same exact audit is allowed to finish for an invalid
+candidate.  The signed margins and kernel-conflict count are then saved, but
+``certified_upper_bound`` is explicitly null.  This is useful for reproducible
+negative frontiers; it is not an impossibility certificate.
+
 The only non-rational combinatorial oracle is Qhull's exhaustive list of simple
 Voronoi vertices/facet incidences.  Every value attached to that incidence list
 is recomputed with SymPy rational arithmetic.
@@ -283,18 +288,43 @@ def main(argv: Sequence[str] | None = None) -> int:
     parser.add_argument("candidate", type=Path)
     parser.add_argument("--denominator", type=int, default=10_000)
     parser.add_argument(
+        "--interval",
+        default="1",
+        help=(
+            "exact upper endpoint ell to certify; parsed as a rational "
+            "decimal (default: 1)"
+        ),
+    )
+    parser.add_argument(
         "--output",
         type=Path,
         default=Path(__file__).resolve().parent
-        / "metric_deform_e7_1323_certificate.json",
+        / "metric_deform_certificate.json",
+    )
+    parser.add_argument(
+        "--diagnostic",
+        action="store_true",
+        help=(
+            "finish and save an exact signed-margin audit even when color "
+            "separation fails; never records an invalid upper bound"
+        ),
     )
     args = parser.parse_args(argv)
     if args.denominator <= 0:
         parser.error("denominator must be positive")
+    try:
+        certified_interval = Rational(args.interval)
+    except (TypeError, ValueError, ZeroDivisionError) as exc:
+        parser.error(f"invalid --interval value: {exc}")
+    if certified_interval < 1:
+        parser.error("--interval must be at least 1")
 
     source = json.loads(args.candidate.read_text())
     source_record = source["source_record"]
     float_gram = np.asarray(source["best"]["gram"], dtype=np.float64)
+    n = int(float_gram.shape[0])
+    if float_gram.shape != (n, n):
+        raise AssertionError("candidate Gram matrix is not square")
     integer_gram = np.rint(float_gram * args.denominator).astype(np.int64)
     rational_gram = integer_gram.astype(np.float64) / args.denominator
     leading_minors = exact_positive_definite(integer_gram)
@@ -305,12 +335,36 @@ def main(argv: Sequence[str] | None = None) -> int:
         for row in source_record["rows"]
     ]
     moduli = [int(value) for value in source_record["moduli"]]
-    kernel = hnf_columns(kernel_basis(rows, moduli, 7))
-    exact_image = image_size(rows, moduli, 7)
+    stored_kernel = source.get("kernel_basis_columns")
+    if rows:
+        kernel = hnf_columns(kernel_basis(rows, moduli, n))
+        exact_image = image_size(rows, moduli, n)
+        if stored_kernel is not None and not np.array_equal(
+            kernel, np.asarray(stored_kernel, dtype=np.int64)
+        ):
+            raise AssertionError(
+                "reconstructed kernel differs from stored kernel"
+            )
+    else:
+        if stored_kernel is None:
+            raise AssertionError(
+                "candidate has neither quotient rows nor a stored kernel"
+            )
+        kernel = hnf_columns(
+            np.asarray(stored_kernel, dtype=np.int64)
+        )
+        exact_image = abs(int(Matrix(kernel.tolist()).det()))
     exact_determinant = abs(int(Matrix(kernel.tolist()).det()))
-    if exact_image != exact_determinant or exact_image != 1323:
+    expected_index = int(
+        source.get(
+            "kernel_determinant",
+            source_record.get("image_index", exact_image),
+        )
+    )
+    if exact_image != exact_determinant or exact_image != expected_index:
         raise AssertionError(
-            f"index mismatch: image={exact_image}, det={exact_determinant}"
+            f"index mismatch: image={exact_image}, det={exact_determinant}, "
+            f"expected={expected_index}"
         )
     print(
         f"rational Gram 1/{args.denominator}: positive definite; "
@@ -328,7 +382,7 @@ def main(argv: Sequence[str] | None = None) -> int:
         facet_coordinates @ basis, facet_normals, atol=1e-7
     ):
         raise AssertionError("could not recover integer facet coordinates")
-    if any(len(active) != 7 for active in hull.dual_facets):
+    if any(len(active) != n for active in hull.dual_facets):
         raise AssertionError("Voronoi polytope is not simple")
     print(
         f"Voronoi: facets={len(facets)} vertices={len(hull.intersections)}; "
@@ -363,7 +417,7 @@ def main(argv: Sequence[str] | None = None) -> int:
     # C++ Fincke-Pohst enumeration.
     cpp_vectors = combigeo._vectors_near(
         (kernel.T @ basis).tolist(),
-        [0.0] * 7,
+        [0.0] * n,
         2.0 * diameter + 1e-8,
     )
     cpp_coordinates = {
@@ -406,9 +460,21 @@ def main(argv: Sequence[str] | None = None) -> int:
     minimum_distance_squared = min(exact_distances_squared)
     diameter_squared = 4 * exact_radius_squared
     squared_margin = minimum_distance_squared - diameter_squared
-    if squared_margin <= 0:
+    separation_valid = squared_margin > 0
+    if not separation_valid and not args.diagnostic:
         raise AssertionError(
             f"color separation failed: squared margin={squared_margin}"
+        )
+    interval_squared_margin = (
+        minimum_distance_squared
+        - certified_interval**2 * diameter_squared
+    )
+    interval_valid = interval_squared_margin > 0
+    if not interval_valid and not args.diagnostic:
+        raise AssertionError(
+            "requested interval is not certified: "
+            f"ell={certified_interval}, "
+            f"squared margin={interval_squared_margin}"
         )
     minimum_certificates = [
         certificate
@@ -421,7 +487,8 @@ def main(argv: Sequence[str] | None = None) -> int:
         f"exact separation: Dmin^2={fraction_text(minimum_distance_squared)} "
         f"diam^2={fraction_text(diameter_squared)} "
         f"margin={float(squared_margin):.12f} "
-        f"ratio={math.sqrt(float(minimum_distance_squared/diameter_squared)):.12f}",
+        f"ratio={math.sqrt(float(minimum_distance_squared/diameter_squared)):.12f} "
+        f"ell={certified_interval}",
         flush=True,
     )
 
@@ -429,19 +496,35 @@ def main(argv: Sequence[str] | None = None) -> int:
         combigeo.forbidden_coords(basis.tolist(), diameter, 1.0),
         dtype=np.int64,
     )
-    kernel_conflicts = int(killed_mask(forbidden, rows, moduli).sum())
-    if kernel_conflicts:
+    if rows:
+        kernel_conflicts = int(killed_mask(forbidden, rows, moduli).sum())
+    else:
+        exact_adjugate = np.asarray(
+            Matrix(kernel.tolist()).adjugate().tolist(),
+            dtype=object,
+        )
+        exact_coset_keys = (
+            forbidden.astype(object) @ exact_adjugate.T
+        ) % exact_determinant
+        kernel_conflicts = int(
+            np.all(exact_coset_keys == 0, axis=1).sum()
+        )
+    if kernel_conflicts and not args.diagnostic:
         raise AssertionError(
             f"independent forbidden-set route found {kernel_conflicts} conflicts"
         )
     print(
         f"independent forbidden set: |F|={len(forbidden)}, "
-        "kernel conflicts=0",
+        f"kernel conflicts={kernel_conflicts}",
         flush=True,
     )
 
     payload = {
         "method": "rational Gram + exact vertices + exact KKT projections",
+        "diagnostic_mode": bool(args.diagnostic),
+        "diagnostic_status": (
+            "valid-certificate" if interval_valid else "invalid-candidate"
+        ),
         "source_candidate": str(args.candidate),
         "denominator": args.denominator,
         "integer_gram": integer_gram.astype(int).tolist(),
@@ -480,6 +563,7 @@ def main(argv: Sequence[str] | None = None) -> int:
             "cpp_vector_count": len(cpp_coordinates),
         },
         "separation": {
+            "valid": bool(separation_valid),
             "minimum_distance_squared": fraction_text(
                 minimum_distance_squared
             ),
@@ -496,10 +580,18 @@ def main(argv: Sequence[str] | None = None) -> int:
             "forbidden_count": int(len(forbidden)),
             "kernel_conflicts": kernel_conflicts,
         },
-        "certified_upper_bound": 1323,
+        "certified_interval": {
+            "valid": bool(interval_valid),
+            "upper_endpoint": fraction_text(certified_interval),
+            "squared_margin": fraction_text(interval_squared_margin),
+            "squared_margin_float": float(interval_squared_margin),
+        },
+        "certified_upper_bound": exact_image if interval_valid else None,
+        "audited_candidate_index": exact_image,
     }
     args.output.write_text(json.dumps(payload, indent=2) + "\n")
-    print(f"certificate saved: {args.output}", flush=True)
+    label = "certificate" if interval_valid else "diagnostic"
+    print(f"{label} saved: {args.output}", flush=True)
     return 0
 
 

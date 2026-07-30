@@ -18,3 +18,9 @@ __pycache__/
 
 # Reproducible but expensive high-dimensional forbidden-set caches
 audit-data/hd-2026-07/.search-cache/
+audit-data/hd-2026-07/*_forbidden*.npz
+
+# Locally compiled exhaustive-search enumerators
+audit-data/hd-2026-07/threshold_enum
+audit-data/hd-2026-07/threshold_enum_rebuilt
+audit-data/hd-2026-07/threshold_mask_enum

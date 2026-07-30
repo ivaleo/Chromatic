@@ -1,0 +1,155 @@
+{
+  "method": "all-values coordinate descent for one prime quotient row",
+  "source_metric": "audit-data/hd-2026-07/active_metric_a5_139.json",
+  "lattice": "A5*",
+  "n": 5,
+  "dimension": 5,
+  "prime": 139,
+  "forbidden_projective_pairs": 977,
+  "parent_diameter": 1.7170718862378123,
+  "parent_facet_count": 62,
+  "budget": {
+    "restarts": 1000,
+    "sweeps": 25,
+    "stall_sweeps": 2,
+    "kick": 2,
+    "seed": 20260751
+  },
+  "best": {
+    "row": [
+      134,
+      40,
+      73,
+      124,
+      77
+    ],
+    "modulus": 139,
+    "conflict_projective_pairs": 1,
+    "conflict_weight": 0.10490500831739964,
+    "minimum_forbidden_ratio": 0.676109573594094,
+    "conflicts": [
+      {
+        "coordinate": [
+          -1,
+          1,
+          0,
+          2,
+          -2
+        ],
+        "distance_ratio": 0.676109573594094
+      }
+    ],
+    "kernel_basis_columns": [
+      [
+        139,
+        8,
+        98,
+        136,
+        71
+      ],
+      [
+        0,
+        1,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        1,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        1,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        1
+      ]
+    ],
+    "kernel_determinant": 139,
+    "kernel_smith": [
+      1,
+      1,
+      1,
+      1,
+      139
+    ],
+    "complete_separation": {
+      "valid": false,
+      "checked_kernel_vectors": 22,
+      "enumerated_including_zero": 23,
+      "minimum_distance_ratio": 0.6761095735940942,
+      "conflict_count_with_sign": 2,
+      "conflicts": [
+        {
+          "coordinate": [
+            1,
+            -1,
+            0,
+            -2,
+            2
+          ],
+          "distance_ratio": 0.6761095735940942,
+          "norm_squared": 5.895879948555546
+        },
+        {
+          "coordinate": [
+            -1,
+            1,
+            0,
+            2,
+            -2
+          ],
+          "distance_ratio": 0.6761095735940942,
+          "norm_squared": 5.895879948555546
+        }
+      ],
+      "seconds": 0.0024862919963197783
+    }
+  },
+  "valid_candidate": null,
+  "results": [
+    {
+      "moduli": [
+        139
+      ],
+      "rows": [
+        [
+          134,
+          40,
+          73,
+          124,
+          77
+        ]
+      ],
+      "image_index": 139,
+      "killed": 1,
+      "beta": 0.0,
+      "minimum_conflict_ratio": 0.676109573594094,
+      "conflicts": [
+        {
+          "coordinate": [
+            -1,
+            1,
+            0,
+            2,
+            -2
+          ],
+          "distance_ratio": 0.676109573594094
+        }
+      ]
+    }
+  ],
+  "restarts_completed": 1000,
+  "elapsed_seconds": 2.988294124996173
+}
