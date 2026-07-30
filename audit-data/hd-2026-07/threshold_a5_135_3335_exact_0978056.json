@@ -1,0 +1,46 @@
+{
+  "method": "complete bitmask-product threshold enumeration with exact row-space symmetry reduction",
+  "source_metric": "audit-data/hd-2026-07/metric_deform_a5_135_t5000.json",
+  "lattice": "A5*",
+  "dimension": 5,
+  "structure": [
+    3,
+    3,
+    3,
+    5
+  ],
+  "target_index": 135,
+  "threshold": 0.978056,
+  "forbidden_projective_pairs": 1131,
+  "below_threshold_pairs": 1046,
+  "groups": [
+    {
+      "label": "F_3-rank-3",
+      "moduli": [
+        3,
+        3,
+        3
+      ],
+      "options": 1210,
+      "mask_words": 17
+    },
+    {
+      "label": "row-mod-5",
+      "moduli": [
+        5
+      ],
+      "options": 781,
+      "mask_words": 17
+    }
+  ],
+  "enumeration": {
+    "status": "INFEASIBLE",
+    "tested": 945010,
+    "total_tuples": 945010,
+    "elapsed_seconds": 0.00128292,
+    "stderr": ""
+  },
+  "candidate": null,
+  "valid_candidate": null,
+  "elapsed_seconds": 0.06389350000245031
+}

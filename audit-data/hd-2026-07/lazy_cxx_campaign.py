@@ -36,6 +36,36 @@ from prime_radon import (
 )
 
 
+def load_geometry(
+    specification: str,
+) -> tuple[
+    str,
+    str | None,
+    np.ndarray,
+    float,
+    list[tuple[list[float], float]],
+]:
+    """Load a catalogue lattice or a previously optimized metric JSON."""
+    path = Path(specification)
+    if not path.exists():
+        basis, diameter, facets = parent_geometry(specification)
+        return specification, None, basis, diameter, facets
+    payload = json.loads(path.read_text())
+    try:
+        basis = np.asarray(payload["best"]["basis"], dtype=np.float64)
+        diameter = float(payload["best"]["diameter"])
+    except (KeyError, TypeError, ValueError) as error:
+        raise ValueError(f"invalid metric JSON {path}: {error}") from error
+    n = len(basis)
+    if basis.shape != (n, n) or not np.all(np.isfinite(basis)):
+        raise ValueError(f"metric basis has invalid shape {basis.shape}")
+    if not math.isfinite(diameter) or diameter <= 0:
+        raise ValueError("metric diameter must be finite and positive")
+    facets = combigeo.relevant_facets(basis.tolist())
+    lattice = str(payload.get("lattice") or f"metric:{path.name}")
+    return lattice, str(path), basis, diameter, facets
+
+
 def candidate_payload(
     rows: list[np.ndarray],
     moduli: Sequence[int],
@@ -62,7 +92,10 @@ def candidate_payload(
 
 def main(argv: Sequence[str] | None = None) -> int:
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("lattice")
+    parser.add_argument(
+        "geometry",
+        help="catalogue lattice name or metric JSON with best.basis/diameter",
+    )
     parser.add_argument("structures", type=parse_structures)
     parser.add_argument("--rounds", type=int, default=80)
     parser.add_argument("--candidates", type=int, default=8)
@@ -72,14 +105,20 @@ def main(argv: Sequence[str] | None = None) -> int:
     parser.add_argument("--output", type=Path, required=True)
     args = parser.parse_args(argv)
 
-    basis, diameter, facets = parent_geometry(args.lattice)
+    try:
+        lattice, source_metric, basis, diameter, facets = load_geometry(
+            args.geometry
+        )
+    except (ValueError, OSError, json.JSONDecodeError) as error:
+        parser.error(str(error))
     initial_core = initial_short_core(basis, diameter)
     payload: dict = {
         "method": (
             "multi-candidate lazy C++ min-conflicts with complete "
             "kernel separation"
         ),
-        "lattice": args.lattice,
+        "lattice": lattice,
+        "source_metric": source_metric,
         "n": len(basis),
         "diameter": diameter,
         "facet_count": len(facets),
@@ -94,7 +133,7 @@ def main(argv: Sequence[str] | None = None) -> int:
         "results": [],
     }
     print(
-        f"{args.lattice}: n={len(basis)} diam={diameter:.12g} "
+        f"{lattice}: n={len(basis)} diam={diameter:.12g} "
         f"facets={len(facets)} short-core={len(initial_core)}",
         flush=True,
     )

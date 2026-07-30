@@ -1,0 +1,74 @@
+{
+  "method": "projective-chart CP-SAT threshold oracle for a large prime block",
+  "source_metric": "audit-data/hd-2026-07/active_metric_a5_134_stage3.json",
+  "lattice": "A5*",
+  "dimension": 5,
+  "large_prime": 67,
+  "small_modulus": 2,
+  "threshold": 0.991322,
+  "forbidden_projective_pairs": 978,
+  "small_rows_total": 1,
+  "settings": {
+    "time_limit_per_chart": 60.0,
+    "workers": 8,
+    "seed": 2026073145
+  },
+  "small_rows": [
+    {
+      "small_row": [
+        1,
+        1,
+        1,
+        0,
+        0
+      ],
+      "bad_vectors_before_modular_dedup": 475,
+      "bad_projective_rows_mod_large_prime": 459,
+      "charts": [
+        {
+          "chart": 0,
+          "status": "UNKNOWN",
+          "wall_seconds": 60.01579187500465,
+          "branches": 193358,
+          "conflicts": 68060
+        },
+        {
+          "chart": 1,
+          "status": "INFEASIBLE",
+          "wall_seconds": 0.06503395800245926,
+          "branches": 0,
+          "conflicts": 0
+        },
+        {
+          "chart": 2,
+          "status": "INFEASIBLE",
+          "wall_seconds": 0.007225916000606958,
+          "branches": 0,
+          "conflicts": 0
+        },
+        {
+          "chart": 3,
+          "status": "INFEASIBLE",
+          "wall_seconds": 0.00014662500325357541,
+          "branches": 0,
+          "conflicts": 0
+        },
+        {
+          "chart": 4,
+          "status": "INFEASIBLE",
+          "wall_seconds": 0.00012200000492157415,
+          "branches": 0,
+          "conflicts": 0
+        }
+      ],
+      "proved_unsat": false,
+      "elapsed_seconds": 60.104015083001286
+    }
+  ],
+  "best_candidate": null,
+  "valid_candidate": null,
+  "small_rows_completed": 1,
+  "all_completed_small_rows_proved_unsat": false,
+  "elapsed_seconds": 60.10530687499704,
+  "all_small_rows_proved_unsat": false
+}

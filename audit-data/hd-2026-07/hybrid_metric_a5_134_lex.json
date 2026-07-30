@@ -1,0 +1,160 @@
+{
+  "method": "alternating exact coordinate response for a large prime block and complete projective response for a small primary block",
+  "source_metric": "audit-data/hd-2026-07/active_metric_a5_136_postcross.json",
+  "lattice": "A5*",
+  "n": 5,
+  "dimension": 5,
+  "parent_diameter": 1.7544572483624599,
+  "parent_facet_count": 62,
+  "forbidden_projective_pairs": 1049,
+  "structures": [
+    [
+      67,
+      2
+    ]
+  ],
+  "budget": {
+    "restarts": 30000,
+    "sweeps": 20,
+    "stall_sweeps": 2,
+    "kick": 2,
+    "pair_moves": 3,
+    "objective": "lexicographic",
+    "weight_power": 2.0,
+    "seed": 2026073091,
+    "small_pool_size": 31
+  },
+  "results": [
+    {
+      "label": "lexicographic-power-2",
+      "beta": 2.0,
+      "moduli": [
+        67,
+        2
+      ],
+      "rows": [
+        [
+          1,
+          39,
+          16,
+          48,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          1
+        ]
+      ],
+      "target_product": 134,
+      "image_index": 134,
+      "killed": 1,
+      "weighted_loss": 0.19914123957390814,
+      "minimum_conflict_ratio": 0.5537475607081703,
+      "conflicts": [
+        {
+          "coordinate": [
+            0,
+            0,
+            0,
+            0,
+            -2
+          ],
+          "distance_ratio": 0.5537475607081703,
+          "weight": 0.19914123957390814
+        }
+      ],
+      "search_seconds": 1.9553200419977657,
+      "search": {
+        "restart": 15,
+        "sweep": 15,
+        "score": [
+          1,
+          0.19914123957390814
+        ]
+      },
+      "kernel_basis_columns": [
+        [
+          67,
+          28,
+          51,
+          19,
+          0
+        ],
+        [
+          0,
+          1,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          1,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          1,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          2
+        ]
+      ],
+      "kernel_determinant": 134,
+      "kernel_smith": [
+        1,
+        1,
+        1,
+        1,
+        134
+      ],
+      "complete_separation": {
+        "valid": false,
+        "checked_kernel_vectors": 18,
+        "enumerated_including_zero": 19,
+        "minimum_distance_ratio": 0.5537475607081703,
+        "conflict_count_with_sign": 2,
+        "conflicts": [
+          {
+            "coordinate": [
+              0,
+              0,
+              0,
+              0,
+              -2
+            ],
+            "distance_ratio": 0.5537475607081703,
+            "norm_squared": 3.7754543518366352
+          },
+          {
+            "coordinate": [
+              0,
+              0,
+              0,
+              0,
+              2
+            ],
+            "distance_ratio": 0.5537475607081703,
+            "norm_squared": 3.7754543518366352
+          }
+        ],
+        "seconds": 0.0016406249997089617
+      }
+    }
+  ],
+  "valid_candidate": null,
+  "restarts_completed": 15,
+  "elapsed_seconds": 1.9578308749987627
+}

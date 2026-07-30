@@ -1,0 +1,45 @@
+{
+  "method": "exact projective finite-field threshold enumeration with monotone attained-level search",
+  "source_metric": "audit-data/hd-2026-07/active_metric_a5_131_on132_stage1.json",
+  "lattice": "A5*",
+  "dimension": 5,
+  "prime": 131,
+  "target_index": 131,
+  "target_threshold": 1.0,
+  "maximize": false,
+  "forbidden_projective_pairs": 994,
+  "attained_ratio_levels": 964,
+  "target_proved_unsat": true,
+  "frontier_threshold": null,
+  "decisions": [
+    {
+      "threshold": 1.0,
+      "bad_vectors_before_modular_dedup": 994,
+      "bad_projective_rows_mod_prime": 962,
+      "status": "INFEASIBLE",
+      "proved_unsat": true,
+      "row": null,
+      "enumeration": [
+        {
+          "status": "INFEASIBLE",
+          "tested": 296765305,
+          "elapsed_seconds": 11.8839,
+          "stderr": "",
+          "backend": "exact_cpp_projective_enumeration"
+        }
+      ],
+      "elapsed_seconds": 12.317335458999878
+    }
+  ],
+  "candidate": null,
+  "valid_candidate": null,
+  "enumerator": {
+    "path": "audit-data/hd-2026-07/threshold_enum_rebuilt",
+    "sha256": "3f09ef976dc207aed175c8135d6a22c09895657132e7b36b4acda2bc770ea3fa",
+    "source_path": null,
+    "source_sha256": null,
+    "workers": 5,
+    "seed": 761
+  },
+  "elapsed_seconds": 12.320153208998818
+}

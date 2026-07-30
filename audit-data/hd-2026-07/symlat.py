@@ -17,6 +17,39 @@ def An_star_ambient(n):
         W[i-1, :] -= i / m
     return W                       # rows omega_1..omega_n, each in hyperplane sum=0
 
+
+def minimal_to_fundamental_transform(n):
+    """Coordinate transform from the minimal-weight to fundamental-weight basis.
+
+    Two coordinate conventions for ``A_n^*`` occur in the audit scripts:
+
+    * the columns of ``M_Anstar`` are ``-(n+1) q_i``, where
+      ``q_i=e_i-(1/(n+1))1`` are minimal weights;
+    * :func:`An_star_ambient` and :func:`lattices.Astar` use the fundamental
+      weights ``omega_i=q_1+...+q_i``.
+
+    If a row coordinate ``x_q`` is written in the ``q`` basis, then
+
+        x_omega = x_q U,   q_i = omega_i - omega_{i-1},
+
+    where ``U`` is returned here.  Consequently a column-basis matrix for a
+    sublattice transforms as ``C_omega = U.T @ C_q``.
+    """
+    if n < 1:
+        raise ValueError("dimension must be positive")
+    transform = np.eye(n, dtype=np.int64)
+    for index in range(1, n):
+        transform[index, index - 1] = -1
+    return transform
+
+
+def kernel_minimal_to_fundamental(kernel):
+    """Convert an ``A_n^*`` sublattice column basis between the conventions."""
+    matrix = np.asarray(kernel, dtype=np.int64)
+    if matrix.ndim != 2 or matrix.shape[0] != matrix.shape[1]:
+        raise ValueError("kernel must be a square matrix")
+    return minimal_to_fundamental_transform(len(matrix)).T @ matrix
+
 def gram(W):
     return W @ W.T
 

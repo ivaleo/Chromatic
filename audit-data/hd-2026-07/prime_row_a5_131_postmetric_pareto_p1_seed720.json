@@ -1,0 +1,3488 @@
+{
+  "method": "all-values coordinate descent for one prime quotient row",
+  "source_metric": "audit-data/hd-2026-07/active_metric_a5_131_on132_stage1.json",
+  "lattice": "A5*",
+  "n": 5,
+  "dimension": 5,
+  "prime": 131,
+  "forbidden_projective_pairs": 994,
+  "parent_diameter": 1.740798869045173,
+  "parent_facet_count": 62,
+  "budget": {
+    "restarts": 2500,
+    "sweeps": 25,
+    "stall_sweeps": 4,
+    "kick": 2,
+    "pair_moves": 1,
+    "pareto_size": 64,
+    "seed": 720,
+    "objective": "lexicographic",
+    "weight_power": 1.0,
+    "forbidden_cache": "audit-data/hd-2026-07/a5_131_postmetric_forbidden.npz"
+  },
+  "best": {
+    "row": [
+      1,
+      74,
+      129,
+      61,
+      110
+    ],
+    "modulus": 131,
+    "conflict_projective_pairs": 1,
+    "conflict_weight": 0.5566101713509424,
+    "minimum_forbidden_ratio": 0.4433898286490576,
+    "conflicts": [
+      {
+        "coordinate": [
+          0,
+          -2,
+          2,
+          0,
+          -1
+        ],
+        "distance_ratio": 0.4433898286490576
+      }
+    ],
+    "kernel_basis_columns": [
+      [
+        131,
+        57,
+        2,
+        70,
+        21
+      ],
+      [
+        0,
+        1,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        1,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        1,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        1
+      ]
+    ],
+    "kernel_determinant": 131,
+    "kernel_smith": [
+      1,
+      1,
+      1,
+      1,
+      131
+    ],
+    "complete_separation": {
+      "valid": false,
+      "checked_kernel_vectors": 20,
+      "enumerated_including_zero": 21,
+      "minimum_distance_ratio": 0.4433898286490576,
+      "conflict_count_with_sign": 2,
+      "conflicts": [
+        {
+          "coordinate": [
+            0,
+            -2,
+            2,
+            0,
+            -1
+          ],
+          "distance_ratio": 0.4433898286490576,
+          "norm_squared": 4.146904011510027
+        },
+        {
+          "coordinate": [
+            0,
+            2,
+            -2,
+            0,
+            1
+          ],
+          "distance_ratio": 0.4433898286490576,
+          "norm_squared": 4.146904011510027
+        }
+      ],
+      "seconds": 0.0022382500010280637
+    }
+  },
+  "best_by_minimum_ratio": {
+    "row": [
+      20,
+      56,
+      127,
+      68,
+      97
+    ],
+    "modulus": 131,
+    "conflict_projective_pairs": 14,
+    "conflict_weight": 0.17344105505998186,
+    "minimum_forbidden_ratio": 0.9874241177503655,
+    "conflicts": [
+      {
+        "coordinate": [
+          -1,
+          2,
+          0,
+          1,
+          -3
+        ],
+        "distance_ratio": 0.9874241179122835
+      },
+      {
+        "coordinate": [
+          -1,
+          0,
+          1,
+          -2,
+          3
+        ],
+        "distance_ratio": 0.9874241180331201
+      },
+      {
+        "coordinate": [
+          -3,
+          1,
+          -1,
+          1,
+          2
+        ],
+        "distance_ratio": 0.9874241177503655
+      },
+      {
+        "coordinate": [
+          0,
+          -1,
+          3,
+          0,
+          -2
+        ],
+        "distance_ratio": 0.987424117864628
+      },
+      {
+        "coordinate": [
+          -2,
+          3,
+          -2,
+          -1,
+          2
+        ],
+        "distance_ratio": 0.9874241180002219
+      },
+      {
+        "coordinate": [
+          -2,
+          1,
+          -2,
+          3,
+          -1
+        ],
+        "distance_ratio": 0.9881852564396281
+      },
+      {
+        "coordinate": [
+          -1,
+          0,
+          1,
+          -3,
+          1
+        ],
+        "distance_ratio": 0.9874241179926264
+      },
+      {
+        "coordinate": [
+          -2,
+          2,
+          1,
+          -1,
+          0
+        ],
+        "distance_ratio": 0.9874241177617588
+      },
+      {
+        "coordinate": [
+          -1,
+          -2,
+          1,
+          2,
+          0
+        ],
+        "distance_ratio": 0.9892842737025274
+      },
+      {
+        "coordinate": [
+          -1,
+          3,
+          -3,
+          2,
+          1
+        ],
+        "distance_ratio": 0.9874241179956995
+      },
+      {
+        "coordinate": [
+          -1,
+          -2,
+          1,
+          1,
+          -2
+        ],
+        "distance_ratio": 0.9874241179620672
+      },
+      {
+        "coordinate": [
+          -3,
+          0,
+          2,
+          0,
+          -2
+        ],
+        "distance_ratio": 0.9874241178399048
+      },
+      {
+        "coordinate": [
+          0,
+          0,
+          0,
+          -1,
+          -2
+        ],
+        "distance_ratio": 0.9874241178862769
+      },
+      {
+        "coordinate": [
+          -2,
+          2,
+          1,
+          -2,
+          -2
+        ],
+        "distance_ratio": 0.98742411779891
+      }
+    ],
+    "kernel_basis_columns": [
+      [
+        131,
+        102,
+        105,
+        49,
+        41
+      ],
+      [
+        0,
+        1,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        1,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        1,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        1
+      ]
+    ],
+    "kernel_determinant": 131,
+    "kernel_smith": [
+      1,
+      1,
+      1,
+      1,
+      131
+    ],
+    "complete_separation": {
+      "valid": false,
+      "checked_kernel_vectors": 34,
+      "enumerated_including_zero": 35,
+      "minimum_distance_ratio": 0.9874241177503655,
+      "conflict_count_with_sign": 28,
+      "conflicts": [
+        {
+          "coordinate": [
+            -3,
+            1,
+            -1,
+            1,
+            2
+          ],
+          "distance_ratio": 0.9874241177503655,
+          "norm_squared": 10.374550472738948
+        },
+        {
+          "coordinate": [
+            3,
+            -1,
+            1,
+            -1,
+            -2
+          ],
+          "distance_ratio": 0.9874241177503655,
+          "norm_squared": 10.374550472738948
+        },
+        {
+          "coordinate": [
+            -2,
+            2,
+            1,
+            -1,
+            0
+          ],
+          "distance_ratio": 0.987424117761759,
+          "norm_squared": 9.72862476189918
+        },
+        {
+          "coordinate": [
+            2,
+            -2,
+            -1,
+            1,
+            0
+          ],
+          "distance_ratio": 0.987424117761759,
+          "norm_squared": 9.72862476189918
+        },
+        {
+          "coordinate": [
+            -2,
+            2,
+            1,
+            -2,
+            -2
+          ],
+          "distance_ratio": 0.9874241177989106,
+          "norm_squared": 11.245044997832661
+        },
+        {
+          "coordinate": [
+            2,
+            -2,
+            -1,
+            2,
+            2
+          ],
+          "distance_ratio": 0.9874241177989106,
+          "norm_squared": 11.245044997832661
+        },
+        {
+          "coordinate": [
+            3,
+            0,
+            -2,
+            0,
+            2
+          ],
+          "distance_ratio": 0.9874241178399048,
+          "norm_squared": 9.913659354158542
+        },
+        {
+          "coordinate": [
+            -3,
+            0,
+            2,
+            0,
+            -2
+          ],
+          "distance_ratio": 0.9874241178399048,
+          "norm_squared": 9.913659354158542
+        },
+        {
+          "coordinate": [
+            0,
+            1,
+            -3,
+            0,
+            2
+          ],
+          "distance_ratio": 0.987424117864628,
+          "norm_squared": 10.208539143294637
+        },
+        {
+          "coordinate": [
+            0,
+            -1,
+            3,
+            0,
+            -2
+          ],
+          "distance_ratio": 0.987424117864628,
+          "norm_squared": 10.208539143294637
+        },
+        {
+          "coordinate": [
+            0,
+            0,
+            0,
+            1,
+            2
+          ],
+          "distance_ratio": 0.9874241178862769,
+          "norm_squared": 9.035832235129547
+        },
+        {
+          "coordinate": [
+            0,
+            0,
+            0,
+            -1,
+            -2
+          ],
+          "distance_ratio": 0.9874241178862769,
+          "norm_squared": 9.035832235129547
+        },
+        {
+          "coordinate": [
+            -1,
+            2,
+            0,
+            1,
+            -3
+          ],
+          "distance_ratio": 0.9874241179122835,
+          "norm_squared": 11.078501128100765
+        },
+        {
+          "coordinate": [
+            1,
+            -2,
+            0,
+            -1,
+            3
+          ],
+          "distance_ratio": 0.9874241179122835,
+          "norm_squared": 11.078501128100765
+        },
+        {
+          "coordinate": [
+            1,
+            2,
+            -1,
+            -1,
+            2
+          ],
+          "distance_ratio": 0.9874241179620673,
+          "norm_squared": 10.802685134571666
+        },
+        {
+          "coordinate": [
+            -1,
+            -2,
+            1,
+            1,
+            -2
+          ],
+          "distance_ratio": 0.9874241179620673,
+          "norm_squared": 10.802685134571666
+        },
+        {
+          "coordinate": [
+            1,
+            0,
+            -1,
+            3,
+            -1
+          ],
+          "distance_ratio": 0.9874241179926269,
+          "norm_squared": 10.96890731533533
+        },
+        {
+          "coordinate": [
+            -1,
+            0,
+            1,
+            -3,
+            1
+          ],
+          "distance_ratio": 0.9874241179926269,
+          "norm_squared": 10.96890731533533
+        },
+        {
+          "coordinate": [
+            -1,
+            3,
+            -3,
+            2,
+            1
+          ],
+          "distance_ratio": 0.9874241179957002,
+          "norm_squared": 10.91728370521339
+        },
+        {
+          "coordinate": [
+            1,
+            -3,
+            3,
+            -2,
+            -1
+          ],
+          "distance_ratio": 0.9874241179957002,
+          "norm_squared": 10.91728370521339
+        },
+        {
+          "coordinate": [
+            -2,
+            3,
+            -2,
+            -1,
+            2
+          ],
+          "distance_ratio": 0.9874241180002222,
+          "norm_squared": 10.940745469506496
+        },
+        {
+          "coordinate": [
+            2,
+            -3,
+            2,
+            1,
+            -2
+          ],
+          "distance_ratio": 0.9874241180002222,
+          "norm_squared": 10.940745469506496
+        },
+        {
+          "coordinate": [
+            1,
+            0,
+            -1,
+            2,
+            -3
+          ],
+          "distance_ratio": 0.9874241180331202,
+          "norm_squared": 11.0859282918571
+        },
+        {
+          "coordinate": [
+            -1,
+            0,
+            1,
+            -2,
+            3
+          ],
+          "distance_ratio": 0.9874241180331202,
+          "norm_squared": 11.0859282918571
+        },
+        {
+          "coordinate": [
+            -2,
+            1,
+            -2,
+            3,
+            -1
+          ],
+          "distance_ratio": 0.9881852564396281,
+          "norm_squared": 10.871938695407236
+        },
+        {
+          "coordinate": [
+            2,
+            -1,
+            2,
+            -3,
+            1
+          ],
+          "distance_ratio": 0.9881852564396281,
+          "norm_squared": 10.871938695407236
+        },
+        {
+          "coordinate": [
+            1,
+            2,
+            -1,
+            -2,
+            0
+          ],
+          "distance_ratio": 0.9892842737025273,
+          "norm_squared": 10.627834891084142
+        },
+        {
+          "coordinate": [
+            -1,
+            -2,
+            1,
+            2,
+            0
+          ],
+          "distance_ratio": 0.9892842737025273,
+          "norm_squared": 10.627834891084142
+        }
+      ],
+      "seconds": 0.004126709000047413
+    }
+  },
+  "results": [
+    {
+      "moduli": [
+        131
+      ],
+      "rows": [
+        [
+          1,
+          74,
+          129,
+          61,
+          110
+        ]
+      ],
+      "image_index": 131,
+      "killed": 1,
+      "beta": 1.0,
+      "minimum_conflict_ratio": 0.4433898286490576,
+      "conflicts": [
+        {
+          "coordinate": [
+            0,
+            -2,
+            2,
+            0,
+            -1
+          ],
+          "distance_ratio": 0.4433898286490576
+        }
+      ]
+    },
+    {
+      "moduli": [
+        131
+      ],
+      "rows": [
+        [
+          20,
+          56,
+          127,
+          68,
+          97
+        ]
+      ],
+      "image_index": 131,
+      "killed": 14,
+      "beta": 1.0,
+      "minimum_conflict_ratio": 0.9874241177503655,
+      "conflicts": [
+        {
+          "coordinate": [
+            -1,
+            2,
+            0,
+            1,
+            -3
+          ],
+          "distance_ratio": 0.9874241179122835
+        },
+        {
+          "coordinate": [
+            -1,
+            0,
+            1,
+            -2,
+            3
+          ],
+          "distance_ratio": 0.9874241180331201
+        },
+        {
+          "coordinate": [
+            -3,
+            1,
+            -1,
+            1,
+            2
+          ],
+          "distance_ratio": 0.9874241177503655
+        },
+        {
+          "coordinate": [
+            0,
+            -1,
+            3,
+            0,
+            -2
+          ],
+          "distance_ratio": 0.987424117864628
+        },
+        {
+          "coordinate": [
+            -2,
+            3,
+            -2,
+            -1,
+            2
+          ],
+          "distance_ratio": 0.9874241180002219
+        },
+        {
+          "coordinate": [
+            -2,
+            1,
+            -2,
+            3,
+            -1
+          ],
+          "distance_ratio": 0.9881852564396281
+        },
+        {
+          "coordinate": [
+            -1,
+            0,
+            1,
+            -3,
+            1
+          ],
+          "distance_ratio": 0.9874241179926264
+        },
+        {
+          "coordinate": [
+            -2,
+            2,
+            1,
+            -1,
+            0
+          ],
+          "distance_ratio": 0.9874241177617588
+        },
+        {
+          "coordinate": [
+            -1,
+            -2,
+            1,
+            2,
+            0
+          ],
+          "distance_ratio": 0.9892842737025274
+        },
+        {
+          "coordinate": [
+            -1,
+            3,
+            -3,
+            2,
+            1
+          ],
+          "distance_ratio": 0.9874241179956995
+        },
+        {
+          "coordinate": [
+            -1,
+            -2,
+            1,
+            1,
+            -2
+          ],
+          "distance_ratio": 0.9874241179620672
+        },
+        {
+          "coordinate": [
+            -3,
+            0,
+            2,
+            0,
+            -2
+          ],
+          "distance_ratio": 0.9874241178399048
+        },
+        {
+          "coordinate": [
+            0,
+            0,
+            0,
+            -1,
+            -2
+          ],
+          "distance_ratio": 0.9874241178862769
+        },
+        {
+          "coordinate": [
+            -2,
+            2,
+            1,
+            -2,
+            -2
+          ],
+          "distance_ratio": 0.98742411779891
+        }
+      ]
+    },
+    {
+      "moduli": [
+        131
+      ],
+      "rows": [
+        [
+          1,
+          88,
+          129,
+          14,
+          82
+        ]
+      ],
+      "image_index": 131,
+      "killed": 1,
+      "beta": 1.0,
+      "minimum_conflict_ratio": 0.4433898286490576,
+      "conflicts": [
+        {
+          "coordinate": [
+            0,
+            -2,
+            2,
+            0,
+            -1
+          ],
+          "distance_ratio": 0.4433898286490576
+        }
+      ]
+    },
+    {
+      "moduli": [
+        131
+      ],
+      "rows": [
+        [
+          1,
+          3,
+          58,
+          106,
+          117
+        ]
+      ],
+      "image_index": 131,
+      "killed": 2,
+      "beta": 1.0,
+      "minimum_conflict_ratio": 0.6007524600207088,
+      "conflicts": [
+        {
+          "coordinate": [
+            0,
+            -1,
+            0,
+            1,
+            -2
+          ],
+          "distance_ratio": 0.6007524600207088
+        },
+        {
+          "coordinate": [
+            -3,
+            1,
+            0,
+            0,
+            0
+          ],
+          "distance_ratio": 0.6407645747854351
+        }
+      ]
+    },
+    {
+      "moduli": [
+        131
+      ],
+      "rows": [
+        [
+          1,
+          86,
+          83,
+          91,
+          67
+        ]
+      ],
+      "image_index": 131,
+      "killed": 2,
+      "beta": 1.0,
+      "minimum_conflict_ratio": 0.5942347819636895,
+      "conflicts": [
+        {
+          "coordinate": [
+            -1,
+            2,
+            -1,
+            -1,
+            2
+          ],
+          "distance_ratio": 0.5942347819636895
+        },
+        {
+          "coordinate": [
+            0,
+            -1,
+            1,
+            0,
+            2
+          ],
+          "distance_ratio": 0.7855816579997973
+        }
+      ]
+    },
+    {
+      "moduli": [
+        131
+      ],
+      "rows": [
+        [
+          1,
+          57,
+          22,
+          116,
+          32
+        ]
+      ],
+      "image_index": 131,
+      "killed": 2,
+      "beta": 1.0,
+      "minimum_conflict_ratio": 0.5634102398202181,
+      "conflicts": [
+        {
+          "coordinate": [
+            -2,
+            -1,
+            2,
+            -1,
+            0
+          ],
+          "distance_ratio": 0.5634102398202181
+        },
+        {
+          "coordinate": [
+            -1,
+            3,
+            -1,
+            -1,
+            -1
+          ],
+          "distance_ratio": 0.8377006297722636
+        }
+      ]
+    },
+    {
+      "moduli": [
+        131
+      ],
+      "rows": [
+        [
+          1,
+          76,
+          10,
+          32,
+          29
+        ]
+      ],
+      "image_index": 131,
+      "killed": 2,
+      "beta": 1.0,
+      "minimum_conflict_ratio": 0.5349334790647827,
+      "conflicts": [
+        {
+          "coordinate": [
+            -1,
+            2,
+            -2,
+            0,
+            0
+          ],
+          "distance_ratio": 0.5349334790647827
+        },
+        {
+          "coordinate": [
+            -1,
+            -1,
+            1,
+            -2,
+            0
+          ],
+          "distance_ratio": 0.9164405238294893
+        }
+      ]
+    },
+    {
+      "moduli": [
+        131
+      ],
+      "rows": [
+        [
+          1,
+          129,
+          85,
+          8,
+          23
+        ]
+      ],
+      "image_index": 131,
+      "killed": 2,
+      "beta": 1.0,
+      "minimum_conflict_ratio": 0.5050048724849329,
+      "conflicts": [
+        {
+          "coordinate": [
+            -2,
+            -1,
+            1,
+            0,
+            2
+          ],
+          "distance_ratio": 0.9550923200775364
+        },
+        {
+          "coordinate": [
+            0,
+            0,
+            -2,
+            2,
+            1
+          ],
+          "distance_ratio": 0.5050048724849329
+        }
+      ]
+    },
+    {
+      "moduli": [
+        131
+      ],
+      "rows": [
+        [
+          1,
+          129,
+          72,
+          42,
+          112
+        ]
+      ],
+      "image_index": 131,
+      "killed": 2,
+      "beta": 1.0,
+      "minimum_conflict_ratio": 0.500586854000003,
+      "conflicts": [
+        {
+          "coordinate": [
+            0,
+            -3,
+            2,
+            0,
+            1
+          ],
+          "distance_ratio": 0.9647017123970271
+        },
+        {
+          "coordinate": [
+            -2,
+            0,
+            1,
+            1,
+            -1
+          ],
+          "distance_ratio": 0.500586854000003
+        }
+      ]
+    },
+    {
+      "moduli": [
+        131
+      ],
+      "rows": [
+        [
+          1,
+          22,
+          24,
+          17,
+          99
+        ]
+      ],
+      "image_index": 131,
+      "killed": 3,
+      "beta": 1.0,
+      "minimum_conflict_ratio": 0.6548396853775172,
+      "conflicts": [
+        {
+          "coordinate": [
+            -3,
+            3,
+            -2,
+            1,
+            1
+          ],
+          "distance_ratio": 0.9705063224978424
+        },
+        {
+          "coordinate": [
+            -2,
+            -1,
+            1,
+            0,
+            0
+          ],
+          "distance_ratio": 0.6548396853775172
+        },
+        {
+          "coordinate": [
+            0,
+            -1,
+            1,
+            -2,
+            -1
+          ],
+          "distance_ratio": 0.9121659652804915
+        }
+      ]
+    },
+    {
+      "moduli": [
+        131
+      ],
+      "rows": [
+        [
+          1,
+          65,
+          119,
+          57,
+          100
+        ]
+      ],
+      "image_index": 131,
+      "killed": 6,
+      "beta": 1.0,
+      "minimum_conflict_ratio": 0.7856672483149835,
+      "conflicts": [
+        {
+          "coordinate": [
+            0,
+            0,
+            -1,
+            1,
+            -2
+          ],
+          "distance_ratio": 0.7856672483149835
+        },
+        {
+          "coordinate": [
+            -1,
+            -2,
+            1,
+            -1,
+            2
+          ],
+          "distance_ratio": 0.9229437397754688
+        },
+        {
+          "coordinate": [
+            0,
+            -3,
+            2,
+            1,
+            -1
+          ],
+          "distance_ratio": 0.9621200447228649
+        },
+        {
+          "coordinate": [
+            -3,
+            1,
+            -1,
+            1,
+            0
+          ],
+          "distance_ratio": 0.8152148868660672
+        },
+        {
+          "coordinate": [
+            -1,
+            -2,
+            4,
+            -2,
+            -1
+          ],
+          "distance_ratio": 0.9264990436597488
+        },
+        {
+          "coordinate": [
+            -1,
+            1,
+            1,
+            -2,
+            -2
+          ],
+          "distance_ratio": 0.788541048664066
+        }
+      ]
+    },
+    {
+      "moduli": [
+        131
+      ],
+      "rows": [
+        [
+          1,
+          29,
+          26,
+          82,
+          90
+        ]
+      ],
+      "image_index": 131,
+      "killed": 14,
+      "beta": 1.0,
+      "minimum_conflict_ratio": 0.9874241177503655,
+      "conflicts": [
+        {
+          "coordinate": [
+            -1,
+            2,
+            0,
+            1,
+            -3
+          ],
+          "distance_ratio": 0.9874241179122835
+        },
+        {
+          "coordinate": [
+            -1,
+            0,
+            1,
+            -2,
+            3
+          ],
+          "distance_ratio": 0.9874241180331201
+        },
+        {
+          "coordinate": [
+            -3,
+            1,
+            -1,
+            1,
+            2
+          ],
+          "distance_ratio": 0.9874241177503655
+        },
+        {
+          "coordinate": [
+            0,
+            -1,
+            3,
+            0,
+            -2
+          ],
+          "distance_ratio": 0.987424117864628
+        },
+        {
+          "coordinate": [
+            -2,
+            3,
+            -2,
+            -1,
+            2
+          ],
+          "distance_ratio": 0.9874241180002219
+        },
+        {
+          "coordinate": [
+            -2,
+            1,
+            -2,
+            3,
+            -1
+          ],
+          "distance_ratio": 0.9881852564396281
+        },
+        {
+          "coordinate": [
+            -1,
+            0,
+            1,
+            -3,
+            1
+          ],
+          "distance_ratio": 0.9874241179926264
+        },
+        {
+          "coordinate": [
+            -2,
+            2,
+            1,
+            -1,
+            0
+          ],
+          "distance_ratio": 0.9874241177617588
+        },
+        {
+          "coordinate": [
+            -1,
+            -2,
+            1,
+            2,
+            0
+          ],
+          "distance_ratio": 0.9892842737025274
+        },
+        {
+          "coordinate": [
+            -1,
+            3,
+            -3,
+            2,
+            1
+          ],
+          "distance_ratio": 0.9874241179956995
+        },
+        {
+          "coordinate": [
+            -1,
+            -2,
+            1,
+            1,
+            -2
+          ],
+          "distance_ratio": 0.9874241179620672
+        },
+        {
+          "coordinate": [
+            -3,
+            0,
+            2,
+            0,
+            -2
+          ],
+          "distance_ratio": 0.9874241178399048
+        },
+        {
+          "coordinate": [
+            0,
+            0,
+            0,
+            -1,
+            -2
+          ],
+          "distance_ratio": 0.9874241178862769
+        },
+        {
+          "coordinate": [
+            -2,
+            2,
+            1,
+            -2,
+            -2
+          ],
+          "distance_ratio": 0.98742411779891
+        }
+      ]
+    }
+  ],
+  "valid_candidate": null,
+  "pareto_archive_summary": [
+    {
+      "row": [
+        1,
+        74,
+        129,
+        61,
+        110
+      ],
+      "conflict_projective_pairs": 1,
+      "conflict_weight": 0.5566101713509424,
+      "minimum_forbidden_ratio": 0.4433898286490576
+    },
+    {
+      "row": [
+        1,
+        88,
+        129,
+        14,
+        82
+      ],
+      "conflict_projective_pairs": 1,
+      "conflict_weight": 0.5566101713509424,
+      "minimum_forbidden_ratio": 0.4433898286490576
+    },
+    {
+      "row": [
+        1,
+        3,
+        58,
+        106,
+        117
+      ],
+      "conflict_projective_pairs": 2,
+      "conflict_weight": 0.758482965193856,
+      "minimum_forbidden_ratio": 0.6007524600207088
+    },
+    {
+      "row": [
+        1,
+        86,
+        83,
+        91,
+        67
+      ],
+      "conflict_projective_pairs": 2,
+      "conflict_weight": 0.6201835600365132,
+      "minimum_forbidden_ratio": 0.5942347819636895
+    },
+    {
+      "row": [
+        1,
+        57,
+        22,
+        116,
+        32
+      ],
+      "conflict_projective_pairs": 2,
+      "conflict_weight": 0.5988891304075183,
+      "minimum_forbidden_ratio": 0.5634102398202181
+    },
+    {
+      "row": [
+        1,
+        76,
+        10,
+        32,
+        29
+      ],
+      "conflict_projective_pairs": 2,
+      "conflict_weight": 0.548625997105728,
+      "minimum_forbidden_ratio": 0.5349334790647827
+    },
+    {
+      "row": [
+        1,
+        129,
+        85,
+        8,
+        23
+      ],
+      "conflict_projective_pairs": 2,
+      "conflict_weight": 0.5399028074375307,
+      "minimum_forbidden_ratio": 0.5050048724849329
+    },
+    {
+      "row": [
+        1,
+        129,
+        72,
+        42,
+        112
+      ],
+      "conflict_projective_pairs": 2,
+      "conflict_weight": 0.5347114336029699,
+      "minimum_forbidden_ratio": 0.500586854000003
+    },
+    {
+      "row": [
+        1,
+        22,
+        24,
+        17,
+        99
+      ],
+      "conflict_projective_pairs": 3,
+      "conflict_weight": 0.4624880268441488,
+      "minimum_forbidden_ratio": 0.6548396853775172
+    },
+    {
+      "row": [
+        1,
+        65,
+        119,
+        57,
+        100
+      ],
+      "conflict_projective_pairs": 6,
+      "conflict_weight": 0.7990139879968007,
+      "minimum_forbidden_ratio": 0.7856672483149835
+    },
+    {
+      "row": [
+        1,
+        29,
+        26,
+        82,
+        90
+      ],
+      "conflict_projective_pairs": 14,
+      "conflict_weight": 0.17344105505998186,
+      "minimum_forbidden_ratio": 0.9874241177503655
+    }
+  ],
+  "restarts_completed": 2500,
+  "elapsed_seconds": 270.86142225000003,
+  "pareto_archive": [
+    {
+      "row": [
+        1,
+        74,
+        129,
+        61,
+        110
+      ],
+      "modulus": 131,
+      "conflict_projective_pairs": 1,
+      "conflict_weight": 0.5566101713509424,
+      "minimum_forbidden_ratio": 0.4433898286490576,
+      "conflicts": [
+        {
+          "coordinate": [
+            0,
+            -2,
+            2,
+            0,
+            -1
+          ],
+          "distance_ratio": 0.4433898286490576
+        }
+      ],
+      "kernel_basis_columns": [
+        [
+          131,
+          57,
+          2,
+          70,
+          21
+        ],
+        [
+          0,
+          1,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          1,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          1,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          1
+        ]
+      ],
+      "kernel_determinant": 131,
+      "kernel_smith": [
+        1,
+        1,
+        1,
+        1,
+        131
+      ],
+      "complete_separation": {
+        "valid": false,
+        "checked_kernel_vectors": 20,
+        "enumerated_including_zero": 21,
+        "minimum_distance_ratio": 0.4433898286490576,
+        "conflict_count_with_sign": 2,
+        "conflicts": [
+          {
+            "coordinate": [
+              0,
+              -2,
+              2,
+              0,
+              -1
+            ],
+            "distance_ratio": 0.4433898286490576,
+            "norm_squared": 4.146904011510027
+          },
+          {
+            "coordinate": [
+              0,
+              2,
+              -2,
+              0,
+              1
+            ],
+            "distance_ratio": 0.4433898286490576,
+            "norm_squared": 4.146904011510027
+          }
+        ],
+        "seconds": 0.002320292000149493
+      }
+    },
+    {
+      "row": [
+        1,
+        88,
+        129,
+        14,
+        82
+      ],
+      "modulus": 131,
+      "conflict_projective_pairs": 1,
+      "conflict_weight": 0.5566101713509424,
+      "minimum_forbidden_ratio": 0.4433898286490576,
+      "conflicts": [
+        {
+          "coordinate": [
+            0,
+            -2,
+            2,
+            0,
+            -1
+          ],
+          "distance_ratio": 0.4433898286490576
+        }
+      ],
+      "kernel_basis_columns": [
+        [
+          131,
+          43,
+          2,
+          117,
+          49
+        ],
+        [
+          0,
+          1,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          1,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          1,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          1
+        ]
+      ],
+      "kernel_determinant": 131,
+      "kernel_smith": [
+        1,
+        1,
+        1,
+        1,
+        131
+      ],
+      "complete_separation": {
+        "valid": false,
+        "checked_kernel_vectors": 18,
+        "enumerated_including_zero": 19,
+        "minimum_distance_ratio": 0.4433898286490576,
+        "conflict_count_with_sign": 2,
+        "conflicts": [
+          {
+            "coordinate": [
+              0,
+              -2,
+              2,
+              0,
+              -1
+            ],
+            "distance_ratio": 0.4433898286490576,
+            "norm_squared": 4.146904011510027
+          },
+          {
+            "coordinate": [
+              0,
+              2,
+              -2,
+              0,
+              1
+            ],
+            "distance_ratio": 0.4433898286490576,
+            "norm_squared": 4.146904011510027
+          }
+        ],
+        "seconds": 0.001981625000553322
+      }
+    },
+    {
+      "row": [
+        1,
+        3,
+        58,
+        106,
+        117
+      ],
+      "modulus": 131,
+      "conflict_projective_pairs": 2,
+      "conflict_weight": 0.758482965193856,
+      "minimum_forbidden_ratio": 0.6007524600207088,
+      "conflicts": [
+        {
+          "coordinate": [
+            0,
+            -1,
+            0,
+            1,
+            -2
+          ],
+          "distance_ratio": 0.6007524600207088
+        },
+        {
+          "coordinate": [
+            -3,
+            1,
+            0,
+            0,
+            0
+          ],
+          "distance_ratio": 0.6407645747854351
+        }
+      ],
+      "kernel_basis_columns": [
+        [
+          131,
+          128,
+          73,
+          25,
+          14
+        ],
+        [
+          0,
+          1,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          1,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          1,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          1
+        ]
+      ],
+      "kernel_determinant": 131,
+      "kernel_smith": [
+        1,
+        1,
+        1,
+        1,
+        131
+      ],
+      "complete_separation": {
+        "valid": false,
+        "checked_kernel_vectors": 22,
+        "enumerated_including_zero": 23,
+        "minimum_distance_ratio": 0.6007524600207088,
+        "conflict_count_with_sign": 4,
+        "conflicts": [
+          {
+            "coordinate": [
+              0,
+              -1,
+              0,
+              1,
+              -2
+            ],
+            "distance_ratio": 0.6007524600207088,
+            "norm_squared": 6.209164512625711
+          },
+          {
+            "coordinate": [
+              0,
+              1,
+              0,
+              -1,
+              2
+            ],
+            "distance_ratio": 0.6007524600207088,
+            "norm_squared": 6.209164512625711
+          },
+          {
+            "coordinate": [
+              3,
+              -1,
+              0,
+              0,
+              0
+            ],
+            "distance_ratio": 0.6407645747854351,
+            "norm_squared": 6.0450087332075615
+          },
+          {
+            "coordinate": [
+              -3,
+              1,
+              0,
+              0,
+              0
+            ],
+            "distance_ratio": 0.6407645747854351,
+            "norm_squared": 6.0450087332075615
+          }
+        ],
+        "seconds": 0.00238704100047471
+      }
+    },
+    {
+      "row": [
+        1,
+        86,
+        83,
+        91,
+        67
+      ],
+      "modulus": 131,
+      "conflict_projective_pairs": 2,
+      "conflict_weight": 0.6201835600365132,
+      "minimum_forbidden_ratio": 0.5942347819636895,
+      "conflicts": [
+        {
+          "coordinate": [
+            -1,
+            2,
+            -1,
+            -1,
+            2
+          ],
+          "distance_ratio": 0.5942347819636895
+        },
+        {
+          "coordinate": [
+            0,
+            -1,
+            1,
+            0,
+            2
+          ],
+          "distance_ratio": 0.7855816579997973
+        }
+      ],
+      "kernel_basis_columns": [
+        [
+          131,
+          45,
+          48,
+          40,
+          64
+        ],
+        [
+          0,
+          1,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          1,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          1,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          1
+        ]
+      ],
+      "kernel_determinant": 131,
+      "kernel_smith": [
+        1,
+        1,
+        1,
+        1,
+        131
+      ],
+      "complete_separation": {
+        "valid": false,
+        "checked_kernel_vectors": 24,
+        "enumerated_including_zero": 25,
+        "minimum_distance_ratio": 0.5942347819636894,
+        "conflict_count_with_sign": 4,
+        "conflicts": [
+          {
+            "coordinate": [
+              -1,
+              2,
+              -1,
+              -1,
+              2
+            ],
+            "distance_ratio": 0.5942347819636894,
+            "norm_squared": 6.724618775528615
+          },
+          {
+            "coordinate": [
+              1,
+              -2,
+              1,
+              1,
+              -2
+            ],
+            "distance_ratio": 0.5942347819636894,
+            "norm_squared": 6.724618775528615
+          },
+          {
+            "coordinate": [
+              0,
+              -1,
+              1,
+              0,
+              2
+            ],
+            "distance_ratio": 0.7855816579997973,
+            "norm_squared": 6.661129882058383
+          },
+          {
+            "coordinate": [
+              0,
+              1,
+              -1,
+              0,
+              -2
+            ],
+            "distance_ratio": 0.7855816579997973,
+            "norm_squared": 6.661129882058383
+          }
+        ],
+        "seconds": 0.002675666999493842
+      }
+    },
+    {
+      "row": [
+        1,
+        57,
+        22,
+        116,
+        32
+      ],
+      "modulus": 131,
+      "conflict_projective_pairs": 2,
+      "conflict_weight": 0.5988891304075183,
+      "minimum_forbidden_ratio": 0.5634102398202181,
+      "conflicts": [
+        {
+          "coordinate": [
+            -2,
+            -1,
+            2,
+            -1,
+            0
+          ],
+          "distance_ratio": 0.5634102398202181
+        },
+        {
+          "coordinate": [
+            -1,
+            3,
+            -1,
+            -1,
+            -1
+          ],
+          "distance_ratio": 0.8377006297722636
+        }
+      ],
+      "kernel_basis_columns": [
+        [
+          131,
+          74,
+          109,
+          15,
+          99
+        ],
+        [
+          0,
+          1,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          1,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          1,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          1
+        ]
+      ],
+      "kernel_determinant": 131,
+      "kernel_smith": [
+        1,
+        1,
+        1,
+        1,
+        131
+      ],
+      "complete_separation": {
+        "valid": false,
+        "checked_kernel_vectors": 28,
+        "enumerated_including_zero": 29,
+        "minimum_distance_ratio": 0.5634102398202182,
+        "conflict_count_with_sign": 4,
+        "conflicts": [
+          {
+            "coordinate": [
+              2,
+              1,
+              -2,
+              1,
+              0
+            ],
+            "distance_ratio": 0.5634102398202182,
+            "norm_squared": 6.212431086403546
+          },
+          {
+            "coordinate": [
+              -2,
+              -1,
+              2,
+              -1,
+              0
+            ],
+            "distance_ratio": 0.5634102398202182,
+            "norm_squared": 6.212431086403546
+          },
+          {
+            "coordinate": [
+              -1,
+              3,
+              -1,
+              -1,
+              -1
+            ],
+            "distance_ratio": 0.8377006297722639,
+            "norm_squared": 8.987516866241982
+          },
+          {
+            "coordinate": [
+              1,
+              -3,
+              1,
+              1,
+              1
+            ],
+            "distance_ratio": 0.8377006297722639,
+            "norm_squared": 8.987516866241982
+          }
+        ],
+        "seconds": 0.0027411249993747333
+      }
+    },
+    {
+      "row": [
+        1,
+        76,
+        10,
+        32,
+        29
+      ],
+      "modulus": 131,
+      "conflict_projective_pairs": 2,
+      "conflict_weight": 0.548625997105728,
+      "minimum_forbidden_ratio": 0.5349334790647827,
+      "conflicts": [
+        {
+          "coordinate": [
+            -1,
+            2,
+            -2,
+            0,
+            0
+          ],
+          "distance_ratio": 0.5349334790647827
+        },
+        {
+          "coordinate": [
+            -1,
+            -1,
+            1,
+            -2,
+            0
+          ],
+          "distance_ratio": 0.9164405238294893
+        }
+      ],
+      "kernel_basis_columns": [
+        [
+          131,
+          55,
+          121,
+          99,
+          102
+        ],
+        [
+          0,
+          1,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          1,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          1,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          1
+        ]
+      ],
+      "kernel_determinant": 131,
+      "kernel_smith": [
+        1,
+        1,
+        1,
+        1,
+        131
+      ],
+      "complete_separation": {
+        "valid": false,
+        "checked_kernel_vectors": 26,
+        "enumerated_including_zero": 27,
+        "minimum_distance_ratio": 0.5349334790647827,
+        "conflict_count_with_sign": 4,
+        "conflicts": [
+          {
+            "coordinate": [
+              1,
+              -2,
+              2,
+              0,
+              0
+            ],
+            "distance_ratio": 0.5349334790647827,
+            "norm_squared": 4.8852397717872815
+          },
+          {
+            "coordinate": [
+              -1,
+              2,
+              -2,
+              0,
+              0
+            ],
+            "distance_ratio": 0.5349334790647827,
+            "norm_squared": 4.8852397717872815
+          },
+          {
+            "coordinate": [
+              -1,
+              -1,
+              1,
+              -2,
+              0
+            ],
+            "distance_ratio": 0.9164405238294895,
+            "norm_squared": 10.024268981276016
+          },
+          {
+            "coordinate": [
+              1,
+              1,
+              -1,
+              2,
+              0
+            ],
+            "distance_ratio": 0.9164405238294895,
+            "norm_squared": 10.024268981276016
+          }
+        ],
+        "seconds": 0.0025163329992210492
+      }
+    },
+    {
+      "row": [
+        1,
+        129,
+        85,
+        8,
+        23
+      ],
+      "modulus": 131,
+      "conflict_projective_pairs": 2,
+      "conflict_weight": 0.5399028074375307,
+      "minimum_forbidden_ratio": 0.5050048724849329,
+      "conflicts": [
+        {
+          "coordinate": [
+            -2,
+            -1,
+            1,
+            0,
+            2
+          ],
+          "distance_ratio": 0.9550923200775364
+        },
+        {
+          "coordinate": [
+            0,
+            0,
+            -2,
+            2,
+            1
+          ],
+          "distance_ratio": 0.5050048724849329
+        }
+      ],
+      "kernel_basis_columns": [
+        [
+          131,
+          2,
+          46,
+          123,
+          108
+        ],
+        [
+          0,
+          1,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          1,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          1,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          1
+        ]
+      ],
+      "kernel_determinant": 131,
+      "kernel_smith": [
+        1,
+        1,
+        1,
+        1,
+        131
+      ],
+      "complete_separation": {
+        "valid": false,
+        "checked_kernel_vectors": 26,
+        "enumerated_including_zero": 27,
+        "minimum_distance_ratio": 0.5050048724849329,
+        "conflict_count_with_sign": 4,
+        "conflicts": [
+          {
+            "coordinate": [
+              0,
+              0,
+              2,
+              -2,
+              -1
+            ],
+            "distance_ratio": 0.5050048724849329,
+            "norm_squared": 4.890651848580975
+          },
+          {
+            "coordinate": [
+              0,
+              0,
+              -2,
+              2,
+              1
+            ],
+            "distance_ratio": 0.5050048724849329,
+            "norm_squared": 4.890651848580975
+          },
+          {
+            "coordinate": [
+              -2,
+              -1,
+              1,
+              0,
+              2
+            ],
+            "distance_ratio": 0.9550923200775364,
+            "norm_squared": 9.366483070939147
+          },
+          {
+            "coordinate": [
+              2,
+              1,
+              -1,
+              0,
+              -2
+            ],
+            "distance_ratio": 0.9550923200775364,
+            "norm_squared": 9.366483070939147
+          }
+        ],
+        "seconds": 0.002786084000035771
+      }
+    },
+    {
+      "row": [
+        1,
+        129,
+        72,
+        42,
+        112
+      ],
+      "modulus": 131,
+      "conflict_projective_pairs": 2,
+      "conflict_weight": 0.5347114336029699,
+      "minimum_forbidden_ratio": 0.500586854000003,
+      "conflicts": [
+        {
+          "coordinate": [
+            0,
+            -3,
+            2,
+            0,
+            1
+          ],
+          "distance_ratio": 0.9647017123970271
+        },
+        {
+          "coordinate": [
+            -2,
+            0,
+            1,
+            1,
+            -1
+          ],
+          "distance_ratio": 0.500586854000003
+        }
+      ],
+      "kernel_basis_columns": [
+        [
+          131,
+          2,
+          59,
+          89,
+          19
+        ],
+        [
+          0,
+          1,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          1,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          1,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          1
+        ]
+      ],
+      "kernel_determinant": 131,
+      "kernel_smith": [
+        1,
+        1,
+        1,
+        1,
+        131
+      ],
+      "complete_separation": {
+        "valid": false,
+        "checked_kernel_vectors": 26,
+        "enumerated_including_zero": 27,
+        "minimum_distance_ratio": 0.5005868540000028,
+        "conflict_count_with_sign": 4,
+        "conflicts": [
+          {
+            "coordinate": [
+              -2,
+              0,
+              1,
+              1,
+              -1
+            ],
+            "distance_ratio": 0.5005868540000028,
+            "norm_squared": 5.908851764587885
+          },
+          {
+            "coordinate": [
+              2,
+              0,
+              -1,
+              -1,
+              1
+            ],
+            "distance_ratio": 0.5005868540000028,
+            "norm_squared": 5.908851764587885
+          },
+          {
+            "coordinate": [
+              0,
+              3,
+              -2,
+              0,
+              -1
+            ],
+            "distance_ratio": 0.9647017123970273,
+            "norm_squared": 9.01161433710948
+          },
+          {
+            "coordinate": [
+              0,
+              -3,
+              2,
+              0,
+              1
+            ],
+            "distance_ratio": 0.9647017123970273,
+            "norm_squared": 9.01161433710948
+          }
+        ],
+        "seconds": 0.0023996660002012504
+      }
+    },
+    {
+      "row": [
+        1,
+        22,
+        24,
+        17,
+        99
+      ],
+      "modulus": 131,
+      "conflict_projective_pairs": 3,
+      "conflict_weight": 0.4624880268441488,
+      "minimum_forbidden_ratio": 0.6548396853775172,
+      "conflicts": [
+        {
+          "coordinate": [
+            -3,
+            3,
+            -2,
+            1,
+            1
+          ],
+          "distance_ratio": 0.9705063224978424
+        },
+        {
+          "coordinate": [
+            -2,
+            -1,
+            1,
+            0,
+            0
+          ],
+          "distance_ratio": 0.6548396853775172
+        },
+        {
+          "coordinate": [
+            0,
+            -1,
+            1,
+            -2,
+            -1
+          ],
+          "distance_ratio": 0.9121659652804915
+        }
+      ],
+      "kernel_basis_columns": [
+        [
+          131,
+          109,
+          107,
+          114,
+          32
+        ],
+        [
+          0,
+          1,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          1,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          1,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          1
+        ]
+      ],
+      "kernel_determinant": 131,
+      "kernel_smith": [
+        1,
+        1,
+        1,
+        1,
+        131
+      ],
+      "complete_separation": {
+        "valid": false,
+        "checked_kernel_vectors": 28,
+        "enumerated_including_zero": 29,
+        "minimum_distance_ratio": 0.6548396853775175,
+        "conflict_count_with_sign": 6,
+        "conflicts": [
+          {
+            "coordinate": [
+              2,
+              1,
+              -1,
+              0,
+              0
+            ],
+            "distance_ratio": 0.6548396853775175,
+            "norm_squared": 5.663406724471807
+          },
+          {
+            "coordinate": [
+              -2,
+              -1,
+              1,
+              0,
+              0
+            ],
+            "distance_ratio": 0.6548396853775175,
+            "norm_squared": 5.663406724471807
+          },
+          {
+            "coordinate": [
+              0,
+              -1,
+              1,
+              -2,
+              -1
+            ],
+            "distance_ratio": 0.9121659652804919,
+            "norm_squared": 10.036795777070491
+          },
+          {
+            "coordinate": [
+              0,
+              1,
+              -1,
+              2,
+              1
+            ],
+            "distance_ratio": 0.9121659652804919,
+            "norm_squared": 10.036795777070491
+          },
+          {
+            "coordinate": [
+              -3,
+              3,
+              -2,
+              1,
+              1
+            ],
+            "distance_ratio": 0.9705063224978424,
+            "norm_squared": 10.626112755285117
+          },
+          {
+            "coordinate": [
+              3,
+              -3,
+              2,
+              -1,
+              -1
+            ],
+            "distance_ratio": 0.9705063224978424,
+            "norm_squared": 10.626112755285117
+          }
+        ],
+        "seconds": 0.003052374999242602
+      }
+    },
+    {
+      "row": [
+        1,
+        65,
+        119,
+        57,
+        100
+      ],
+      "modulus": 131,
+      "conflict_projective_pairs": 6,
+      "conflict_weight": 0.7990139879968007,
+      "minimum_forbidden_ratio": 0.7856672483149835,
+      "conflicts": [
+        {
+          "coordinate": [
+            0,
+            0,
+            -1,
+            1,
+            -2
+          ],
+          "distance_ratio": 0.7856672483149835
+        },
+        {
+          "coordinate": [
+            -1,
+            -2,
+            1,
+            -1,
+            2
+          ],
+          "distance_ratio": 0.9229437397754688
+        },
+        {
+          "coordinate": [
+            0,
+            -3,
+            2,
+            1,
+            -1
+          ],
+          "distance_ratio": 0.9621200447228649
+        },
+        {
+          "coordinate": [
+            -3,
+            1,
+            -1,
+            1,
+            0
+          ],
+          "distance_ratio": 0.8152148868660672
+        },
+        {
+          "coordinate": [
+            -1,
+            -2,
+            4,
+            -2,
+            -1
+          ],
+          "distance_ratio": 0.9264990436597488
+        },
+        {
+          "coordinate": [
+            -1,
+            1,
+            1,
+            -2,
+            -2
+          ],
+          "distance_ratio": 0.788541048664066
+        }
+      ],
+      "kernel_basis_columns": [
+        [
+          131,
+          66,
+          12,
+          74,
+          31
+        ],
+        [
+          0,
+          1,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          1,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          1,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          1
+        ]
+      ],
+      "kernel_determinant": 131,
+      "kernel_smith": [
+        1,
+        1,
+        1,
+        1,
+        131
+      ],
+      "complete_separation": {
+        "valid": false,
+        "checked_kernel_vectors": 26,
+        "enumerated_including_zero": 27,
+        "minimum_distance_ratio": 0.7856672483149835,
+        "conflict_count_with_sign": 12,
+        "conflicts": [
+          {
+            "coordinate": [
+              0,
+              0,
+              -1,
+              1,
+              -2
+            ],
+            "distance_ratio": 0.7856672483149835,
+            "norm_squared": 6.86250524944114
+          },
+          {
+            "coordinate": [
+              0,
+              0,
+              1,
+              -1,
+              2
+            ],
+            "distance_ratio": 0.7856672483149835,
+            "norm_squared": 6.86250524944114
+          },
+          {
+            "coordinate": [
+              -1,
+              1,
+              1,
+              -2,
+              -2
+            ],
+            "distance_ratio": 0.788541048664066,
+            "norm_squared": 8.78371857375075
+          },
+          {
+            "coordinate": [
+              1,
+              -1,
+              -1,
+              2,
+              2
+            ],
+            "distance_ratio": 0.788541048664066,
+            "norm_squared": 8.78371857375075
+          },
+          {
+            "coordinate": [
+              3,
+              -1,
+              1,
+              -1,
+              0
+            ],
+            "distance_ratio": 0.8152148868660675,
+            "norm_squared": 7.428106387310672
+          },
+          {
+            "coordinate": [
+              -3,
+              1,
+              -1,
+              1,
+              0
+            ],
+            "distance_ratio": 0.8152148868660675,
+            "norm_squared": 7.428106387310672
+          },
+          {
+            "coordinate": [
+              -1,
+              -2,
+              1,
+              -1,
+              2
+            ],
+            "distance_ratio": 0.9229437397754688,
+            "norm_squared": 10.471060635816617
+          },
+          {
+            "coordinate": [
+              1,
+              2,
+              -1,
+              1,
+              -2
+            ],
+            "distance_ratio": 0.9229437397754688,
+            "norm_squared": 10.471060635816617
+          },
+          {
+            "coordinate": [
+              -1,
+              -2,
+              4,
+              -2,
+              -1
+            ],
+            "distance_ratio": 0.9264990436597486,
+            "norm_squared": 10.558674681918582
+          },
+          {
+            "coordinate": [
+              1,
+              2,
+              -4,
+              2,
+              1
+            ],
+            "distance_ratio": 0.9264990436597486,
+            "norm_squared": 10.558674681918582
+          },
+          {
+            "coordinate": [
+              0,
+              -3,
+              2,
+              1,
+              -1
+            ],
+            "distance_ratio": 0.9621200447228649,
+            "norm_squared": 9.603376666667941
+          },
+          {
+            "coordinate": [
+              0,
+              3,
+              -2,
+              -1,
+              1
+            ],
+            "distance_ratio": 0.9621200447228649,
+            "norm_squared": 9.603376666667941
+          }
+        ],
+        "seconds": 0.002968249998957617
+      }
+    },
+    {
+      "row": [
+        1,
+        29,
+        26,
+        82,
+        90
+      ],
+      "modulus": 131,
+      "conflict_projective_pairs": 14,
+      "conflict_weight": 0.17344105505998186,
+      "minimum_forbidden_ratio": 0.9874241177503655,
+      "conflicts": [
+        {
+          "coordinate": [
+            -1,
+            2,
+            0,
+            1,
+            -3
+          ],
+          "distance_ratio": 0.9874241179122835
+        },
+        {
+          "coordinate": [
+            -1,
+            0,
+            1,
+            -2,
+            3
+          ],
+          "distance_ratio": 0.9874241180331201
+        },
+        {
+          "coordinate": [
+            -3,
+            1,
+            -1,
+            1,
+            2
+          ],
+          "distance_ratio": 0.9874241177503655
+        },
+        {
+          "coordinate": [
+            0,
+            -1,
+            3,
+            0,
+            -2
+          ],
+          "distance_ratio": 0.987424117864628
+        },
+        {
+          "coordinate": [
+            -2,
+            3,
+            -2,
+            -1,
+            2
+          ],
+          "distance_ratio": 0.9874241180002219
+        },
+        {
+          "coordinate": [
+            -2,
+            1,
+            -2,
+            3,
+            -1
+          ],
+          "distance_ratio": 0.9881852564396281
+        },
+        {
+          "coordinate": [
+            -1,
+            0,
+            1,
+            -3,
+            1
+          ],
+          "distance_ratio": 0.9874241179926264
+        },
+        {
+          "coordinate": [
+            -2,
+            2,
+            1,
+            -1,
+            0
+          ],
+          "distance_ratio": 0.9874241177617588
+        },
+        {
+          "coordinate": [
+            -1,
+            -2,
+            1,
+            2,
+            0
+          ],
+          "distance_ratio": 0.9892842737025274
+        },
+        {
+          "coordinate": [
+            -1,
+            3,
+            -3,
+            2,
+            1
+          ],
+          "distance_ratio": 0.9874241179956995
+        },
+        {
+          "coordinate": [
+            -1,
+            -2,
+            1,
+            1,
+            -2
+          ],
+          "distance_ratio": 0.9874241179620672
+        },
+        {
+          "coordinate": [
+            -3,
+            0,
+            2,
+            0,
+            -2
+          ],
+          "distance_ratio": 0.9874241178399048
+        },
+        {
+          "coordinate": [
+            0,
+            0,
+            0,
+            -1,
+            -2
+          ],
+          "distance_ratio": 0.9874241178862769
+        },
+        {
+          "coordinate": [
+            -2,
+            2,
+            1,
+            -2,
+            -2
+          ],
+          "distance_ratio": 0.98742411779891
+        }
+      ],
+      "kernel_basis_columns": [
+        [
+          131,
+          102,
+          105,
+          49,
+          41
+        ],
+        [
+          0,
+          1,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          1,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          1,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          1
+        ]
+      ],
+      "kernel_determinant": 131,
+      "kernel_smith": [
+        1,
+        1,
+        1,
+        1,
+        131
+      ],
+      "complete_separation": {
+        "valid": false,
+        "checked_kernel_vectors": 34,
+        "enumerated_including_zero": 35,
+        "minimum_distance_ratio": 0.9874241177503655,
+        "conflict_count_with_sign": 28,
+        "conflicts": [
+          {
+            "coordinate": [
+              -3,
+              1,
+              -1,
+              1,
+              2
+            ],
+            "distance_ratio": 0.9874241177503655,
+            "norm_squared": 10.374550472738948
+          },
+          {
+            "coordinate": [
+              3,
+              -1,
+              1,
+              -1,
+              -2
+            ],
+            "distance_ratio": 0.9874241177503655,
+            "norm_squared": 10.374550472738948
+          },
+          {
+            "coordinate": [
+              -2,
+              2,
+              1,
+              -1,
+              0
+            ],
+            "distance_ratio": 0.987424117761759,
+            "norm_squared": 9.72862476189918
+          },
+          {
+            "coordinate": [
+              2,
+              -2,
+              -1,
+              1,
+              0
+            ],
+            "distance_ratio": 0.987424117761759,
+            "norm_squared": 9.72862476189918
+          },
+          {
+            "coordinate": [
+              -2,
+              2,
+              1,
+              -2,
+              -2
+            ],
+            "distance_ratio": 0.9874241177989106,
+            "norm_squared": 11.245044997832661
+          },
+          {
+            "coordinate": [
+              2,
+              -2,
+              -1,
+              2,
+              2
+            ],
+            "distance_ratio": 0.9874241177989106,
+            "norm_squared": 11.245044997832661
+          },
+          {
+            "coordinate": [
+              3,
+              0,
+              -2,
+              0,
+              2
+            ],
+            "distance_ratio": 0.9874241178399048,
+            "norm_squared": 9.913659354158542
+          },
+          {
+            "coordinate": [
+              -3,
+              0,
+              2,
+              0,
+              -2
+            ],
+            "distance_ratio": 0.9874241178399048,
+            "norm_squared": 9.913659354158542
+          },
+          {
+            "coordinate": [
+              0,
+              1,
+              -3,
+              0,
+              2
+            ],
+            "distance_ratio": 0.987424117864628,
+            "norm_squared": 10.208539143294637
+          },
+          {
+            "coordinate": [
+              0,
+              -1,
+              3,
+              0,
+              -2
+            ],
+            "distance_ratio": 0.987424117864628,
+            "norm_squared": 10.208539143294637
+          },
+          {
+            "coordinate": [
+              0,
+              0,
+              0,
+              1,
+              2
+            ],
+            "distance_ratio": 0.9874241178862769,
+            "norm_squared": 9.035832235129547
+          },
+          {
+            "coordinate": [
+              0,
+              0,
+              0,
+              -1,
+              -2
+            ],
+            "distance_ratio": 0.9874241178862769,
+            "norm_squared": 9.035832235129547
+          },
+          {
+            "coordinate": [
+              -1,
+              2,
+              0,
+              1,
+              -3
+            ],
+            "distance_ratio": 0.9874241179122835,
+            "norm_squared": 11.078501128100765
+          },
+          {
+            "coordinate": [
+              1,
+              -2,
+              0,
+              -1,
+              3
+            ],
+            "distance_ratio": 0.9874241179122835,
+            "norm_squared": 11.078501128100765
+          },
+          {
+            "coordinate": [
+              1,
+              2,
+              -1,
+              -1,
+              2
+            ],
+            "distance_ratio": 0.9874241179620673,
+            "norm_squared": 10.802685134571666
+          },
+          {
+            "coordinate": [
+              -1,
+              -2,
+              1,
+              1,
+              -2
+            ],
+            "distance_ratio": 0.9874241179620673,
+            "norm_squared": 10.802685134571666
+          },
+          {
+            "coordinate": [
+              1,
+              0,
+              -1,
+              3,
+              -1
+            ],
+            "distance_ratio": 0.9874241179926269,
+            "norm_squared": 10.96890731533533
+          },
+          {
+            "coordinate": [
+              -1,
+              0,
+              1,
+              -3,
+              1
+            ],
+            "distance_ratio": 0.9874241179926269,
+            "norm_squared": 10.96890731533533
+          },
+          {
+            "coordinate": [
+              -1,
+              3,
+              -3,
+              2,
+              1
+            ],
+            "distance_ratio": 0.9874241179957002,
+            "norm_squared": 10.91728370521339
+          },
+          {
+            "coordinate": [
+              1,
+              -3,
+              3,
+              -2,
+              -1
+            ],
+            "distance_ratio": 0.9874241179957002,
+            "norm_squared": 10.91728370521339
+          },
+          {
+            "coordinate": [
+              -2,
+              3,
+              -2,
+              -1,
+              2
+            ],
+            "distance_ratio": 0.9874241180002222,
+            "norm_squared": 10.940745469506496
+          },
+          {
+            "coordinate": [
+              2,
+              -3,
+              2,
+              1,
+              -2
+            ],
+            "distance_ratio": 0.9874241180002222,
+            "norm_squared": 10.940745469506496
+          },
+          {
+            "coordinate": [
+              1,
+              0,
+              -1,
+              2,
+              -3
+            ],
+            "distance_ratio": 0.9874241180331202,
+            "norm_squared": 11.0859282918571
+          },
+          {
+            "coordinate": [
+              -1,
+              0,
+              1,
+              -2,
+              3
+            ],
+            "distance_ratio": 0.9874241180331202,
+            "norm_squared": 11.0859282918571
+          },
+          {
+            "coordinate": [
+              -2,
+              1,
+              -2,
+              3,
+              -1
+            ],
+            "distance_ratio": 0.9881852564396281,
+            "norm_squared": 10.871938695407236
+          },
+          {
+            "coordinate": [
+              2,
+              -1,
+              2,
+              -3,
+              1
+            ],
+            "distance_ratio": 0.9881852564396281,
+            "norm_squared": 10.871938695407236
+          },
+          {
+            "coordinate": [
+              1,
+              2,
+              -1,
+              -2,
+              0
+            ],
+            "distance_ratio": 0.9892842737025273,
+            "norm_squared": 10.627834891084142
+          },
+          {
+            "coordinate": [
+              -1,
+              -2,
+              1,
+              2,
+              0
+            ],
+            "distance_ratio": 0.9892842737025273,
+            "norm_squared": 10.627834891084142
+          }
+        ],
+        "seconds": 0.003622999998697196
+      }
+    }
+  ]
+}
