@@ -1,0 +1,280 @@
+{
+  "method": "joint cyclic-period and missing-difference modular descent, followed by HiGHS maximum matching",
+  "lattice": "E6*",
+  "dimension": 6,
+  "parent_basis": [
+    [
+      1.265404786448986,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    [
+      0.9490535898367389,
+      1.225222916032019,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    [
+      1.581755983061232,
+      0.7351337496192113,
+      0.9801783328256151,
+      0.0,
+      0.0,
+      0.0
+    ],
+    [
+      1.8981071796734779,
+      1.4702674992384224,
+      0.7351337496192115,
+      0.9490535898367394,
+      0.0,
+      0.0
+    ],
+    [
+      1.2654047864489855,
+      0.9801783328256148,
+      0.4900891664128076,
+      0.6327023932244932,
+      0.894776305443993,
+      0.0
+    ],
+    [
+      0.6327023932244927,
+      0.4900891664128074,
+      0.2450445832064038,
+      0.3163511966122466,
+      0.44738815272199645,
+      0.7748990112188825
+    ]
+  ],
+  "parent_diameter": 1.789552610887989,
+  "forbidden_projective_pairs": 3861,
+  "target_colors": 342,
+  "settings": {
+    "indices": [
+      683,
+      682,
+      681,
+      680
+    ],
+    "restarts": 15,
+    "sweeps": 15,
+    "top": 10,
+    "pair_top": 0,
+    "pair_trials": 0,
+    "initial_row": null,
+    "cpsat_time_limit": 0.0,
+    "cpsat_workers": 8,
+    "max_targets_per_index": 3,
+    "matching_time_limit": 60.0,
+    "seed": 68301
+  },
+  "records": [
+    {
+      "period_index": 683,
+      "target_difference": 1,
+      "target_difference_order": 683,
+      "single_difference_matching_size": 341,
+      "required_pairs": 341,
+      "search": {
+        "success": false,
+        "score": 2,
+        "row": [
+          522,
+          589,
+          524,
+          8,
+          384,
+          282
+        ],
+        "restart": 1,
+        "sweep": 9,
+        "elapsed_seconds": 8.170006792002823
+      }
+    },
+    {
+      "period_index": 682,
+      "target_difference": 341,
+      "target_difference_order": 2,
+      "single_difference_matching_size": 341,
+      "required_pairs": 340,
+      "search": {
+        "success": false,
+        "score": 2,
+        "row": [
+          457,
+          387,
+          152,
+          47,
+          152,
+          520
+        ],
+        "restart": 2,
+        "sweep": 0,
+        "elapsed_seconds": 8.820951875000901
+      }
+    },
+    {
+      "period_index": 682,
+      "target_difference": 1,
+      "target_difference_order": 682,
+      "single_difference_matching_size": 341,
+      "required_pairs": 340,
+      "search": {
+        "success": false,
+        "score": 2,
+        "row": [
+          432,
+          335,
+          180,
+          106,
+          106,
+          674
+        ],
+        "restart": 3,
+        "sweep": 5,
+        "elapsed_seconds": 7.732226416999765
+      }
+    },
+    {
+      "period_index": 682,
+      "target_difference": 11,
+      "target_difference_order": 62,
+      "single_difference_matching_size": 341,
+      "required_pairs": 340,
+      "search": {
+        "success": false,
+        "score": 2,
+        "row": [
+          615,
+          450,
+          277,
+          659,
+          450,
+          660
+        ],
+        "restart": 14,
+        "sweep": 6,
+        "elapsed_seconds": 7.738675832995796
+      }
+    },
+    {
+      "period_index": 681,
+      "target_difference": 1,
+      "target_difference_order": 681,
+      "single_difference_matching_size": 340,
+      "required_pairs": 339,
+      "search": {
+        "success": false,
+        "score": 2,
+        "row": [
+          663,
+          630,
+          652,
+          198,
+          249,
+          401
+        ],
+        "restart": 1,
+        "sweep": 10,
+        "elapsed_seconds": 7.816535834004753
+      }
+    },
+    {
+      "period_index": 681,
+      "target_difference": 3,
+      "target_difference_order": 227,
+      "single_difference_matching_size": 339,
+      "required_pairs": 339,
+      "search": {
+        "success": false,
+        "score": 2,
+        "row": [
+          117,
+          48,
+          665,
+          613,
+          71,
+          635
+        ],
+        "restart": 10,
+        "sweep": 10,
+        "elapsed_seconds": 9.003311874999781
+      }
+    },
+    {
+      "period_index": 680,
+      "target_difference": 340,
+      "target_difference_order": 2,
+      "single_difference_matching_size": 340,
+      "required_pairs": 338,
+      "search": {
+        "success": false,
+        "score": 2,
+        "row": [
+          84,
+          515,
+          408,
+          510,
+          242,
+          67
+        ],
+        "restart": 1,
+        "sweep": 1,
+        "elapsed_seconds": 7.676842333996319
+      }
+    },
+    {
+      "period_index": 680,
+      "target_difference": 1,
+      "target_difference_order": 680,
+      "single_difference_matching_size": 340,
+      "required_pairs": 338,
+      "search": {
+        "success": false,
+        "score": 2,
+        "row": [
+          618,
+          239,
+          165,
+          386,
+          101,
+          221
+        ],
+        "restart": 1,
+        "sweep": 5,
+        "elapsed_seconds": 7.6819394170015585
+      }
+    },
+    {
+      "period_index": 680,
+      "target_difference": 2,
+      "target_difference_order": 340,
+      "single_difference_matching_size": 340,
+      "required_pairs": 338,
+      "search": {
+        "success": false,
+        "score": 2,
+        "row": [
+          399,
+          81,
+          484,
+          217,
+          285,
+          204
+        ],
+        "restart": 5,
+        "sweep": 6,
+        "elapsed_seconds": 7.687777166996966
+      }
+    }
+  ],
+  "coloring": null,
+  "valid_combinatorial_witness": false,
+  "elapsed_seconds": 72.33137041699956
+}

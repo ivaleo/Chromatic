@@ -1,0 +1,197 @@
+{
+  "method": "CP-SAT joint modular threshold model with projective prime normalization and systematic free rank-two Z/4 block",
+  "source_metric": "audit-data/hd-2026-07/active_d6_336_44_alt_stage1.json",
+  "lattice": "E6*",
+  "dimension": 6,
+  "structure": [
+    7,
+    4,
+    4,
+    3
+  ],
+  "target_index": 336,
+  "threshold": 1.0,
+  "forbidden_projective_pairs": 4435,
+  "below_threshold_pairs": 4435,
+  "budget": {
+    "time_limit_per_pattern": 20.0,
+    "workers": 8,
+    "max_patterns": 15,
+    "seed": 6337101
+  },
+  "source_pivots_mod2": [
+    0,
+    2
+  ],
+  "patterns": [
+    {
+      "pivots": [
+        0,
+        2
+      ],
+      "status": "UNKNOWN",
+      "wall_seconds": 20.055922416999238,
+      "branches": 289281,
+      "conflicts": 3163,
+      "best_objective_bound": 0.0
+    },
+    {
+      "pivots": [
+        0,
+        1
+      ],
+      "status": "UNKNOWN",
+      "wall_seconds": 20.04942512499838,
+      "branches": 300900,
+      "conflicts": 4487,
+      "best_objective_bound": 0.0
+    },
+    {
+      "pivots": [
+        0,
+        3
+      ],
+      "status": "UNKNOWN",
+      "wall_seconds": 20.027138333003677,
+      "branches": 200494,
+      "conflicts": 8852,
+      "best_objective_bound": 0.0
+    },
+    {
+      "pivots": [
+        0,
+        4
+      ],
+      "status": "UNKNOWN",
+      "wall_seconds": 20.06139783300023,
+      "branches": 93885,
+      "conflicts": 5579,
+      "best_objective_bound": 0.0
+    },
+    {
+      "pivots": [
+        0,
+        5
+      ],
+      "status": "UNKNOWN",
+      "wall_seconds": 20.02753741700144,
+      "branches": 146953,
+      "conflicts": 4759,
+      "best_objective_bound": 0.0
+    },
+    {
+      "pivots": [
+        1,
+        2
+      ],
+      "status": "UNKNOWN",
+      "wall_seconds": 20.045317624993913,
+      "branches": 200373,
+      "conflicts": 3866,
+      "best_objective_bound": 0.0
+    },
+    {
+      "pivots": [
+        1,
+        3
+      ],
+      "status": "UNKNOWN",
+      "wall_seconds": 20.04130158299813,
+      "branches": 147291,
+      "conflicts": 4499,
+      "best_objective_bound": 0.0
+    },
+    {
+      "pivots": [
+        1,
+        4
+      ],
+      "status": "UNKNOWN",
+      "wall_seconds": 20.036322459003713,
+      "branches": 170366,
+      "conflicts": 4302,
+      "best_objective_bound": 0.0
+    },
+    {
+      "pivots": [
+        1,
+        5
+      ],
+      "status": "UNKNOWN",
+      "wall_seconds": 20.019480249997287,
+      "branches": 44280,
+      "conflicts": 269,
+      "best_objective_bound": 0.0
+    },
+    {
+      "pivots": [
+        2,
+        3
+      ],
+      "status": "UNKNOWN",
+      "wall_seconds": 20.03971774999809,
+      "branches": 304284,
+      "conflicts": 3655,
+      "best_objective_bound": 0.0
+    },
+    {
+      "pivots": [
+        2,
+        4
+      ],
+      "status": "UNKNOWN",
+      "wall_seconds": 18.855260832999193,
+      "branches": 163649,
+      "conflicts": 4479,
+      "best_objective_bound": 0.0
+    },
+    {
+      "pivots": [
+        2,
+        5
+      ],
+      "status": "UNKNOWN",
+      "wall_seconds": 7.45097191700188,
+      "branches": 102692,
+      "conflicts": 3243,
+      "best_objective_bound": 0.0
+    },
+    {
+      "pivots": [
+        3,
+        4
+      ],
+      "status": "UNKNOWN",
+      "wall_seconds": 8.6256541249968,
+      "branches": 156772,
+      "conflicts": 1186,
+      "best_objective_bound": 0.0
+    },
+    {
+      "pivots": [
+        3,
+        5
+      ],
+      "status": "UNKNOWN",
+      "wall_seconds": 3.7243928749958286,
+      "branches": 61333,
+      "conflicts": 1200,
+      "best_objective_bound": 0.0
+    },
+    {
+      "pivots": [
+        4,
+        5
+      ],
+      "status": "UNKNOWN",
+      "wall_seconds": 3.704759499996726,
+      "branches": 22067,
+      "conflicts": 155,
+      "best_objective_bound": 0.0
+    }
+  ],
+  "candidate": null,
+  "valid_candidate": null,
+  "complete_unsat": false,
+  "elapsed_seconds": 247.31034649999492
+}

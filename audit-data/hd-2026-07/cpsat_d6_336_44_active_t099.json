@@ -1,0 +1,197 @@
+{
+  "method": "CP-SAT joint modular threshold model with projective prime normalization and systematic free rank-two Z/4 block",
+  "source_metric": "audit-data/hd-2026-07/active_d6_336_44_alt_stage1.json",
+  "lattice": "E6*",
+  "dimension": 6,
+  "structure": [
+    7,
+    4,
+    4,
+    3
+  ],
+  "target_index": 336,
+  "threshold": 0.99,
+  "forbidden_projective_pairs": 4435,
+  "below_threshold_pairs": 4265,
+  "budget": {
+    "time_limit_per_pattern": 10.0,
+    "workers": 6,
+    "max_patterns": 15,
+    "seed": 6337199
+  },
+  "source_pivots_mod2": [
+    0,
+    2
+  ],
+  "patterns": [
+    {
+      "pivots": [
+        0,
+        2
+      ],
+      "status": "UNKNOWN",
+      "wall_seconds": 10.057582125002227,
+      "branches": 143448,
+      "conflicts": 1468,
+      "best_objective_bound": 0.0
+    },
+    {
+      "pivots": [
+        0,
+        1
+      ],
+      "status": "UNKNOWN",
+      "wall_seconds": 10.061710374997347,
+      "branches": 91664,
+      "conflicts": 1496,
+      "best_objective_bound": 0.0
+    },
+    {
+      "pivots": [
+        0,
+        3
+      ],
+      "status": "UNKNOWN",
+      "wall_seconds": 10.025257875000534,
+      "branches": 87939,
+      "conflicts": 1927,
+      "best_objective_bound": 0.0
+    },
+    {
+      "pivots": [
+        0,
+        4
+      ],
+      "status": "UNKNOWN",
+      "wall_seconds": 10.02631787500286,
+      "branches": 114063,
+      "conflicts": 1583,
+      "best_objective_bound": 0.0
+    },
+    {
+      "pivots": [
+        0,
+        5
+      ],
+      "status": "UNKNOWN",
+      "wall_seconds": 10.02203345799353,
+      "branches": 112308,
+      "conflicts": 2422,
+      "best_objective_bound": 0.0
+    },
+    {
+      "pivots": [
+        1,
+        2
+      ],
+      "status": "UNKNOWN",
+      "wall_seconds": 10.045662332995562,
+      "branches": 144128,
+      "conflicts": 1088,
+      "best_objective_bound": 0.0
+    },
+    {
+      "pivots": [
+        1,
+        3
+      ],
+      "status": "UNKNOWN",
+      "wall_seconds": 10.025821041999734,
+      "branches": 186803,
+      "conflicts": 881,
+      "best_objective_bound": 0.0
+    },
+    {
+      "pivots": [
+        1,
+        4
+      ],
+      "status": "UNKNOWN",
+      "wall_seconds": 10.034207291995699,
+      "branches": 115806,
+      "conflicts": 1222,
+      "best_objective_bound": 0.0
+    },
+    {
+      "pivots": [
+        1,
+        5
+      ],
+      "status": "UNKNOWN",
+      "wall_seconds": 10.016148957998666,
+      "branches": 78354,
+      "conflicts": 2171,
+      "best_objective_bound": 0.0
+    },
+    {
+      "pivots": [
+        2,
+        3
+      ],
+      "status": "UNKNOWN",
+      "wall_seconds": 10.036483875002887,
+      "branches": 78850,
+      "conflicts": 1462,
+      "best_objective_bound": 0.0
+    },
+    {
+      "pivots": [
+        2,
+        4
+      ],
+      "status": "UNKNOWN",
+      "wall_seconds": 10.020349375001388,
+      "branches": 107973,
+      "conflicts": 1630,
+      "best_objective_bound": 0.0
+    },
+    {
+      "pivots": [
+        2,
+        5
+      ],
+      "status": "UNKNOWN",
+      "wall_seconds": 10.025836000000709,
+      "branches": 72246,
+      "conflicts": 1640,
+      "best_objective_bound": 0.0
+    },
+    {
+      "pivots": [
+        3,
+        4
+      ],
+      "status": "UNKNOWN",
+      "wall_seconds": 10.020141707995208,
+      "branches": 137323,
+      "conflicts": 1081,
+      "best_objective_bound": 0.0
+    },
+    {
+      "pivots": [
+        3,
+        5
+      ],
+      "status": "UNKNOWN",
+      "wall_seconds": 10.035553041998355,
+      "branches": 83534,
+      "conflicts": 2040,
+      "best_objective_bound": 0.0
+    },
+    {
+      "pivots": [
+        4,
+        5
+      ],
+      "status": "UNKNOWN",
+      "wall_seconds": 10.033521417004522,
+      "branches": 58571,
+      "conflicts": 2774,
+      "best_objective_bound": 0.0
+    }
+  ],
+  "candidate": null,
+  "valid_candidate": null,
+  "complete_unsat": false,
+  "elapsed_seconds": 155.2287146249946
+}

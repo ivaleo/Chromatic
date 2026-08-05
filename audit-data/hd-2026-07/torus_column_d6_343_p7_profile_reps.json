@@ -1,0 +1,3499 @@
+{
+  "method": "all prime-index covers of the exact 343-color kernel; complete-multipartite residue screen followed, when needed, by HiGHS MWIS pricing and an independent-set cover master",
+  "lattice": "E6*",
+  "dimension": 6,
+  "source_index": 343,
+  "source_kernel_basis_columns": [
+    [
+      7,
+      0,
+      0,
+      5,
+      1,
+      5
+    ],
+    [
+      0,
+      7,
+      0,
+      2,
+      2,
+      0
+    ],
+    [
+      0,
+      0,
+      7,
+      6,
+      6,
+      2
+    ],
+    [
+      0,
+      0,
+      0,
+      1,
+      0,
+      0
+    ],
+    [
+      0,
+      0,
+      0,
+      0,
+      1,
+      0
+    ],
+    [
+      0,
+      0,
+      0,
+      0,
+      0,
+      1
+    ]
+  ],
+  "source_kernel_determinant": 343,
+  "target_colors": 342,
+  "forbidden_projective_pairs": 3861,
+  "signed_forbidden_vectors": 7722,
+  "settings": {
+    "primes": [
+      7
+    ],
+    "batch_size": 512,
+    "max_characters": 0,
+    "mwis_exceptions": 0,
+    "mwis_per_profile": 1,
+    "mwis_time_limit": 120.0,
+    "decision_time_limit": 60.0,
+    "decision_workers": 8,
+    "master_time_limit": 60.0
+  },
+  "prime_screens": [
+    {
+      "prime": 7,
+      "character_count": 19608,
+      "period_order": 2401,
+      "expected_complete_multipartite_connections": 2394,
+      "connection_count_minimum": 972,
+      "connection_count_maximum": 2394,
+      "connection_count_histogram": {
+        "2130": 108,
+        "1784": 216,
+        "2388": 666,
+        "2194": 432,
+        "2376": 2916,
+        "2342": 432,
+        "2382": 900,
+        "2370": 864,
+        "2282": 324,
+        "2280": 1944,
+        "2178": 648,
+        "2386": 648,
+        "2378": 648,
+        "2344": 648,
+        "2252": 648,
+        "1564": 324,
+        "2262": 864,
+        "1924": 324,
+        "2124": 648,
+        "1310": 108,
+        "1928": 216,
+        "2256": 432,
+        "1950": 216,
+        "2374": 1296,
+        "2250": 216,
+        "2338": 216,
+        "1548": 36,
+        "2278": 972,
+        "1926": 324,
+        "2102": 324,
+        "2394": 72,
+        "972": 36,
+        "1932": 24,
+        "2330": 216,
+        "1772": 216,
+        "2368": 216,
+        "2190": 27,
+        "1922": 216,
+        "1298": 27
+      },
+      "minimum_residues_per_source_class": 2,
+      "complete_multipartite_characters": 72,
+      "incomplete_character_count": 19536,
+      "incomplete_character_indices_preview": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16,
+        17,
+        18,
+        19,
+        20,
+        21,
+        22,
+        23,
+        24,
+        25,
+        26,
+        27,
+        28,
+        29,
+        30,
+        31,
+        32,
+        33,
+        34,
+        35,
+        36,
+        37,
+        38,
+        39
+      ],
+      "necessary_independence_number_for_target": 8,
+      "mwis_exception_budget": 0,
+      "mwis_per_profile": 1,
+      "mwis_exception_selected": 40,
+      "mwis_exception_unscreened": 19496
+    }
+  ],
+  "exceptional_graphs": [
+    {
+      "prime": 7,
+      "character_index": 449,
+      "character": [
+        1,
+        0,
+        1,
+        2,
+        1,
+        1
+      ],
+      "period_basis_columns": [
+        [
+          49,
+          0,
+          42,
+          40,
+          43,
+          47
+        ],
+        [
+          0,
+          7,
+          0,
+          2,
+          2,
+          0
+        ],
+        [
+          0,
+          0,
+          7,
+          6,
+          6,
+          2
+        ],
+        [
+          0,
+          0,
+          0,
+          1,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          1,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          1
+        ]
+      ],
+      "period_index": 2401,
+      "connection_keys": 972,
+      "loop_free": true,
+      "source_fiber_count": 343,
+      "source_fiber_size": 7,
+      "target_independent_set": {
+        "status": "INFEASIBLE",
+        "feasible": false,
+        "proven_infeasible": true,
+        "vertices": [],
+        "candidate_vertices": 1429,
+        "edge_constraints": 572439,
+        "elapsed_seconds": 2.579452500001935,
+        "conflicts": 177,
+        "branches": 9942,
+        "wall_time": 2.578164,
+        "solver": "OR-Tools CP-SAT target-feasibility oracle"
+      },
+      "independence_number": 7,
+      "independence_number_proof": "source fiber gives the lower bound; CP-SAT proves that the next cardinality is infeasible",
+      "fractional_chromatic_number": 343.0
+    },
+    {
+      "prime": 7,
+      "character_index": 848,
+      "character": [
+        1,
+        0,
+        2,
+        3,
+        2,
+        1
+      ],
+      "period_basis_columns": [
+        [
+          49,
+          0,
+          35,
+          33,
+          36,
+          47
+        ],
+        [
+          0,
+          7,
+          0,
+          2,
+          2,
+          0
+        ],
+        [
+          0,
+          0,
+          7,
+          6,
+          6,
+          2
+        ],
+        [
+          0,
+          0,
+          0,
+          1,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          1,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          1
+        ]
+      ],
+      "period_index": 2401,
+      "connection_keys": 1298,
+      "loop_free": true,
+      "source_fiber_count": 343,
+      "source_fiber_size": 7,
+      "target_independent_set": {
+        "status": "INFEASIBLE",
+        "feasible": false,
+        "proven_infeasible": true,
+        "vertices": [],
+        "candidate_vertices": 1103,
+        "edge_constraints": 499791,
+        "elapsed_seconds": 1.4928538750027656,
+        "conflicts": 0,
+        "branches": 0,
+        "wall_time": 1.4922840000000002,
+        "solver": "OR-Tools CP-SAT target-feasibility oracle"
+      },
+      "independence_number": 7,
+      "independence_number_proof": "source fiber gives the lower bound; CP-SAT proves that the next cardinality is infeasible",
+      "fractional_chromatic_number": 343.0
+    },
+    {
+      "prime": 7,
+      "character_index": 50,
+      "character": [
+        1,
+        0,
+        0,
+        1,
+        0,
+        1
+      ],
+      "period_basis_columns": [
+        [
+          49,
+          0,
+          0,
+          47,
+          1,
+          47
+        ],
+        [
+          0,
+          7,
+          0,
+          2,
+          2,
+          0
+        ],
+        [
+          0,
+          0,
+          7,
+          6,
+          6,
+          2
+        ],
+        [
+          0,
+          0,
+          0,
+          1,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          1,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          1
+        ]
+      ],
+      "period_index": 2401,
+      "connection_keys": 1310,
+      "loop_free": true,
+      "source_fiber_count": 343,
+      "source_fiber_size": 7,
+      "target_independent_set": {
+        "status": "INFEASIBLE",
+        "feasible": false,
+        "proven_infeasible": true,
+        "vertices": [],
+        "candidate_vertices": 1091,
+        "edge_constraints": 491232,
+        "elapsed_seconds": 1.4952765830021235,
+        "conflicts": 0,
+        "branches": 0,
+        "wall_time": 1.4949990000000002,
+        "solver": "OR-Tools CP-SAT target-feasibility oracle"
+      },
+      "independence_number": 7,
+      "independence_number_proof": "source fiber gives the lower bound; CP-SAT proves that the next cardinality is infeasible",
+      "fractional_chromatic_number": 343.0
+    },
+    {
+      "prime": 7,
+      "character_index": 351,
+      "character": [
+        1,
+        0,
+        1,
+        0,
+        1,
+        1
+      ],
+      "period_basis_columns": [
+        [
+          49,
+          0,
+          42,
+          5,
+          43,
+          47
+        ],
+        [
+          0,
+          7,
+          0,
+          2,
+          2,
+          0
+        ],
+        [
+          0,
+          0,
+          7,
+          6,
+          6,
+          2
+        ],
+        [
+          0,
+          0,
+          0,
+          1,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          1,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          1
+        ]
+      ],
+      "period_index": 2401,
+      "connection_keys": 1548,
+      "loop_free": true,
+      "source_fiber_count": 343,
+      "source_fiber_size": 7,
+      "target_independent_set": {
+        "status": "INFEASIBLE",
+        "feasible": false,
+        "proven_infeasible": true,
+        "vertices": [],
+        "candidate_vertices": 853,
+        "edge_constraints": 344484,
+        "elapsed_seconds": 1.4926634170042234,
+        "conflicts": 865,
+        "branches": 4394,
+        "wall_time": 1.49214,
+        "solver": "OR-Tools CP-SAT target-feasibility oracle"
+      },
+      "independence_number": 7,
+      "independence_number_proof": "source fiber gives the lower bound; CP-SAT proves that the next cardinality is infeasible",
+      "fractional_chromatic_number": 343.0
+    },
+    {
+      "prime": 7,
+      "character_index": 28,
+      "character": [
+        1,
+        0,
+        0,
+        0,
+        4,
+        0
+      ],
+      "period_basis_columns": [
+        [
+          49,
+          0,
+          0,
+          5,
+          22,
+          5
+        ],
+        [
+          0,
+          7,
+          0,
+          2,
+          2,
+          0
+        ],
+        [
+          0,
+          0,
+          7,
+          6,
+          6,
+          2
+        ],
+        [
+          0,
+          0,
+          0,
+          1,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          1,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          1
+        ]
+      ],
+      "period_index": 2401,
+      "connection_keys": 1564,
+      "loop_free": true,
+      "source_fiber_count": 343,
+      "source_fiber_size": 7,
+      "target_independent_set": {
+        "status": "INFEASIBLE",
+        "feasible": false,
+        "proven_infeasible": true,
+        "vertices": [],
+        "candidate_vertices": 837,
+        "edge_constraints": 334339,
+        "elapsed_seconds": 1.0407720000002882,
+        "conflicts": 0,
+        "branches": 0,
+        "wall_time": 1.040513,
+        "solver": "OR-Tools CP-SAT target-feasibility oracle"
+      },
+      "independence_number": 7,
+      "independence_number_proof": "source fiber gives the lower bound; CP-SAT proves that the next cardinality is infeasible",
+      "fractional_chromatic_number": 343.0
+    },
+    {
+      "prime": 7,
+      "character_index": 692,
+      "character": [
+        1,
+        0,
+        2,
+        0,
+        0,
+        6
+      ],
+      "period_basis_columns": [
+        [
+          49,
+          0,
+          35,
+          5,
+          1,
+          12
+        ],
+        [
+          0,
+          7,
+          0,
+          2,
+          2,
+          0
+        ],
+        [
+          0,
+          0,
+          7,
+          6,
+          6,
+          2
+        ],
+        [
+          0,
+          0,
+          0,
+          1,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          1,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          1
+        ]
+      ],
+      "period_index": 2401,
+      "connection_keys": 1772,
+      "loop_free": true,
+      "source_fiber_count": 343,
+      "source_fiber_size": 7,
+      "target_independent_set": {
+        "status": "INFEASIBLE",
+        "feasible": false,
+        "proven_infeasible": true,
+        "vertices": [],
+        "candidate_vertices": 629,
+        "edge_constraints": 194547,
+        "elapsed_seconds": 0.48830662500404287,
+        "conflicts": 0,
+        "branches": 0,
+        "wall_time": 0.48803500000000005,
+        "solver": "OR-Tools CP-SAT target-feasibility oracle"
+      },
+      "independence_number": 7,
+      "independence_number_proof": "source fiber gives the lower bound; CP-SAT proves that the next cardinality is infeasible",
+      "fractional_chromatic_number": 343.0
+    },
+    {
+      "prime": 7,
+      "character_index": 1,
+      "character": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        1
+      ],
+      "period_basis_columns": [
+        [
+          49,
+          0,
+          0,
+          5,
+          1,
+          47
+        ],
+        [
+          0,
+          7,
+          0,
+          2,
+          2,
+          0
+        ],
+        [
+          0,
+          0,
+          7,
+          6,
+          6,
+          2
+        ],
+        [
+          0,
+          0,
+          0,
+          1,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          1,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          1
+        ]
+      ],
+      "period_index": 2401,
+      "connection_keys": 1784,
+      "loop_free": true,
+      "source_fiber_count": 343,
+      "source_fiber_size": 7,
+      "target_independent_set": {
+        "status": "INFEASIBLE",
+        "feasible": false,
+        "proven_infeasible": true,
+        "vertices": [],
+        "candidate_vertices": 617,
+        "edge_constraints": 187410,
+        "elapsed_seconds": 0.4693371249959455,
+        "conflicts": 0,
+        "branches": 0,
+        "wall_time": 0.469187,
+        "solver": "OR-Tools CP-SAT target-feasibility oracle"
+      },
+      "independence_number": 7,
+      "independence_number_proof": "source fiber gives the lower bound; CP-SAT proves that the next cardinality is infeasible",
+      "fractional_chromatic_number": 343.0
+    },
+    {
+      "prime": 7,
+      "character_index": 764,
+      "character": [
+        1,
+        0,
+        2,
+        1,
+        4,
+        1
+      ],
+      "period_basis_columns": [
+        [
+          49,
+          0,
+          35,
+          47,
+          22,
+          47
+        ],
+        [
+          0,
+          7,
+          0,
+          2,
+          2,
+          0
+        ],
+        [
+          0,
+          0,
+          7,
+          6,
+          6,
+          2
+        ],
+        [
+          0,
+          0,
+          0,
+          1,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          1,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          1
+        ]
+      ],
+      "period_index": 2401,
+      "connection_keys": 1922,
+      "loop_free": true,
+      "source_fiber_count": 343,
+      "source_fiber_size": 7,
+      "target_independent_set": {
+        "status": "INFEASIBLE",
+        "feasible": false,
+        "proven_infeasible": true,
+        "vertices": [],
+        "candidate_vertices": 479,
+        "edge_constraints": 113328,
+        "elapsed_seconds": 0.24645237500226358,
+        "conflicts": 0,
+        "branches": 0,
+        "wall_time": 0.246321,
+        "solver": "OR-Tools CP-SAT target-feasibility oracle"
+      },
+      "independence_number": 7,
+      "independence_number_proof": "source fiber gives the lower bound; CP-SAT proves that the next cardinality is infeasible",
+      "fractional_chromatic_number": 343.0
+    },
+    {
+      "prime": 7,
+      "character_index": 42,
+      "character": [
+        1,
+        0,
+        0,
+        0,
+        6,
+        0
+      ],
+      "period_basis_columns": [
+        [
+          49,
+          0,
+          0,
+          5,
+          8,
+          5
+        ],
+        [
+          0,
+          7,
+          0,
+          2,
+          2,
+          0
+        ],
+        [
+          0,
+          0,
+          7,
+          6,
+          6,
+          2
+        ],
+        [
+          0,
+          0,
+          0,
+          1,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          1,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          1
+        ]
+      ],
+      "period_index": 2401,
+      "connection_keys": 1924,
+      "loop_free": true,
+      "source_fiber_count": 343,
+      "source_fiber_size": 7,
+      "target_independent_set": {
+        "status": "INFEASIBLE",
+        "feasible": false,
+        "proven_infeasible": true,
+        "vertices": [],
+        "candidate_vertices": 477,
+        "edge_constraints": 112159,
+        "elapsed_seconds": 0.24914425000315532,
+        "conflicts": 0,
+        "branches": 0,
+        "wall_time": 0.24902800000000003,
+        "solver": "OR-Tools CP-SAT target-feasibility oracle"
+      },
+      "independence_number": 7,
+      "independence_number_proof": "source fiber gives the lower bound; CP-SAT proves that the next cardinality is infeasible",
+      "fractional_chromatic_number": 343.0
+    },
+    {
+      "prime": 7,
+      "character_index": 365,
+      "character": [
+        1,
+        0,
+        1,
+        0,
+        3,
+        1
+      ],
+      "period_basis_columns": [
+        [
+          49,
+          0,
+          42,
+          5,
+          29,
+          47
+        ],
+        [
+          0,
+          7,
+          0,
+          2,
+          2,
+          0
+        ],
+        [
+          0,
+          0,
+          7,
+          6,
+          6,
+          2
+        ],
+        [
+          0,
+          0,
+          0,
+          1,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          1,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          1
+        ]
+      ],
+      "period_index": 2401,
+      "connection_keys": 1926,
+      "loop_free": true,
+      "source_fiber_count": 343,
+      "source_fiber_size": 7,
+      "target_independent_set": {
+        "status": "INFEASIBLE",
+        "feasible": false,
+        "proven_infeasible": true,
+        "vertices": [],
+        "candidate_vertices": 475,
+        "edge_constraints": 111393,
+        "elapsed_seconds": 0.2430831669989857,
+        "conflicts": 0,
+        "branches": 0,
+        "wall_time": 0.242959,
+        "solver": "OR-Tools CP-SAT target-feasibility oracle"
+      },
+      "independence_number": 7,
+      "independence_number_proof": "source fiber gives the lower bound; CP-SAT proves that the next cardinality is infeasible",
+      "fractional_chromatic_number": 343.0
+    },
+    {
+      "prime": 7,
+      "character_index": 52,
+      "character": [
+        1,
+        0,
+        0,
+        1,
+        0,
+        3
+      ],
+      "period_basis_columns": [
+        [
+          49,
+          0,
+          0,
+          47,
+          1,
+          33
+        ],
+        [
+          0,
+          7,
+          0,
+          2,
+          2,
+          0
+        ],
+        [
+          0,
+          0,
+          7,
+          6,
+          6,
+          2
+        ],
+        [
+          0,
+          0,
+          0,
+          1,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          1,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          1
+        ]
+      ],
+      "period_index": 2401,
+      "connection_keys": 1928,
+      "loop_free": true,
+      "source_fiber_count": 343,
+      "source_fiber_size": 7,
+      "target_independent_set": {
+        "status": "INFEASIBLE",
+        "feasible": false,
+        "proven_infeasible": true,
+        "vertices": [],
+        "candidate_vertices": 473,
+        "edge_constraints": 110235,
+        "elapsed_seconds": 0.24217145899456227,
+        "conflicts": 0,
+        "branches": 0,
+        "wall_time": 0.242072,
+        "solver": "OR-Tools CP-SAT target-feasibility oracle"
+      },
+      "independence_number": 7,
+      "independence_number_proof": "source fiber gives the lower bound; CP-SAT proves that the next cardinality is infeasible",
+      "fractional_chromatic_number": 343.0
+    },
+    {
+      "prime": 7,
+      "character_index": 645,
+      "character": [
+        1,
+        0,
+        1,
+        6,
+        1,
+        1
+      ],
+      "period_basis_columns": [
+        [
+          49,
+          0,
+          42,
+          12,
+          43,
+          47
+        ],
+        [
+          0,
+          7,
+          0,
+          2,
+          2,
+          0
+        ],
+        [
+          0,
+          0,
+          7,
+          6,
+          6,
+          2
+        ],
+        [
+          0,
+          0,
+          0,
+          1,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          1,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          1
+        ]
+      ],
+      "period_index": 2401,
+      "connection_keys": 1932,
+      "loop_free": true,
+      "source_fiber_count": 343,
+      "source_fiber_size": 7,
+      "target_independent_set": {
+        "status": "INFEASIBLE",
+        "feasible": false,
+        "proven_infeasible": true,
+        "vertices": [],
+        "candidate_vertices": 469,
+        "edge_constraints": 89550,
+        "elapsed_seconds": 0.351054375001695,
+        "conflicts": 1624,
+        "branches": 5898,
+        "wall_time": 0.35089200000000004,
+        "solver": "OR-Tools CP-SAT target-feasibility oracle"
+      },
+      "independence_number": 7,
+      "independence_number_proof": "source fiber gives the lower bound; CP-SAT proves that the next cardinality is infeasible",
+      "fractional_chromatic_number": 343.0
+    },
+    {
+      "prime": 7,
+      "character_index": 85,
+      "character": [
+        1,
+        0,
+        0,
+        1,
+        5,
+        1
+      ],
+      "period_basis_columns": [
+        [
+          49,
+          0,
+          0,
+          47,
+          15,
+          47
+        ],
+        [
+          0,
+          7,
+          0,
+          2,
+          2,
+          0
+        ],
+        [
+          0,
+          0,
+          7,
+          6,
+          6,
+          2
+        ],
+        [
+          0,
+          0,
+          0,
+          1,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          1,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          1
+        ]
+      ],
+      "period_index": 2401,
+      "connection_keys": 1950,
+      "loop_free": true,
+      "source_fiber_count": 343,
+      "source_fiber_size": 7,
+      "target_independent_set": {
+        "status": "INFEASIBLE",
+        "feasible": false,
+        "proven_infeasible": true,
+        "vertices": [],
+        "candidate_vertices": 451,
+        "edge_constraints": 82548,
+        "elapsed_seconds": 0.4434667919995263,
+        "conflicts": 1003,
+        "branches": 6105,
+        "wall_time": 0.44338000000000005,
+        "solver": "OR-Tools CP-SAT target-feasibility oracle"
+      },
+      "independence_number": 7,
+      "independence_number_proof": "source fiber gives the lower bound; CP-SAT proves that the next cardinality is infeasible",
+      "fractional_chromatic_number": 343.0
+    },
+    {
+      "prime": 7,
+      "character_index": 372,
+      "character": [
+        1,
+        0,
+        1,
+        0,
+        4,
+        1
+      ],
+      "period_basis_columns": [
+        [
+          49,
+          0,
+          42,
+          5,
+          22,
+          47
+        ],
+        [
+          0,
+          7,
+          0,
+          2,
+          2,
+          0
+        ],
+        [
+          0,
+          0,
+          7,
+          6,
+          6,
+          2
+        ],
+        [
+          0,
+          0,
+          0,
+          1,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          1,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          1
+        ]
+      ],
+      "period_index": 2401,
+      "connection_keys": 2102,
+      "loop_free": true,
+      "source_fiber_count": 343,
+      "source_fiber_size": 7,
+      "target_independent_set": {
+        "status": "INFEASIBLE",
+        "feasible": false,
+        "proven_infeasible": true,
+        "vertices": [],
+        "candidate_vertices": 299,
+        "edge_constraints": 43860,
+        "elapsed_seconds": 0.12081512500299141,
+        "conflicts": 0,
+        "branches": 0,
+        "wall_time": 0.120716,
+        "solver": "OR-Tools CP-SAT target-feasibility oracle"
+      },
+      "independence_number": 7,
+      "independence_number_proof": "source fiber gives the lower bound; CP-SAT proves that the next cardinality is infeasible",
+      "fractional_chromatic_number": 343.0
+    },
+    {
+      "prime": 7,
+      "character_index": 45,
+      "character": [
+        1,
+        0,
+        0,
+        0,
+        6,
+        3
+      ],
+      "period_basis_columns": [
+        [
+          49,
+          0,
+          0,
+          5,
+          8,
+          33
+        ],
+        [
+          0,
+          7,
+          0,
+          2,
+          2,
+          0
+        ],
+        [
+          0,
+          0,
+          7,
+          6,
+          6,
+          2
+        ],
+        [
+          0,
+          0,
+          0,
+          1,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          1,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          1
+        ]
+      ],
+      "period_index": 2401,
+      "connection_keys": 2124,
+      "loop_free": true,
+      "source_fiber_count": 343,
+      "source_fiber_size": 7,
+      "target_independent_set": {
+        "status": "INFEASIBLE",
+        "feasible": false,
+        "proven_infeasible": true,
+        "vertices": [],
+        "candidate_vertices": 277,
+        "edge_constraints": 37677,
+        "elapsed_seconds": 0.10758924999390729,
+        "conflicts": 0,
+        "branches": 0,
+        "wall_time": 0.107519,
+        "solver": "OR-Tools CP-SAT target-feasibility oracle"
+      },
+      "independence_number": 7,
+      "independence_number_proof": "source fiber gives the lower bound; CP-SAT proves that the next cardinality is infeasible",
+      "fractional_chromatic_number": 343.0
+    },
+    {
+      "prime": 7,
+      "character_index": 0,
+      "character": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "period_basis_columns": [
+        [
+          49,
+          0,
+          0,
+          5,
+          1,
+          5
+        ],
+        [
+          0,
+          7,
+          0,
+          2,
+          2,
+          0
+        ],
+        [
+          0,
+          0,
+          7,
+          6,
+          6,
+          2
+        ],
+        [
+          0,
+          0,
+          0,
+          1,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          1,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          1
+        ]
+      ],
+      "period_index": 2401,
+      "connection_keys": 2130,
+      "loop_free": true,
+      "source_fiber_count": 343,
+      "source_fiber_size": 7,
+      "target_independent_set": {
+        "status": "INFEASIBLE",
+        "feasible": false,
+        "proven_infeasible": true,
+        "vertices": [],
+        "candidate_vertices": 271,
+        "edge_constraints": 35727,
+        "elapsed_seconds": 0.15939054200134706,
+        "conflicts": 0,
+        "branches": 0,
+        "wall_time": 0.159261,
+        "solver": "OR-Tools CP-SAT target-feasibility oracle"
+      },
+      "independence_number": 7,
+      "independence_number_proof": "source fiber gives the lower bound; CP-SAT proves that the next cardinality is infeasible",
+      "fractional_chromatic_number": 343.0
+    },
+    {
+      "prime": 7,
+      "character_index": 18,
+      "character": [
+        1,
+        0,
+        0,
+        0,
+        2,
+        4
+      ],
+      "period_basis_columns": [
+        [
+          49,
+          0,
+          0,
+          5,
+          36,
+          26
+        ],
+        [
+          0,
+          7,
+          0,
+          2,
+          2,
+          0
+        ],
+        [
+          0,
+          0,
+          7,
+          6,
+          6,
+          2
+        ],
+        [
+          0,
+          0,
+          0,
+          1,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          1,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          1
+        ]
+      ],
+      "period_index": 2401,
+      "connection_keys": 2178,
+      "loop_free": true,
+      "source_fiber_count": 343,
+      "source_fiber_size": 7,
+      "target_independent_set": {
+        "status": "INFEASIBLE",
+        "feasible": false,
+        "proven_infeasible": true,
+        "vertices": [],
+        "candidate_vertices": 223,
+        "edge_constraints": 24237,
+        "elapsed_seconds": 0.07024816700140946,
+        "conflicts": 0,
+        "branches": 0,
+        "wall_time": 0.070176,
+        "solver": "OR-Tools CP-SAT target-feasibility oracle"
+      },
+      "independence_number": 7,
+      "independence_number_proof": "source fiber gives the lower bound; CP-SAT proves that the next cardinality is infeasible",
+      "fractional_chromatic_number": 343.0
+    },
+    {
+      "prime": 7,
+      "character_index": 752,
+      "character": [
+        1,
+        0,
+        2,
+        1,
+        2,
+        3
+      ],
+      "period_basis_columns": [
+        [
+          49,
+          0,
+          35,
+          47,
+          36,
+          33
+        ],
+        [
+          0,
+          7,
+          0,
+          2,
+          2,
+          0
+        ],
+        [
+          0,
+          0,
+          7,
+          6,
+          6,
+          2
+        ],
+        [
+          0,
+          0,
+          0,
+          1,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          1,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          1
+        ]
+      ],
+      "period_index": 2401,
+      "connection_keys": 2190,
+      "loop_free": true,
+      "source_fiber_count": 343,
+      "source_fiber_size": 7,
+      "target_independent_set": {
+        "status": "INFEASIBLE",
+        "feasible": false,
+        "proven_infeasible": true,
+        "vertices": [],
+        "candidate_vertices": 211,
+        "edge_constraints": 21810,
+        "elapsed_seconds": 0.047159959001874086,
+        "conflicts": 0,
+        "branches": 0,
+        "wall_time": 0.047062,
+        "solver": "OR-Tools CP-SAT target-feasibility oracle"
+      },
+      "independence_number": 7,
+      "independence_number_proof": "source fiber gives the lower bound; CP-SAT proves that the next cardinality is infeasible",
+      "fractional_chromatic_number": 343.0
+    },
+    {
+      "prime": 7,
+      "character_index": 3,
+      "character": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        3
+      ],
+      "period_basis_columns": [
+        [
+          49,
+          0,
+          0,
+          5,
+          1,
+          33
+        ],
+        [
+          0,
+          7,
+          0,
+          2,
+          2,
+          0
+        ],
+        [
+          0,
+          0,
+          7,
+          6,
+          6,
+          2
+        ],
+        [
+          0,
+          0,
+          0,
+          1,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          1,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          1
+        ]
+      ],
+      "period_index": 2401,
+      "connection_keys": 2194,
+      "loop_free": true,
+      "source_fiber_count": 343,
+      "source_fiber_size": 7,
+      "target_independent_set": {
+        "status": "INFEASIBLE",
+        "feasible": false,
+        "proven_infeasible": true,
+        "vertices": [],
+        "candidate_vertices": 207,
+        "edge_constraints": 20815,
+        "elapsed_seconds": 0.046339625005202834,
+        "conflicts": 0,
+        "branches": 0,
+        "wall_time": 0.046287,
+        "solver": "OR-Tools CP-SAT target-feasibility oracle"
+      },
+      "independence_number": 7,
+      "independence_number_proof": "source fiber gives the lower bound; CP-SAT proves that the next cardinality is infeasible",
+      "fractional_chromatic_number": 343.0
+    },
+    {
+      "prime": 7,
+      "character_index": 349,
+      "character": [
+        1,
+        0,
+        1,
+        0,
+        0,
+        6
+      ],
+      "period_basis_columns": [
+        [
+          49,
+          0,
+          42,
+          5,
+          1,
+          12
+        ],
+        [
+          0,
+          7,
+          0,
+          2,
+          2,
+          0
+        ],
+        [
+          0,
+          0,
+          7,
+          6,
+          6,
+          2
+        ],
+        [
+          0,
+          0,
+          0,
+          1,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          1,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          1
+        ]
+      ],
+      "period_index": 2401,
+      "connection_keys": 2250,
+      "loop_free": true,
+      "source_fiber_count": 343,
+      "source_fiber_size": 7,
+      "target_independent_set": {
+        "status": "INFEASIBLE",
+        "feasible": false,
+        "proven_infeasible": true,
+        "vertices": [],
+        "candidate_vertices": 151,
+        "edge_constraints": 11100,
+        "elapsed_seconds": 0.01723791699623689,
+        "conflicts": 0,
+        "branches": 0,
+        "wall_time": 0.017202000000000002,
+        "solver": "OR-Tools CP-SAT target-feasibility oracle"
+      },
+      "independence_number": 7,
+      "independence_number_proof": "source fiber gives the lower bound; CP-SAT proves that the next cardinality is infeasible",
+      "fractional_chromatic_number": 343.0
+    },
+    {
+      "prime": 7,
+      "character_index": 27,
+      "character": [
+        1,
+        0,
+        0,
+        0,
+        3,
+        6
+      ],
+      "period_basis_columns": [
+        [
+          49,
+          0,
+          0,
+          5,
+          29,
+          12
+        ],
+        [
+          0,
+          7,
+          0,
+          2,
+          2,
+          0
+        ],
+        [
+          0,
+          0,
+          7,
+          6,
+          6,
+          2
+        ],
+        [
+          0,
+          0,
+          0,
+          1,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          1,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          1
+        ]
+      ],
+      "period_index": 2401,
+      "connection_keys": 2252,
+      "loop_free": true,
+      "source_fiber_count": 343,
+      "source_fiber_size": 7,
+      "target_independent_set": {
+        "status": "INFEASIBLE",
+        "feasible": false,
+        "proven_infeasible": true,
+        "vertices": [],
+        "candidate_vertices": 149,
+        "edge_constraints": 10797,
+        "elapsed_seconds": 0.015492416998313274,
+        "conflicts": 0,
+        "branches": 0,
+        "wall_time": 0.015459,
+        "solver": "OR-Tools CP-SAT target-feasibility oracle"
+      },
+      "independence_number": 7,
+      "independence_number_proof": "source fiber gives the lower bound; CP-SAT proves that the next cardinality is infeasible",
+      "fractional_chromatic_number": 343.0
+    },
+    {
+      "prime": 7,
+      "character_index": 54,
+      "character": [
+        1,
+        0,
+        0,
+        1,
+        0,
+        5
+      ],
+      "period_basis_columns": [
+        [
+          49,
+          0,
+          0,
+          47,
+          1,
+          19
+        ],
+        [
+          0,
+          7,
+          0,
+          2,
+          2,
+          0
+        ],
+        [
+          0,
+          0,
+          7,
+          6,
+          6,
+          2
+        ],
+        [
+          0,
+          0,
+          0,
+          1,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          1,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          1
+        ]
+      ],
+      "period_index": 2401,
+      "connection_keys": 2256,
+      "loop_free": true,
+      "source_fiber_count": 343,
+      "source_fiber_size": 7,
+      "target_independent_set": {
+        "status": "INFEASIBLE",
+        "feasible": false,
+        "proven_infeasible": true,
+        "vertices": [],
+        "candidate_vertices": 145,
+        "edge_constraints": 10221,
+        "elapsed_seconds": 0.01472545800061198,
+        "conflicts": 0,
+        "branches": 0,
+        "wall_time": 0.014698000000000001,
+        "solver": "OR-Tools CP-SAT target-feasibility oracle"
+      },
+      "independence_number": 7,
+      "independence_number_proof": "source fiber gives the lower bound; CP-SAT proves that the next cardinality is infeasible",
+      "fractional_chromatic_number": 343.0
+    },
+    {
+      "prime": 7,
+      "character_index": 29,
+      "character": [
+        1,
+        0,
+        0,
+        0,
+        4,
+        1
+      ],
+      "period_basis_columns": [
+        [
+          49,
+          0,
+          0,
+          5,
+          22,
+          47
+        ],
+        [
+          0,
+          7,
+          0,
+          2,
+          2,
+          0
+        ],
+        [
+          0,
+          0,
+          7,
+          6,
+          6,
+          2
+        ],
+        [
+          0,
+          0,
+          0,
+          1,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          1,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          1
+        ]
+      ],
+      "period_index": 2401,
+      "connection_keys": 2262,
+      "loop_free": true,
+      "source_fiber_count": 343,
+      "source_fiber_size": 7,
+      "target_independent_set": {
+        "status": "INFEASIBLE",
+        "feasible": false,
+        "proven_infeasible": true,
+        "vertices": [],
+        "candidate_vertices": 139,
+        "edge_constraints": 9375,
+        "elapsed_seconds": 0.013421499999822117,
+        "conflicts": 0,
+        "branches": 0,
+        "wall_time": 0.013396000000000002,
+        "solver": "OR-Tools CP-SAT target-feasibility oracle"
+      },
+      "independence_number": 7,
+      "independence_number_proof": "source fiber gives the lower bound; CP-SAT proves that the next cardinality is infeasible",
+      "fractional_chromatic_number": 343.0
+    },
+    {
+      "prime": 7,
+      "character_index": 358,
+      "character": [
+        1,
+        0,
+        1,
+        0,
+        2,
+        1
+      ],
+      "period_basis_columns": [
+        [
+          49,
+          0,
+          42,
+          5,
+          36,
+          47
+        ],
+        [
+          0,
+          7,
+          0,
+          2,
+          2,
+          0
+        ],
+        [
+          0,
+          0,
+          7,
+          6,
+          6,
+          2
+        ],
+        [
+          0,
+          0,
+          0,
+          1,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          1,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          1
+        ]
+      ],
+      "period_index": 2401,
+      "connection_keys": 2278,
+      "loop_free": true,
+      "source_fiber_count": 343,
+      "source_fiber_size": 7,
+      "target_independent_set": {
+        "status": "INFEASIBLE",
+        "feasible": false,
+        "proven_infeasible": true,
+        "vertices": [],
+        "candidate_vertices": 123,
+        "edge_constraints": 7285,
+        "elapsed_seconds": 0.010220291995210573,
+        "conflicts": 0,
+        "branches": 0,
+        "wall_time": 0.010195000000000001,
+        "solver": "OR-Tools CP-SAT target-feasibility oracle"
+      },
+      "independence_number": 7,
+      "independence_number_proof": "source fiber gives the lower bound; CP-SAT proves that the next cardinality is infeasible",
+      "fractional_chromatic_number": 343.0
+    },
+    {
+      "prime": 7,
+      "character_index": 17,
+      "character": [
+        1,
+        0,
+        0,
+        0,
+        2,
+        3
+      ],
+      "period_basis_columns": [
+        [
+          49,
+          0,
+          0,
+          5,
+          36,
+          33
+        ],
+        [
+          0,
+          7,
+          0,
+          2,
+          2,
+          0
+        ],
+        [
+          0,
+          0,
+          7,
+          6,
+          6,
+          2
+        ],
+        [
+          0,
+          0,
+          0,
+          1,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          1,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          1
+        ]
+      ],
+      "period_index": 2401,
+      "connection_keys": 2280,
+      "loop_free": true,
+      "source_fiber_count": 343,
+      "source_fiber_size": 7,
+      "target_independent_set": {
+        "status": "INFEASIBLE",
+        "feasible": false,
+        "proven_infeasible": true,
+        "vertices": [],
+        "candidate_vertices": 121,
+        "edge_constraints": 7065,
+        "elapsed_seconds": 0.009850583999650553,
+        "conflicts": 0,
+        "branches": 0,
+        "wall_time": 0.009824000000000001,
+        "solver": "OR-Tools CP-SAT target-feasibility oracle"
+      },
+      "independence_number": 7,
+      "independence_number_proof": "source fiber gives the lower bound; CP-SAT proves that the next cardinality is infeasible",
+      "fractional_chromatic_number": 343.0
+    },
+    {
+      "prime": 7,
+      "character_index": 14,
+      "character": [
+        1,
+        0,
+        0,
+        0,
+        2,
+        0
+      ],
+      "period_basis_columns": [
+        [
+          49,
+          0,
+          0,
+          5,
+          36,
+          5
+        ],
+        [
+          0,
+          7,
+          0,
+          2,
+          2,
+          0
+        ],
+        [
+          0,
+          0,
+          7,
+          6,
+          6,
+          2
+        ],
+        [
+          0,
+          0,
+          0,
+          1,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          1,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          1
+        ]
+      ],
+      "period_index": 2401,
+      "connection_keys": 2282,
+      "loop_free": true,
+      "source_fiber_count": 343,
+      "source_fiber_size": 7,
+      "target_independent_set": {
+        "status": "INFEASIBLE",
+        "feasible": false,
+        "proven_infeasible": true,
+        "vertices": [],
+        "candidate_vertices": 119,
+        "edge_constraints": 6828,
+        "elapsed_seconds": 0.009576999997079838,
+        "conflicts": 0,
+        "branches": 0,
+        "wall_time": 0.009552000000000001,
+        "solver": "OR-Tools CP-SAT target-feasibility oracle"
+      },
+      "independence_number": 7,
+      "independence_number_proof": "source fiber gives the lower bound; CP-SAT proves that the next cardinality is infeasible",
+      "fractional_chromatic_number": 343.0
+    },
+    {
+      "prime": 7,
+      "character_index": 688,
+      "character": [
+        1,
+        0,
+        2,
+        0,
+        0,
+        2
+      ],
+      "period_basis_columns": [
+        [
+          49,
+          0,
+          35,
+          5,
+          1,
+          40
+        ],
+        [
+          0,
+          7,
+          0,
+          2,
+          2,
+          0
+        ],
+        [
+          0,
+          0,
+          7,
+          6,
+          6,
+          2
+        ],
+        [
+          0,
+          0,
+          0,
+          1,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          1,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          1
+        ]
+      ],
+      "period_index": 2401,
+      "connection_keys": 2330,
+      "loop_free": true,
+      "source_fiber_count": 343,
+      "source_fiber_size": 7,
+      "target_independent_set": {
+        "status": "INFEASIBLE",
+        "feasible": false,
+        "proven_infeasible": true,
+        "vertices": [],
+        "candidate_vertices": 71,
+        "edge_constraints": 2388,
+        "elapsed_seconds": 0.0035165840017725714,
+        "conflicts": 0,
+        "branches": 0,
+        "wall_time": 0.0034950000000000003,
+        "solver": "OR-Tools CP-SAT target-feasibility oracle"
+      },
+      "independence_number": 7,
+      "independence_number_proof": "source fiber gives the lower bound; CP-SAT proves that the next cardinality is infeasible",
+      "fractional_chromatic_number": 343.0
+    },
+    {
+      "prime": 7,
+      "character_index": 350,
+      "character": [
+        1,
+        0,
+        1,
+        0,
+        1,
+        0
+      ],
+      "period_basis_columns": [
+        [
+          49,
+          0,
+          42,
+          5,
+          43,
+          5
+        ],
+        [
+          0,
+          7,
+          0,
+          2,
+          2,
+          0
+        ],
+        [
+          0,
+          0,
+          7,
+          6,
+          6,
+          2
+        ],
+        [
+          0,
+          0,
+          0,
+          1,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          1,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          1
+        ]
+      ],
+      "period_index": 2401,
+      "connection_keys": 2338,
+      "loop_free": true,
+      "source_fiber_count": 343,
+      "source_fiber_size": 7,
+      "target_independent_set": {
+        "status": "INFEASIBLE",
+        "feasible": false,
+        "proven_infeasible": true,
+        "vertices": [],
+        "candidate_vertices": 63,
+        "edge_constraints": 1861,
+        "elapsed_seconds": 0.002710082997509744,
+        "conflicts": 0,
+        "branches": 0,
+        "wall_time": 0.002689,
+        "solver": "OR-Tools CP-SAT target-feasibility oracle"
+      },
+      "independence_number": 7,
+      "independence_number_proof": "source fiber gives the lower bound; CP-SAT proves that the next cardinality is infeasible",
+      "fractional_chromatic_number": 343.0
+    },
+    {
+      "prime": 7,
+      "character_index": 5,
+      "character": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        5
+      ],
+      "period_basis_columns": [
+        [
+          49,
+          0,
+          0,
+          5,
+          1,
+          19
+        ],
+        [
+          0,
+          7,
+          0,
+          2,
+          2,
+          0
+        ],
+        [
+          0,
+          0,
+          7,
+          6,
+          6,
+          2
+        ],
+        [
+          0,
+          0,
+          0,
+          1,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          1,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          1
+        ]
+      ],
+      "period_index": 2401,
+      "connection_keys": 2342,
+      "loop_free": true,
+      "source_fiber_count": 343,
+      "source_fiber_size": 7,
+      "target_independent_set": {
+        "status": "INFEASIBLE",
+        "feasible": false,
+        "proven_infeasible": true,
+        "vertices": [],
+        "candidate_vertices": 59,
+        "edge_constraints": 1620,
+        "elapsed_seconds": 0.002461541000229772,
+        "conflicts": 0,
+        "branches": 0,
+        "wall_time": 0.002441,
+        "solver": "OR-Tools CP-SAT target-feasibility oracle"
+      },
+      "independence_number": 7,
+      "independence_number_proof": "source fiber gives the lower bound; CP-SAT proves that the next cardinality is infeasible",
+      "fractional_chromatic_number": 343.0
+    },
+    {
+      "prime": 7,
+      "character_index": 26,
+      "character": [
+        1,
+        0,
+        0,
+        0,
+        3,
+        5
+      ],
+      "period_basis_columns": [
+        [
+          49,
+          0,
+          0,
+          5,
+          29,
+          19
+        ],
+        [
+          0,
+          7,
+          0,
+          2,
+          2,
+          0
+        ],
+        [
+          0,
+          0,
+          7,
+          6,
+          6,
+          2
+        ],
+        [
+          0,
+          0,
+          0,
+          1,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          1,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          1
+        ]
+      ],
+      "period_index": 2401,
+      "connection_keys": 2344,
+      "loop_free": true,
+      "source_fiber_count": 343,
+      "source_fiber_size": 7,
+      "target_independent_set": {
+        "status": "INFEASIBLE",
+        "feasible": false,
+        "proven_infeasible": true,
+        "vertices": [],
+        "candidate_vertices": 57,
+        "edge_constraints": 1504,
+        "elapsed_seconds": 0.002235207997728139,
+        "conflicts": 0,
+        "branches": 0,
+        "wall_time": 0.002215,
+        "solver": "OR-Tools CP-SAT target-feasibility oracle"
+      },
+      "independence_number": 7,
+      "independence_number_proof": "source fiber gives the lower bound; CP-SAT proves that the next cardinality is infeasible",
+      "fractional_chromatic_number": 343.0
+    },
+    {
+      "prime": 7,
+      "character_index": 710,
+      "character": [
+        1,
+        0,
+        2,
+        0,
+        3,
+        3
+      ],
+      "period_basis_columns": [
+        [
+          49,
+          0,
+          35,
+          5,
+          29,
+          33
+        ],
+        [
+          0,
+          7,
+          0,
+          2,
+          2,
+          0
+        ],
+        [
+          0,
+          0,
+          7,
+          6,
+          6,
+          2
+        ],
+        [
+          0,
+          0,
+          0,
+          1,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          1,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          1
+        ]
+      ],
+      "period_index": 2401,
+      "connection_keys": 2368,
+      "loop_free": true,
+      "source_fiber_count": 343,
+      "source_fiber_size": 7,
+      "target_independent_set": {
+        "status": "INFEASIBLE",
+        "feasible": false,
+        "proven_infeasible": true,
+        "vertices": [],
+        "candidate_vertices": 33,
+        "edge_constraints": 481,
+        "elapsed_seconds": 0.000862458000483457,
+        "conflicts": 0,
+        "branches": 0,
+        "wall_time": 0.000844,
+        "solver": "OR-Tools CP-SAT target-feasibility oracle"
+      },
+      "independence_number": 7,
+      "independence_number_proof": "source fiber gives the lower bound; CP-SAT proves that the next cardinality is infeasible",
+      "fractional_chromatic_number": 343.0
+    },
+    {
+      "prime": 7,
+      "character_index": 8,
+      "character": [
+        1,
+        0,
+        0,
+        0,
+        1,
+        1
+      ],
+      "period_basis_columns": [
+        [
+          49,
+          0,
+          0,
+          5,
+          43,
+          47
+        ],
+        [
+          0,
+          7,
+          0,
+          2,
+          2,
+          0
+        ],
+        [
+          0,
+          0,
+          7,
+          6,
+          6,
+          2
+        ],
+        [
+          0,
+          0,
+          0,
+          1,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          1,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          1
+        ]
+      ],
+      "period_index": 2401,
+      "connection_keys": 2370,
+      "loop_free": true,
+      "source_fiber_count": 343,
+      "source_fiber_size": 7,
+      "target_independent_set": {
+        "status": "INFEASIBLE",
+        "feasible": false,
+        "proven_infeasible": true,
+        "vertices": [],
+        "candidate_vertices": 31,
+        "edge_constraints": 414,
+        "elapsed_seconds": 0.0007589579981868155,
+        "conflicts": 0,
+        "branches": 0,
+        "wall_time": 0.0007430000000000001,
+        "solver": "OR-Tools CP-SAT target-feasibility oracle"
+      },
+      "independence_number": 7,
+      "independence_number_proof": "source fiber gives the lower bound; CP-SAT proves that the next cardinality is infeasible",
+      "fractional_chromatic_number": 343.0
+    },
+    {
+      "prime": 7,
+      "character_index": 345,
+      "character": [
+        1,
+        0,
+        1,
+        0,
+        0,
+        2
+      ],
+      "period_basis_columns": [
+        [
+          49,
+          0,
+          42,
+          5,
+          1,
+          40
+        ],
+        [
+          0,
+          7,
+          0,
+          2,
+          2,
+          0
+        ],
+        [
+          0,
+          0,
+          7,
+          6,
+          6,
+          2
+        ],
+        [
+          0,
+          0,
+          0,
+          1,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          1,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          1
+        ]
+      ],
+      "period_index": 2401,
+      "connection_keys": 2374,
+      "loop_free": true,
+      "source_fiber_count": 343,
+      "source_fiber_size": 7,
+      "target_independent_set": {
+        "status": "INFEASIBLE",
+        "feasible": false,
+        "proven_infeasible": true,
+        "vertices": [],
+        "candidate_vertices": 27,
+        "edge_constraints": 298,
+        "elapsed_seconds": 0.0006466670020017773,
+        "conflicts": 0,
+        "branches": 0,
+        "wall_time": 0.0006280000000000001,
+        "solver": "OR-Tools CP-SAT target-feasibility oracle"
+      },
+      "independence_number": 7,
+      "independence_number_proof": "source fiber gives the lower bound; CP-SAT proves that the next cardinality is infeasible",
+      "fractional_chromatic_number": 343.0
+    },
+    {
+      "prime": 7,
+      "character_index": 364,
+      "character": [
+        1,
+        0,
+        1,
+        0,
+        3,
+        0
+      ],
+      "period_basis_columns": [
+        [
+          49,
+          0,
+          42,
+          5,
+          29,
+          5
+        ],
+        [
+          0,
+          7,
+          0,
+          2,
+          2,
+          0
+        ],
+        [
+          0,
+          0,
+          7,
+          6,
+          6,
+          2
+        ],
+        [
+          0,
+          0,
+          0,
+          1,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          1,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          1
+        ]
+      ],
+      "period_index": 2401,
+      "connection_keys": 2374,
+      "loop_free": true,
+      "source_fiber_count": 343,
+      "source_fiber_size": 7,
+      "target_independent_set": {
+        "status": "INFEASIBLE",
+        "feasible": false,
+        "proven_infeasible": true,
+        "vertices": [],
+        "candidate_vertices": 27,
+        "edge_constraints": 310,
+        "elapsed_seconds": 0.0006213750020833686,
+        "conflicts": 0,
+        "branches": 0,
+        "wall_time": 0.000602,
+        "solver": "OR-Tools CP-SAT target-feasibility oracle"
+      },
+      "independence_number": 7,
+      "independence_number_proof": "source fiber gives the lower bound; CP-SAT proves that the next cardinality is infeasible",
+      "fractional_chromatic_number": 343.0
+    },
+    {
+      "prime": 7,
+      "character_index": 10,
+      "character": [
+        1,
+        0,
+        0,
+        0,
+        1,
+        3
+      ],
+      "period_basis_columns": [
+        [
+          49,
+          0,
+          0,
+          5,
+          43,
+          33
+        ],
+        [
+          0,
+          7,
+          0,
+          2,
+          2,
+          0
+        ],
+        [
+          0,
+          0,
+          7,
+          6,
+          6,
+          2
+        ],
+        [
+          0,
+          0,
+          0,
+          1,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          1,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          1
+        ]
+      ],
+      "period_index": 2401,
+      "connection_keys": 2376,
+      "loop_free": true,
+      "source_fiber_count": 343,
+      "source_fiber_size": 7,
+      "target_independent_set": {
+        "status": "INFEASIBLE",
+        "feasible": false,
+        "proven_infeasible": true,
+        "vertices": [],
+        "candidate_vertices": 25,
+        "edge_constraints": 255,
+        "elapsed_seconds": 0.0005681659968104213,
+        "conflicts": 0,
+        "branches": 0,
+        "wall_time": 0.0005510000000000001,
+        "solver": "OR-Tools CP-SAT target-feasibility oracle"
+      },
+      "independence_number": 7,
+      "independence_number_proof": "source fiber gives the lower bound; CP-SAT proves that the next cardinality is infeasible",
+      "fractional_chromatic_number": 343.0
+    },
+    {
+      "prime": 7,
+      "character_index": 4,
+      "character": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        4
+      ],
+      "period_basis_columns": [
+        [
+          49,
+          0,
+          0,
+          5,
+          1,
+          26
+        ],
+        [
+          0,
+          7,
+          0,
+          2,
+          2,
+          0
+        ],
+        [
+          0,
+          0,
+          7,
+          6,
+          6,
+          2
+        ],
+        [
+          0,
+          0,
+          0,
+          1,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          1,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          1
+        ]
+      ],
+      "period_index": 2401,
+      "connection_keys": 2376,
+      "loop_free": true,
+      "source_fiber_count": 343,
+      "source_fiber_size": 7,
+      "target_independent_set": {
+        "status": "INFEASIBLE",
+        "feasible": false,
+        "proven_infeasible": true,
+        "vertices": [],
+        "candidate_vertices": 25,
+        "edge_constraints": 258,
+        "elapsed_seconds": 0.0005937919995631091,
+        "conflicts": 0,
+        "branches": 0,
+        "wall_time": 0.000573,
+        "solver": "OR-Tools CP-SAT target-feasibility oracle"
+      },
+      "independence_number": 7,
+      "independence_number_proof": "source fiber gives the lower bound; CP-SAT proves that the next cardinality is infeasible",
+      "fractional_chromatic_number": 343.0
+    },
+    {
+      "prime": 7,
+      "character_index": 23,
+      "character": [
+        1,
+        0,
+        0,
+        0,
+        3,
+        2
+      ],
+      "period_basis_columns": [
+        [
+          49,
+          0,
+          0,
+          5,
+          29,
+          40
+        ],
+        [
+          0,
+          7,
+          0,
+          2,
+          2,
+          0
+        ],
+        [
+          0,
+          0,
+          7,
+          6,
+          6,
+          2
+        ],
+        [
+          0,
+          0,
+          0,
+          1,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          1,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          1
+        ]
+      ],
+      "period_index": 2401,
+      "connection_keys": 2378,
+      "loop_free": true,
+      "source_fiber_count": 343,
+      "source_fiber_size": 7,
+      "target_independent_set": {
+        "status": "INFEASIBLE",
+        "feasible": false,
+        "proven_infeasible": true,
+        "vertices": [],
+        "candidate_vertices": 23,
+        "edge_constraints": 216,
+        "elapsed_seconds": 0.0005217910002102144,
+        "conflicts": 0,
+        "branches": 0,
+        "wall_time": 0.0005030000000000001,
+        "solver": "OR-Tools CP-SAT target-feasibility oracle"
+      },
+      "independence_number": 7,
+      "independence_number_proof": "source fiber gives the lower bound; CP-SAT proves that the next cardinality is infeasible",
+      "fractional_chromatic_number": 343.0
+    },
+    {
+      "prime": 7,
+      "character_index": 7,
+      "character": [
+        1,
+        0,
+        0,
+        0,
+        1,
+        0
+      ],
+      "period_basis_columns": [
+        [
+          49,
+          0,
+          0,
+          5,
+          43,
+          5
+        ],
+        [
+          0,
+          7,
+          0,
+          2,
+          2,
+          0
+        ],
+        [
+          0,
+          0,
+          7,
+          6,
+          6,
+          2
+        ],
+        [
+          0,
+          0,
+          0,
+          1,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          1,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          1
+        ]
+      ],
+      "period_index": 2401,
+      "connection_keys": 2382,
+      "loop_free": true,
+      "source_fiber_count": 343,
+      "source_fiber_size": 7,
+      "target_independent_set": {
+        "status": "INFEASIBLE",
+        "feasible": false,
+        "proven_infeasible": true,
+        "vertices": [],
+        "candidate_vertices": 19,
+        "edge_constraints": 126,
+        "elapsed_seconds": 0.000371458001609426,
+        "conflicts": 0,
+        "branches": 0,
+        "wall_time": 0.00035600000000000003,
+        "solver": "OR-Tools CP-SAT target-feasibility oracle"
+      },
+      "independence_number": 7,
+      "independence_number_proof": "source fiber gives the lower bound; CP-SAT proves that the next cardinality is infeasible",
+      "fractional_chromatic_number": 343.0
+    },
+    {
+      "prime": 7,
+      "character_index": 22,
+      "character": [
+        1,
+        0,
+        0,
+        0,
+        3,
+        1
+      ],
+      "period_basis_columns": [
+        [
+          49,
+          0,
+          0,
+          5,
+          29,
+          47
+        ],
+        [
+          0,
+          7,
+          0,
+          2,
+          2,
+          0
+        ],
+        [
+          0,
+          0,
+          7,
+          6,
+          6,
+          2
+        ],
+        [
+          0,
+          0,
+          0,
+          1,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          1,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          1
+        ]
+      ],
+      "period_index": 2401,
+      "connection_keys": 2386,
+      "loop_free": true,
+      "source_fiber_count": 343,
+      "source_fiber_size": 7,
+      "target_independent_set": {
+        "status": "INFEASIBLE",
+        "feasible": false,
+        "proven_infeasible": true,
+        "vertices": [],
+        "candidate_vertices": 15,
+        "edge_constraints": 76,
+        "elapsed_seconds": 0.00026470899319974706,
+        "conflicts": 0,
+        "branches": 0,
+        "wall_time": 0.00025,
+        "solver": "OR-Tools CP-SAT target-feasibility oracle"
+      },
+      "independence_number": 7,
+      "independence_number_proof": "source fiber gives the lower bound; CP-SAT proves that the next cardinality is infeasible",
+      "fractional_chromatic_number": 343.0
+    },
+    {
+      "prime": 7,
+      "character_index": 2,
+      "character": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        2
+      ],
+      "period_basis_columns": [
+        [
+          49,
+          0,
+          0,
+          5,
+          1,
+          40
+        ],
+        [
+          0,
+          7,
+          0,
+          2,
+          2,
+          0
+        ],
+        [
+          0,
+          0,
+          7,
+          6,
+          6,
+          2
+        ],
+        [
+          0,
+          0,
+          0,
+          1,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          1,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          1
+        ]
+      ],
+      "period_index": 2401,
+      "connection_keys": 2388,
+      "loop_free": true,
+      "source_fiber_count": 343,
+      "source_fiber_size": 7,
+      "target_independent_set": {
+        "status": "INFEASIBLE",
+        "feasible": false,
+        "proven_infeasible": true,
+        "vertices": [],
+        "candidate_vertices": 13,
+        "edge_constraints": 51,
+        "elapsed_seconds": 0.00023399999918183312,
+        "conflicts": 0,
+        "branches": 0,
+        "wall_time": 0.00021600000000000002,
+        "solver": "OR-Tools CP-SAT target-feasibility oracle"
+      },
+      "independence_number": 7,
+      "independence_number_proof": "source fiber gives the lower bound; CP-SAT proves that the next cardinality is infeasible",
+      "fractional_chromatic_number": 343.0
+    }
+  ],
+  "new_coloring": null,
+  "valid_numerical_witness": false,
+  "elapsed_seconds": 30.691726290999213
+}

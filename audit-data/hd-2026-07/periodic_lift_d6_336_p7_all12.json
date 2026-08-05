@@ -1,0 +1,2404 @@
+{
+  "method": "prime-index period lift and non-coset layer coloring by successive totally-unimodular HiGHS assignment LPs",
+  "source_metric": "audit-data/hd-2026-07/sdp_d6_336_wall7_pass1.json",
+  "n": 6,
+  "dimension": 6,
+  "source_index": 336,
+  "prime": 7,
+  "period_index": 2352,
+  "target_colors": 336,
+  "forbidden_projective_pairs": 4554,
+  "source_kernel_conflicts": 33,
+  "projective_characters": 19608,
+  "loop_free_characters": 12,
+  "settings": {
+    "trials": 6,
+    "max_characters": 12,
+    "seed": 6339803,
+    "temperature": 20000.0,
+    "max_h_norm": 1.2
+  },
+  "character_summaries": [
+    {
+      "character_index": 0,
+      "character": [
+        1,
+        0,
+        0,
+        2,
+        0,
+        3
+      ],
+      "connection_keys": 2349
+    },
+    {
+      "character_index": 1,
+      "character": [
+        1,
+        0,
+        0,
+        3,
+        4,
+        5
+      ],
+      "connection_keys": 2351
+    },
+    {
+      "character_index": 2,
+      "character": [
+        1,
+        0,
+        0,
+        5,
+        0,
+        4
+      ],
+      "connection_keys": 2349
+    },
+    {
+      "character_index": 3,
+      "character": [
+        1,
+        0,
+        0,
+        6,
+        1,
+        3
+      ],
+      "connection_keys": 2351
+    },
+    {
+      "character_index": 4,
+      "character": [
+        1,
+        0,
+        1,
+        2,
+        1,
+        3
+      ],
+      "connection_keys": 2349
+    },
+    {
+      "character_index": 5,
+      "character": [
+        1,
+        0,
+        1,
+        4,
+        3,
+        1
+      ],
+      "connection_keys": 2351
+    },
+    {
+      "character_index": 6,
+      "character": [
+        1,
+        0,
+        2,
+        4,
+        6,
+        3
+      ],
+      "connection_keys": 2351
+    },
+    {
+      "character_index": 7,
+      "character": [
+        1,
+        0,
+        3,
+        2,
+        4,
+        4
+      ],
+      "connection_keys": 2349
+    },
+    {
+      "character_index": 8,
+      "character": [
+        1,
+        0,
+        3,
+        3,
+        3,
+        1
+      ],
+      "connection_keys": 2349
+    },
+    {
+      "character_index": 9,
+      "character": [
+        1,
+        0,
+        4,
+        2,
+        3,
+        2
+      ],
+      "connection_keys": 2349
+    },
+    {
+      "character_index": 10,
+      "character": [
+        1,
+        0,
+        4,
+        5,
+        2,
+        2
+      ],
+      "connection_keys": 2351
+    },
+    {
+      "character_index": 11,
+      "character": [
+        1,
+        0,
+        6,
+        6,
+        3,
+        6
+      ],
+      "connection_keys": 2351
+    }
+  ],
+  "attempts": [
+    {
+      "character_index": 0,
+      "character": [
+        1,
+        0,
+        0,
+        2,
+        0,
+        3
+      ],
+      "trial": 0,
+      "layer_order": [
+        1,
+        3,
+        4,
+        2,
+        5,
+        6
+      ],
+      "success": false,
+      "assignment_history": [
+        {
+          "success": false,
+          "status": "empty row or column",
+          "allowed_edges": 189,
+          "layer": 1,
+          "minimum_allowed_per_color": 0,
+          "minimum_allowed_per_vertex": 0
+        }
+      ]
+    },
+    {
+      "character_index": 0,
+      "character": [
+        1,
+        0,
+        0,
+        2,
+        0,
+        3
+      ],
+      "trial": 1,
+      "layer_order": [
+        2,
+        5,
+        3,
+        4,
+        1,
+        6
+      ],
+      "success": false,
+      "assignment_history": [
+        {
+          "success": false,
+          "status": "empty row or column",
+          "allowed_edges": 51,
+          "layer": 2,
+          "minimum_allowed_per_color": 0,
+          "minimum_allowed_per_vertex": 0
+        }
+      ]
+    },
+    {
+      "character_index": 0,
+      "character": [
+        1,
+        0,
+        0,
+        2,
+        0,
+        3
+      ],
+      "trial": 2,
+      "layer_order": [
+        3,
+        2,
+        6,
+        5,
+        4,
+        1
+      ],
+      "success": false,
+      "assignment_history": [
+        {
+          "success": false,
+          "status": "empty row or column",
+          "allowed_edges": 73,
+          "layer": 3,
+          "minimum_allowed_per_color": 0,
+          "minimum_allowed_per_vertex": 0
+        }
+      ]
+    },
+    {
+      "character_index": 0,
+      "character": [
+        1,
+        0,
+        0,
+        2,
+        0,
+        3
+      ],
+      "trial": 3,
+      "layer_order": [
+        4,
+        3,
+        6,
+        2,
+        5,
+        1
+      ],
+      "success": false,
+      "assignment_history": [
+        {
+          "success": false,
+          "status": "empty row or column",
+          "allowed_edges": 73,
+          "layer": 4,
+          "minimum_allowed_per_color": 0,
+          "minimum_allowed_per_vertex": 0
+        }
+      ]
+    },
+    {
+      "character_index": 0,
+      "character": [
+        1,
+        0,
+        0,
+        2,
+        0,
+        3
+      ],
+      "trial": 4,
+      "layer_order": [
+        5,
+        4,
+        6,
+        2,
+        1,
+        3
+      ],
+      "success": false,
+      "assignment_history": [
+        {
+          "success": false,
+          "status": "empty row or column",
+          "allowed_edges": 51,
+          "layer": 5,
+          "minimum_allowed_per_color": 0,
+          "minimum_allowed_per_vertex": 0
+        }
+      ]
+    },
+    {
+      "character_index": 0,
+      "character": [
+        1,
+        0,
+        0,
+        2,
+        0,
+        3
+      ],
+      "trial": 5,
+      "layer_order": [
+        6,
+        1,
+        3,
+        2,
+        5,
+        4
+      ],
+      "success": false,
+      "assignment_history": [
+        {
+          "success": false,
+          "status": "empty row or column",
+          "allowed_edges": 189,
+          "layer": 6,
+          "minimum_allowed_per_color": 0,
+          "minimum_allowed_per_vertex": 0
+        }
+      ]
+    },
+    {
+      "character_index": 1,
+      "character": [
+        1,
+        0,
+        0,
+        3,
+        4,
+        5
+      ],
+      "trial": 0,
+      "layer_order": [
+        1,
+        4,
+        5,
+        2,
+        6,
+        3
+      ],
+      "success": false,
+      "assignment_history": [
+        {
+          "success": false,
+          "status": "empty row or column",
+          "allowed_edges": 0,
+          "layer": 1,
+          "minimum_allowed_per_color": 0,
+          "minimum_allowed_per_vertex": 0
+        }
+      ]
+    },
+    {
+      "character_index": 1,
+      "character": [
+        1,
+        0,
+        0,
+        3,
+        4,
+        5
+      ],
+      "trial": 1,
+      "layer_order": [
+        2,
+        4,
+        5,
+        6,
+        1,
+        3
+      ],
+      "success": false,
+      "assignment_history": [
+        {
+          "success": false,
+          "status": "empty row or column",
+          "allowed_edges": 0,
+          "layer": 2,
+          "minimum_allowed_per_color": 0,
+          "minimum_allowed_per_vertex": 0
+        }
+      ]
+    },
+    {
+      "character_index": 1,
+      "character": [
+        1,
+        0,
+        0,
+        3,
+        4,
+        5
+      ],
+      "trial": 2,
+      "layer_order": [
+        3,
+        1,
+        2,
+        4,
+        6,
+        5
+      ],
+      "success": false,
+      "assignment_history": [
+        {
+          "success": false,
+          "status": "empty row or column",
+          "allowed_edges": 0,
+          "layer": 3,
+          "minimum_allowed_per_color": 0,
+          "minimum_allowed_per_vertex": 0
+        }
+      ]
+    },
+    {
+      "character_index": 1,
+      "character": [
+        1,
+        0,
+        0,
+        3,
+        4,
+        5
+      ],
+      "trial": 3,
+      "layer_order": [
+        4,
+        1,
+        5,
+        2,
+        3,
+        6
+      ],
+      "success": false,
+      "assignment_history": [
+        {
+          "success": false,
+          "status": "empty row or column",
+          "allowed_edges": 0,
+          "layer": 4,
+          "minimum_allowed_per_color": 0,
+          "minimum_allowed_per_vertex": 0
+        }
+      ]
+    },
+    {
+      "character_index": 1,
+      "character": [
+        1,
+        0,
+        0,
+        3,
+        4,
+        5
+      ],
+      "trial": 4,
+      "layer_order": [
+        5,
+        2,
+        4,
+        3,
+        1,
+        6
+      ],
+      "success": false,
+      "assignment_history": [
+        {
+          "success": false,
+          "status": "empty row or column",
+          "allowed_edges": 0,
+          "layer": 5,
+          "minimum_allowed_per_color": 0,
+          "minimum_allowed_per_vertex": 0
+        }
+      ]
+    },
+    {
+      "character_index": 1,
+      "character": [
+        1,
+        0,
+        0,
+        3,
+        4,
+        5
+      ],
+      "trial": 5,
+      "layer_order": [
+        6,
+        4,
+        5,
+        2,
+        3,
+        1
+      ],
+      "success": false,
+      "assignment_history": [
+        {
+          "success": false,
+          "status": "empty row or column",
+          "allowed_edges": 0,
+          "layer": 6,
+          "minimum_allowed_per_color": 0,
+          "minimum_allowed_per_vertex": 0
+        }
+      ]
+    },
+    {
+      "character_index": 2,
+      "character": [
+        1,
+        0,
+        0,
+        5,
+        0,
+        4
+      ],
+      "trial": 0,
+      "layer_order": [
+        1,
+        3,
+        4,
+        5,
+        2,
+        6
+      ],
+      "success": false,
+      "assignment_history": [
+        {
+          "success": false,
+          "status": "empty row or column",
+          "allowed_edges": 76,
+          "layer": 1,
+          "minimum_allowed_per_color": 0,
+          "minimum_allowed_per_vertex": 0
+        }
+      ]
+    },
+    {
+      "character_index": 2,
+      "character": [
+        1,
+        0,
+        0,
+        5,
+        0,
+        4
+      ],
+      "trial": 1,
+      "layer_order": [
+        2,
+        3,
+        4,
+        5,
+        1,
+        6
+      ],
+      "success": false,
+      "assignment_history": [
+        {
+          "success": false,
+          "status": "empty row or column",
+          "allowed_edges": 80,
+          "layer": 2,
+          "minimum_allowed_per_color": 0,
+          "minimum_allowed_per_vertex": 0
+        }
+      ]
+    },
+    {
+      "character_index": 2,
+      "character": [
+        1,
+        0,
+        0,
+        5,
+        0,
+        4
+      ],
+      "trial": 2,
+      "layer_order": [
+        3,
+        4,
+        5,
+        2,
+        6,
+        1
+      ],
+      "success": false,
+      "assignment_history": [
+        {
+          "success": false,
+          "status": "empty row or column",
+          "allowed_edges": 110,
+          "layer": 3,
+          "minimum_allowed_per_color": 0,
+          "minimum_allowed_per_vertex": 0
+        }
+      ]
+    },
+    {
+      "character_index": 2,
+      "character": [
+        1,
+        0,
+        0,
+        5,
+        0,
+        4
+      ],
+      "trial": 3,
+      "layer_order": [
+        4,
+        5,
+        3,
+        2,
+        6,
+        1
+      ],
+      "success": false,
+      "assignment_history": [
+        {
+          "success": false,
+          "status": "empty row or column",
+          "allowed_edges": 110,
+          "layer": 4,
+          "minimum_allowed_per_color": 0,
+          "minimum_allowed_per_vertex": 0
+        }
+      ]
+    },
+    {
+      "character_index": 2,
+      "character": [
+        1,
+        0,
+        0,
+        5,
+        0,
+        4
+      ],
+      "trial": 4,
+      "layer_order": [
+        5,
+        6,
+        2,
+        3,
+        1,
+        4
+      ],
+      "success": false,
+      "assignment_history": [
+        {
+          "success": false,
+          "status": "empty row or column",
+          "allowed_edges": 80,
+          "layer": 5,
+          "minimum_allowed_per_color": 0,
+          "minimum_allowed_per_vertex": 0
+        }
+      ]
+    },
+    {
+      "character_index": 2,
+      "character": [
+        1,
+        0,
+        0,
+        5,
+        0,
+        4
+      ],
+      "trial": 5,
+      "layer_order": [
+        6,
+        3,
+        4,
+        1,
+        2,
+        5
+      ],
+      "success": false,
+      "assignment_history": [
+        {
+          "success": false,
+          "status": "empty row or column",
+          "allowed_edges": 76,
+          "layer": 6,
+          "minimum_allowed_per_color": 0,
+          "minimum_allowed_per_vertex": 0
+        }
+      ]
+    },
+    {
+      "character_index": 3,
+      "character": [
+        1,
+        0,
+        0,
+        6,
+        1,
+        3
+      ],
+      "trial": 0,
+      "layer_order": [
+        1,
+        6,
+        3,
+        2,
+        4,
+        5
+      ],
+      "success": false,
+      "assignment_history": [
+        {
+          "success": false,
+          "status": "empty row or column",
+          "allowed_edges": 0,
+          "layer": 1,
+          "minimum_allowed_per_color": 0,
+          "minimum_allowed_per_vertex": 0
+        }
+      ]
+    },
+    {
+      "character_index": 3,
+      "character": [
+        1,
+        0,
+        0,
+        6,
+        1,
+        3
+      ],
+      "trial": 1,
+      "layer_order": [
+        2,
+        6,
+        4,
+        1,
+        5,
+        3
+      ],
+      "success": false,
+      "assignment_history": [
+        {
+          "success": false,
+          "status": "empty row or column",
+          "allowed_edges": 0,
+          "layer": 2,
+          "minimum_allowed_per_color": 0,
+          "minimum_allowed_per_vertex": 0
+        }
+      ]
+    },
+    {
+      "character_index": 3,
+      "character": [
+        1,
+        0,
+        0,
+        6,
+        1,
+        3
+      ],
+      "trial": 2,
+      "layer_order": [
+        3,
+        2,
+        1,
+        4,
+        6,
+        5
+      ],
+      "success": false,
+      "assignment_history": [
+        {
+          "success": false,
+          "status": "empty row or column",
+          "allowed_edges": 0,
+          "layer": 3,
+          "minimum_allowed_per_color": 0,
+          "minimum_allowed_per_vertex": 0
+        }
+      ]
+    },
+    {
+      "character_index": 3,
+      "character": [
+        1,
+        0,
+        0,
+        6,
+        1,
+        3
+      ],
+      "trial": 3,
+      "layer_order": [
+        4,
+        5,
+        2,
+        3,
+        6,
+        1
+      ],
+      "success": false,
+      "assignment_history": [
+        {
+          "success": false,
+          "status": "empty row or column",
+          "allowed_edges": 0,
+          "layer": 4,
+          "minimum_allowed_per_color": 0,
+          "minimum_allowed_per_vertex": 0
+        }
+      ]
+    },
+    {
+      "character_index": 3,
+      "character": [
+        1,
+        0,
+        0,
+        6,
+        1,
+        3
+      ],
+      "trial": 4,
+      "layer_order": [
+        5,
+        2,
+        4,
+        3,
+        6,
+        1
+      ],
+      "success": false,
+      "assignment_history": [
+        {
+          "success": false,
+          "status": "empty row or column",
+          "allowed_edges": 0,
+          "layer": 5,
+          "minimum_allowed_per_color": 0,
+          "minimum_allowed_per_vertex": 0
+        }
+      ]
+    },
+    {
+      "character_index": 3,
+      "character": [
+        1,
+        0,
+        0,
+        6,
+        1,
+        3
+      ],
+      "trial": 5,
+      "layer_order": [
+        6,
+        2,
+        5,
+        3,
+        4,
+        1
+      ],
+      "success": false,
+      "assignment_history": [
+        {
+          "success": false,
+          "status": "empty row or column",
+          "allowed_edges": 0,
+          "layer": 6,
+          "minimum_allowed_per_color": 0,
+          "minimum_allowed_per_vertex": 0
+        }
+      ]
+    },
+    {
+      "character_index": 4,
+      "character": [
+        1,
+        0,
+        1,
+        2,
+        1,
+        3
+      ],
+      "trial": 0,
+      "layer_order": [
+        1,
+        6,
+        2,
+        3,
+        4,
+        5
+      ],
+      "success": false,
+      "assignment_history": [
+        {
+          "success": false,
+          "status": "empty row or column",
+          "allowed_edges": 107,
+          "layer": 1,
+          "minimum_allowed_per_color": 0,
+          "minimum_allowed_per_vertex": 0
+        }
+      ]
+    },
+    {
+      "character_index": 4,
+      "character": [
+        1,
+        0,
+        1,
+        2,
+        1,
+        3
+      ],
+      "trial": 1,
+      "layer_order": [
+        2,
+        3,
+        5,
+        1,
+        4,
+        6
+      ],
+      "success": false,
+      "assignment_history": [
+        {
+          "success": false,
+          "status": "empty row or column",
+          "allowed_edges": 86,
+          "layer": 2,
+          "minimum_allowed_per_color": 0,
+          "minimum_allowed_per_vertex": 0
+        }
+      ]
+    },
+    {
+      "character_index": 4,
+      "character": [
+        1,
+        0,
+        1,
+        2,
+        1,
+        3
+      ],
+      "trial": 2,
+      "layer_order": [
+        3,
+        5,
+        1,
+        4,
+        2,
+        6
+      ],
+      "success": false,
+      "assignment_history": [
+        {
+          "success": false,
+          "status": "empty row or column",
+          "allowed_edges": 104,
+          "layer": 3,
+          "minimum_allowed_per_color": 0,
+          "minimum_allowed_per_vertex": 0
+        }
+      ]
+    },
+    {
+      "character_index": 4,
+      "character": [
+        1,
+        0,
+        1,
+        2,
+        1,
+        3
+      ],
+      "trial": 3,
+      "layer_order": [
+        4,
+        1,
+        2,
+        5,
+        3,
+        6
+      ],
+      "success": false,
+      "assignment_history": [
+        {
+          "success": false,
+          "status": "empty row or column",
+          "allowed_edges": 104,
+          "layer": 4,
+          "minimum_allowed_per_color": 0,
+          "minimum_allowed_per_vertex": 0
+        }
+      ]
+    },
+    {
+      "character_index": 4,
+      "character": [
+        1,
+        0,
+        1,
+        2,
+        1,
+        3
+      ],
+      "trial": 4,
+      "layer_order": [
+        5,
+        3,
+        4,
+        1,
+        6,
+        2
+      ],
+      "success": false,
+      "assignment_history": [
+        {
+          "success": false,
+          "status": "empty row or column",
+          "allowed_edges": 86,
+          "layer": 5,
+          "minimum_allowed_per_color": 0,
+          "minimum_allowed_per_vertex": 0
+        }
+      ]
+    },
+    {
+      "character_index": 4,
+      "character": [
+        1,
+        0,
+        1,
+        2,
+        1,
+        3
+      ],
+      "trial": 5,
+      "layer_order": [
+        6,
+        3,
+        4,
+        5,
+        2,
+        1
+      ],
+      "success": false,
+      "assignment_history": [
+        {
+          "success": false,
+          "status": "empty row or column",
+          "allowed_edges": 107,
+          "layer": 6,
+          "minimum_allowed_per_color": 0,
+          "minimum_allowed_per_vertex": 0
+        }
+      ]
+    },
+    {
+      "character_index": 5,
+      "character": [
+        1,
+        0,
+        1,
+        4,
+        3,
+        1
+      ],
+      "trial": 0,
+      "layer_order": [
+        1,
+        3,
+        6,
+        5,
+        4,
+        2
+      ],
+      "success": false,
+      "assignment_history": [
+        {
+          "success": false,
+          "status": "empty row or column",
+          "allowed_edges": 0,
+          "layer": 1,
+          "minimum_allowed_per_color": 0,
+          "minimum_allowed_per_vertex": 0
+        }
+      ]
+    },
+    {
+      "character_index": 5,
+      "character": [
+        1,
+        0,
+        1,
+        4,
+        3,
+        1
+      ],
+      "trial": 1,
+      "layer_order": [
+        2,
+        5,
+        6,
+        4,
+        3,
+        1
+      ],
+      "success": false,
+      "assignment_history": [
+        {
+          "success": false,
+          "status": "empty row or column",
+          "allowed_edges": 0,
+          "layer": 2,
+          "minimum_allowed_per_color": 0,
+          "minimum_allowed_per_vertex": 0
+        }
+      ]
+    },
+    {
+      "character_index": 5,
+      "character": [
+        1,
+        0,
+        1,
+        4,
+        3,
+        1
+      ],
+      "trial": 2,
+      "layer_order": [
+        3,
+        6,
+        5,
+        4,
+        2,
+        1
+      ],
+      "success": false,
+      "assignment_history": [
+        {
+          "success": false,
+          "status": "empty row or column",
+          "allowed_edges": 0,
+          "layer": 3,
+          "minimum_allowed_per_color": 0,
+          "minimum_allowed_per_vertex": 0
+        }
+      ]
+    },
+    {
+      "character_index": 5,
+      "character": [
+        1,
+        0,
+        1,
+        4,
+        3,
+        1
+      ],
+      "trial": 3,
+      "layer_order": [
+        4,
+        1,
+        6,
+        5,
+        3,
+        2
+      ],
+      "success": false,
+      "assignment_history": [
+        {
+          "success": false,
+          "status": "empty row or column",
+          "allowed_edges": 0,
+          "layer": 4,
+          "minimum_allowed_per_color": 0,
+          "minimum_allowed_per_vertex": 0
+        }
+      ]
+    },
+    {
+      "character_index": 5,
+      "character": [
+        1,
+        0,
+        1,
+        4,
+        3,
+        1
+      ],
+      "trial": 4,
+      "layer_order": [
+        5,
+        3,
+        1,
+        4,
+        6,
+        2
+      ],
+      "success": false,
+      "assignment_history": [
+        {
+          "success": false,
+          "status": "empty row or column",
+          "allowed_edges": 0,
+          "layer": 5,
+          "minimum_allowed_per_color": 0,
+          "minimum_allowed_per_vertex": 0
+        }
+      ]
+    },
+    {
+      "character_index": 5,
+      "character": [
+        1,
+        0,
+        1,
+        4,
+        3,
+        1
+      ],
+      "trial": 5,
+      "layer_order": [
+        6,
+        5,
+        2,
+        3,
+        4,
+        1
+      ],
+      "success": false,
+      "assignment_history": [
+        {
+          "success": false,
+          "status": "empty row or column",
+          "allowed_edges": 0,
+          "layer": 6,
+          "minimum_allowed_per_color": 0,
+          "minimum_allowed_per_vertex": 0
+        }
+      ]
+    },
+    {
+      "character_index": 6,
+      "character": [
+        1,
+        0,
+        2,
+        4,
+        6,
+        3
+      ],
+      "trial": 0,
+      "layer_order": [
+        1,
+        6,
+        5,
+        3,
+        4,
+        2
+      ],
+      "success": false,
+      "assignment_history": [
+        {
+          "success": false,
+          "status": "empty row or column",
+          "allowed_edges": 0,
+          "layer": 1,
+          "minimum_allowed_per_color": 0,
+          "minimum_allowed_per_vertex": 0
+        }
+      ]
+    },
+    {
+      "character_index": 6,
+      "character": [
+        1,
+        0,
+        2,
+        4,
+        6,
+        3
+      ],
+      "trial": 1,
+      "layer_order": [
+        2,
+        1,
+        4,
+        5,
+        6,
+        3
+      ],
+      "success": false,
+      "assignment_history": [
+        {
+          "success": false,
+          "status": "empty row or column",
+          "allowed_edges": 0,
+          "layer": 2,
+          "minimum_allowed_per_color": 0,
+          "minimum_allowed_per_vertex": 0
+        }
+      ]
+    },
+    {
+      "character_index": 6,
+      "character": [
+        1,
+        0,
+        2,
+        4,
+        6,
+        3
+      ],
+      "trial": 2,
+      "layer_order": [
+        3,
+        1,
+        6,
+        4,
+        5,
+        2
+      ],
+      "success": false,
+      "assignment_history": [
+        {
+          "success": false,
+          "status": "empty row or column",
+          "allowed_edges": 0,
+          "layer": 3,
+          "minimum_allowed_per_color": 0,
+          "minimum_allowed_per_vertex": 0
+        }
+      ]
+    },
+    {
+      "character_index": 6,
+      "character": [
+        1,
+        0,
+        2,
+        4,
+        6,
+        3
+      ],
+      "trial": 3,
+      "layer_order": [
+        4,
+        5,
+        1,
+        3,
+        6,
+        2
+      ],
+      "success": false,
+      "assignment_history": [
+        {
+          "success": false,
+          "status": "empty row or column",
+          "allowed_edges": 0,
+          "layer": 4,
+          "minimum_allowed_per_color": 0,
+          "minimum_allowed_per_vertex": 0
+        }
+      ]
+    },
+    {
+      "character_index": 6,
+      "character": [
+        1,
+        0,
+        2,
+        4,
+        6,
+        3
+      ],
+      "trial": 4,
+      "layer_order": [
+        5,
+        3,
+        4,
+        6,
+        1,
+        2
+      ],
+      "success": false,
+      "assignment_history": [
+        {
+          "success": false,
+          "status": "empty row or column",
+          "allowed_edges": 0,
+          "layer": 5,
+          "minimum_allowed_per_color": 0,
+          "minimum_allowed_per_vertex": 0
+        }
+      ]
+    },
+    {
+      "character_index": 6,
+      "character": [
+        1,
+        0,
+        2,
+        4,
+        6,
+        3
+      ],
+      "trial": 5,
+      "layer_order": [
+        6,
+        5,
+        2,
+        3,
+        1,
+        4
+      ],
+      "success": false,
+      "assignment_history": [
+        {
+          "success": false,
+          "status": "empty row or column",
+          "allowed_edges": 0,
+          "layer": 6,
+          "minimum_allowed_per_color": 0,
+          "minimum_allowed_per_vertex": 0
+        }
+      ]
+    },
+    {
+      "character_index": 7,
+      "character": [
+        1,
+        0,
+        3,
+        2,
+        4,
+        4
+      ],
+      "trial": 0,
+      "layer_order": [
+        1,
+        3,
+        4,
+        2,
+        5,
+        6
+      ],
+      "success": false,
+      "assignment_history": [
+        {
+          "success": false,
+          "status": "empty row or column",
+          "allowed_edges": 88,
+          "layer": 1,
+          "minimum_allowed_per_color": 0,
+          "minimum_allowed_per_vertex": 0
+        }
+      ]
+    },
+    {
+      "character_index": 7,
+      "character": [
+        1,
+        0,
+        3,
+        2,
+        4,
+        4
+      ],
+      "trial": 1,
+      "layer_order": [
+        2,
+        3,
+        6,
+        4,
+        5,
+        1
+      ],
+      "success": false,
+      "assignment_history": [
+        {
+          "success": false,
+          "status": "empty row or column",
+          "allowed_edges": 80,
+          "layer": 2,
+          "minimum_allowed_per_color": 0,
+          "minimum_allowed_per_vertex": 0
+        }
+      ]
+    },
+    {
+      "character_index": 7,
+      "character": [
+        1,
+        0,
+        3,
+        2,
+        4,
+        4
+      ],
+      "trial": 2,
+      "layer_order": [
+        3,
+        6,
+        5,
+        4,
+        2,
+        1
+      ],
+      "success": false,
+      "assignment_history": [
+        {
+          "success": false,
+          "status": "empty row or column",
+          "allowed_edges": 158,
+          "layer": 3,
+          "minimum_allowed_per_color": 0,
+          "minimum_allowed_per_vertex": 0
+        }
+      ]
+    },
+    {
+      "character_index": 7,
+      "character": [
+        1,
+        0,
+        3,
+        2,
+        4,
+        4
+      ],
+      "trial": 3,
+      "layer_order": [
+        4,
+        1,
+        6,
+        3,
+        2,
+        5
+      ],
+      "success": false,
+      "assignment_history": [
+        {
+          "success": false,
+          "status": "empty row or column",
+          "allowed_edges": 158,
+          "layer": 4,
+          "minimum_allowed_per_color": 0,
+          "minimum_allowed_per_vertex": 0
+        }
+      ]
+    },
+    {
+      "character_index": 7,
+      "character": [
+        1,
+        0,
+        3,
+        2,
+        4,
+        4
+      ],
+      "trial": 4,
+      "layer_order": [
+        5,
+        3,
+        4,
+        1,
+        6,
+        2
+      ],
+      "success": false,
+      "assignment_history": [
+        {
+          "success": false,
+          "status": "empty row or column",
+          "allowed_edges": 80,
+          "layer": 5,
+          "minimum_allowed_per_color": 0,
+          "minimum_allowed_per_vertex": 0
+        }
+      ]
+    },
+    {
+      "character_index": 7,
+      "character": [
+        1,
+        0,
+        3,
+        2,
+        4,
+        4
+      ],
+      "trial": 5,
+      "layer_order": [
+        6,
+        1,
+        4,
+        2,
+        5,
+        3
+      ],
+      "success": false,
+      "assignment_history": [
+        {
+          "success": false,
+          "status": "empty row or column",
+          "allowed_edges": 88,
+          "layer": 6,
+          "minimum_allowed_per_color": 0,
+          "minimum_allowed_per_vertex": 0
+        }
+      ]
+    },
+    {
+      "character_index": 8,
+      "character": [
+        1,
+        0,
+        3,
+        3,
+        3,
+        1
+      ],
+      "trial": 0,
+      "layer_order": [
+        1,
+        3,
+        5,
+        2,
+        4,
+        6
+      ],
+      "success": false,
+      "assignment_history": [
+        {
+          "success": false,
+          "status": "empty row or column",
+          "allowed_edges": 110,
+          "layer": 1,
+          "minimum_allowed_per_color": 0,
+          "minimum_allowed_per_vertex": 0
+        }
+      ]
+    },
+    {
+      "character_index": 8,
+      "character": [
+        1,
+        0,
+        3,
+        3,
+        3,
+        1
+      ],
+      "trial": 1,
+      "layer_order": [
+        2,
+        6,
+        4,
+        1,
+        3,
+        5
+      ],
+      "success": false,
+      "assignment_history": [
+        {
+          "success": false,
+          "status": "empty row or column",
+          "allowed_edges": 66,
+          "layer": 2,
+          "minimum_allowed_per_color": 0,
+          "minimum_allowed_per_vertex": 0
+        }
+      ]
+    },
+    {
+      "character_index": 8,
+      "character": [
+        1,
+        0,
+        3,
+        3,
+        3,
+        1
+      ],
+      "trial": 2,
+      "layer_order": [
+        3,
+        4,
+        6,
+        1,
+        2,
+        5
+      ],
+      "success": false,
+      "assignment_history": [
+        {
+          "success": false,
+          "status": "empty row or column",
+          "allowed_edges": 116,
+          "layer": 3,
+          "minimum_allowed_per_color": 0,
+          "minimum_allowed_per_vertex": 0
+        }
+      ]
+    },
+    {
+      "character_index": 8,
+      "character": [
+        1,
+        0,
+        3,
+        3,
+        3,
+        1
+      ],
+      "trial": 3,
+      "layer_order": [
+        4,
+        2,
+        6,
+        5,
+        3,
+        1
+      ],
+      "success": false,
+      "assignment_history": [
+        {
+          "success": false,
+          "status": "empty row or column",
+          "allowed_edges": 116,
+          "layer": 4,
+          "minimum_allowed_per_color": 0,
+          "minimum_allowed_per_vertex": 0
+        }
+      ]
+    },
+    {
+      "character_index": 8,
+      "character": [
+        1,
+        0,
+        3,
+        3,
+        3,
+        1
+      ],
+      "trial": 4,
+      "layer_order": [
+        5,
+        6,
+        1,
+        3,
+        2,
+        4
+      ],
+      "success": false,
+      "assignment_history": [
+        {
+          "success": false,
+          "status": "empty row or column",
+          "allowed_edges": 66,
+          "layer": 5,
+          "minimum_allowed_per_color": 0,
+          "minimum_allowed_per_vertex": 0
+        }
+      ]
+    },
+    {
+      "character_index": 8,
+      "character": [
+        1,
+        0,
+        3,
+        3,
+        3,
+        1
+      ],
+      "trial": 5,
+      "layer_order": [
+        6,
+        1,
+        4,
+        5,
+        3,
+        2
+      ],
+      "success": false,
+      "assignment_history": [
+        {
+          "success": false,
+          "status": "empty row or column",
+          "allowed_edges": 110,
+          "layer": 6,
+          "minimum_allowed_per_color": 0,
+          "minimum_allowed_per_vertex": 0
+        }
+      ]
+    },
+    {
+      "character_index": 9,
+      "character": [
+        1,
+        0,
+        4,
+        2,
+        3,
+        2
+      ],
+      "trial": 0,
+      "layer_order": [
+        1,
+        5,
+        6,
+        3,
+        2,
+        4
+      ],
+      "success": false,
+      "assignment_history": [
+        {
+          "success": false,
+          "status": "empty row or column",
+          "allowed_edges": 120,
+          "layer": 1,
+          "minimum_allowed_per_color": 0,
+          "minimum_allowed_per_vertex": 0
+        }
+      ]
+    },
+    {
+      "character_index": 9,
+      "character": [
+        1,
+        0,
+        4,
+        2,
+        3,
+        2
+      ],
+      "trial": 1,
+      "layer_order": [
+        2,
+        1,
+        4,
+        3,
+        5,
+        6
+      ],
+      "success": false,
+      "assignment_history": [
+        {
+          "success": false,
+          "status": "empty row or column",
+          "allowed_edges": 75,
+          "layer": 2,
+          "minimum_allowed_per_color": 0,
+          "minimum_allowed_per_vertex": 0
+        }
+      ]
+    },
+    {
+      "character_index": 9,
+      "character": [
+        1,
+        0,
+        4,
+        2,
+        3,
+        2
+      ],
+      "trial": 2,
+      "layer_order": [
+        3,
+        4,
+        1,
+        6,
+        5,
+        2
+      ],
+      "success": false,
+      "assignment_history": [
+        {
+          "success": false,
+          "status": "empty row or column",
+          "allowed_edges": 95,
+          "layer": 3,
+          "minimum_allowed_per_color": 0,
+          "minimum_allowed_per_vertex": 0
+        }
+      ]
+    },
+    {
+      "character_index": 9,
+      "character": [
+        1,
+        0,
+        4,
+        2,
+        3,
+        2
+      ],
+      "trial": 3,
+      "layer_order": [
+        4,
+        5,
+        1,
+        6,
+        2,
+        3
+      ],
+      "success": false,
+      "assignment_history": [
+        {
+          "success": false,
+          "status": "empty row or column",
+          "allowed_edges": 95,
+          "layer": 4,
+          "minimum_allowed_per_color": 0,
+          "minimum_allowed_per_vertex": 0
+        }
+      ]
+    },
+    {
+      "character_index": 9,
+      "character": [
+        1,
+        0,
+        4,
+        2,
+        3,
+        2
+      ],
+      "trial": 4,
+      "layer_order": [
+        5,
+        4,
+        6,
+        3,
+        2,
+        1
+      ],
+      "success": false,
+      "assignment_history": [
+        {
+          "success": false,
+          "status": "empty row or column",
+          "allowed_edges": 75,
+          "layer": 5,
+          "minimum_allowed_per_color": 0,
+          "minimum_allowed_per_vertex": 0
+        }
+      ]
+    },
+    {
+      "character_index": 9,
+      "character": [
+        1,
+        0,
+        4,
+        2,
+        3,
+        2
+      ],
+      "trial": 5,
+      "layer_order": [
+        6,
+        1,
+        5,
+        4,
+        3,
+        2
+      ],
+      "success": false,
+      "assignment_history": [
+        {
+          "success": false,
+          "status": "empty row or column",
+          "allowed_edges": 120,
+          "layer": 6,
+          "minimum_allowed_per_color": 0,
+          "minimum_allowed_per_vertex": 0
+        }
+      ]
+    },
+    {
+      "character_index": 10,
+      "character": [
+        1,
+        0,
+        4,
+        5,
+        2,
+        2
+      ],
+      "trial": 0,
+      "layer_order": [
+        1,
+        2,
+        3,
+        6,
+        5,
+        4
+      ],
+      "success": false,
+      "assignment_history": [
+        {
+          "success": false,
+          "status": "empty row or column",
+          "allowed_edges": 0,
+          "layer": 1,
+          "minimum_allowed_per_color": 0,
+          "minimum_allowed_per_vertex": 0
+        }
+      ]
+    },
+    {
+      "character_index": 10,
+      "character": [
+        1,
+        0,
+        4,
+        5,
+        2,
+        2
+      ],
+      "trial": 1,
+      "layer_order": [
+        2,
+        4,
+        1,
+        3,
+        5,
+        6
+      ],
+      "success": false,
+      "assignment_history": [
+        {
+          "success": false,
+          "status": "empty row or column",
+          "allowed_edges": 0,
+          "layer": 2,
+          "minimum_allowed_per_color": 0,
+          "minimum_allowed_per_vertex": 0
+        }
+      ]
+    },
+    {
+      "character_index": 10,
+      "character": [
+        1,
+        0,
+        4,
+        5,
+        2,
+        2
+      ],
+      "trial": 2,
+      "layer_order": [
+        3,
+        1,
+        5,
+        4,
+        6,
+        2
+      ],
+      "success": false,
+      "assignment_history": [
+        {
+          "success": false,
+          "status": "empty row or column",
+          "allowed_edges": 0,
+          "layer": 3,
+          "minimum_allowed_per_color": 0,
+          "minimum_allowed_per_vertex": 0
+        }
+      ]
+    },
+    {
+      "character_index": 10,
+      "character": [
+        1,
+        0,
+        4,
+        5,
+        2,
+        2
+      ],
+      "trial": 3,
+      "layer_order": [
+        4,
+        6,
+        1,
+        2,
+        5,
+        3
+      ],
+      "success": false,
+      "assignment_history": [
+        {
+          "success": false,
+          "status": "empty row or column",
+          "allowed_edges": 0,
+          "layer": 4,
+          "minimum_allowed_per_color": 0,
+          "minimum_allowed_per_vertex": 0
+        }
+      ]
+    },
+    {
+      "character_index": 10,
+      "character": [
+        1,
+        0,
+        4,
+        5,
+        2,
+        2
+      ],
+      "trial": 4,
+      "layer_order": [
+        5,
+        2,
+        3,
+        4,
+        1,
+        6
+      ],
+      "success": false,
+      "assignment_history": [
+        {
+          "success": false,
+          "status": "empty row or column",
+          "allowed_edges": 0,
+          "layer": 5,
+          "minimum_allowed_per_color": 0,
+          "minimum_allowed_per_vertex": 0
+        }
+      ]
+    },
+    {
+      "character_index": 10,
+      "character": [
+        1,
+        0,
+        4,
+        5,
+        2,
+        2
+      ],
+      "trial": 5,
+      "layer_order": [
+        6,
+        3,
+        1,
+        5,
+        2,
+        4
+      ],
+      "success": false,
+      "assignment_history": [
+        {
+          "success": false,
+          "status": "empty row or column",
+          "allowed_edges": 0,
+          "layer": 6,
+          "minimum_allowed_per_color": 0,
+          "minimum_allowed_per_vertex": 0
+        }
+      ]
+    },
+    {
+      "character_index": 11,
+      "character": [
+        1,
+        0,
+        6,
+        6,
+        3,
+        6
+      ],
+      "trial": 0,
+      "layer_order": [
+        1,
+        6,
+        3,
+        4,
+        5,
+        2
+      ],
+      "success": false,
+      "assignment_history": [
+        {
+          "success": false,
+          "status": "empty row or column",
+          "allowed_edges": 0,
+          "layer": 1,
+          "minimum_allowed_per_color": 0,
+          "minimum_allowed_per_vertex": 0
+        }
+      ]
+    },
+    {
+      "character_index": 11,
+      "character": [
+        1,
+        0,
+        6,
+        6,
+        3,
+        6
+      ],
+      "trial": 1,
+      "layer_order": [
+        2,
+        5,
+        1,
+        3,
+        4,
+        6
+      ],
+      "success": false,
+      "assignment_history": [
+        {
+          "success": false,
+          "status": "empty row or column",
+          "allowed_edges": 0,
+          "layer": 2,
+          "minimum_allowed_per_color": 0,
+          "minimum_allowed_per_vertex": 0
+        }
+      ]
+    },
+    {
+      "character_index": 11,
+      "character": [
+        1,
+        0,
+        6,
+        6,
+        3,
+        6
+      ],
+      "trial": 2,
+      "layer_order": [
+        3,
+        5,
+        4,
+        2,
+        1,
+        6
+      ],
+      "success": false,
+      "assignment_history": [
+        {
+          "success": false,
+          "status": "empty row or column",
+          "allowed_edges": 0,
+          "layer": 3,
+          "minimum_allowed_per_color": 0,
+          "minimum_allowed_per_vertex": 0
+        }
+      ]
+    },
+    {
+      "character_index": 11,
+      "character": [
+        1,
+        0,
+        6,
+        6,
+        3,
+        6
+      ],
+      "trial": 3,
+      "layer_order": [
+        4,
+        6,
+        1,
+        2,
+        5,
+        3
+      ],
+      "success": false,
+      "assignment_history": [
+        {
+          "success": false,
+          "status": "empty row or column",
+          "allowed_edges": 0,
+          "layer": 4,
+          "minimum_allowed_per_color": 0,
+          "minimum_allowed_per_vertex": 0
+        }
+      ]
+    },
+    {
+      "character_index": 11,
+      "character": [
+        1,
+        0,
+        6,
+        6,
+        3,
+        6
+      ],
+      "trial": 4,
+      "layer_order": [
+        5,
+        3,
+        4,
+        6,
+        2,
+        1
+      ],
+      "success": false,
+      "assignment_history": [
+        {
+          "success": false,
+          "status": "empty row or column",
+          "allowed_edges": 0,
+          "layer": 5,
+          "minimum_allowed_per_color": 0,
+          "minimum_allowed_per_vertex": 0
+        }
+      ]
+    },
+    {
+      "character_index": 11,
+      "character": [
+        1,
+        0,
+        6,
+        6,
+        3,
+        6
+      ],
+      "trial": 5,
+      "layer_order": [
+        6,
+        1,
+        4,
+        3,
+        5,
+        2
+      ],
+      "success": false,
+      "assignment_history": [
+        {
+          "success": false,
+          "status": "empty row or column",
+          "allowed_edges": 0,
+          "layer": 6,
+          "minimum_allowed_per_color": 0,
+          "minimum_allowed_per_vertex": 0
+        }
+      ]
+    }
+  ],
+  "coloring": null,
+  "valid_numerical_witness": false,
+  "elapsed_seconds": 32.382972999999765
+}
