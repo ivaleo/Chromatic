@@ -36,14 +36,14 @@ def test_find_optimal_threshold_semantics(vor, tmp_path):
     grid = np.eye(4, dtype=float)
 
     det_dist, det_center, det_mat = find_optimal(
-        range(4, 5), 1, grid, vor, vor.max_len,
-        threshold=1.0, output_file=str(tmp_path / "r1.txt"), verbose=False,
+        range(4, 5), grid, vor, vor.max_len,
+        threshold=1.0, output_file=str(tmp_path / "r1.txt"),
     )
     assert det_dist == {} and det_center == {} and det_mat == {}
 
     det_dist, det_center, det_mat = find_optimal(
-        range(4, 5), 1, grid, vor, vor.max_len,
-        threshold=0.0, output_file=str(tmp_path / "r2.txt"), verbose=False,
+        range(4, 5), grid, vor, vor.max_len,
+        threshold=0.0, output_file=str(tmp_path / "r2.txt"),
     )
     # каждая подрешётка индекса 4 в Z^4 содержит единичный вектор — одноцветные
     # кубы касаются, точный оптимум d = 0 (раньше фильтр это скрывал)
@@ -60,8 +60,8 @@ def test_find_optimal_smoke_d4(vor_d4, tmp_path):
     output_file = str(tmp_path / "results.txt")
 
     det_dist, det_center, det_mat = find_optimal(
-        range(16, 17), 1, D4_GRID, vor_d4, vor_d4.max_len,
-        threshold=0.0, output_file=output_file, verbose=False,
+        range(16, 17), D4_GRID, vor_d4, vor_d4.max_len,
+        threshold=0.0, output_file=output_file,
     )
 
     assert 16 in det_dist and 16 in det_center and 16 in det_mat

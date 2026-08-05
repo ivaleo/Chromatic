@@ -24,13 +24,11 @@ from .lll import lll_reduce
 # --------------------------------------------------------------------------------
 
 
-def find_optimal(det_range, limits, grid, vor4, max_len, precision=12, threshold=1.0,
-                 output_file="results.txt", verbose=True):
+def find_optimal(det_range, grid, vor4, max_len, *, precision=12, threshold=1.0,
+                 output_file="results.txt", progress=None):
     """Поиск матриц перехода и расстояний для диапазона определителей.
 
     :param det_range: range или список определителей (количеств цветов k) для обработки.
-    :param limits: УСТАРЕЛ и игнорируется (сохранён для совместимости сигнатуры):
-                   кандидаты перечисляются точно в границе |v| < D_текущ + diam.
     :param grid: исходная решётка (numpy.ndarray); должна совпадать с vor4.grid.
     :param vor4: объект VoronoiPolyhedra после build().
     :param max_len: диаметр центрального многогранника diam(V0) (= vor4.max_len).
@@ -38,17 +36,21 @@ def find_optimal(det_range, limits, grid, vor4, max_len, precision=12, threshold
     :param threshold: минимально допустимое нормированное расстояние d
                       (матрицы с меньшим пропускаются; d >= 1 — пригодная раскраска).
     :param output_file: файл для записи результатов.
-    :param verbose: печатать прогресс.
+    :param progress: необязательный callback вида f(str) для сообщений о ходе
+                     перебора; по умолчанию функция молчит.
     :return: словари det_dist, det_center, det_mat (ключ — определитель).
     """
-    del limits  # устарел: полнота обеспечивается границей достаточности
-
     # согласованность аргументов (см. аудит, M5): расхождение grid/vor4/max_len
     # раньше приводило к молча несогласованной фильтрации и нормировке
     if not np.allclose(np.asarray(grid, dtype=float), np.asarray(vor4.grid, dtype=float)):
         raise ValueError("find_optimal: grid не совпадает с vor4.grid")
     if not math.isclose(max_len, vor4.max_len, rel_tol=1e-9):
         raise ValueError("find_optimal: max_len не совпадает с vor4.max_len")
+
+    def report(message):
+        """Сообщение о ходе перебора — только если вызывающий об этом попросил."""
+        if progress is not None:
+            progress(message)
 
     centers_dist = {}  # кэш: ключ — координаты точки, значение — расстояние
 
@@ -66,10 +68,7 @@ def find_optimal(det_range, limits, grid, vor4, max_len, precision=12, threshold
         return d_val
 
     for det in det_range:
-        if verbose:
-            print("\r                                                          ")
-            print("---------------------------------")
-            print("det:", det)
+        report(f"det: {det}")
 
         # все варианты диагоналей матрицы перехода с данным определителем
         list_diag_el = compute_factorizations(det)
@@ -87,9 +86,7 @@ def find_optimal(det_range, limits, grid, vor4, max_len, precision=12, threshold
             num_iterations = max_num_col1 * max_num_col2 ** 2 * max_num_col3 ** 3
             iteration = 0
 
-            if verbose:
-                print("\r                                                          ")
-                print("▶ diag factors:", *diag_el, "   iters:", num_iterations)
+            report(f"диагональ {diag_el}: {num_iterations} итераций")
 
             # перебираем наддиагональные элементы (эрмитова нормальная форма)
             for indices in product(range(max_num_col3), range(max_num_col3), range(max_num_col2),
@@ -103,9 +100,8 @@ def find_optimal(det_range, limits, grid, vor4, max_len, precision=12, threshold
                 mat[0][1] = indices[5]
 
                 iteration += 1
-                if verbose and iteration % 500 == 0:
-                    print("\r[", int(10000 * iteration / num_iterations) / 100, "% ]",
-                          "   iter:", iteration, end="")
+                if iteration % 500 == 0:
+                    report(f"  {100 * iteration / num_iterations:.2f}% ({iteration})")
 
                 # базис подрешётки и его LLL-приведение
                 sub_grid = np.dot(mat, grid)
@@ -142,8 +138,7 @@ def find_optimal(det_range, limits, grid, vor4, max_len, precision=12, threshold
                 if min_dist_mat < threshold:
                     continue
 
-                if verbose:
-                    print("\r", mat, "                      \n", min_dist_mat, min_center)
+                report(f"  кандидат d={min_dist_mat:.6f} при {min_center}")
 
                 # сохраняем значения для mat (копию: mat мутируется в цикле!)
                 list_mats.append(mat.copy())

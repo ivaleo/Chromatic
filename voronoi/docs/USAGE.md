@@ -35,7 +35,6 @@ vor4.build()                          # построить разбиение и
 
 det_dist, det_center, det_mat = find_optimal(
     range(49, 50),    # диапазон определителей (= числа цветов)
-    2,                # limits: УСТАРЕЛ, игнорируется
     grid,
     vor4,
     vor4.max_len,
@@ -81,17 +80,17 @@ d = dist_to_s(vor4, s, vor4.max_len)        # нормированное d = 2·
 ## 5. find_optimal
 
 ```python
-find_optimal(det_range, limits, grid, vor4, max_len,
+find_optimal(det_range, grid, vor4, max_len, *,
              precision=12, threshold=1.0,
-             output_file="results.txt", verbose=True)
+             output_file="results.txt", progress=None)
 ```
 
 - `det_range` — `range`/список определителей (чисел цветов k);
-- `limits` — УСТАРЕЛ и игнорируется (оставлен для совместимости сигнатуры);
 - `precision` — точность целочисленного масштабирования для LLL (fpylll-путь);
 - `threshold` — матрицы с d < threshold пропускаются (1.0 = только пригодные);
 - `output_file` — результаты дописываются сюда (`save_result`);
-- `verbose` — печать прогресса.
+- `progress` — необязательный callback `f(str)` для сообщений о ходе перебора
+  (например, `progress=print`); по умолчанию функция ничего не печатает.
 
 Возвращает три словаря с ключом-определителем: `det_dist` (d), `det_center`
 (вектор-свидетель), `det_mat` (матрица перехода).
