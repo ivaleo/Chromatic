@@ -10,12 +10,10 @@ import json, math, time
 import numpy as np
 import combigeo
 
+from chromatic_research.core import lattices
+
 n, K = 5, 139
-M = np.ones((n + 1, n), float)
-for j in range(n):
-    M[j, j] = -n
-A5S = np.linalg.cholesky(M.T @ M)
-A5S /= abs(np.linalg.det(A5S)) ** (1 / n)
+A5S = lattices.Astar(n)
 
 def restricted_hnfs():
     """Выборка циклических HNF: 139 в ПОСЛЕДНЕЙ позиции диагонали (только такие
