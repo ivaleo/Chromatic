@@ -40,6 +40,7 @@ from prime_radon import (
     score_forms,
 )
 from prime_row_opt import (
+    _best_coordinate_values,
     _best_pair_values,
     _cached_forbidden_with_weights,
     _cost_cutoff,
@@ -54,6 +55,24 @@ def parse_moduli(text: str) -> list[int]:
     if not isinstance(raw, list) or not raw:
         raise argparse.ArgumentTypeError("small moduli must be a nonempty list")
     return [int(value) for value in raw]
+
+
+def parse_rows(text: str) -> list[list[int]]:
+    raw = json.loads(text)
+    if (
+        not isinstance(raw, list)
+        or not raw
+        or any(not isinstance(row, list) or not row for row in raw)
+    ):
+        raise argparse.ArgumentTypeError(
+            "initial rows must be a nonempty JSON list of nonempty rows"
+        )
+    try:
+        return [[int(value) for value in row] for row in raw]
+    except (TypeError, ValueError) as error:
+        raise argparse.ArgumentTypeError(
+            "initial rows must contain integers"
+        ) from error
 
 
 def joint_score(
@@ -166,6 +185,202 @@ def random_rows(
     return rows
 
 
+def validated_seed_rows(
+    raw_rows: Sequence[Sequence[int]],
+    moduli: Sequence[int],
+    n: int,
+) -> list[np.ndarray]:
+    """Normalize and validate a full-rank family of quotient rows.
+
+    A portfolio bridge deliberately has no distinguished ``source_record``.
+    Explicit seed rows let the alternating search retain a nearby discrete
+    basin on such a metric.  Validation is exact: every prime-power row must
+    be primitive, and rows over the same residue characteristic must be
+    independent after reduction modulo that prime.
+    """
+
+    if len(raw_rows) != len(moduli):
+        raise ValueError(
+            f"expected {len(moduli)} initial rows, got {len(raw_rows)}"
+        )
+    rows: list[np.ndarray] = []
+    for row_index, (raw_row, modulus) in enumerate(zip(raw_rows, moduli)):
+        row = np.asarray(raw_row, dtype=np.int64)
+        if row.shape != (n,):
+            raise ValueError(
+                f"initial row {row_index} has shape {row.shape}, "
+                f"expected {(n,)}"
+            )
+        row = row % modulus
+        if math.gcd(int(modulus), *(int(value) for value in row)) != 1:
+            raise ValueError(
+                f"initial row {row_index} is not primitive modulo {modulus}"
+            )
+        rows.append(row)
+    for row_index, row in enumerate(rows):
+        if not _independent_candidate(
+            row,
+            rows,
+            moduli,
+            row_index,
+        ):
+            prime, _ = _prime_power(moduli[row_index])
+            raise ValueError(
+                f"initial row {row_index} is dependent modulo {prime}"
+            )
+    return rows
+
+
+def projective_hamming_distance(
+    row: Sequence[int],
+    anchor: Sequence[int],
+    modulus: int,
+) -> int:
+    """Hamming distance between two rows modulo multiplication by a unit."""
+
+    candidate = np.asarray(row, dtype=np.int64) % modulus
+    reference = np.asarray(anchor, dtype=np.int64) % modulus
+    if candidate.shape != reference.shape:
+        raise ValueError("projective rows must have the same shape")
+    units = [
+        value
+        for value in range(1, modulus)
+        if math.gcd(value, modulus) == 1
+    ]
+    return min(
+        int(np.count_nonzero(candidate != value * reference % modulus))
+        for value in units
+    )
+
+
+def projective_trust_pool(
+    pool: np.ndarray,
+    anchor: Sequence[int],
+    modulus: int,
+    radius: int,
+) -> np.ndarray:
+    """Restrict canonical forms to a projective Hamming ball."""
+
+    forms = np.asarray(pool, dtype=np.int64)
+    reference = np.asarray(anchor, dtype=np.int64) % modulus
+    if forms.ndim != 2 or reference.shape != (forms.shape[1],):
+        raise ValueError("trust-pool dimension mismatch")
+    best = np.full(len(forms), forms.shape[1] + 1, dtype=np.int64)
+    for value in range(1, modulus):
+        if math.gcd(value, modulus) == 1:
+            best = np.minimum(
+                best,
+                np.count_nonzero(
+                    forms % modulus != value * reference % modulus,
+                    axis=1,
+                ),
+            )
+    result = forms[best <= radius]
+    if not len(result):
+        raise ValueError(
+            f"projective trust ball of radius {radius} modulo {modulus} "
+            "is empty"
+        )
+    return result
+
+
+def _choose_allowed(
+    allowed: np.ndarray,
+    counts: np.ndarray,
+    costs: np.ndarray,
+    objective: str,
+    rng: np.random.Generator,
+) -> int:
+    if not len(allowed):
+        raise RuntimeError("discrete trust region has no admissible move")
+    if objective == "weighted":
+        minimum_cost = float(costs[allowed].min())
+        candidates = allowed[
+            costs[allowed] <= _cost_cutoff(minimum_cost)
+        ]
+        minimum_count = int(counts[candidates].min())
+        candidates = candidates[counts[candidates] == minimum_count]
+    else:
+        minimum_count = int(counts[allowed].min())
+        candidates = allowed[counts[allowed] == minimum_count]
+        minimum_cost = float(costs[candidates].min())
+        candidates = candidates[
+            costs[candidates] <= _cost_cutoff(minimum_cost)
+        ]
+    return int(rng.choice(candidates))
+
+
+def trusted_coordinate_value(
+    forbidden: np.ndarray,
+    weights: np.ndarray,
+    row: np.ndarray,
+    dots: np.ndarray,
+    coordinate: int,
+    prime: int,
+    objective: str,
+    rng: np.random.Generator,
+    anchor: np.ndarray,
+    radius: int,
+) -> int:
+    """Exact best coordinate response inside a projective Hamming ball."""
+
+    _, counts, costs = _best_coordinate_values(
+        forbidden,
+        weights,
+        row,
+        dots,
+        coordinate,
+        prime,
+        objective,
+    )
+    allowed: list[int] = []
+    for value in range(prime):
+        candidate = row.copy()
+        candidate[coordinate] = value
+        if not np.any(candidate % prime):
+            continue
+        if projective_hamming_distance(
+            candidate,
+            anchor,
+            prime,
+        ) <= radius:
+            allowed.append(value)
+    return _choose_allowed(
+        np.asarray(allowed, dtype=np.int64),
+        counts,
+        costs,
+        objective,
+        rng,
+    )
+
+
+def trusted_pair_values(
+    row: np.ndarray,
+    first: int,
+    second: int,
+    prime: int,
+    anchor: np.ndarray,
+    radius: int,
+) -> np.ndarray:
+    """All admissible simultaneous values for a trusted coordinate pair."""
+
+    candidates: list[tuple[int, int]] = []
+    for first_value in range(prime):
+        for second_value in range(prime):
+            trial = row.copy()
+            trial[first] = first_value
+            trial[second] = second_value
+            if not np.any(trial % prime):
+                continue
+            if projective_hamming_distance(
+                trial,
+                anchor,
+                prime,
+            ) <= radius:
+                candidates.append((first_value, second_value))
+    return np.asarray(candidates, dtype=np.int64)
+
+
 def main(argv: Sequence[str] | None = None) -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("metric", type=Path)
@@ -190,6 +405,23 @@ def main(argv: Sequence[str] | None = None) -> int:
         type=int,
         default=1,
         help="large-row coordinates changed in each perturbed source restart",
+    )
+    parser.add_argument(
+        "--initial-rows",
+        type=parse_rows,
+        help=(
+            "explicit JSON rows used for the seeded restarts; overrides "
+            "source_record and enables local continuation from a portfolio "
+            "bridge metric"
+        ),
+    )
+    parser.add_argument(
+        "--trust-radius",
+        type=int,
+        help=(
+            "for seeded restarts, constrain every quotient row to this "
+            "projective Hamming radius from the explicit/source rows"
+        ),
     )
     parser.add_argument(
         "--objective",
@@ -228,6 +460,7 @@ def main(argv: Sequence[str] | None = None) -> int:
         or args.pair_moves < 0
         or args.source_restarts < 0
         or args.source_kick < 1
+        or (args.trust_radius is not None and args.trust_radius < 0)
     ):
         parser.error("kick must be positive and pair moves nonnegative")
     if not math.isfinite(args.weight_power) or args.weight_power <= 0:
@@ -253,25 +486,43 @@ def main(argv: Sequence[str] | None = None) -> int:
     rng = np.random.default_rng(args.seed)
     source_record = metric.get("source_record", {})
     source_rows: list[np.ndarray] | None = None
-    if (
-        source_record.get("moduli") == moduli
-        and len(source_record.get("rows", [])) == len(moduli)
-    ):
-        candidate_rows = [
-            np.asarray(row, dtype=np.int64) % modulus
-            for row, modulus in zip(source_record["rows"], moduli)
-        ]
-        if all(
-            np.any(row)
-            and _independent_candidate(
-                row,
-                candidate_rows,
+    seed_rows_source: str | None = None
+    if args.initial_rows is not None:
+        try:
+            source_rows = validated_seed_rows(args.initial_rows, moduli, n)
+        except ValueError as error:
+            parser.error(str(error))
+        seed_rows_source = "explicit"
+    elif source_record.get("moduli") == moduli:
+        try:
+            source_rows = validated_seed_rows(
+                source_record.get("rows", []),
                 moduli,
-                row_index,
+                n,
             )
-            for row_index, row in enumerate(candidate_rows)
-        ):
-            source_rows = candidate_rows
+        except ValueError:
+            # A source record is only an optional warm start.  Historical
+            # payloads with incomplete metadata must not make a fresh search
+            # unusable.
+            source_rows = None
+        else:
+            seed_rows_source = "source_record"
+    if args.trust_radius is not None and source_rows is None:
+        parser.error("--trust-radius requires usable initial/source rows")
+    trust_pools: list[np.ndarray] | None = None
+    if args.trust_radius is not None and source_rows is not None:
+        try:
+            trust_pools = [
+                projective_trust_pool(
+                    pool,
+                    source_rows[row_index],
+                    moduli[row_index],
+                    args.trust_radius,
+                )
+                for row_index, pool in enumerate(pools, start=1)
+            ]
+        except ValueError as error:
+            parser.error(str(error))
     started = time.perf_counter()
     payload: dict = {
         "method": (
@@ -294,6 +545,13 @@ def main(argv: Sequence[str] | None = None) -> int:
             "pair_moves": args.pair_moves,
             "source_restarts": args.source_restarts,
             "source_kick": args.source_kick,
+            "initial_rows": args.initial_rows,
+            "trust_radius": args.trust_radius,
+            "trust_pool_sizes": (
+                [len(pool) for pool in trust_pools]
+                if trust_pools is not None
+                else None
+            ),
             "objective": args.objective,
             "weight_power": args.weight_power,
             "forbidden_cache": (
@@ -309,7 +567,10 @@ def main(argv: Sequence[str] | None = None) -> int:
         "best_by_minimum_ratio": None,
         "valid_candidate": None,
     }
-    payload["seeded_from_source_record"] = source_rows is not None
+    payload["seeded_from_source_record"] = (
+        seed_rows_source == "source_record"
+    )
+    payload["seed_rows_source"] = seed_rows_source
     best_key: tuple[float | int, float | int] = (
         float("inf"),
         float("inf"),
@@ -397,15 +658,22 @@ def main(argv: Sequence[str] | None = None) -> int:
         )
         if use_source:
             rows = [row.copy() for row in source_rows]
+            active_pools = trust_pools if trust_pools is not None else pools
             if restart > 0:
-                for coordinate in rng.choice(
-                    n,
-                    size=min(args.source_kick, n),
-                    replace=False,
-                ):
-                    rows[0][int(coordinate)] = int(
-                        rng.integers(args.large_prime)
-                    )
+                maximum_kick = (
+                    min(args.source_kick, args.trust_radius)
+                    if args.trust_radius is not None
+                    else args.source_kick
+                )
+                if maximum_kick:
+                    for coordinate in rng.choice(
+                        n,
+                        size=min(maximum_kick, n),
+                        replace=False,
+                    ):
+                        rows[0][int(coordinate)] = int(
+                            rng.integers(args.large_prime)
+                        )
                 if not np.any(rows[0]):
                     rows[0][int(rng.integers(n))] = int(
                         rng.integers(1, args.large_prime)
@@ -414,6 +682,7 @@ def main(argv: Sequence[str] | None = None) -> int:
             if consider(rows, restart, -1):
                 return 0
         else:
+            active_pools = pools
             rows = random_rows(
                 n,
                 args.large_prime,
@@ -421,7 +690,7 @@ def main(argv: Sequence[str] | None = None) -> int:
                 pools,
                 rng,
             )
-        for row_index, pool in enumerate(pools, start=1):
+        for row_index, pool in enumerate(active_pools, start=1):
             rows[row_index] = best_small_response(
                 forbidden,
                 weights,
@@ -446,16 +715,30 @@ def main(argv: Sequence[str] | None = None) -> int:
             active_weights = weights[active]
             dots = (vectors @ rows[0]) % args.large_prime
             for coordinate in rng.permutation(n):
-                value = choose_coordinate_value(
-                    vectors,
-                    active_weights,
-                    rows[0],
-                    dots,
-                    int(coordinate),
-                    args.large_prime,
-                    args.objective,
-                    rng,
-                )
+                if use_source and args.trust_radius is not None:
+                    value = trusted_coordinate_value(
+                        vectors,
+                        active_weights,
+                        rows[0],
+                        dots,
+                        int(coordinate),
+                        args.large_prime,
+                        args.objective,
+                        rng,
+                        source_rows[0],
+                        args.trust_radius,
+                    )
+                else:
+                    value = choose_coordinate_value(
+                        vectors,
+                        active_weights,
+                        rows[0],
+                        dots,
+                        int(coordinate),
+                        args.large_prime,
+                        args.objective,
+                        rng,
+                    )
                 if value != rows[0][coordinate]:
                     dots = (
                         dots
@@ -475,6 +758,33 @@ def main(argv: Sequence[str] | None = None) -> int:
                     args.large_prime,
                     args.objective,
                 )
+                if use_source and args.trust_radius is not None:
+                    allowed = trusted_pair_values(
+                        rows[0],
+                        int(first),
+                        int(second),
+                        args.large_prime,
+                        source_rows[0],
+                        args.trust_radius,
+                    )
+                    allowed_mask = np.zeros(
+                        (args.large_prime, args.large_prime),
+                        dtype=bool,
+                    )
+                    allowed_mask[allowed[:, 0], allowed[:, 1]] = True
+                    if args.objective == "weighted":
+                        minimum_cost = float(costs[allowed_mask].min())
+                        mask = allowed_mask & (
+                            costs <= _cost_cutoff(minimum_cost)
+                        )
+                        minimum_count = int(counts[mask].min())
+                        mask &= counts == minimum_count
+                    else:
+                        minimum_count = int(counts[allowed_mask].min())
+                        mask = allowed_mask & (counts == minimum_count)
+                        minimum_cost = float(costs[mask].min())
+                        mask &= costs <= _cost_cutoff(minimum_cost)
+                    candidates = np.argwhere(mask)
                 if not np.any(
                     np.delete(rows[0] % args.large_prime, [first, second])
                 ):
@@ -499,7 +809,7 @@ def main(argv: Sequence[str] | None = None) -> int:
                     rows,
                     moduli,
                     row_index,
-                    pools[row_index - 1],
+                    active_pools[row_index - 1],
                     args.objective,
                     rng,
                 )
@@ -517,9 +827,24 @@ def main(argv: Sequence[str] | None = None) -> int:
                 for coordinate in rng.choice(
                     n, size=min(args.kick, n), replace=False
                 ):
-                    rows[0][coordinate] = int(
+                    proposed = rows[0].copy()
+                    proposed[coordinate] = int(
                         rng.integers(args.large_prime)
                     )
+                    if (
+                        not use_source
+                        or args.trust_radius is None
+                        or (
+                            np.any(proposed % args.large_prime)
+                            and projective_hamming_distance(
+                                proposed,
+                                source_rows[0],
+                                args.large_prime,
+                            )
+                            <= args.trust_radius
+                        )
+                    ):
+                        rows[0] = proposed
                 stalled = 0
         if (restart + 1) % progress_every == 0:
             print(

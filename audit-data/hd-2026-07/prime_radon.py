@@ -38,8 +38,10 @@ from pathlib import Path
 from typing import Iterable, Sequence
 
 import numpy as np
-from sympy import Matrix
+from sympy import Matrix, ZZ
 from sympy.matrices.normalforms import hermite_normal_form, smith_normal_form
+from sympy.polys.matrices import DomainMatrix
+from sympy.polys.matrices.normalforms import smith_normal_decomp
 
 
 HERE = Path(__file__).resolve().parent
@@ -50,6 +52,38 @@ for path in (HERE, AUDIT):
 
 
 _FORM_CACHE: dict[tuple[int, int], np.ndarray] = {}
+
+
+def weighted_improves(candidate: float, incumbent: float) -> bool:
+    """Scale-aware strict comparison for nonnegative weighted losses.
+
+    Geometry objectives often use high powers of a small distance deficit.
+    Their meaningful values can be far below 1e-15, so an absolute tolerance
+    silently freezes the search.  This comparison keeps a relative tolerance
+    plus a few ULPs at the actual scale.
+    """
+    candidate = float(candidate)
+    incumbent = float(incumbent)
+    if not math.isfinite(incumbent):
+        return math.isfinite(candidate)
+    scale = max(abs(candidate), abs(incumbent))
+    tolerance = max(
+        1e-12 * scale,
+        16.0 * float(np.spacing(scale)),
+    )
+    return candidate < incumbent - tolerance
+
+
+def weighted_close(first: float, second: float) -> bool:
+    """Scale-aware equality companion to :func:`weighted_improves`."""
+    first = float(first)
+    second = float(second)
+    scale = max(abs(first), abs(second))
+    tolerance = max(
+        1e-10 * scale,
+        64.0 * float(np.spacing(scale)),
+    )
+    return abs(first - second) <= tolerance
 
 
 def _prime_power(q: int) -> tuple[int, int]:
@@ -292,14 +326,50 @@ def kernel_basis(rows: Sequence[np.ndarray], moduli: Sequence[int], n: int) -> n
             None,
         )
         if pivot is None:
-            raise ValueError(
-                f"cannot construct kernel for modulus {modulus}: "
-                f"restricted row {restricted.tolist()}"
+            # A primitive row over a composite cyclic group need not contain
+            # an individually invertible coordinate (for example [2, 3]
+            # modulo 6).  Compute a unimodular Smith transformation of
+            # [reduced, -effective].  Its last n columns span all integer
+            # solutions of reduced*x - effective*q = 0; dropping q gives a
+            # full column basis of the modular kernel.
+            augmented_values = [
+                *[int(value) for value in reduced],
+                -int(effective),
+            ]
+            augmented = DomainMatrix(
+                [[ZZ(value) for value in augmented_values]],
+                (1, n + 1),
+                ZZ,
             )
-        normalized = reduced * pow(int(reduced[pivot]), -1, effective) % effective
-        child = np.eye(n, dtype=np.int64)
-        child[pivot, :] = -normalized
-        child[pivot, pivot] = effective
+            smith, _, right = smith_normal_decomp(augmented)
+            if abs(int(smith.to_Matrix()[0, 0])) != 1:
+                raise ValueError(
+                    f"restricted row is not primitive modulo {effective}: "
+                    f"{reduced.tolist()}"
+                )
+            transform = right.to_Matrix()
+            raw_child = transform[:n, 1:]
+            child = np.asarray(
+                hermite_normal_form(raw_child).tolist(),
+                dtype=np.int64,
+            )
+            if (
+                child.shape != (n, n)
+                or abs(int(Matrix(child.tolist()).det())) != effective
+                or np.any((reduced @ child) % effective)
+            ):
+                raise AssertionError(
+                    "Smith fallback returned an invalid cyclic kernel"
+                )
+        else:
+            normalized = (
+                reduced
+                * pow(int(reduced[pivot]), -1, effective)
+                % effective
+            )
+            child = np.eye(n, dtype=np.int64)
+            child[pivot, :] = -normalized
+            child[pivot, pivot] = effective
         basis = basis @ child
     return basis
 
@@ -933,7 +1003,7 @@ class PrimarySearch:
                     == 0
                 )
                 exact = float(residual_weights[zero].sum())
-                if exact < best - 1e-15:
+                if weighted_improves(exact, best):
                     best = exact
                     best_rows = [row.copy() for row in rows]
                     best_rows[first_index] = first.copy()
@@ -945,7 +1015,7 @@ class PrimarySearch:
                         flush=True,
                     )
                 break
-            if best <= 1e-15:
+            if best == 0.0:
                 return best, best_rows
             if progress_every and number % progress_every == 0:
                 print(
@@ -988,9 +1058,9 @@ class PrimarySearch:
                 weights_array,
                 first_top=first_top,
             )
-            if loss < best - 1e-15:
+            if weighted_improves(loss, best):
                 best, best_rows = loss, candidate_rows
-            if best <= 1e-15:
+            if best == 0.0:
                 break
         return best, best_rows
 
@@ -1157,7 +1227,7 @@ class PrimarySearch:
                 weights=weights_array,
             )
             total_sweeps += sweeps
-            if loss < best_loss - 1e-12:
+            if weighted_improves(loss, best_loss):
                 best_loss = loss
                 best_rows = [row.copy() for row in rows]
                 killed = int(
@@ -1169,7 +1239,7 @@ class PrimarySearch:
                     f"elapsed={time.perf_counter()-start:.2f}s",
                     flush=True,
                 )
-            if best_loss <= 1e-15:
+            if best_loss == 0.0:
                 break
             if progress_every and (restart + 1) % progress_every == 0:
                 print(
@@ -1180,7 +1250,7 @@ class PrimarySearch:
         assert best_rows is not None
         final_mask = killed_mask(self.forbidden, best_rows, self.moduli)
         exact_loss = float(weights_array[final_mask].sum())
-        if not math.isclose(exact_loss, best_loss, rel_tol=1e-10, abs_tol=1e-10):
+        if not weighted_close(exact_loss, best_loss):
             raise AssertionError(
                 f"weighted score mismatch: search={best_loss}, exact={exact_loss}"
             )
@@ -1195,6 +1265,103 @@ class PrimarySearch:
             sweeps=total_sweeps,
             seconds=time.perf_counter() - start,
         )
+
+    def run_weighted_archive(
+        self,
+        weights: Sequence[float] | np.ndarray,
+        *,
+        archive_size: int = 16,
+        restarts: int = 100,
+        max_sweeps: int = 20,
+        top: int = 8,
+        progress_every: int = 10,
+        initial_rows: Sequence[Sequence[int]] | None = None,
+    ) -> list[WeightedSearchResult]:
+        """Return HNF-distinct local optima instead of only the best restart."""
+        if archive_size < 1 or restarts < 0:
+            raise ValueError("archive size must be positive")
+        weights_array = np.asarray(weights, dtype=np.float64)
+        if weights_array.shape != (len(self.forbidden),):
+            raise ValueError(
+                f"weights must have shape {(len(self.forbidden),)}, "
+                f"got {weights_array.shape}"
+            )
+        if not np.all(np.isfinite(weights_array)) or np.any(weights_array < 0):
+            raise ValueError("weights must be finite and nonnegative")
+
+        start = time.perf_counter()
+        starts: list[Sequence[np.ndarray] | None] = []
+        if initial_rows is not None:
+            starts.append(
+                [np.asarray(row, dtype=np.int64) for row in initial_rows]
+            )
+        starts.extend([None] * restarts)
+        archive: dict[
+            tuple[int, ...], tuple[float, int, list[np.ndarray]]
+        ] = {}
+        total_sweeps = 0
+        best_loss = float("inf")
+        for restart, initial in enumerate(starts):
+            _, rows, sweeps = self.descend(
+                initial,
+                max_sweeps=max_sweeps,
+                top=top,
+                weights=weights_array,
+            )
+            total_sweeps += sweeps
+            rows = [np.asarray(row, dtype=np.int64).copy() for row in rows]
+            mask = killed_mask(self.forbidden, rows, self.moduli)
+            exact_loss = float(weights_array[mask].sum())
+            kernel = hnf_columns(
+                kernel_basis(rows, self.moduli, self.n)
+            )
+            key = tuple(int(value) for value in kernel.flat)
+            incumbent = archive.get(key)
+            if incumbent is None or weighted_improves(
+                exact_loss, incumbent[0]
+            ):
+                archive[key] = (
+                    exact_loss,
+                    int(mask.sum()),
+                    [row.copy() for row in rows],
+                )
+            if weighted_improves(exact_loss, best_loss):
+                best_loss = exact_loss
+                print(
+                    f"  weighted archive best={best_loss:.9g} "
+                    f"killed={int(mask.sum())} restart={restart} "
+                    f"unique={len(archive)}",
+                    flush=True,
+                )
+            if progress_every and (restart + 1) % progress_every == 0:
+                print(
+                    f"  weighted archive progress "
+                    f"{restart + 1}/{len(starts)} "
+                    f"best={best_loss:.9g} unique={len(archive)}",
+                    flush=True,
+                )
+
+        ranked = sorted(
+            archive.values(),
+            key=lambda item: (item[0], item[1]),
+        )[:archive_size]
+        elapsed = time.perf_counter() - start
+        results: list[WeightedSearchResult] = []
+        for exact_loss, killed, rows in ranked:
+            index = image_size(rows, self.moduli, self.n)
+            results.append(
+                WeightedSearchResult(
+                    weighted_loss=exact_loss,
+                    killed=killed,
+                    rows=[row.copy() for row in rows],
+                    moduli=self.moduli.copy(),
+                    image_index=index,
+                    restarts=len(starts),
+                    sweeps=total_sweeps,
+                    seconds=elapsed,
+                )
+            )
+        return results
 
 
 def load_forbidden(name: str) -> tuple[np.ndarray, np.ndarray, float]:

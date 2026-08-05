@@ -342,6 +342,11 @@ def campaign_records(payload: dict) -> list[dict]:
         if isinstance(record, dict)
     )
     raw.extend(
+        record
+        for record in payload.get("candidates", [])
+        if isinstance(record, dict)
+    )
+    raw.extend(
         entry["candidate"]
         for entry in payload.get("small_rows", [])
         if isinstance(entry, dict) and isinstance(entry.get("candidate"), dict)

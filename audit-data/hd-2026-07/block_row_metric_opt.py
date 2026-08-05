@@ -74,6 +74,26 @@ def parse_powers(text: str) -> list[float]:
     return powers
 
 
+def metric_source_rows(
+    metric: dict,
+    moduli: Sequence[int],
+    n: int,
+) -> list[np.ndarray] | None:
+    """Return an exact full-image warm start embedded in a metric checkpoint."""
+    record = metric.get("source_record")
+    if not isinstance(record, dict) or record.get("moduli") != list(moduli):
+        return None
+    raw_rows = record.get("rows")
+    if not isinstance(raw_rows, list) or len(raw_rows) != len(moduli):
+        return None
+    rows = [np.asarray(row, dtype=np.int64) for row in raw_rows]
+    if any(row.shape != (n,) for row in rows):
+        return None
+    if image_size(rows, moduli, n) != math.prod(moduli):
+        return None
+    return rows
+
+
 def candidate_record(
     *,
     label: str,
@@ -176,6 +196,14 @@ def main(argv: Sequence[str] | None = None) -> int:
         ),
     )
     parser.add_argument("--seed", type=int, default=20260730)
+    parser.add_argument(
+        "--ignore-source-seed",
+        action="store_true",
+        help=(
+            "do not warm-start from metric.source_record even when its "
+            "quotient structure matches"
+        ),
+    )
     parser.add_argument("--output", type=Path, required=True)
     args = parser.parse_args(argv)
     if args.count_restarts < 0 or args.weighted_restarts < 0:
@@ -221,6 +249,7 @@ def main(argv: Sequence[str] | None = None) -> int:
             "pair_top": args.pair_top,
             "weighted_pair_top": args.weighted_pair_top,
             "seed": args.seed,
+            "ignore_source_seed": args.ignore_source_seed,
         },
         "results": [],
         "valid_candidate": None,
@@ -240,12 +269,48 @@ def main(argv: Sequence[str] | None = None) -> int:
             moduli,
             seed=args.seed + 1009 * structure_number,
         )
+        source_rows = (
+            None
+            if args.ignore_source_seed
+            else metric_source_rows(metric, moduli, basis.shape[0])
+        )
+        if source_rows is not None:
+            source_record = candidate_record(
+                label="metric-source-control",
+                beta=-2.0,
+                rows=source_rows,
+                moduli=moduli,
+                forbidden=forbidden,
+                ratios=ratios,
+                weights=np.ones(len(forbidden), dtype=np.float64),
+                basis=basis,
+                diameter=diameter,
+                facets=facets,
+                search_seconds=0.0,
+                search_metadata={
+                    "source": "metric.source_record",
+                    "optimization": "none",
+                },
+            )
+            payload["results"].append(source_record)
+            save()
+            print(
+                f"  source control killed={source_record['killed']} "
+                f"min-ratio={source_record['minimum_conflict_ratio']}",
+                flush=True,
+            )
+            if source_record.get("complete_separation", {}).get("valid"):
+                payload["valid_candidate"] = source_record
+                save()
+                print("*** VALID SOURCE KERNEL FOUND ***", flush=True)
+                return 0
         count_started = time.perf_counter()
         count = search.run(
             restarts=args.count_restarts,
             max_sweeps=args.sweeps,
             top=args.top,
             progress_every=max(1, (args.count_restarts + 1) // 4),
+            initial_rows=source_rows,
         )
         count_record = candidate_record(
             label="count",
@@ -329,7 +394,9 @@ def main(argv: Sequence[str] | None = None) -> int:
                 progress_every=max(
                     1, (args.weighted_restarts + 1) // 4
                 ),
-                initial_rows=count.rows,
+                initial_rows=(
+                    source_rows if source_rows is not None else count.rows
+                ),
             )
             weighted_record = candidate_record(
                 label=f"deficit-power-{power:g}",
