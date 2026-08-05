@@ -13,6 +13,7 @@
 import math
 
 import numpy as np
+from dataclasses import dataclass
 from itertools import product
 
 from .distances import dist_to_s
@@ -20,6 +21,18 @@ from .enumeration import lattice_points_within, shortest_vector
 from .factorization import compute_factorizations
 from .io import save_result
 from .lll import lll_reduce
+
+# --------------------------------------------------------------------------------
+
+
+@dataclass
+class _Candidate:
+    """Подрешётка-кандидат: матрица перехода, минимальное d и точка минимума."""
+
+    matrix: "np.ndarray"
+    distance: float
+    center: "np.ndarray"
+
 
 # --------------------------------------------------------------------------------
 
@@ -74,10 +87,7 @@ def find_optimal(det_range, grid, vor4, max_len, *, precision=12, threshold=1.0,
         list_diag_el = compute_factorizations(det)
 
         # среди расстояний ищем максимальное по всем матрицам mat
-        mat_dist = {}
-        mat_center = {}
-        list_mats = []
-        index = 0
+        candidates = []
 
         for diag_el in list_diag_el:
             mat = np.diag(np.array(diag_el, dtype=float))
@@ -122,9 +132,9 @@ def find_optimal(det_range, grid, vor4, max_len, *, precision=12, threshold=1.0,
                     # полный перебор кандидатов в границе достаточности
                     # |v| < D_текущ + diam (D(v) >= |v| - diam)
                     bound = (min_dist_mat + 1.0) * max_len
-                    candidates = sorted(lattice_points_within(sub_grid_lll, bound),
+                    neighbours = sorted(lattice_points_within(sub_grid_lll, bound),
                                         key=lambda v: float(v @ v))
-                    for center in candidates:
+                    for center in neighbours:
                         if float(np.linalg.norm(center)) - max_len >= min_dist_mat * max_len:
                             break  # дальше только длиннее — минимум не улучшат
                         dist = eval_center(center)
@@ -140,20 +150,17 @@ def find_optimal(det_range, grid, vor4, max_len, *, precision=12, threshold=1.0,
 
                 report(f"  кандидат d={min_dist_mat:.6f} при {min_center}")
 
-                # сохраняем значения для mat (копию: mat мутируется в цикле!)
-                list_mats.append(mat.copy())
-                mat_dist[index] = min_dist_mat
-                mat_center[index] = min_center
-                index += 1
+                # копия: mat мутируется в цикле перебора наддиагональных элементов
+                candidates.append(_Candidate(mat.copy(), min_dist_mat, min_center.copy()))
 
         # максимальное среди минимальных расстояний для данного определителя
-        if mat_dist:
-            best_index, best_dist = max(mat_dist.items(), key=lambda item: item[1])
-            det_dist[det] = best_dist
-            det_center[det] = mat_center[best_index]
-            det_mat[det] = list_mats[best_index]
+        if candidates:
+            best = max(candidates, key=lambda c: c.distance)
+            det_dist[det] = best.distance
+            det_center[det] = best.center
+            det_mat[det] = best.matrix
 
-            save_result(grid, det, list_mats[best_index], mat_center[best_index], best_dist,
+            save_result(grid, det, best.matrix, best.center, best.distance,
                         output_file=output_file)
 
     return det_dist, det_center, det_mat
