@@ -4,8 +4,8 @@
 PATS='n8_cma44_ladder.py|n10_push44.py|multiprocessing.spawn|multiprocessing.resource_tracker'
 PIDS=$(pgrep -f "$PATS" | tr '\n' ' ')
 if [ -z "$PIDS" ]; then
-    echo "кампании не запущены. Докатка n8: .venv/bin/python audit-data/n8_cma44_ladder.py (пропустит готовые k);"
-    echo "перезапуск n10: .venv/bin/python audit-data/n10_push44.py"
+    echo "кампании не запущены. Докатка n8: .venv/bin/python -m chromatic_research.campaigns.n8_cma44_ladder (пропустит готовые k);"
+    echo "перезапуск n10: .venv/bin/python -m chromatic_research.campaigns.n10_push44"
     exit 0
 fi
 case "$1" in
