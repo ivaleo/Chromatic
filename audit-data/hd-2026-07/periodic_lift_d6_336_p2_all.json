@@ -1,0 +1,26 @@
+{
+  "method": "prime-index period lift and non-coset layer coloring by successive totally-unimodular HiGHS assignment LPs",
+  "source_metric": "audit-data/hd-2026-07/sdp_d6_336_wall7_pass1.json",
+  "n": 6,
+  "dimension": 6,
+  "source_index": 336,
+  "prime": 2,
+  "period_index": 672,
+  "target_colors": 336,
+  "forbidden_projective_pairs": 4554,
+  "source_kernel_conflicts": 33,
+  "projective_characters": 63,
+  "loop_free_characters": 0,
+  "settings": {
+    "trials": 12,
+    "max_characters": 0,
+    "seed": 336002,
+    "temperature": 20000.0,
+    "max_h_norm": 1.2
+  },
+  "character_summaries": [],
+  "attempts": [],
+  "coloring": null,
+  "valid_numerical_witness": false,
+  "elapsed_seconds": 6.370899791363627e-05
+}

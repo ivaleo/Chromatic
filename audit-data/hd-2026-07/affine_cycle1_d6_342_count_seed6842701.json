@@ -1,0 +1,148 @@
+{
+  "method": "joint cyclic-period and missing-difference modular descent, followed by HiGHS maximum matching",
+  "lattice": "E6*",
+  "metric_checkpoint": "audit-data/hd-2026-07/affine_metric_d6_342_n684_y1_resume_s012_seed6842620.json",
+  "metric_checkpoint_method": "exhaustive affine-coset Voronoi metric deformation",
+  "dimension": 6,
+  "parent_basis": [
+    [
+      1.2388172522553784,
+      0.01911674147360026,
+      0.0443481174809596,
+      0.12120392345437778,
+      0.02570227884145939,
+      0.023111563668328016
+    ],
+    [
+      0.947622644531785,
+      1.3313352667265723,
+      0.02922404958823535,
+      0.1720011730025881,
+      0.027545621304371142,
+      0.032806131357196296
+    ],
+    [
+      1.593979292611255,
+      0.810864922396836,
+      1.002910411974392,
+      0.186376310983717,
+      0.00216783564154853,
+      0.03635708254486638
+    ],
+    [
+      1.997104395448063,
+      1.6694685610009186,
+      0.7607511261220128,
+      1.16892768384281,
+      0.039122879585809546,
+      -0.08277555005475457
+    ],
+    [
+      1.3495771859594523,
+      1.119017800298389,
+      0.47528872286783574,
+      0.7951599402691468,
+      0.9383043356482648,
+      6.307037211790086e-05
+    ],
+    [
+      0.6889414775160386,
+      0.5692945421886898,
+      0.2362088081719558,
+      0.2876403707726991,
+      0.5169972744750445,
+      0.8208266343720735
+    ]
+  ],
+  "parent_diameter": 1.822010088492803,
+  "forbidden_projective_pairs": 4361,
+  "target_colors": 342,
+  "settings": {
+    "indices": [
+      684
+    ],
+    "restarts": 200,
+    "sweeps": 25,
+    "top": 16,
+    "pair_top": 0,
+    "pair_trials": 0,
+    "initial_row": [
+      54,
+      526,
+      27,
+      129,
+      279,
+      439
+    ],
+    "cpsat_time_limit": 0.0,
+    "cpsat_workers": 8,
+    "weight_power": 0.0,
+    "weighted_first": false,
+    "search_min_ratio": 1.0,
+    "max_targets_per_index": 0,
+    "target_differences": [
+      1
+    ],
+    "matching_time_limit": 60.0,
+    "seed": 6842701
+  },
+  "records": [
+    {
+      "period_index": 684,
+      "target_difference": 1,
+      "target_difference_order": 684,
+      "single_difference_matching_size": 342,
+      "required_pairs": 342,
+      "search_core_ratio": 1.0,
+      "search_core_vectors": 4361,
+      "search": {
+        "success": false,
+        "score": 2,
+        "weighted_score": 2.0,
+        "row": [
+          233,
+          368,
+          603,
+          129,
+          649,
+          439
+        ],
+        "restart": 0,
+        "sweep": 1,
+        "elapsed_seconds": 267.10816262500157
+      },
+      "fixed_metric_conflict_count": 2,
+      "fixed_metric_minimum_conflict_ratio": 0.0,
+      "fixed_metric_conflicts": [
+        {
+          "coordinate": [
+            0,
+            0,
+            -2,
+            2,
+            -2,
+            2
+          ],
+          "distance_ratio": 0.6158262936260749,
+          "quotient_residue": 0
+        },
+        {
+          "coordinate": [
+            0,
+            0,
+            -1,
+            1,
+            -1,
+            1
+          ],
+          "distance_ratio": 0.0,
+          "quotient_residue": 0
+        }
+      ],
+      "valid_on_fixed_metric": false
+    }
+  ],
+  "coloring": null,
+  "valid_combinatorial_witness": false,
+  "elapsed_seconds": 267.10883312499936
+}

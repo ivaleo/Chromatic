@@ -1,0 +1,330 @@
+{
+  "method": "sequential semidefinite covering optimization with fixed-dual kernel separation certificates and complete cutting planes",
+  "source_metric": "audit-data/hd-2026-07/metric_d6_336_altkernel_rank1_seed6338901.json",
+  "source_campaign": "audit-data/hd-2026-07/cpsat_d6_336_wall6_weighted_p4_seed6338802.json",
+  "base_metric": "audit-data/hd-2026-07/sdp_d6_336_wall6_pass2.json",
+  "source_record": {
+    "moduli": [
+      7,
+      4,
+      4,
+      3
+    ],
+    "rows": [
+      [
+        0,
+        1,
+        0,
+        5,
+        5,
+        0
+      ],
+      [
+        0,
+        1,
+        0,
+        2,
+        1,
+        2
+      ],
+      [
+        2,
+        0,
+        1,
+        0,
+        1,
+        0
+      ],
+      [
+        1,
+        0,
+        2,
+        0,
+        1,
+        2
+      ]
+    ],
+    "image_index": 336,
+    "beta": 1.0
+  },
+  "kernel_basis_columns": [
+    [
+      6,
+      0,
+      5,
+      0,
+      3,
+      4
+    ],
+    [
+      0,
+      28,
+      0,
+      2,
+      23,
+      14
+    ],
+    [
+      0,
+      0,
+      2,
+      0,
+      1,
+      0
+    ],
+    [
+      0,
+      0,
+      0,
+      1,
+      0,
+      0
+    ],
+    [
+      0,
+      0,
+      0,
+      0,
+      1,
+      0
+    ],
+    [
+      0,
+      0,
+      0,
+      0,
+      0,
+      1
+    ]
+  ],
+  "kernel_determinant": 336,
+  "kernel_smith": [
+    1,
+    1,
+    1,
+    1,
+    4,
+    84
+  ],
+  "settings": {
+    "rounds": 10,
+    "initial_simplices": 64,
+    "add_simplices": 64,
+    "add_kernel_vectors": 16,
+    "solver": "CLARABEL",
+    "solver_tolerance": 5e-08,
+    "solver_iterations": 400,
+    "positive_floor": 1e-07,
+    "violation_tolerance": 5e-06
+  },
+  "triangulation_translation_orbits": 720,
+  "selected_simplex_constraints": 118,
+  "separation_certificates": 36,
+  "converged_cutting_planes": true,
+  "history": [
+    {
+      "round": 1,
+      "status": "optimal_inaccurate",
+      "solve_seconds": 0.12772308299463475,
+      "master_rho": 0.25809048907399545,
+      "covering_rho": 0.2581102759663338,
+      "certified_ratio_if_separated": 0.9841637324728777,
+      "minimum_gram_eigenvalue": 0.08171451670520152,
+      "selected_simplices": 118,
+      "separation_certificates": 36,
+      "enumerated_kernel_vectors": 36,
+      "minimum_kernel_separation": 1.0000002124403675,
+      "new_simplex_constraints": 54,
+      "new_kernel_constraints": 0,
+      "remaining_simplex_violations": 54,
+      "remaining_new_kernel_violations": 0
+    },
+    {
+      "round": 2,
+      "status": "optimal",
+      "solve_seconds": 0.24868912500096485,
+      "master_rho": 0.25809416778318856,
+      "covering_rho": 0.25809416607445546,
+      "certified_ratio_if_separated": 0.9841944470840623,
+      "minimum_gram_eigenvalue": 0.0817022857862105,
+      "selected_simplices": 118,
+      "separation_certificates": 36,
+      "enumerated_kernel_vectors": 36,
+      "minimum_kernel_separation": 1.000000023925236,
+      "new_simplex_constraints": 0,
+      "new_kernel_constraints": 0,
+      "remaining_simplex_violations": 0,
+      "remaining_new_kernel_violations": 0
+    }
+  ],
+  "sdp_certificate": {
+    "minimum_linear_separation_squared": 3.251950589351192,
+    "triangulation_covering_radius_squared": 0.8393094733807571,
+    "triangulation_diameter": 1.8322766967690847,
+    "certified_ratio": 0.9841944483113149,
+    "gram_rescale": 3.2519505812410805
+  },
+  "best": {
+    "objective": -0.9839981888584491,
+    "soft_min": 0.9839981888584491,
+    "min_ratio": 0.9841944706157388,
+    "min_distance": 1.8033165935982054,
+    "diameter": 1.8322766967690862,
+    "facet_count": 126,
+    "vertex_count": 5040,
+    "subvector_count": 72,
+    "deformation_frobenius_norm": 0.01679307571547643,
+    "parameters": [
+      -0.008848947002798603,
+      -0.000628908391517659,
+      0.003567082603218987,
+      0.0019177621137570465,
+      0.003993704808290797,
+      -0.0023022462632329,
+      -0.0011502271615515469,
+      -0.00023043513823436842,
+      -0.0014802957533969648,
+      -0.0003581851874433626,
+      -0.003087972487743869,
+      -0.0020939496021744894,
+      -0.000559494564101149,
+      0.0038091478971947904,
+      -0.003531940686989499,
+      -0.0036308896553724403,
+      -0.0009066555817937601,
+      -0.0028433382064374756,
+      0.0012693046070147004,
+      -0.003400536460503734
+    ],
+    "basis": [
+      [
+        1.4089308875628417,
+        -4.685990800209171e-06,
+        -1.078601026651078e-06,
+        5.1789792019640846e-06,
+        6.619605144435859e-06,
+        5.73660573860289e-06
+      ],
+      [
+        1.0566945664660647,
+        1.1618402327117243,
+        0.15990377690632696,
+        0.06740988238328294,
+        -0.05212009698351782,
+        0.07998477422962856
+      ],
+      [
+        1.761160039970486,
+        0.825024344162597,
+        1.102756670580116,
+        -0.0021011330666919044,
+        -0.0029629870338658522,
+        -0.0051489131871039345
+      ],
+      [
+        2.113394011675473,
+        1.5423603413738525,
+        0.9057959458757753,
+        0.891333543087074,
+        -0.10424286629925346,
+        0.15997199171693136
+      ],
+      [
+        1.4089340023625916,
+        0.990174141323101,
+        0.6297010900289784,
+        0.5348909558000798,
+        0.9039152199444319,
+        0.15996537578020192
+      ],
+      [
+        0.7044705720355632,
+        0.545670671468638,
+        0.2728366060803081,
+        0.3522347435458585,
+        0.4981320913207897,
+        0.8627887353508007
+      ]
+    ],
+    "witnesses": [
+      {
+        "coordinate": [
+          -2,
+          2,
+          0,
+          1,
+          0,
+          -2
+        ],
+        "distance": 1.8033165935982054,
+        "distance_ratio": 0.9841944706157388,
+        "norm_squared": 11.692083513062798
+      },
+      {
+        "coordinate": [
+          2,
+          -2,
+          0,
+          -1,
+          0,
+          2
+        ],
+        "distance": 1.8033165935982054,
+        "distance_ratio": 0.9841944706157388,
+        "norm_squared": 11.692083513062798
+      }
+    ],
+    "gram": [
+      [
+        1.9850862460552883,
+        1.4888044595098768,
+        2.481347662732049,
+        2.977622740008625,
+        1.985094986732302,
+        0.9925575681633546
+      ],
+      [
+        1.4888044595098768,
+        2.505703511876511,
+        2.995490636942956,
+        4.2483416209841725,
+        2.7416682241597847,
+        1.4888113413472408
+      ],
+      [
+        2.481347662732049,
+        2.995490636942956,
+        4.998461834718045,
+        5.990994810661727,
+        3.988057298986009,
+        1.9850909207030893
+      ],
+      [
+        2.977622740008625,
+        4.2483416209841725,
+        5.990994810661727,
+        8.496709065133931,
+        5.483348221680817,
+        2.977632940532847
+      ],
+      [
+        1.985094986732302,
+        2.7416682241597847,
+        3.988057298986009,
+        5.483348221680817,
+        4.4908232968345105,
+        2.4813597212181335
+      ],
+      [
+        0.9925575681633546,
+        1.4888113413472408,
+        1.9850909207030893,
+        2.977632940532847,
+        2.4813597212181335,
+        1.9850843789952435
+      ]
+    ]
+  },
+  "elapsed_seconds": 0.46518329200625885,
+  "valid_numerical_witness": false
+}

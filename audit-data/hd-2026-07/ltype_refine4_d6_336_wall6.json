@@ -1,0 +1,1385 @@
+{
+  "method": "wall-constrained active-set finite-difference max-min trust region",
+  "source_screen": "audit-data/hd-2026-07/ltype_cross4_d6_336_from_wall7_sdp.json",
+  "source_metric": "audit-data/hd-2026-07/sdp_d6_336_wall7_pass1.json",
+  "source_campaign": "audit-data/hd-2026-07/fixed7_d6_336_noncyclic_a_seed6336101.json",
+  "base_metric": null,
+  "source_record": {
+    "moduli": [
+      7,
+      4,
+      4,
+      3
+    ],
+    "rows": [
+      [
+        0,
+        6,
+        0,
+        2,
+        2,
+        0
+      ],
+      [
+        1,
+        2,
+        0,
+        0,
+        1,
+        3
+      ],
+      [
+        2,
+        2,
+        1,
+        0,
+        3,
+        0
+      ],
+      [
+        1,
+        0,
+        2,
+        0,
+        1,
+        2
+      ]
+    ],
+    "image_index": 336,
+    "beta": 2.0
+  },
+  "kernel_basis_columns": [
+    [
+      12,
+      0,
+      2,
+      0,
+      9,
+      7
+    ],
+    [
+      0,
+      14,
+      7,
+      2,
+      9,
+      7
+    ],
+    [
+      0,
+      0,
+      2,
+      0,
+      1,
+      0
+    ],
+    [
+      0,
+      0,
+      0,
+      1,
+      0,
+      0
+    ],
+    [
+      0,
+      0,
+      0,
+      0,
+      1,
+      0
+    ],
+    [
+      0,
+      0,
+      0,
+      0,
+      0,
+      1
+    ]
+  ],
+  "kernel_determinant": 336,
+  "kernel_smith": [
+    1,
+    1,
+    1,
+    1,
+    4,
+    84
+  ],
+  "wall_index": 6,
+  "wall_matrix": [
+    [
+      0,
+      -1,
+      -1,
+      1,
+      0,
+      0
+    ],
+    [
+      -1,
+      0,
+      0,
+      1,
+      -1,
+      0
+    ],
+    [
+      -1,
+      0,
+      2,
+      -1,
+      0,
+      0
+    ],
+    [
+      1,
+      1,
+      -1,
+      0,
+      0,
+      0
+    ],
+    [
+      0,
+      -1,
+      0,
+      0,
+      0,
+      1
+    ],
+    [
+      0,
+      0,
+      0,
+      0,
+      1,
+      -2
+    ]
+  ],
+  "source_reference_ratio": 0.9842441220326106,
+  "source_wall_slack": 0.0012138790502733698,
+  "start": {
+    "min_ratio": 0.9837020378014376,
+    "soft_min": 0.9836341478397975,
+    "diameter": 1.8321339205709697,
+    "parameters": [
+      0.11634289818315018,
+      -0.06684698389922487,
+      0.011452141162647598,
+      -0.13394723544385503,
+      0.07485300086452247,
+      0.0026721471964606894,
+      0.0013917420367786809,
+      0.1380422066723129,
+      0.0015834630047793417,
+      0.058483540201014914,
+      -0.042036756637662896,
+      0.0017410760425014468,
+      -0.043912157064286125,
+      0.0263164451656675,
+      -0.0658760563096428,
+      0.003651754291437588,
+      0.07010329233576948,
+      -0.05359182442788991,
+      0.1139135944982756,
+      0.06674971725273007
+    ],
+    "wall_slack": -1.2140715281994119e-05,
+    "voronoi_signature": "6126342f4251ffa0d9b86e9fc3e709b2b5e4f5bd1aa64ef289b4a291bd463ddc"
+  },
+  "wall_margin": 6.070357640997059e-07,
+  "iterations": 32,
+  "evaluations": 1436,
+  "elapsed_seconds": 61.70026508400042,
+  "final_radius": 1.8607915840972827e-08,
+  "settings": {
+    "iterations_budget": 120,
+    "initial_radius": 0.0005,
+    "minimum_radius": 2e-08,
+    "active_window": 0.004,
+    "finite_difference": 2e-06,
+    "wall_margin_fraction": 0.05,
+    "absolute_seed_depth": 0.0,
+    "minimum_wall_margin": 1e-09,
+    "temperature": 20000.0,
+    "max_h_norm": 1.2
+  },
+  "history": [
+    {
+      "iteration": 1,
+      "outcome": "accept",
+      "active_constraints": 33,
+      "radius": 0.0006,
+      "predicted_min": 0.984323906371941,
+      "accepted_scale": 1.0,
+      "previous_min_ratio": 0.9837020378014376,
+      "incumbent_min_ratio": 0.9839094197919486,
+      "incumbent_wall_slack": -0.0027729630992858745,
+      "best_min_ratio": 0.9839094197919486
+    },
+    {
+      "iteration": 2,
+      "outcome": "shrink",
+      "active_constraints": 33,
+      "radius": 0.00027,
+      "predicted_min": 0.98435387716319,
+      "accepted_scale": 0.0,
+      "previous_min_ratio": 0.9839094197919486,
+      "incumbent_min_ratio": 0.9839094197919486,
+      "incumbent_wall_slack": -0.0027729630992858745,
+      "best_min_ratio": 0.9839094197919486
+    },
+    {
+      "iteration": 3,
+      "outcome": "accept",
+      "active_constraints": 33,
+      "radius": 0.000324,
+      "predicted_min": 0.9841860158508178,
+      "accepted_scale": 1.0,
+      "previous_min_ratio": 0.9839094197919486,
+      "incumbent_min_ratio": 0.9839427249069742,
+      "incumbent_wall_slack": -0.0001933843048602668,
+      "best_min_ratio": 0.9839427249069742
+    },
+    {
+      "iteration": 4,
+      "outcome": "accept",
+      "active_constraints": 33,
+      "radius": 0.00029160000000000004,
+      "predicted_min": 0.9842725772051063,
+      "accepted_scale": 0.5,
+      "previous_min_ratio": 0.9839427249069742,
+      "incumbent_min_ratio": 0.9839610326070218,
+      "incumbent_wall_slack": -9.715942533672361e-05,
+      "best_min_ratio": 0.9839610326070218
+    },
+    {
+      "iteration": 5,
+      "outcome": "shrink",
+      "active_constraints": 33,
+      "radius": 0.00013122000000000003,
+      "predicted_min": 0.984318205790518,
+      "accepted_scale": 0.0,
+      "previous_min_ratio": 0.9839610326070218,
+      "incumbent_min_ratio": 0.9839610326070218,
+      "incumbent_wall_slack": -9.715942533672361e-05,
+      "best_min_ratio": 0.9839610326070218
+    },
+    {
+      "iteration": 6,
+      "outcome": "accept",
+      "active_constraints": 33,
+      "radius": 0.00015746400000000004,
+      "predicted_min": 0.98422101347616,
+      "accepted_scale": 1.0,
+      "previous_min_ratio": 0.9839610326070218,
+      "incumbent_min_ratio": 0.9840049154951971,
+      "incumbent_wall_slack": -0.0007800668671182898,
+      "best_min_ratio": 0.9840049154951971
+    },
+    {
+      "iteration": 7,
+      "outcome": "accept",
+      "active_constraints": 33,
+      "radius": 0.00018895680000000003,
+      "predicted_min": 0.984217171199733,
+      "accepted_scale": 1.0,
+      "previous_min_ratio": 0.9840049154951971,
+      "incumbent_min_ratio": 0.9840449768412782,
+      "incumbent_wall_slack": -0.0006952417598959926,
+      "best_min_ratio": 0.9840449768412782
+    },
+    {
+      "iteration": 8,
+      "outcome": "accept",
+      "active_constraints": 33,
+      "radius": 0.00017006112000000003,
+      "predicted_min": 0.9842731874453409,
+      "accepted_scale": 0.125,
+      "previous_min_ratio": 0.9840449768412782,
+      "incumbent_min_ratio": 0.9840649635602795,
+      "incumbent_wall_slack": -0.0006951912864052723,
+      "best_min_ratio": 0.9840649635602795
+    },
+    {
+      "iteration": 9,
+      "outcome": "accept",
+      "active_constraints": 33,
+      "radius": 0.00020407334400000004,
+      "predicted_min": 0.9842523229019715,
+      "accepted_scale": 1.0,
+      "previous_min_ratio": 0.9840649635602795,
+      "incumbent_min_ratio": 0.9840860129222185,
+      "incumbent_wall_slack": -0.000327273514146853,
+      "best_min_ratio": 0.9840860129222185
+    },
+    {
+      "iteration": 10,
+      "outcome": "accept",
+      "active_constraints": 33,
+      "radius": 0.00024488801280000006,
+      "predicted_min": 0.98425928640651,
+      "accepted_scale": 1.0,
+      "previous_min_ratio": 0.9840860129222185,
+      "incumbent_min_ratio": 0.9841201530376185,
+      "incumbent_wall_slack": -0.0007153886747035543,
+      "best_min_ratio": 0.9841201530376185
+    },
+    {
+      "iteration": 11,
+      "outcome": "accept",
+      "active_constraints": 33,
+      "radius": 0.00022039921152000006,
+      "predicted_min": 0.9843029726437167,
+      "accepted_scale": 0.0625,
+      "previous_min_ratio": 0.9841201530376185,
+      "incumbent_min_ratio": 0.9841252765314445,
+      "incumbent_wall_slack": -0.0008428347703253181,
+      "best_min_ratio": 0.9841252765314445
+    },
+    {
+      "iteration": 12,
+      "outcome": "shrink",
+      "active_constraints": 33,
+      "radius": 9.917964518400002e-05,
+      "predicted_min": 0.9842955432809735,
+      "accepted_scale": 0.0,
+      "previous_min_ratio": 0.9841252765314445,
+      "incumbent_min_ratio": 0.9841252765314445,
+      "incumbent_wall_slack": -0.0008428347703253181,
+      "best_min_ratio": 0.9841252765314445
+    },
+    {
+      "iteration": 13,
+      "outcome": "accept",
+      "active_constraints": 33,
+      "radius": 0.00011901557422080002,
+      "predicted_min": 0.9842494054946398,
+      "accepted_scale": 1.0,
+      "previous_min_ratio": 0.9841252765314445,
+      "incumbent_min_ratio": 0.9841376973515591,
+      "incumbent_wall_slack": -0.0007822003621016371,
+      "best_min_ratio": 0.9841376973515591
+    },
+    {
+      "iteration": 14,
+      "outcome": "accept",
+      "active_constraints": 33,
+      "radius": 0.00010711401679872001,
+      "predicted_min": 0.9842612297814753,
+      "accepted_scale": 0.5,
+      "previous_min_ratio": 0.9841376973515591,
+      "incumbent_min_ratio": 0.9841729940930499,
+      "incumbent_wall_slack": -0.0008464132460441753,
+      "best_min_ratio": 0.9841729940930499
+    },
+    {
+      "iteration": 15,
+      "outcome": "shrink",
+      "active_constraints": 33,
+      "radius": 4.820130755942401e-05,
+      "predicted_min": 0.9842755755117222,
+      "accepted_scale": 0.0,
+      "previous_min_ratio": 0.9841729940930499,
+      "incumbent_min_ratio": 0.9841729940930499,
+      "incumbent_wall_slack": -0.0008464132460441753,
+      "best_min_ratio": 0.9841729940930499
+    },
+    {
+      "iteration": 16,
+      "outcome": "accept",
+      "active_constraints": 33,
+      "radius": 4.338117680348161e-05,
+      "predicted_min": 0.9842414103439586,
+      "accepted_scale": 0.125,
+      "previous_min_ratio": 0.9841729940930499,
+      "incumbent_min_ratio": 0.9841730956631286,
+      "incumbent_wall_slack": -0.0008796248536149243,
+      "best_min_ratio": 0.9841730956631286
+    },
+    {
+      "iteration": 17,
+      "outcome": "accept",
+      "active_constraints": 33,
+      "radius": 5.205741216417793e-05,
+      "predicted_min": 0.9842343608920635,
+      "accepted_scale": 1.0,
+      "previous_min_ratio": 0.9841730956631286,
+      "incumbent_min_ratio": 0.9841816574838802,
+      "incumbent_wall_slack": -0.0008620380023076635,
+      "best_min_ratio": 0.9841816574838802
+    },
+    {
+      "iteration": 18,
+      "outcome": "accept",
+      "active_constraints": 33,
+      "radius": 4.6851670947760135e-05,
+      "predicted_min": 0.98424410197823,
+      "accepted_scale": 0.5,
+      "previous_min_ratio": 0.9841816574838802,
+      "incumbent_min_ratio": 0.9841821100875878,
+      "incumbent_wall_slack": -0.0008440670300546849,
+      "best_min_ratio": 0.9841821100875878
+    },
+    {
+      "iteration": 19,
+      "outcome": "accept",
+      "active_constraints": 33,
+      "radius": 4.2166503852984125e-05,
+      "predicted_min": 0.9842448991060307,
+      "accepted_scale": 0.5,
+      "previous_min_ratio": 0.9841821100875878,
+      "incumbent_min_ratio": 0.9841993888188189,
+      "incumbent_wall_slack": -0.0008155529857067911,
+      "best_min_ratio": 0.9841993888188189
+    },
+    {
+      "iteration": 20,
+      "outcome": "accept",
+      "active_constraints": 33,
+      "radius": 3.794985346768571e-05,
+      "predicted_min": 0.9842437871688134,
+      "accepted_scale": 0.25,
+      "previous_min_ratio": 0.9841993888188189,
+      "incumbent_min_ratio": 0.9841997753935507,
+      "incumbent_wall_slack": -0.0008151617796210431,
+      "best_min_ratio": 0.9841997753935507
+    },
+    {
+      "iteration": 21,
+      "outcome": "accept",
+      "active_constraints": 33,
+      "radius": 4.553982416122285e-05,
+      "predicted_min": 0.9842343672142223,
+      "accepted_scale": 1.0,
+      "previous_min_ratio": 0.9841997753935507,
+      "incumbent_min_ratio": 0.9842177511288887,
+      "incumbent_wall_slack": -0.0009146172497036531,
+      "best_min_ratio": 0.9842177511288887
+    },
+    {
+      "iteration": 22,
+      "outcome": "accept",
+      "active_constraints": 33,
+      "radius": 5.4647788993467416e-05,
+      "predicted_min": 0.9842339266875941,
+      "accepted_scale": 1.0,
+      "previous_min_ratio": 0.9842177511288887,
+      "incumbent_min_ratio": 0.9842338867241313,
+      "incumbent_wall_slack": -0.0008903653475313966,
+      "best_min_ratio": 0.9842338867241313
+    },
+    {
+      "iteration": 23,
+      "outcome": "shrink",
+      "active_constraints": 33,
+      "radius": 2.4591505047060338e-05,
+      "predicted_min": 0.9842363750149901,
+      "accepted_scale": 0.0,
+      "previous_min_ratio": 0.9842338867241313,
+      "incumbent_min_ratio": 0.9842338867241313,
+      "incumbent_wall_slack": -0.0008903653475313966,
+      "best_min_ratio": 0.9842338867241313
+    },
+    {
+      "iteration": 24,
+      "outcome": "shrink",
+      "active_constraints": 33,
+      "radius": 1.1066177271177152e-05,
+      "predicted_min": 0.984235008727408,
+      "accepted_scale": 0.0,
+      "previous_min_ratio": 0.9842338867241313,
+      "incumbent_min_ratio": 0.9842338867241313,
+      "incumbent_wall_slack": -0.0008903653475313966,
+      "best_min_ratio": 0.9842338867241313
+    },
+    {
+      "iteration": 25,
+      "outcome": "shrink",
+      "active_constraints": 33,
+      "radius": 4.979779772029718e-06,
+      "predicted_min": 0.9842343938979959,
+      "accepted_scale": 0.0,
+      "previous_min_ratio": 0.9842338867241313,
+      "incumbent_min_ratio": 0.9842338867241313,
+      "incumbent_wall_slack": -0.0008903653475313966,
+      "best_min_ratio": 0.9842338867241313
+    },
+    {
+      "iteration": 26,
+      "outcome": "shrink",
+      "active_constraints": 33,
+      "radius": 2.2409008974133734e-06,
+      "predicted_min": 0.9842341172247606,
+      "accepted_scale": 0.0,
+      "previous_min_ratio": 0.9842338867241313,
+      "incumbent_min_ratio": 0.9842338867241313,
+      "incumbent_wall_slack": -0.0008903653475313966,
+      "best_min_ratio": 0.9842338867241313
+    },
+    {
+      "iteration": 27,
+      "outcome": "shrink",
+      "active_constraints": 33,
+      "radius": 1.008405403836018e-06,
+      "predicted_min": 0.9842339927218048,
+      "accepted_scale": 0.0,
+      "previous_min_ratio": 0.9842338867241313,
+      "incumbent_min_ratio": 0.9842338867241313,
+      "incumbent_wall_slack": -0.0008903653475313966,
+      "best_min_ratio": 0.9842338867241313
+    },
+    {
+      "iteration": 28,
+      "outcome": "shrink",
+      "active_constraints": 33,
+      "radius": 4.5378243172620815e-07,
+      "predicted_min": 0.9842339366954745,
+      "accepted_scale": 0.0,
+      "previous_min_ratio": 0.9842338867241313,
+      "incumbent_min_ratio": 0.9842338867241313,
+      "incumbent_wall_slack": -0.0008903653475313966,
+      "best_min_ratio": 0.9842338867241313
+    },
+    {
+      "iteration": 29,
+      "outcome": "shrink",
+      "active_constraints": 33,
+      "radius": 2.0420209427679368e-07,
+      "predicted_min": 0.9842339125252059,
+      "accepted_scale": 0.0,
+      "previous_min_ratio": 0.9842338867241313,
+      "incumbent_min_ratio": 0.9842338867241313,
+      "incumbent_wall_slack": -0.0008903653475313966,
+      "best_min_ratio": 0.9842338867241313
+    },
+    {
+      "iteration": 30,
+      "outcome": "shrink",
+      "active_constraints": 33,
+      "radius": 9.189094242455716e-08,
+      "predicted_min": 0.9842339006045792,
+      "accepted_scale": 0.0,
+      "previous_min_ratio": 0.9842338867241313,
+      "incumbent_min_ratio": 0.9842338867241313,
+      "incumbent_wall_slack": -0.0008903653475313966,
+      "best_min_ratio": 0.9842338867241313
+    },
+    {
+      "iteration": 31,
+      "outcome": "shrink",
+      "active_constraints": 33,
+      "radius": 4.135092409105072e-08,
+      "predicted_min": 0.9842338952402967,
+      "accepted_scale": 0.0,
+      "previous_min_ratio": 0.9842338867241313,
+      "incumbent_min_ratio": 0.9842338867241313,
+      "incumbent_wall_slack": -0.0008903653475313966,
+      "best_min_ratio": 0.9842338867241313
+    },
+    {
+      "iteration": 32,
+      "outcome": "shrink",
+      "active_constraints": 33,
+      "radius": 1.8607915840972827e-08,
+      "predicted_min": 0.9842338952795981,
+      "accepted_scale": 0.0,
+      "previous_min_ratio": 0.9842338867241313,
+      "incumbent_min_ratio": 0.9842338867241313,
+      "incumbent_wall_slack": -0.0008903653475313966,
+      "best_min_ratio": 0.9842338867241313
+    }
+  ],
+  "best": {
+    "objective": -0.9840382893931858,
+    "soft_min": 0.9840382893931858,
+    "min_ratio": 0.9842338867241313,
+    "min_distance": 1.8030673424336772,
+    "diameter": 1.8319500748291702,
+    "facet_count": 126,
+    "vertex_count": 5040,
+    "subvector_count": 72,
+    "deformation_frobenius_norm": 0.39296188427947937,
+    "parameters": [
+      0.11678586604797998,
+      -0.06707658533224546,
+      0.01114638895374908,
+      -0.13361646203526595,
+      0.07468432165196912,
+      0.002447171360799947,
+      0.0012720477878366417,
+      0.1374578671615855,
+      0.0015421070094909627,
+      0.058451053602846935,
+      -0.04231947447863044,
+      0.0022814608787345356,
+      -0.043723118879983085,
+      0.026625305226691556,
+      -0.06578091628990983,
+      0.00383545033289535,
+      0.07020661441409938,
+      -0.05373528533489369,
+      0.11413225130206393,
+      0.0666220436226219
+    ],
+    "basis": [
+      [
+        1.4221827582684743,
+        0.0034693408177603633,
+        0.001802957541002376,
+        0.0021865588227226703,
+        0.0032339102095665976,
+        0.005437732225328037
+      ],
+      [
+        1.069996243503731,
+        1.1652107312707827,
+        0.16155706178038926,
+        0.06961850376411197,
+        -0.04892411203088048,
+        0.08544018763467166
+      ],
+      [
+        1.7811405176230624,
+        0.8300657863163878,
+        1.1010736794115514,
+        0.004400258846545567,
+        -0.002725839384122661,
+        0.005611824205499478
+      ],
+      [
+        2.139992489962136,
+        1.5491133734377485,
+        0.9090951911707498,
+        0.8957353121632828,
+        -0.09784822457455805,
+        0.17088037413753784
+      ],
+      [
+        1.428948379813691,
+        0.9952418437008087,
+        0.6280102469200551,
+        0.5414267148373809,
+        0.9039741979895544,
+        0.17069930396139363
+      ],
+      [
+        0.7178041072343311,
+        0.5490786983072279,
+        0.27447469671620434,
+        0.3544788563840729,
+        0.5011592026261342,
+        0.8682059484601131
+      ]
+    ],
+    "witnesses": [
+      {
+        "coordinate": [
+          0,
+          3,
+          2,
+          -2,
+          0,
+          -2
+        ],
+        "distance": 1.8030673424336772,
+        "distance_ratio": 0.9842338867241313,
+        "norm_squared": 11.54797948465192
+      },
+      {
+        "coordinate": [
+          0,
+          -3,
+          -2,
+          2,
+          0,
+          2
+        ],
+        "distance": 1.8030673424336772,
+        "distance_ratio": 0.9842338867241313,
+        "norm_squared": 11.54797948465192
+      },
+      {
+        "coordinate": [
+          3,
+          3,
+          -1,
+          -1,
+          -1,
+          0
+        ],
+        "distance": 1.8030673449109038,
+        "distance_ratio": 0.984233888076366,
+        "norm_squared": 11.546947456736122
+      },
+      {
+        "coordinate": [
+          -3,
+          -3,
+          1,
+          1,
+          1,
+          0
+        ],
+        "distance": 1.8030673449109038,
+        "distance_ratio": 0.984233888076366,
+        "norm_squared": 11.546947456736122
+      },
+      {
+        "coordinate": [
+          1,
+          2,
+          -3,
+          2,
+          -1,
+          0
+        ],
+        "distance": 1.803067345334236,
+        "distance_ratio": 0.9842338883074488,
+        "norm_squared": 11.547124009338233
+      },
+      {
+        "coordinate": [
+          -1,
+          -2,
+          3,
+          -2,
+          1,
+          0
+        ],
+        "distance": 1.803067345334236,
+        "distance_ratio": 0.9842338883074488,
+        "norm_squared": 11.547124009338233
+      },
+      {
+        "coordinate": [
+          -1,
+          -2,
+          2,
+          -1,
+          0,
+          3
+        ],
+        "distance": 1.803067347196251,
+        "distance_ratio": 0.9842338893238602,
+        "norm_squared": 11.546947473024211
+      },
+      {
+        "coordinate": [
+          1,
+          2,
+          -2,
+          1,
+          0,
+          -3
+        ],
+        "distance": 1.803067347196251,
+        "distance_ratio": 0.9842338893238602,
+        "norm_squared": 11.546947473024211
+      },
+      {
+        "coordinate": [
+          -1,
+          3,
+          1,
+          -3,
+          1,
+          2
+        ],
+        "distance": 1.8030673472294199,
+        "distance_ratio": 0.984233889341966,
+        "norm_squared": 11.54694748562051
+      },
+      {
+        "coordinate": [
+          1,
+          -3,
+          -1,
+          3,
+          -1,
+          -2
+        ],
+        "distance": 1.8030673472294199,
+        "distance_ratio": 0.984233889341966,
+        "norm_squared": 11.54694748562051
+      },
+      {
+        "coordinate": [
+          -1,
+          3,
+          2,
+          -4,
+          2,
+          -1
+        ],
+        "distance": 1.8030673475053864,
+        "distance_ratio": 0.9842338894926069,
+        "norm_squared": 11.547124030249977
+      },
+      {
+        "coordinate": [
+          1,
+          -3,
+          -2,
+          4,
+          -2,
+          1
+        ],
+        "distance": 1.8030673475053864,
+        "distance_ratio": 0.9842338894926069,
+        "norm_squared": 11.547124030249977
+      },
+      {
+        "coordinate": [
+          -3,
+          0,
+          3,
+          -1,
+          1,
+          -2
+        ],
+        "distance": 1.8030673488172735,
+        "distance_ratio": 0.984233890208722,
+        "norm_squared": 12.050277841340051
+      },
+      {
+        "coordinate": [
+          3,
+          0,
+          -3,
+          1,
+          -1,
+          2
+        ],
+        "distance": 1.8030673488172735,
+        "distance_ratio": 0.984233890208722,
+        "norm_squared": 12.050277841340051
+      },
+      {
+        "coordinate": [
+          -2,
+          2,
+          0,
+          1,
+          0,
+          -2
+        ],
+        "distance": 1.8030673489180322,
+        "distance_ratio": 0.9842338902637228,
+        "norm_squared": 11.689176805955551
+      },
+      {
+        "coordinate": [
+          2,
+          -2,
+          0,
+          -1,
+          0,
+          2
+        ],
+        "distance": 1.8030673489180322,
+        "distance_ratio": 0.9842338902637228,
+        "norm_squared": 11.689176805955551
+      },
+      {
+        "coordinate": [
+          -1,
+          -1,
+          -1,
+          0,
+          3,
+          0
+        ],
+        "distance": 1.803067349103877,
+        "distance_ratio": 0.9842338903651692,
+        "norm_squared": 11.546947499047317
+      },
+      {
+        "coordinate": [
+          1,
+          1,
+          1,
+          0,
+          -3,
+          0
+        ],
+        "distance": 1.803067349103877,
+        "distance_ratio": 0.9842338903651692,
+        "norm_squared": 11.546947499047317
+      },
+      {
+        "coordinate": [
+          -1,
+          2,
+          1,
+          -2,
+          3,
+          -2
+        ],
+        "distance": 1.8030673493106915,
+        "distance_ratio": 0.9842338904780623,
+        "norm_squared": 11.547124042743754
+      },
+      {
+        "coordinate": [
+          1,
+          -2,
+          -1,
+          2,
+          -3,
+          2
+        ],
+        "distance": 1.8030673493106915,
+        "distance_ratio": 0.9842338904780623,
+        "norm_squared": 11.547124042743754
+      },
+      {
+        "coordinate": [
+          -2,
+          -2,
+          1,
+          2,
+          -3,
+          3
+        ],
+        "distance": 1.8030673493345393,
+        "distance_ratio": 0.98423389049108,
+        "norm_squared": 11.54797954185507
+      },
+      {
+        "coordinate": [
+          2,
+          2,
+          -1,
+          -2,
+          3,
+          -3
+        ],
+        "distance": 1.8030673493345393,
+        "distance_ratio": 0.98423389049108,
+        "norm_squared": 11.54797954185507
+      },
+      {
+        "coordinate": [
+          0,
+          -2,
+          3,
+          0,
+          -1,
+          -1
+        ],
+        "distance": 1.8030673494194713,
+        "distance_ratio": 0.9842338905374416,
+        "norm_squared": 11.54797954317268
+      },
+      {
+        "coordinate": [
+          0,
+          2,
+          -3,
+          0,
+          1,
+          1
+        ],
+        "distance": 1.8030673494194713,
+        "distance_ratio": 0.9842338905374416,
+        "norm_squared": 11.54797954317268
+      },
+      {
+        "coordinate": [
+          -2,
+          -3,
+          1,
+          3,
+          -1,
+          -1
+        ],
+        "distance": 1.8030673503127628,
+        "distance_ratio": 0.9842338910250593,
+        "norm_squared": 11.689176820350438
+      },
+      {
+        "coordinate": [
+          2,
+          3,
+          -1,
+          -3,
+          1,
+          1
+        ],
+        "distance": 1.8030673503127628,
+        "distance_ratio": 0.9842338910250593,
+        "norm_squared": 11.689176820350438
+      },
+      {
+        "coordinate": [
+          -2,
+          -1,
+          -2,
+          3,
+          0,
+          0
+        ],
+        "distance": 1.8030673504430028,
+        "distance_ratio": 0.984233891096153,
+        "norm_squared": 11.547979548649357
+      },
+      {
+        "coordinate": [
+          2,
+          1,
+          2,
+          -3,
+          0,
+          0
+        ],
+        "distance": 1.8030673504430028,
+        "distance_ratio": 0.984233891096153,
+        "norm_squared": 11.547979548649357
+      },
+      {
+        "coordinate": [
+          -2,
+          1,
+          3,
+          0,
+          -3,
+          1
+        ],
+        "distance": 1.8030673504500234,
+        "distance_ratio": 0.9842338910999853,
+        "norm_squared": 11.689176817496897
+      },
+      {
+        "coordinate": [
+          2,
+          -1,
+          -3,
+          0,
+          3,
+          -1
+        ],
+        "distance": 1.8030673504500234,
+        "distance_ratio": 0.9842338910999853,
+        "norm_squared": 11.689176817496897
+      },
+      {
+        "coordinate": [
+          -1,
+          1,
+          4,
+          -3,
+          0,
+          1
+        ],
+        "distance": 1.803067350657512,
+        "distance_ratio": 0.9842338912132463,
+        "norm_squared": 11.547124035056282
+      },
+      {
+        "coordinate": [
+          1,
+          -1,
+          -4,
+          3,
+          0,
+          -1
+        ],
+        "distance": 1.803067350657512,
+        "distance_ratio": 0.9842338912132463,
+        "norm_squared": 11.547124035056282
+      },
+      {
+        "coordinate": [
+          1,
+          1,
+          0,
+          1,
+          -4,
+          3
+        ],
+        "distance": 1.8030673507095702,
+        "distance_ratio": 0.9842338912416632,
+        "norm_squared": 11.547124050856343
+      },
+      {
+        "coordinate": [
+          -1,
+          -1,
+          0,
+          -1,
+          4,
+          -3
+        ],
+        "distance": 1.8030673507095702,
+        "distance_ratio": 0.9842338912416632,
+        "norm_squared": 11.547124050856343
+      },
+      {
+        "coordinate": [
+          -2,
+          3,
+          0,
+          0,
+          -2,
+          2
+        ],
+        "distance": 1.8030673508670916,
+        "distance_ratio": 0.9842338913276488,
+        "norm_squared": 11.547979560016
+      },
+      {
+        "coordinate": [
+          2,
+          -3,
+          0,
+          0,
+          2,
+          -2
+        ],
+        "distance": 1.8030673508670916,
+        "distance_ratio": 0.9842338913276488,
+        "norm_squared": 11.547979560016
+      },
+      {
+        "coordinate": [
+          0,
+          1,
+          0,
+          -1,
+          -2,
+          4
+        ],
+        "distance": 1.8030673514446356,
+        "distance_ratio": 0.9842338916429106,
+        "norm_squared": 11.547979558984048
+      },
+      {
+        "coordinate": [
+          0,
+          -1,
+          0,
+          1,
+          2,
+          -4
+        ],
+        "distance": 1.8030673514446356,
+        "distance_ratio": 0.9842338916429106,
+        "norm_squared": 11.547979558984048
+      },
+      {
+        "coordinate": [
+          1,
+          0,
+          0,
+          2,
+          -2,
+          -1
+        ],
+        "distance": 1.803067351524714,
+        "distance_ratio": 0.9842338916866228,
+        "norm_squared": 12.050229657299818
+      },
+      {
+        "coordinate": [
+          -1,
+          0,
+          0,
+          -2,
+          2,
+          1
+        ],
+        "distance": 1.803067351524714,
+        "distance_ratio": 0.9842338916866228,
+        "norm_squared": 12.050229657299818
+      },
+      {
+        "coordinate": [
+          -3,
+          1,
+          3,
+          -2,
+          -1,
+          2
+        ],
+        "distance": 1.8030673517031302,
+        "distance_ratio": 0.9842338917840142,
+        "norm_squared": 11.546947507608342
+      },
+      {
+        "coordinate": [
+          3,
+          -1,
+          -3,
+          2,
+          1,
+          -2
+        ],
+        "distance": 1.8030673517031302,
+        "distance_ratio": 0.9842338917840142,
+        "norm_squared": 11.546947507608342
+      },
+      {
+        "coordinate": [
+          -1,
+          -3,
+          2,
+          0,
+          2,
+          -1
+        ],
+        "distance": 1.8030673520044902,
+        "distance_ratio": 0.9842338919485165,
+        "norm_squared": 11.54712406270327
+      },
+      {
+        "coordinate": [
+          1,
+          3,
+          -2,
+          0,
+          -2,
+          1
+        ],
+        "distance": 1.8030673520044902,
+        "distance_ratio": 0.9842338919485165,
+        "norm_squared": 11.54712406270327
+      },
+      {
+        "coordinate": [
+          -3,
+          0,
+          2,
+          0,
+          0,
+          1
+        ],
+        "distance": 1.8030673521343135,
+        "distance_ratio": 0.9842338920193827,
+        "norm_squared": 12.050229664156412
+      },
+      {
+        "coordinate": [
+          3,
+          0,
+          -2,
+          0,
+          0,
+          -1
+        ],
+        "distance": 1.8030673521343135,
+        "distance_ratio": 0.9842338920193827,
+        "norm_squared": 12.050229664156412
+      },
+      {
+        "coordinate": [
+          -3,
+          2,
+          0,
+          -1,
+          2,
+          -1
+        ],
+        "distance": 1.8030673528707275,
+        "distance_ratio": 0.9842338924213664,
+        "norm_squared": 11.546947521773745
+      },
+      {
+        "coordinate": [
+          3,
+          -2,
+          0,
+          1,
+          -2,
+          1
+        ],
+        "distance": 1.8030673528707275,
+        "distance_ratio": 0.9842338924213664,
+        "norm_squared": 11.546947521773745
+      },
+      {
+        "coordinate": [
+          1,
+          0,
+          1,
+          -3,
+          3,
+          0
+        ],
+        "distance": 1.8030673532438604,
+        "distance_ratio": 0.984233892625047,
+        "norm_squared": 12.050277884168842
+      },
+      {
+        "coordinate": [
+          -1,
+          0,
+          -1,
+          3,
+          -3,
+          0
+        ],
+        "distance": 1.8030673532438604,
+        "distance_ratio": 0.984233892625047,
+        "norm_squared": 12.050277884168842
+      }
+    ],
+    "gram": [
+      [
+        2.0226638930442133,
+        1.52652261222705,
+        2.5380036263266073,
+        3.053045231630706,
+        2.041846307043349,
+        1.0303652966844685
+      ],
+      [
+        1.52652261222705,
+        2.543249024059212,
+        3.0518206273565642,
+        4.323445140966648,
+        2.7981471287206743,
+        1.5265226131914464
+      ],
+      [
+        2.5380036263266073,
+        3.0518206273565642,
+        5.073892285673664,
+        6.103641265169738,
+        4.06363587743534,
+        2.041564223178376
+      ],
+      [
+        3.053045231630706,
+        4.323445140966648,
+        6.103641265169738,
+        8.646890294241837,
+        5.596294264727456,
+        3.0530452284193155
+      ],
+      [
+        2.041846307043349,
+        2.7981471287206743,
+        4.06363587743534,
+        5.596294264727456,
+        4.566247160405107,
+        2.537705496201954
+      ],
+      [
+        1.0303652966844685,
+        1.5265226131914464,
+        2.041564223178376,
+        3.0530452284193155,
+        2.537705496201954,
+        2.0226638873764347
+      ]
+    ],
+    "wall_slack": -0.0008903653475313966,
+    "voronoi_signature": "026fa01024636bbaf0da6301796653195e5097719191fdc9c0fd625edfe5268d"
+  },
+  "remained_beyond_wall": true,
+  "beats_source_basin": false,
+  "valid_numerical_witness": false
+}

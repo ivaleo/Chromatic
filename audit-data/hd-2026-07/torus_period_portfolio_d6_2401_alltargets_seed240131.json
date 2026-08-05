@@ -1,0 +1,7280 @@
+{
+  "method": "random primary-coordinate descent for valid periods, ranked by distinct signed forbidden quotient images",
+  "lattice": "E6*",
+  "dimension": 6,
+  "source_index": 343,
+  "source_kernel_basis_columns": [
+    [
+      7,
+      0,
+      0,
+      5,
+      1,
+      5
+    ],
+    [
+      0,
+      7,
+      0,
+      2,
+      2,
+      0
+    ],
+    [
+      0,
+      0,
+      7,
+      6,
+      6,
+      2
+    ],
+    [
+      0,
+      0,
+      0,
+      1,
+      0,
+      0
+    ],
+    [
+      0,
+      0,
+      0,
+      0,
+      1,
+      0
+    ],
+    [
+      0,
+      0,
+      0,
+      0,
+      0,
+      1
+    ]
+  ],
+  "moduli": [
+    7,
+    7,
+    7,
+    7
+  ],
+  "target_period_index": 2401,
+  "target_colors": 342,
+  "necessary_independence_number_for_target": 8,
+  "forbidden_projective_pairs": 3861,
+  "settings": {
+    "samples": 3000,
+    "sweeps": 20,
+    "top": 12,
+    "keep": 60,
+    "decision_time_limit": 30.0,
+    "decision_workers": 8,
+    "seed": 240131
+  },
+  "valid_samples": 3000,
+  "invalid_samples": 0,
+  "unique_valid_kernels": 2996,
+  "best_connection_count": 1932,
+  "records": [
+    {
+      "sample": 1504,
+      "sweeps": 1,
+      "rows": [
+        [
+          1,
+          4,
+          3,
+          1,
+          3,
+          2
+        ],
+        [
+          1,
+          5,
+          4,
+          4,
+          6,
+          0
+        ],
+        [
+          1,
+          4,
+          5,
+          2,
+          4,
+          2
+        ],
+        [
+          1,
+          4,
+          3,
+          6,
+          1,
+          2
+        ]
+      ],
+      "kernel_basis_columns": [
+        [
+          7,
+          0,
+          0,
+          0,
+          5,
+          4
+        ],
+        [
+          0,
+          7,
+          0,
+          0,
+          0,
+          2
+        ],
+        [
+          0,
+          0,
+          7,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          7,
+          6,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          1,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          1
+        ]
+      ],
+      "kernel_smith": [
+        1,
+        1,
+        7,
+        7,
+        7,
+        7
+      ],
+      "determinant": 2401,
+      "connection_keys": 1932,
+      "missing_nonzero_quotient_classes": 468,
+      "nested_in_source_kernel": false,
+      "target_independent_set": {
+        "status": "INFEASIBLE",
+        "feasible": false,
+        "proven_infeasible": true,
+        "vertices": [],
+        "candidate_vertices": 469,
+        "edge_constraints": 91530,
+        "elapsed_seconds": 0.32384216700302204,
+        "conflicts": 0,
+        "branches": 526,
+        "solver": "OR-Tools CP-SAT on direct-product quotient residues"
+      }
+    },
+    {
+      "sample": 379,
+      "sweeps": 1,
+      "rows": [
+        [
+          1,
+          0,
+          5,
+          3,
+          2,
+          0
+        ],
+        [
+          1,
+          5,
+          1,
+          4,
+          2,
+          5
+        ],
+        [
+          0,
+          1,
+          1,
+          0,
+          3,
+          4
+        ],
+        [
+          0,
+          0,
+          0,
+          1,
+          5,
+          4
+        ]
+      ],
+      "kernel_basis_columns": [
+        [
+          7,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          7,
+          0,
+          0,
+          0,
+          2
+        ],
+        [
+          0,
+          0,
+          7,
+          0,
+          4,
+          1
+        ],
+        [
+          0,
+          0,
+          0,
+          7,
+          2,
+          3
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          1,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          1
+        ]
+      ],
+      "kernel_smith": [
+        1,
+        1,
+        7,
+        7,
+        7,
+        7
+      ],
+      "determinant": 2401,
+      "connection_keys": 1962,
+      "missing_nonzero_quotient_classes": 438,
+      "nested_in_source_kernel": false,
+      "target_independent_set": {
+        "status": "INFEASIBLE",
+        "feasible": false,
+        "proven_infeasible": true,
+        "vertices": [],
+        "candidate_vertices": 439,
+        "edge_constraints": 79497,
+        "elapsed_seconds": 0.23176962500292575,
+        "conflicts": 0,
+        "branches": 0,
+        "solver": "OR-Tools CP-SAT on direct-product quotient residues"
+      }
+    },
+    {
+      "sample": 559,
+      "sweeps": 1,
+      "rows": [
+        [
+          1,
+          0,
+          0,
+          6,
+          4,
+          6
+        ],
+        [
+          1,
+          2,
+          2,
+          6,
+          2,
+          1
+        ],
+        [
+          1,
+          3,
+          3,
+          2,
+          4,
+          4
+        ],
+        [
+          1,
+          0,
+          4,
+          0,
+          6,
+          0
+        ]
+      ],
+      "kernel_basis_columns": [
+        [
+          7,
+          0,
+          0,
+          0,
+          2,
+          5
+        ],
+        [
+          0,
+          7,
+          0,
+          0,
+          3,
+          2
+        ],
+        [
+          0,
+          0,
+          7,
+          0,
+          5,
+          4
+        ],
+        [
+          0,
+          0,
+          0,
+          7,
+          6,
+          4
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          1,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          1
+        ]
+      ],
+      "kernel_smith": [
+        1,
+        1,
+        7,
+        7,
+        7,
+        7
+      ],
+      "determinant": 2401,
+      "connection_keys": 1962,
+      "missing_nonzero_quotient_classes": 438,
+      "nested_in_source_kernel": false,
+      "target_independent_set": {
+        "status": "INFEASIBLE",
+        "feasible": false,
+        "proven_infeasible": true,
+        "vertices": [],
+        "candidate_vertices": 439,
+        "edge_constraints": 79497,
+        "elapsed_seconds": 0.2523517079971498,
+        "conflicts": 0,
+        "branches": 400,
+        "solver": "OR-Tools CP-SAT on direct-product quotient residues"
+      }
+    },
+    {
+      "sample": 666,
+      "sweeps": 1,
+      "rows": [
+        [
+          0,
+          1,
+          0,
+          2,
+          4,
+          6
+        ],
+        [
+          0,
+          1,
+          2,
+          5,
+          0,
+          4
+        ],
+        [
+          1,
+          4,
+          2,
+          1,
+          6,
+          1
+        ],
+        [
+          1,
+          6,
+          4,
+          1,
+          3,
+          6
+        ]
+      ],
+      "kernel_basis_columns": [
+        [
+          7,
+          0,
+          0,
+          3,
+          6,
+          0
+        ],
+        [
+          0,
+          7,
+          0,
+          5,
+          3,
+          0
+        ],
+        [
+          0,
+          0,
+          7,
+          2,
+          2,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          1,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          1,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          7
+        ]
+      ],
+      "kernel_smith": [
+        1,
+        1,
+        7,
+        7,
+        7,
+        7
+      ],
+      "determinant": 2401,
+      "connection_keys": 1962,
+      "missing_nonzero_quotient_classes": 438,
+      "nested_in_source_kernel": false,
+      "target_independent_set": {
+        "status": "INFEASIBLE",
+        "feasible": false,
+        "proven_infeasible": true,
+        "vertices": [],
+        "candidate_vertices": 439,
+        "edge_constraints": 79497,
+        "elapsed_seconds": 0.20683383300638525,
+        "conflicts": 0,
+        "branches": 0,
+        "solver": "OR-Tools CP-SAT on direct-product quotient residues"
+      }
+    },
+    {
+      "sample": 1480,
+      "sweeps": 1,
+      "rows": [
+        [
+          1,
+          4,
+          5,
+          4,
+          6,
+          3
+        ],
+        [
+          1,
+          4,
+          1,
+          0,
+          4,
+          3
+        ],
+        [
+          1,
+          3,
+          5,
+          1,
+          2,
+          3
+        ],
+        [
+          1,
+          5,
+          6,
+          1,
+          5,
+          3
+        ]
+      ],
+      "kernel_basis_columns": [
+        [
+          7,
+          0,
+          0,
+          6,
+          0,
+          4
+        ],
+        [
+          0,
+          7,
+          0,
+          4,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          7,
+          6,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          1,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          7,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          1
+        ]
+      ],
+      "kernel_smith": [
+        1,
+        1,
+        7,
+        7,
+        7,
+        7
+      ],
+      "determinant": 2401,
+      "connection_keys": 1962,
+      "missing_nonzero_quotient_classes": 438,
+      "nested_in_source_kernel": false,
+      "target_independent_set": {
+        "status": "INFEASIBLE",
+        "feasible": false,
+        "proven_infeasible": true,
+        "vertices": [],
+        "candidate_vertices": 439,
+        "edge_constraints": 79497,
+        "elapsed_seconds": 0.23131745799764758,
+        "conflicts": 0,
+        "branches": 0,
+        "solver": "OR-Tools CP-SAT on direct-product quotient residues"
+      }
+    },
+    {
+      "sample": 2646,
+      "sweeps": 1,
+      "rows": [
+        [
+          1,
+          5,
+          5,
+          1,
+          4,
+          1
+        ],
+        [
+          1,
+          2,
+          5,
+          5,
+          1,
+          5
+        ],
+        [
+          1,
+          4,
+          1,
+          1,
+          6,
+          3
+        ],
+        [
+          1,
+          4,
+          0,
+          1,
+          6,
+          3
+        ]
+      ],
+      "kernel_basis_columns": [
+        [
+          7,
+          0,
+          0,
+          0,
+          3,
+          6
+        ],
+        [
+          0,
+          7,
+          0,
+          0,
+          2,
+          2
+        ],
+        [
+          0,
+          0,
+          7,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          7,
+          4,
+          4
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          1,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          1
+        ]
+      ],
+      "kernel_smith": [
+        1,
+        1,
+        7,
+        7,
+        7,
+        7
+      ],
+      "determinant": 2401,
+      "connection_keys": 1962,
+      "missing_nonzero_quotient_classes": 438,
+      "nested_in_source_kernel": false,
+      "target_independent_set": {
+        "status": "INFEASIBLE",
+        "feasible": false,
+        "proven_infeasible": true,
+        "vertices": [],
+        "candidate_vertices": 439,
+        "edge_constraints": 79497,
+        "elapsed_seconds": 0.19634566600143444,
+        "conflicts": 0,
+        "branches": 0,
+        "solver": "OR-Tools CP-SAT on direct-product quotient residues"
+      }
+    },
+    {
+      "sample": 2872,
+      "sweeps": 1,
+      "rows": [
+        [
+          1,
+          0,
+          5,
+          4,
+          6,
+          3
+        ],
+        [
+          0,
+          1,
+          2,
+          3,
+          3,
+          6
+        ],
+        [
+          1,
+          4,
+          0,
+          3,
+          5,
+          2
+        ],
+        [
+          1,
+          2,
+          1,
+          6,
+          1,
+          3
+        ]
+      ],
+      "kernel_basis_columns": [
+        [
+          7,
+          0,
+          0,
+          0,
+          5,
+          2
+        ],
+        [
+          0,
+          7,
+          0,
+          0,
+          0,
+          3
+        ],
+        [
+          0,
+          0,
+          7,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          7,
+          6,
+          4
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          1,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          1
+        ]
+      ],
+      "kernel_smith": [
+        1,
+        1,
+        7,
+        7,
+        7,
+        7
+      ],
+      "determinant": 2401,
+      "connection_keys": 1962,
+      "missing_nonzero_quotient_classes": 438,
+      "nested_in_source_kernel": false,
+      "target_independent_set": {
+        "status": "INFEASIBLE",
+        "feasible": false,
+        "proven_infeasible": true,
+        "vertices": [],
+        "candidate_vertices": 439,
+        "edge_constraints": 79497,
+        "elapsed_seconds": 0.3051356249998207,
+        "conflicts": 1809,
+        "branches": 9858,
+        "solver": "OR-Tools CP-SAT on direct-product quotient residues"
+      }
+    },
+    {
+      "sample": 2895,
+      "sweeps": 1,
+      "rows": [
+        [
+          1,
+          2,
+          2,
+          5,
+          0,
+          6
+        ],
+        [
+          1,
+          2,
+          1,
+          5,
+          2,
+          3
+        ],
+        [
+          0,
+          1,
+          0,
+          2,
+          1,
+          5
+        ],
+        [
+          1,
+          3,
+          1,
+          3,
+          4,
+          1
+        ]
+      ],
+      "kernel_basis_columns": [
+        [
+          7,
+          0,
+          0,
+          0,
+          3,
+          3
+        ],
+        [
+          0,
+          7,
+          0,
+          0,
+          2,
+          2
+        ],
+        [
+          0,
+          0,
+          7,
+          0,
+          2,
+          4
+        ],
+        [
+          0,
+          0,
+          0,
+          7,
+          2,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          1,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          1
+        ]
+      ],
+      "kernel_smith": [
+        1,
+        1,
+        7,
+        7,
+        7,
+        7
+      ],
+      "determinant": 2401,
+      "connection_keys": 1962,
+      "missing_nonzero_quotient_classes": 438,
+      "nested_in_source_kernel": false,
+      "target_independent_set": {
+        "status": "INFEASIBLE",
+        "feasible": false,
+        "proven_infeasible": true,
+        "vertices": [],
+        "candidate_vertices": 439,
+        "edge_constraints": 79497,
+        "elapsed_seconds": 0.26004783299867995,
+        "conflicts": 851,
+        "branches": 3691,
+        "solver": "OR-Tools CP-SAT on direct-product quotient residues"
+      }
+    },
+    {
+      "sample": 23,
+      "sweeps": 1,
+      "rows": [
+        [
+          1,
+          6,
+          0,
+          0,
+          3,
+          0
+        ],
+        [
+          1,
+          6,
+          4,
+          6,
+          0,
+          4
+        ],
+        [
+          0,
+          1,
+          2,
+          2,
+          6,
+          1
+        ],
+        [
+          1,
+          0,
+          4,
+          1,
+          1,
+          2
+        ]
+      ],
+      "kernel_basis_columns": [
+        [
+          7,
+          0,
+          0,
+          0,
+          1,
+          6
+        ],
+        [
+          0,
+          7,
+          0,
+          0,
+          4,
+          6
+        ],
+        [
+          0,
+          0,
+          7,
+          0,
+          1,
+          2
+        ],
+        [
+          0,
+          0,
+          0,
+          7,
+          1,
+          5
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          1,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          1
+        ]
+      ],
+      "kernel_smith": [
+        1,
+        1,
+        7,
+        7,
+        7,
+        7
+      ],
+      "determinant": 2401,
+      "connection_keys": 2232,
+      "missing_nonzero_quotient_classes": 168,
+      "nested_in_source_kernel": false,
+      "target_independent_set": {
+        "status": "INFEASIBLE",
+        "feasible": false,
+        "proven_infeasible": true,
+        "vertices": [],
+        "candidate_vertices": 169,
+        "edge_constraints": 14028,
+        "elapsed_seconds": 0.020464167006139178,
+        "conflicts": 0,
+        "branches": 0,
+        "solver": "OR-Tools CP-SAT on direct-product quotient residues"
+      }
+    },
+    {
+      "sample": 98,
+      "sweeps": 1,
+      "rows": [
+        [
+          0,
+          0,
+          0,
+          1,
+          3,
+          5
+        ],
+        [
+          1,
+          4,
+          3,
+          0,
+          1,
+          1
+        ],
+        [
+          1,
+          2,
+          1,
+          3,
+          0,
+          2
+        ],
+        [
+          1,
+          2,
+          5,
+          2,
+          3,
+          6
+        ]
+      ],
+      "kernel_basis_columns": [
+        [
+          7,
+          0,
+          0,
+          0,
+          0,
+          2
+        ],
+        [
+          0,
+          7,
+          0,
+          0,
+          0,
+          4
+        ],
+        [
+          0,
+          0,
+          7,
+          0,
+          2,
+          3
+        ],
+        [
+          0,
+          0,
+          0,
+          7,
+          4,
+          2
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          1,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          1
+        ]
+      ],
+      "kernel_smith": [
+        1,
+        1,
+        7,
+        7,
+        7,
+        7
+      ],
+      "determinant": 2401,
+      "connection_keys": 2232,
+      "missing_nonzero_quotient_classes": 168,
+      "nested_in_source_kernel": false,
+      "target_independent_set": {
+        "status": "INFEASIBLE",
+        "feasible": false,
+        "proven_infeasible": true,
+        "vertices": [],
+        "candidate_vertices": 169,
+        "edge_constraints": 14028,
+        "elapsed_seconds": 0.02213645799929509,
+        "conflicts": 0,
+        "branches": 0,
+        "solver": "OR-Tools CP-SAT on direct-product quotient residues"
+      }
+    },
+    {
+      "sample": 132,
+      "sweeps": 1,
+      "rows": [
+        [
+          0,
+          1,
+          3,
+          0,
+          1,
+          6
+        ],
+        [
+          1,
+          1,
+          5,
+          4,
+          2,
+          4
+        ],
+        [
+          1,
+          4,
+          5,
+          4,
+          2,
+          6
+        ],
+        [
+          0,
+          0,
+          1,
+          0,
+          3,
+          2
+        ]
+      ],
+      "kernel_basis_columns": [
+        [
+          7,
+          0,
+          0,
+          3,
+          0,
+          5
+        ],
+        [
+          0,
+          7,
+          0,
+          0,
+          0,
+          4
+        ],
+        [
+          0,
+          0,
+          7,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          1,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          7,
+          4
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          1
+        ]
+      ],
+      "kernel_smith": [
+        1,
+        1,
+        7,
+        7,
+        7,
+        7
+      ],
+      "determinant": 2401,
+      "connection_keys": 2232,
+      "missing_nonzero_quotient_classes": 168,
+      "nested_in_source_kernel": false,
+      "target_independent_set": {
+        "status": "INFEASIBLE",
+        "feasible": false,
+        "proven_infeasible": true,
+        "vertices": [],
+        "candidate_vertices": 169,
+        "edge_constraints": 14028,
+        "elapsed_seconds": 0.02123287499853177,
+        "conflicts": 0,
+        "branches": 0,
+        "solver": "OR-Tools CP-SAT on direct-product quotient residues"
+      }
+    },
+    {
+      "sample": 227,
+      "sweeps": 1,
+      "rows": [
+        [
+          1,
+          6,
+          6,
+          5,
+          2,
+          5
+        ],
+        [
+          1,
+          1,
+          0,
+          2,
+          6,
+          4
+        ],
+        [
+          1,
+          2,
+          6,
+          0,
+          5,
+          1
+        ],
+        [
+          1,
+          1,
+          6,
+          4,
+          6,
+          2
+        ]
+      ],
+      "kernel_basis_columns": [
+        [
+          7,
+          0,
+          0,
+          1,
+          0,
+          2
+        ],
+        [
+          0,
+          7,
+          0,
+          4,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          7,
+          2,
+          0,
+          5
+        ],
+        [
+          0,
+          0,
+          0,
+          1,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          7,
+          6
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          1
+        ]
+      ],
+      "kernel_smith": [
+        1,
+        1,
+        7,
+        7,
+        7,
+        7
+      ],
+      "determinant": 2401,
+      "connection_keys": 2232,
+      "missing_nonzero_quotient_classes": 168,
+      "nested_in_source_kernel": false,
+      "target_independent_set": {
+        "status": "INFEASIBLE",
+        "feasible": false,
+        "proven_infeasible": true,
+        "vertices": [],
+        "candidate_vertices": 169,
+        "edge_constraints": 14028,
+        "elapsed_seconds": 0.020250791996659245,
+        "conflicts": 0,
+        "branches": 0,
+        "solver": "OR-Tools CP-SAT on direct-product quotient residues"
+      }
+    },
+    {
+      "sample": 267,
+      "sweeps": 1,
+      "rows": [
+        [
+          1,
+          2,
+          4,
+          6,
+          6,
+          1
+        ],
+        [
+          0,
+          1,
+          0,
+          3,
+          3,
+          4
+        ],
+        [
+          1,
+          5,
+          2,
+          4,
+          2,
+          4
+        ],
+        [
+          1,
+          5,
+          5,
+          5,
+          2,
+          4
+        ]
+      ],
+      "kernel_basis_columns": [
+        [
+          7,
+          0,
+          0,
+          0,
+          6,
+          2
+        ],
+        [
+          0,
+          7,
+          0,
+          0,
+          1,
+          2
+        ],
+        [
+          0,
+          0,
+          7,
+          0,
+          2,
+          3
+        ],
+        [
+          0,
+          0,
+          0,
+          7,
+          1,
+          5
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          1,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          1
+        ]
+      ],
+      "kernel_smith": [
+        1,
+        1,
+        7,
+        7,
+        7,
+        7
+      ],
+      "determinant": 2401,
+      "connection_keys": 2232,
+      "missing_nonzero_quotient_classes": 168,
+      "nested_in_source_kernel": false,
+      "target_independent_set": {
+        "status": "INFEASIBLE",
+        "feasible": false,
+        "proven_infeasible": true,
+        "vertices": [],
+        "candidate_vertices": 169,
+        "edge_constraints": 14028,
+        "elapsed_seconds": 0.022143832997244317,
+        "conflicts": 0,
+        "branches": 0,
+        "solver": "OR-Tools CP-SAT on direct-product quotient residues"
+      }
+    },
+    {
+      "sample": 288,
+      "sweeps": 1,
+      "rows": [
+        [
+          1,
+          2,
+          2,
+          3,
+          6,
+          3
+        ],
+        [
+          1,
+          3,
+          1,
+          3,
+          1,
+          3
+        ],
+        [
+          1,
+          3,
+          6,
+          3,
+          2,
+          3
+        ],
+        [
+          1,
+          2,
+          6,
+          2,
+          2,
+          3
+        ]
+      ],
+      "kernel_basis_columns": [
+        [
+          7,
+          0,
+          0,
+          0,
+          2,
+          4
+        ],
+        [
+          0,
+          7,
+          0,
+          0,
+          2,
+          0
+        ],
+        [
+          0,
+          0,
+          7,
+          0,
+          4,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          7,
+          5,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          1,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          1
+        ]
+      ],
+      "kernel_smith": [
+        1,
+        1,
+        7,
+        7,
+        7,
+        7
+      ],
+      "determinant": 2401,
+      "connection_keys": 2232,
+      "missing_nonzero_quotient_classes": 168,
+      "nested_in_source_kernel": false,
+      "target_independent_set": {
+        "status": "INFEASIBLE",
+        "feasible": false,
+        "proven_infeasible": true,
+        "vertices": [],
+        "candidate_vertices": 169,
+        "edge_constraints": 14028,
+        "elapsed_seconds": 0.020890416999463923,
+        "conflicts": 0,
+        "branches": 0,
+        "solver": "OR-Tools CP-SAT on direct-product quotient residues"
+      }
+    },
+    {
+      "sample": 339,
+      "sweeps": 1,
+      "rows": [
+        [
+          1,
+          1,
+          1,
+          1,
+          5,
+          0
+        ],
+        [
+          1,
+          3,
+          0,
+          0,
+          4,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          1,
+          3,
+          0
+        ],
+        [
+          1,
+          0,
+          5,
+          2,
+          4,
+          3
+        ]
+      ],
+      "kernel_basis_columns": [
+        [
+          7,
+          0,
+          2,
+          0,
+          0,
+          6
+        ],
+        [
+          0,
+          7,
+          4,
+          0,
+          0,
+          6
+        ],
+        [
+          0,
+          0,
+          1,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          7,
+          0,
+          4
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          7,
+          1
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          1
+        ]
+      ],
+      "kernel_smith": [
+        1,
+        1,
+        7,
+        7,
+        7,
+        7
+      ],
+      "determinant": 2401,
+      "connection_keys": 2232,
+      "missing_nonzero_quotient_classes": 168,
+      "nested_in_source_kernel": false,
+      "target_independent_set": {
+        "status": "INFEASIBLE",
+        "feasible": false,
+        "proven_infeasible": true,
+        "vertices": [],
+        "candidate_vertices": 169,
+        "edge_constraints": 14028,
+        "elapsed_seconds": 0.020789667003555223,
+        "conflicts": 0,
+        "branches": 0,
+        "solver": "OR-Tools CP-SAT on direct-product quotient residues"
+      }
+    },
+    {
+      "sample": 375,
+      "sweeps": 1,
+      "rows": [
+        [
+          1,
+          6,
+          0,
+          0,
+          1,
+          5
+        ],
+        [
+          1,
+          4,
+          4,
+          5,
+          3,
+          5
+        ],
+        [
+          1,
+          5,
+          0,
+          6,
+          1,
+          5
+        ],
+        [
+          1,
+          4,
+          4,
+          4,
+          1,
+          5
+        ]
+      ],
+      "kernel_basis_columns": [
+        [
+          7,
+          0,
+          0,
+          0,
+          1,
+          2
+        ],
+        [
+          0,
+          7,
+          0,
+          0,
+          2,
+          0
+        ],
+        [
+          0,
+          0,
+          7,
+          0,
+          3,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          7,
+          5,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          1,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          1
+        ]
+      ],
+      "kernel_smith": [
+        1,
+        1,
+        7,
+        7,
+        7,
+        7
+      ],
+      "determinant": 2401,
+      "connection_keys": 2232,
+      "missing_nonzero_quotient_classes": 168,
+      "nested_in_source_kernel": false,
+      "target_independent_set": {
+        "status": "INFEASIBLE",
+        "feasible": false,
+        "proven_infeasible": true,
+        "vertices": [],
+        "candidate_vertices": 169,
+        "edge_constraints": 14028,
+        "elapsed_seconds": 0.020741832995554432,
+        "conflicts": 0,
+        "branches": 0,
+        "solver": "OR-Tools CP-SAT on direct-product quotient residues"
+      }
+    },
+    {
+      "sample": 377,
+      "sweeps": 1,
+      "rows": [
+        [
+          1,
+          3,
+          2,
+          2,
+          5,
+          0
+        ],
+        [
+          1,
+          5,
+          2,
+          4,
+          5,
+          6
+        ],
+        [
+          1,
+          5,
+          6,
+          3,
+          1,
+          5
+        ],
+        [
+          1,
+          3,
+          3,
+          2,
+          5,
+          4
+        ]
+      ],
+      "kernel_basis_columns": [
+        [
+          7,
+          0,
+          0,
+          0,
+          5,
+          0
+        ],
+        [
+          0,
+          7,
+          0,
+          0,
+          4,
+          0
+        ],
+        [
+          0,
+          0,
+          7,
+          0,
+          0,
+          3
+        ],
+        [
+          0,
+          0,
+          0,
+          7,
+          3,
+          4
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          1,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          1
+        ]
+      ],
+      "kernel_smith": [
+        1,
+        1,
+        7,
+        7,
+        7,
+        7
+      ],
+      "determinant": 2401,
+      "connection_keys": 2232,
+      "missing_nonzero_quotient_classes": 168,
+      "nested_in_source_kernel": false,
+      "target_independent_set": {
+        "status": "INFEASIBLE",
+        "feasible": false,
+        "proven_infeasible": true,
+        "vertices": [],
+        "candidate_vertices": 169,
+        "edge_constraints": 14028,
+        "elapsed_seconds": 0.020296332993893884,
+        "conflicts": 0,
+        "branches": 0,
+        "solver": "OR-Tools CP-SAT on direct-product quotient residues"
+      }
+    },
+    {
+      "sample": 390,
+      "sweeps": 1,
+      "rows": [
+        [
+          1,
+          4,
+          1,
+          0,
+          3,
+          4
+        ],
+        [
+          1,
+          3,
+          6,
+          3,
+          5,
+          3
+        ],
+        [
+          1,
+          2,
+          0,
+          5,
+          4,
+          6
+        ],
+        [
+          1,
+          6,
+          6,
+          4,
+          3,
+          1
+        ]
+      ],
+      "kernel_basis_columns": [
+        [
+          7,
+          0,
+          0,
+          0,
+          0,
+          1
+        ],
+        [
+          0,
+          7,
+          0,
+          0,
+          0,
+          4
+        ],
+        [
+          0,
+          0,
+          7,
+          0,
+          4,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          7,
+          2,
+          4
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          1,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          1
+        ]
+      ],
+      "kernel_smith": [
+        1,
+        1,
+        7,
+        7,
+        7,
+        7
+      ],
+      "determinant": 2401,
+      "connection_keys": 2232,
+      "missing_nonzero_quotient_classes": 168,
+      "nested_in_source_kernel": false,
+      "target_independent_set": {
+        "status": "INFEASIBLE",
+        "feasible": false,
+        "proven_infeasible": true,
+        "vertices": [],
+        "candidate_vertices": 169,
+        "edge_constraints": 14028,
+        "elapsed_seconds": 0.020563958001730498,
+        "conflicts": 0,
+        "branches": 0,
+        "solver": "OR-Tools CP-SAT on direct-product quotient residues"
+      }
+    },
+    {
+      "sample": 497,
+      "sweeps": 1,
+      "rows": [
+        [
+          1,
+          3,
+          3,
+          5,
+          6,
+          6
+        ],
+        [
+          1,
+          3,
+          3,
+          1,
+          2,
+          1
+        ],
+        [
+          1,
+          4,
+          6,
+          0,
+          2,
+          3
+        ],
+        [
+          1,
+          1,
+          1,
+          5,
+          1,
+          5
+        ]
+      ],
+      "kernel_basis_columns": [
+        [
+          7,
+          0,
+          0,
+          0,
+          3,
+          0
+        ],
+        [
+          0,
+          7,
+          0,
+          0,
+          2,
+          0
+        ],
+        [
+          0,
+          0,
+          7,
+          0,
+          6,
+          3
+        ],
+        [
+          0,
+          0,
+          0,
+          7,
+          6,
+          4
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          1,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          1
+        ]
+      ],
+      "kernel_smith": [
+        1,
+        1,
+        7,
+        7,
+        7,
+        7
+      ],
+      "determinant": 2401,
+      "connection_keys": 2232,
+      "missing_nonzero_quotient_classes": 168,
+      "nested_in_source_kernel": false,
+      "target_independent_set": {
+        "status": "INFEASIBLE",
+        "feasible": false,
+        "proven_infeasible": true,
+        "vertices": [],
+        "candidate_vertices": 169,
+        "edge_constraints": 14028,
+        "elapsed_seconds": 0.021085375003167428,
+        "conflicts": 0,
+        "branches": 0,
+        "solver": "OR-Tools CP-SAT on direct-product quotient residues"
+      }
+    },
+    {
+      "sample": 526,
+      "sweeps": 1,
+      "rows": [
+        [
+          0,
+          1,
+          5,
+          6,
+          3,
+          4
+        ],
+        [
+          1,
+          5,
+          3,
+          2,
+          0,
+          3
+        ],
+        [
+          1,
+          1,
+          5,
+          2,
+          2,
+          6
+        ],
+        [
+          1,
+          4,
+          3,
+          1,
+          3,
+          3
+        ]
+      ],
+      "kernel_basis_columns": [
+        [
+          7,
+          0,
+          0,
+          0,
+          2,
+          5
+        ],
+        [
+          0,
+          7,
+          0,
+          0,
+          1,
+          0
+        ],
+        [
+          0,
+          0,
+          7,
+          0,
+          1,
+          2
+        ],
+        [
+          0,
+          0,
+          0,
+          7,
+          2,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          1,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          1
+        ]
+      ],
+      "kernel_smith": [
+        1,
+        1,
+        7,
+        7,
+        7,
+        7
+      ],
+      "determinant": 2401,
+      "connection_keys": 2232,
+      "missing_nonzero_quotient_classes": 168,
+      "nested_in_source_kernel": false,
+      "target_independent_set": {
+        "status": "INFEASIBLE",
+        "feasible": false,
+        "proven_infeasible": true,
+        "vertices": [],
+        "candidate_vertices": 169,
+        "edge_constraints": 14028,
+        "elapsed_seconds": 0.020405750001373235,
+        "conflicts": 0,
+        "branches": 0,
+        "solver": "OR-Tools CP-SAT on direct-product quotient residues"
+      }
+    },
+    {
+      "sample": 572,
+      "sweeps": 1,
+      "rows": [
+        [
+          0,
+          1,
+          1,
+          4,
+          6,
+          3
+        ],
+        [
+          1,
+          2,
+          6,
+          1,
+          4,
+          0
+        ],
+        [
+          1,
+          0,
+          3,
+          1,
+          5,
+          6
+        ],
+        [
+          1,
+          5,
+          0,
+          3,
+          1,
+          2
+        ]
+      ],
+      "kernel_basis_columns": [
+        [
+          7,
+          0,
+          0,
+          0,
+          2,
+          1
+        ],
+        [
+          0,
+          7,
+          0,
+          0,
+          0,
+          2
+        ],
+        [
+          0,
+          0,
+          7,
+          0,
+          5,
+          3
+        ],
+        [
+          0,
+          0,
+          0,
+          7,
+          6,
+          5
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          1,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          1
+        ]
+      ],
+      "kernel_smith": [
+        1,
+        1,
+        7,
+        7,
+        7,
+        7
+      ],
+      "determinant": 2401,
+      "connection_keys": 2232,
+      "missing_nonzero_quotient_classes": 168,
+      "nested_in_source_kernel": false,
+      "target_independent_set": {
+        "status": "INFEASIBLE",
+        "feasible": false,
+        "proven_infeasible": true,
+        "vertices": [],
+        "candidate_vertices": 169,
+        "edge_constraints": 14028,
+        "elapsed_seconds": 0.021023250003054272,
+        "conflicts": 0,
+        "branches": 0,
+        "solver": "OR-Tools CP-SAT on direct-product quotient residues"
+      }
+    },
+    {
+      "sample": 605,
+      "sweeps": 1,
+      "rows": [
+        [
+          1,
+          5,
+          6,
+          2,
+          5,
+          6
+        ],
+        [
+          1,
+          5,
+          5,
+          6,
+          1,
+          1
+        ],
+        [
+          1,
+          3,
+          1,
+          4,
+          5,
+          2
+        ],
+        [
+          1,
+          5,
+          0,
+          2,
+          5,
+          2
+        ]
+      ],
+      "kernel_basis_columns": [
+        [
+          7,
+          0,
+          0,
+          0,
+          2,
+          2
+        ],
+        [
+          0,
+          7,
+          0,
+          0,
+          1,
+          6
+        ],
+        [
+          0,
+          0,
+          7,
+          0,
+          0,
+          4
+        ],
+        [
+          0,
+          0,
+          0,
+          7,
+          1,
+          4
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          1,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          1
+        ]
+      ],
+      "kernel_smith": [
+        1,
+        1,
+        7,
+        7,
+        7,
+        7
+      ],
+      "determinant": 2401,
+      "connection_keys": 2232,
+      "missing_nonzero_quotient_classes": 168,
+      "nested_in_source_kernel": false,
+      "target_independent_set": {
+        "status": "INFEASIBLE",
+        "feasible": false,
+        "proven_infeasible": true,
+        "vertices": [],
+        "candidate_vertices": 169,
+        "edge_constraints": 14028,
+        "elapsed_seconds": 0.020935000000463333,
+        "conflicts": 0,
+        "branches": 0,
+        "solver": "OR-Tools CP-SAT on direct-product quotient residues"
+      }
+    },
+    {
+      "sample": 612,
+      "sweeps": 1,
+      "rows": [
+        [
+          1,
+          4,
+          1,
+          2,
+          1,
+          3
+        ],
+        [
+          1,
+          0,
+          0,
+          2,
+          5,
+          1
+        ],
+        [
+          1,
+          4,
+          6,
+          0,
+          5,
+          6
+        ],
+        [
+          1,
+          2,
+          1,
+          6,
+          2,
+          2
+        ]
+      ],
+      "kernel_basis_columns": [
+        [
+          7,
+          0,
+          0,
+          5,
+          2,
+          0
+        ],
+        [
+          0,
+          7,
+          0,
+          2,
+          4,
+          0
+        ],
+        [
+          0,
+          0,
+          7,
+          6,
+          2,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          1,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          1,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          7
+        ]
+      ],
+      "kernel_smith": [
+        1,
+        1,
+        7,
+        7,
+        7,
+        7
+      ],
+      "determinant": 2401,
+      "connection_keys": 2232,
+      "missing_nonzero_quotient_classes": 168,
+      "nested_in_source_kernel": false,
+      "target_independent_set": {
+        "status": "INFEASIBLE",
+        "feasible": false,
+        "proven_infeasible": true,
+        "vertices": [],
+        "candidate_vertices": 169,
+        "edge_constraints": 14028,
+        "elapsed_seconds": 0.020693250000476837,
+        "conflicts": 0,
+        "branches": 0,
+        "solver": "OR-Tools CP-SAT on direct-product quotient residues"
+      }
+    },
+    {
+      "sample": 613,
+      "sweeps": 1,
+      "rows": [
+        [
+          1,
+          6,
+          4,
+          3,
+          2,
+          2
+        ],
+        [
+          1,
+          5,
+          6,
+          1,
+          1,
+          6
+        ],
+        [
+          1,
+          4,
+          6,
+          0,
+          6,
+          0
+        ],
+        [
+          1,
+          3,
+          1,
+          2,
+          5,
+          2
+        ]
+      ],
+      "kernel_basis_columns": [
+        [
+          7,
+          0,
+          0,
+          0,
+          5,
+          2
+        ],
+        [
+          0,
+          7,
+          0,
+          0,
+          5,
+          4
+        ],
+        [
+          0,
+          0,
+          7,
+          0,
+          3,
+          4
+        ],
+        [
+          0,
+          0,
+          0,
+          7,
+          0,
+          4
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          1,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          1
+        ]
+      ],
+      "kernel_smith": [
+        1,
+        1,
+        7,
+        7,
+        7,
+        7
+      ],
+      "determinant": 2401,
+      "connection_keys": 2232,
+      "missing_nonzero_quotient_classes": 168,
+      "nested_in_source_kernel": false,
+      "target_independent_set": {
+        "status": "INFEASIBLE",
+        "feasible": false,
+        "proven_infeasible": true,
+        "vertices": [],
+        "candidate_vertices": 169,
+        "edge_constraints": 14028,
+        "elapsed_seconds": 0.02095891699718777,
+        "conflicts": 0,
+        "branches": 0,
+        "solver": "OR-Tools CP-SAT on direct-product quotient residues"
+      }
+    },
+    {
+      "sample": 624,
+      "sweeps": 1,
+      "rows": [
+        [
+          0,
+          1,
+          0,
+          1,
+          0,
+          5
+        ],
+        [
+          1,
+          3,
+          3,
+          1,
+          6,
+          6
+        ],
+        [
+          1,
+          2,
+          4,
+          1,
+          0,
+          2
+        ],
+        [
+          1,
+          4,
+          4,
+          3,
+          6,
+          0
+        ]
+      ],
+      "kernel_basis_columns": [
+        [
+          7,
+          0,
+          0,
+          5,
+          0,
+          6
+        ],
+        [
+          0,
+          7,
+          0,
+          6,
+          0,
+          2
+        ],
+        [
+          0,
+          0,
+          7,
+          6,
+          0,
+          4
+        ],
+        [
+          0,
+          0,
+          0,
+          1,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          7,
+          2
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          1
+        ]
+      ],
+      "kernel_smith": [
+        1,
+        1,
+        7,
+        7,
+        7,
+        7
+      ],
+      "determinant": 2401,
+      "connection_keys": 2232,
+      "missing_nonzero_quotient_classes": 168,
+      "nested_in_source_kernel": false,
+      "target_independent_set": {
+        "status": "INFEASIBLE",
+        "feasible": false,
+        "proven_infeasible": true,
+        "vertices": [],
+        "candidate_vertices": 169,
+        "edge_constraints": 14028,
+        "elapsed_seconds": 0.020881083997664973,
+        "conflicts": 0,
+        "branches": 0,
+        "solver": "OR-Tools CP-SAT on direct-product quotient residues"
+      }
+    },
+    {
+      "sample": 715,
+      "sweeps": 1,
+      "rows": [
+        [
+          1,
+          2,
+          3,
+          0,
+          5,
+          5
+        ],
+        [
+          1,
+          2,
+          1,
+          4,
+          4,
+          1
+        ],
+        [
+          1,
+          1,
+          5,
+          4,
+          0,
+          0
+        ],
+        [
+          1,
+          0,
+          6,
+          5,
+          1,
+          1
+        ]
+      ],
+      "kernel_basis_columns": [
+        [
+          7,
+          0,
+          0,
+          0,
+          3,
+          2
+        ],
+        [
+          0,
+          7,
+          0,
+          0,
+          3,
+          1
+        ],
+        [
+          0,
+          0,
+          7,
+          0,
+          0,
+          4
+        ],
+        [
+          0,
+          0,
+          0,
+          7,
+          2,
+          3
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          1,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          1
+        ]
+      ],
+      "kernel_smith": [
+        1,
+        1,
+        7,
+        7,
+        7,
+        7
+      ],
+      "determinant": 2401,
+      "connection_keys": 2232,
+      "missing_nonzero_quotient_classes": 168,
+      "nested_in_source_kernel": false,
+      "target_independent_set": {
+        "status": "INFEASIBLE",
+        "feasible": false,
+        "proven_infeasible": true,
+        "vertices": [],
+        "candidate_vertices": 169,
+        "edge_constraints": 14028,
+        "elapsed_seconds": 0.02073108300101012,
+        "conflicts": 0,
+        "branches": 0,
+        "solver": "OR-Tools CP-SAT on direct-product quotient residues"
+      }
+    },
+    {
+      "sample": 756,
+      "sweeps": 1,
+      "rows": [
+        [
+          1,
+          2,
+          1,
+          1,
+          2,
+          2
+        ],
+        [
+          0,
+          1,
+          6,
+          6,
+          6,
+          4
+        ],
+        [
+          1,
+          6,
+          1,
+          2,
+          0,
+          0
+        ],
+        [
+          1,
+          2,
+          3,
+          6,
+          6,
+          3
+        ]
+      ],
+      "kernel_basis_columns": [
+        [
+          7,
+          0,
+          0,
+          0,
+          5,
+          0
+        ],
+        [
+          0,
+          7,
+          0,
+          0,
+          5,
+          5
+        ],
+        [
+          0,
+          0,
+          7,
+          0,
+          1,
+          6
+        ],
+        [
+          0,
+          0,
+          0,
+          7,
+          3,
+          3
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          1,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          1
+        ]
+      ],
+      "kernel_smith": [
+        1,
+        1,
+        7,
+        7,
+        7,
+        7
+      ],
+      "determinant": 2401,
+      "connection_keys": 2232,
+      "missing_nonzero_quotient_classes": 168,
+      "nested_in_source_kernel": false,
+      "target_independent_set": {
+        "status": "INFEASIBLE",
+        "feasible": false,
+        "proven_infeasible": true,
+        "vertices": [],
+        "candidate_vertices": 169,
+        "edge_constraints": 14028,
+        "elapsed_seconds": 0.020802416998776607,
+        "conflicts": 0,
+        "branches": 0,
+        "solver": "OR-Tools CP-SAT on direct-product quotient residues"
+      }
+    },
+    {
+      "sample": 836,
+      "sweeps": 1,
+      "rows": [
+        [
+          1,
+          2,
+          4,
+          5,
+          1,
+          2
+        ],
+        [
+          0,
+          1,
+          4,
+          0,
+          1,
+          2
+        ],
+        [
+          0,
+          1,
+          4,
+          3,
+          2,
+          6
+        ],
+        [
+          1,
+          1,
+          4,
+          4,
+          6,
+          4
+        ]
+      ],
+      "kernel_basis_columns": [
+        [
+          7,
+          0,
+          0,
+          0,
+          1,
+          1
+        ],
+        [
+          0,
+          7,
+          0,
+          0,
+          3,
+          1
+        ],
+        [
+          0,
+          0,
+          7,
+          0,
+          6,
+          1
+        ],
+        [
+          0,
+          0,
+          0,
+          7,
+          2,
+          1
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          1,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          1
+        ]
+      ],
+      "kernel_smith": [
+        1,
+        1,
+        7,
+        7,
+        7,
+        7
+      ],
+      "determinant": 2401,
+      "connection_keys": 2232,
+      "missing_nonzero_quotient_classes": 168,
+      "nested_in_source_kernel": false,
+      "target_independent_set": {
+        "status": "INFEASIBLE",
+        "feasible": false,
+        "proven_infeasible": true,
+        "vertices": [],
+        "candidate_vertices": 169,
+        "edge_constraints": 14028,
+        "elapsed_seconds": 0.020407707997947,
+        "conflicts": 0,
+        "branches": 0,
+        "solver": "OR-Tools CP-SAT on direct-product quotient residues"
+      }
+    },
+    {
+      "sample": 843,
+      "sweeps": 1,
+      "rows": [
+        [
+          0,
+          1,
+          3,
+          5,
+          5,
+          4
+        ],
+        [
+          1,
+          2,
+          4,
+          1,
+          5,
+          1
+        ],
+        [
+          0,
+          1,
+          0,
+          5,
+          1,
+          6
+        ],
+        [
+          0,
+          1,
+          0,
+          3,
+          6,
+          0
+        ]
+      ],
+      "kernel_basis_columns": [
+        [
+          7,
+          0,
+          0,
+          0,
+          5,
+          0
+        ],
+        [
+          0,
+          7,
+          0,
+          0,
+          4,
+          2
+        ],
+        [
+          0,
+          0,
+          7,
+          0,
+          1,
+          3
+        ],
+        [
+          0,
+          0,
+          0,
+          7,
+          6,
+          4
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          1,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          1
+        ]
+      ],
+      "kernel_smith": [
+        1,
+        1,
+        7,
+        7,
+        7,
+        7
+      ],
+      "determinant": 2401,
+      "connection_keys": 2232,
+      "missing_nonzero_quotient_classes": 168,
+      "nested_in_source_kernel": false,
+      "target_independent_set": {
+        "status": "INFEASIBLE",
+        "feasible": false,
+        "proven_infeasible": true,
+        "vertices": [],
+        "candidate_vertices": 169,
+        "edge_constraints": 14028,
+        "elapsed_seconds": 0.020975499995984137,
+        "conflicts": 0,
+        "branches": 0,
+        "solver": "OR-Tools CP-SAT on direct-product quotient residues"
+      }
+    },
+    {
+      "sample": 860,
+      "sweeps": 1,
+      "rows": [
+        [
+          1,
+          0,
+          1,
+          1,
+          1,
+          2
+        ],
+        [
+          0,
+          1,
+          5,
+          2,
+          1,
+          6
+        ],
+        [
+          1,
+          2,
+          3,
+          2,
+          4,
+          6
+        ],
+        [
+          0,
+          1,
+          3,
+          3,
+          1,
+          3
+        ]
+      ],
+      "kernel_basis_columns": [
+        [
+          7,
+          0,
+          0,
+          2,
+          0,
+          0
+        ],
+        [
+          0,
+          7,
+          0,
+          6,
+          0,
+          2
+        ],
+        [
+          0,
+          0,
+          7,
+          4,
+          0,
+          2
+        ],
+        [
+          0,
+          0,
+          0,
+          1,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          7,
+          3
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          1
+        ]
+      ],
+      "kernel_smith": [
+        1,
+        1,
+        7,
+        7,
+        7,
+        7
+      ],
+      "determinant": 2401,
+      "connection_keys": 2232,
+      "missing_nonzero_quotient_classes": 168,
+      "nested_in_source_kernel": false,
+      "target_independent_set": {
+        "status": "INFEASIBLE",
+        "feasible": false,
+        "proven_infeasible": true,
+        "vertices": [],
+        "candidate_vertices": 169,
+        "edge_constraints": 14028,
+        "elapsed_seconds": 0.02073983399895951,
+        "conflicts": 0,
+        "branches": 0,
+        "solver": "OR-Tools CP-SAT on direct-product quotient residues"
+      }
+    },
+    {
+      "sample": 912,
+      "sweeps": 1,
+      "rows": [
+        [
+          1,
+          1,
+          4,
+          0,
+          6,
+          5
+        ],
+        [
+          1,
+          6,
+          1,
+          4,
+          6,
+          5
+        ],
+        [
+          1,
+          0,
+          1,
+          6,
+          3,
+          0
+        ],
+        [
+          1,
+          1,
+          0,
+          5,
+          4,
+          2
+        ]
+      ],
+      "kernel_basis_columns": [
+        [
+          7,
+          0,
+          0,
+          0,
+          3,
+          4
+        ],
+        [
+          0,
+          7,
+          0,
+          0,
+          5,
+          3
+        ],
+        [
+          0,
+          0,
+          7,
+          0,
+          0,
+          4
+        ],
+        [
+          0,
+          0,
+          0,
+          7,
+          6,
+          1
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          1,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          1
+        ]
+      ],
+      "kernel_smith": [
+        1,
+        1,
+        7,
+        7,
+        7,
+        7
+      ],
+      "determinant": 2401,
+      "connection_keys": 2232,
+      "missing_nonzero_quotient_classes": 168,
+      "nested_in_source_kernel": false,
+      "target_independent_set": {
+        "status": "INFEASIBLE",
+        "feasible": false,
+        "proven_infeasible": true,
+        "vertices": [],
+        "candidate_vertices": 169,
+        "edge_constraints": 14028,
+        "elapsed_seconds": 0.021562540998274926,
+        "conflicts": 0,
+        "branches": 0,
+        "solver": "OR-Tools CP-SAT on direct-product quotient residues"
+      }
+    },
+    {
+      "sample": 969,
+      "sweeps": 1,
+      "rows": [
+        [
+          0,
+          1,
+          5,
+          0,
+          1,
+          0
+        ],
+        [
+          1,
+          5,
+          4,
+          3,
+          2,
+          3
+        ],
+        [
+          1,
+          1,
+          4,
+          4,
+          0,
+          3
+        ],
+        [
+          1,
+          2,
+          6,
+          3,
+          5,
+          3
+        ]
+      ],
+      "kernel_basis_columns": [
+        [
+          7,
+          0,
+          0,
+          0,
+          1,
+          4
+        ],
+        [
+          0,
+          7,
+          0,
+          0,
+          2,
+          0
+        ],
+        [
+          0,
+          0,
+          7,
+          0,
+          5,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          7,
+          3,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          1,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          1
+        ]
+      ],
+      "kernel_smith": [
+        1,
+        1,
+        7,
+        7,
+        7,
+        7
+      ],
+      "determinant": 2401,
+      "connection_keys": 2232,
+      "missing_nonzero_quotient_classes": 168,
+      "nested_in_source_kernel": false,
+      "target_independent_set": {
+        "status": "INFEASIBLE",
+        "feasible": false,
+        "proven_infeasible": true,
+        "vertices": [],
+        "candidate_vertices": 169,
+        "edge_constraints": 14028,
+        "elapsed_seconds": 0.02055833300255472,
+        "conflicts": 0,
+        "branches": 0,
+        "solver": "OR-Tools CP-SAT on direct-product quotient residues"
+      }
+    },
+    {
+      "sample": 976,
+      "sweeps": 1,
+      "rows": [
+        [
+          1,
+          1,
+          5,
+          2,
+          1,
+          5
+        ],
+        [
+          1,
+          3,
+          0,
+          1,
+          2,
+          1
+        ],
+        [
+          1,
+          2,
+          0,
+          2,
+          3,
+          6
+        ],
+        [
+          0,
+          1,
+          5,
+          2,
+          2,
+          3
+        ]
+      ],
+      "kernel_basis_columns": [
+        [
+          7,
+          0,
+          0,
+          0,
+          1,
+          5
+        ],
+        [
+          0,
+          7,
+          0,
+          0,
+          3,
+          5
+        ],
+        [
+          0,
+          0,
+          7,
+          0,
+          1,
+          4
+        ],
+        [
+          0,
+          0,
+          0,
+          7,
+          2,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          1,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          1
+        ]
+      ],
+      "kernel_smith": [
+        1,
+        1,
+        7,
+        7,
+        7,
+        7
+      ],
+      "determinant": 2401,
+      "connection_keys": 2232,
+      "missing_nonzero_quotient_classes": 168,
+      "nested_in_source_kernel": false,
+      "target_independent_set": {
+        "status": "INFEASIBLE",
+        "feasible": false,
+        "proven_infeasible": true,
+        "vertices": [],
+        "candidate_vertices": 169,
+        "edge_constraints": 14028,
+        "elapsed_seconds": 0.020969417004380375,
+        "conflicts": 0,
+        "branches": 0,
+        "solver": "OR-Tools CP-SAT on direct-product quotient residues"
+      }
+    },
+    {
+      "sample": 1009,
+      "sweeps": 1,
+      "rows": [
+        [
+          1,
+          5,
+          4,
+          4,
+          6,
+          3
+        ],
+        [
+          1,
+          0,
+          6,
+          6,
+          0,
+          0
+        ],
+        [
+          1,
+          0,
+          5,
+          2,
+          3,
+          1
+        ],
+        [
+          0,
+          1,
+          2,
+          1,
+          4,
+          2
+        ]
+      ],
+      "kernel_basis_columns": [
+        [
+          7,
+          0,
+          0,
+          0,
+          6,
+          2
+        ],
+        [
+          0,
+          7,
+          0,
+          0,
+          4,
+          3
+        ],
+        [
+          0,
+          0,
+          7,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          7,
+          6,
+          2
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          1,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          1
+        ]
+      ],
+      "kernel_smith": [
+        1,
+        1,
+        7,
+        7,
+        7,
+        7
+      ],
+      "determinant": 2401,
+      "connection_keys": 2232,
+      "missing_nonzero_quotient_classes": 168,
+      "nested_in_source_kernel": false,
+      "target_independent_set": {
+        "status": "INFEASIBLE",
+        "feasible": false,
+        "proven_infeasible": true,
+        "vertices": [],
+        "candidate_vertices": 169,
+        "edge_constraints": 14028,
+        "elapsed_seconds": 0.02148762500291923,
+        "conflicts": 0,
+        "branches": 0,
+        "solver": "OR-Tools CP-SAT on direct-product quotient residues"
+      }
+    },
+    {
+      "sample": 1020,
+      "sweeps": 1,
+      "rows": [
+        [
+          1,
+          4,
+          0,
+          2,
+          5,
+          0
+        ],
+        [
+          1,
+          0,
+          2,
+          0,
+          2,
+          6
+        ],
+        [
+          1,
+          4,
+          5,
+          1,
+          5,
+          2
+        ],
+        [
+          1,
+          6,
+          2,
+          6,
+          6,
+          0
+        ]
+      ],
+      "kernel_basis_columns": [
+        [
+          7,
+          0,
+          0,
+          0,
+          3,
+          2
+        ],
+        [
+          0,
+          7,
+          0,
+          0,
+          6,
+          5
+        ],
+        [
+          0,
+          0,
+          7,
+          0,
+          1,
+          3
+        ],
+        [
+          0,
+          0,
+          0,
+          7,
+          5,
+          3
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          1,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          1
+        ]
+      ],
+      "kernel_smith": [
+        1,
+        1,
+        7,
+        7,
+        7,
+        7
+      ],
+      "determinant": 2401,
+      "connection_keys": 2232,
+      "missing_nonzero_quotient_classes": 168,
+      "nested_in_source_kernel": false,
+      "target_independent_set": {
+        "status": "INFEASIBLE",
+        "feasible": false,
+        "proven_infeasible": true,
+        "vertices": [],
+        "candidate_vertices": 169,
+        "edge_constraints": 14028,
+        "elapsed_seconds": 0.021447082996019162,
+        "conflicts": 0,
+        "branches": 0,
+        "solver": "OR-Tools CP-SAT on direct-product quotient residues"
+      }
+    },
+    {
+      "sample": 1026,
+      "sweeps": 1,
+      "rows": [
+        [
+          0,
+          1,
+          5,
+          3,
+          0,
+          3
+        ],
+        [
+          1,
+          2,
+          6,
+          0,
+          0,
+          1
+        ],
+        [
+          0,
+          1,
+          3,
+          1,
+          1,
+          4
+        ],
+        [
+          1,
+          5,
+          0,
+          5,
+          2,
+          0
+        ]
+      ],
+      "kernel_basis_columns": [
+        [
+          7,
+          0,
+          0,
+          0,
+          3,
+          2
+        ],
+        [
+          0,
+          7,
+          0,
+          0,
+          2,
+          0
+        ],
+        [
+          0,
+          0,
+          7,
+          0,
+          0,
+          3
+        ],
+        [
+          0,
+          0,
+          0,
+          7,
+          4,
+          1
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          1,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          1
+        ]
+      ],
+      "kernel_smith": [
+        1,
+        1,
+        7,
+        7,
+        7,
+        7
+      ],
+      "determinant": 2401,
+      "connection_keys": 2232,
+      "missing_nonzero_quotient_classes": 168,
+      "nested_in_source_kernel": false,
+      "target_independent_set": {
+        "status": "INFEASIBLE",
+        "feasible": false,
+        "proven_infeasible": true,
+        "vertices": [],
+        "candidate_vertices": 169,
+        "edge_constraints": 14028,
+        "elapsed_seconds": 0.02158887499535922,
+        "conflicts": 0,
+        "branches": 0,
+        "solver": "OR-Tools CP-SAT on direct-product quotient residues"
+      }
+    },
+    {
+      "sample": 1076,
+      "sweeps": 1,
+      "rows": [
+        [
+          1,
+          1,
+          3,
+          3,
+          4,
+          3
+        ],
+        [
+          1,
+          3,
+          3,
+          6,
+          1,
+          2
+        ],
+        [
+          0,
+          1,
+          3,
+          1,
+          4,
+          2
+        ],
+        [
+          1,
+          0,
+          1,
+          3,
+          2,
+          4
+        ]
+      ],
+      "kernel_basis_columns": [
+        [
+          7,
+          0,
+          0,
+          5,
+          0,
+          6
+        ],
+        [
+          0,
+          7,
+          0,
+          2,
+          0,
+          2
+        ],
+        [
+          0,
+          0,
+          7,
+          6,
+          0,
+          2
+        ],
+        [
+          0,
+          0,
+          0,
+          1,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          7,
+          1
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          1
+        ]
+      ],
+      "kernel_smith": [
+        1,
+        1,
+        7,
+        7,
+        7,
+        7
+      ],
+      "determinant": 2401,
+      "connection_keys": 2232,
+      "missing_nonzero_quotient_classes": 168,
+      "nested_in_source_kernel": false,
+      "target_independent_set": {
+        "status": "INFEASIBLE",
+        "feasible": false,
+        "proven_infeasible": true,
+        "vertices": [],
+        "candidate_vertices": 169,
+        "edge_constraints": 14028,
+        "elapsed_seconds": 0.02121245799935423,
+        "conflicts": 0,
+        "branches": 0,
+        "solver": "OR-Tools CP-SAT on direct-product quotient residues"
+      }
+    },
+    {
+      "sample": 1117,
+      "sweeps": 1,
+      "rows": [
+        [
+          0,
+          1,
+          2,
+          6,
+          0,
+          1
+        ],
+        [
+          1,
+          3,
+          2,
+          2,
+          0,
+          0
+        ],
+        [
+          1,
+          5,
+          2,
+          4,
+          4,
+          1
+        ],
+        [
+          1,
+          4,
+          4,
+          6,
+          0,
+          4
+        ]
+      ],
+      "kernel_basis_columns": [
+        [
+          7,
+          0,
+          0,
+          0,
+          4,
+          4
+        ],
+        [
+          0,
+          7,
+          0,
+          0,
+          5,
+          5
+        ],
+        [
+          0,
+          0,
+          7,
+          0,
+          1,
+          3
+        ],
+        [
+          0,
+          0,
+          0,
+          7,
+          0,
+          5
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          1,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          1
+        ]
+      ],
+      "kernel_smith": [
+        1,
+        1,
+        7,
+        7,
+        7,
+        7
+      ],
+      "determinant": 2401,
+      "connection_keys": 2232,
+      "missing_nonzero_quotient_classes": 168,
+      "nested_in_source_kernel": false,
+      "target_independent_set": {
+        "status": "INFEASIBLE",
+        "feasible": false,
+        "proven_infeasible": true,
+        "vertices": [],
+        "candidate_vertices": 169,
+        "edge_constraints": 14028,
+        "elapsed_seconds": 0.02166370900522452,
+        "conflicts": 0,
+        "branches": 0,
+        "solver": "OR-Tools CP-SAT on direct-product quotient residues"
+      }
+    },
+    {
+      "sample": 1123,
+      "sweeps": 1,
+      "rows": [
+        [
+          1,
+          4,
+          5,
+          1,
+          0,
+          2
+        ],
+        [
+          1,
+          4,
+          5,
+          5,
+          0,
+          2
+        ],
+        [
+          1,
+          2,
+          3,
+          2,
+          2,
+          4
+        ],
+        [
+          1,
+          5,
+          1,
+          1,
+          0,
+          2
+        ]
+      ],
+      "kernel_basis_columns": [
+        [
+          7,
+          0,
+          0,
+          0,
+          0,
+          5
+        ],
+        [
+          0,
+          7,
+          0,
+          0,
+          5,
+          5
+        ],
+        [
+          0,
+          0,
+          7,
+          0,
+          3,
+          3
+        ],
+        [
+          0,
+          0,
+          0,
+          7,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          1,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          1
+        ]
+      ],
+      "kernel_smith": [
+        1,
+        1,
+        7,
+        7,
+        7,
+        7
+      ],
+      "determinant": 2401,
+      "connection_keys": 2232,
+      "missing_nonzero_quotient_classes": 168,
+      "nested_in_source_kernel": false,
+      "target_independent_set": {
+        "status": "INFEASIBLE",
+        "feasible": false,
+        "proven_infeasible": true,
+        "vertices": [],
+        "candidate_vertices": 169,
+        "edge_constraints": 14028,
+        "elapsed_seconds": 0.02128900000388967,
+        "conflicts": 0,
+        "branches": 0,
+        "solver": "OR-Tools CP-SAT on direct-product quotient residues"
+      }
+    },
+    {
+      "sample": 1143,
+      "sweeps": 1,
+      "rows": [
+        [
+          1,
+          2,
+          5,
+          5,
+          6,
+          2
+        ],
+        [
+          1,
+          0,
+          3,
+          2,
+          0,
+          5
+        ],
+        [
+          1,
+          6,
+          2,
+          6,
+          5,
+          1
+        ],
+        [
+          1,
+          1,
+          4,
+          2,
+          2,
+          2
+        ]
+      ],
+      "kernel_basis_columns": [
+        [
+          7,
+          0,
+          4,
+          0,
+          0,
+          2
+        ],
+        [
+          0,
+          7,
+          6,
+          0,
+          0,
+          6
+        ],
+        [
+          0,
+          0,
+          1,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          7,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          7,
+          2
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          1
+        ]
+      ],
+      "kernel_smith": [
+        1,
+        1,
+        7,
+        7,
+        7,
+        7
+      ],
+      "determinant": 2401,
+      "connection_keys": 2232,
+      "missing_nonzero_quotient_classes": 168,
+      "nested_in_source_kernel": false,
+      "target_independent_set": {
+        "status": "INFEASIBLE",
+        "feasible": false,
+        "proven_infeasible": true,
+        "vertices": [],
+        "candidate_vertices": 169,
+        "edge_constraints": 14028,
+        "elapsed_seconds": 0.02147545800107764,
+        "conflicts": 0,
+        "branches": 0,
+        "solver": "OR-Tools CP-SAT on direct-product quotient residues"
+      }
+    },
+    {
+      "sample": 1211,
+      "sweeps": 1,
+      "rows": [
+        [
+          1,
+          2,
+          2,
+          1,
+          4,
+          2
+        ],
+        [
+          1,
+          6,
+          1,
+          2,
+          6,
+          1
+        ],
+        [
+          1,
+          2,
+          1,
+          6,
+          5,
+          2
+        ],
+        [
+          1,
+          1,
+          0,
+          6,
+          2,
+          0
+        ]
+      ],
+      "kernel_basis_columns": [
+        [
+          7,
+          0,
+          0,
+          0,
+          0,
+          5
+        ],
+        [
+          0,
+          7,
+          0,
+          0,
+          0,
+          6
+        ],
+        [
+          0,
+          0,
+          7,
+          0,
+          4,
+          6
+        ],
+        [
+          0,
+          0,
+          0,
+          7,
+          2,
+          4
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          1,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          1
+        ]
+      ],
+      "kernel_smith": [
+        1,
+        1,
+        7,
+        7,
+        7,
+        7
+      ],
+      "determinant": 2401,
+      "connection_keys": 2232,
+      "missing_nonzero_quotient_classes": 168,
+      "nested_in_source_kernel": false,
+      "target_independent_set": {
+        "status": "INFEASIBLE",
+        "feasible": false,
+        "proven_infeasible": true,
+        "vertices": [],
+        "candidate_vertices": 169,
+        "edge_constraints": 14028,
+        "elapsed_seconds": 0.021653333998983726,
+        "conflicts": 0,
+        "branches": 0,
+        "solver": "OR-Tools CP-SAT on direct-product quotient residues"
+      }
+    },
+    {
+      "sample": 1237,
+      "sweeps": 1,
+      "rows": [
+        [
+          1,
+          4,
+          2,
+          6,
+          4,
+          1
+        ],
+        [
+          1,
+          6,
+          1,
+          2,
+          4,
+          3
+        ],
+        [
+          1,
+          5,
+          5,
+          3,
+          1,
+          2
+        ],
+        [
+          1,
+          2,
+          0,
+          3,
+          1,
+          0
+        ]
+      ],
+      "kernel_basis_columns": [
+        [
+          7,
+          0,
+          0,
+          0,
+          0,
+          4
+        ],
+        [
+          0,
+          7,
+          0,
+          0,
+          4,
+          5
+        ],
+        [
+          0,
+          0,
+          7,
+          0,
+          6,
+          5
+        ],
+        [
+          0,
+          0,
+          0,
+          7,
+          4,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          1,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          1
+        ]
+      ],
+      "kernel_smith": [
+        1,
+        1,
+        7,
+        7,
+        7,
+        7
+      ],
+      "determinant": 2401,
+      "connection_keys": 2232,
+      "missing_nonzero_quotient_classes": 168,
+      "nested_in_source_kernel": false,
+      "target_independent_set": {
+        "status": "INFEASIBLE",
+        "feasible": false,
+        "proven_infeasible": true,
+        "vertices": [],
+        "candidate_vertices": 169,
+        "edge_constraints": 14028,
+        "elapsed_seconds": 0.02131179199932376,
+        "conflicts": 0,
+        "branches": 0,
+        "solver": "OR-Tools CP-SAT on direct-product quotient residues"
+      }
+    },
+    {
+      "sample": 1242,
+      "sweeps": 1,
+      "rows": [
+        [
+          1,
+          1,
+          2,
+          2,
+          1,
+          6
+        ],
+        [
+          1,
+          6,
+          0,
+          0,
+          3,
+          4
+        ],
+        [
+          1,
+          2,
+          1,
+          0,
+          0,
+          4
+        ],
+        [
+          1,
+          3,
+          0,
+          5,
+          3,
+          6
+        ]
+      ],
+      "kernel_basis_columns": [
+        [
+          7,
+          0,
+          0,
+          4,
+          0,
+          2
+        ],
+        [
+          0,
+          7,
+          0,
+          4,
+          0,
+          3
+        ],
+        [
+          0,
+          0,
+          7,
+          2,
+          0,
+          2
+        ],
+        [
+          0,
+          0,
+          0,
+          1,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          7,
+          6
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          1
+        ]
+      ],
+      "kernel_smith": [
+        1,
+        1,
+        7,
+        7,
+        7,
+        7
+      ],
+      "determinant": 2401,
+      "connection_keys": 2232,
+      "missing_nonzero_quotient_classes": 168,
+      "nested_in_source_kernel": false,
+      "target_independent_set": {
+        "status": "INFEASIBLE",
+        "feasible": false,
+        "proven_infeasible": true,
+        "vertices": [],
+        "candidate_vertices": 169,
+        "edge_constraints": 14028,
+        "elapsed_seconds": 0.021056332996522542,
+        "conflicts": 0,
+        "branches": 0,
+        "solver": "OR-Tools CP-SAT on direct-product quotient residues"
+      }
+    },
+    {
+      "sample": 1244,
+      "sweeps": 1,
+      "rows": [
+        [
+          1,
+          4,
+          2,
+          1,
+          6,
+          1
+        ],
+        [
+          0,
+          1,
+          3,
+          3,
+          3,
+          0
+        ],
+        [
+          1,
+          0,
+          5,
+          1,
+          2,
+          6
+        ],
+        [
+          1,
+          0,
+          2,
+          3,
+          5,
+          2
+        ]
+      ],
+      "kernel_basis_columns": [
+        [
+          7,
+          0,
+          0,
+          0,
+          4,
+          1
+        ],
+        [
+          0,
+          7,
+          0,
+          0,
+          4,
+          6
+        ],
+        [
+          0,
+          0,
+          7,
+          0,
+          2,
+          4
+        ],
+        [
+          0,
+          0,
+          0,
+          7,
+          5,
+          1
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          1,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          1
+        ]
+      ],
+      "kernel_smith": [
+        1,
+        1,
+        7,
+        7,
+        7,
+        7
+      ],
+      "determinant": 2401,
+      "connection_keys": 2232,
+      "missing_nonzero_quotient_classes": 168,
+      "nested_in_source_kernel": false,
+      "target_independent_set": {
+        "status": "INFEASIBLE",
+        "feasible": false,
+        "proven_infeasible": true,
+        "vertices": [],
+        "candidate_vertices": 169,
+        "edge_constraints": 14028,
+        "elapsed_seconds": 0.021226541000942234,
+        "conflicts": 0,
+        "branches": 0,
+        "solver": "OR-Tools CP-SAT on direct-product quotient residues"
+      }
+    },
+    {
+      "sample": 1270,
+      "sweeps": 1,
+      "rows": [
+        [
+          1,
+          3,
+          2,
+          0,
+          1,
+          5
+        ],
+        [
+          1,
+          0,
+          5,
+          1,
+          0,
+          6
+        ],
+        [
+          0,
+          1,
+          2,
+          0,
+          4,
+          0
+        ],
+        [
+          1,
+          2,
+          4,
+          6,
+          3,
+          0
+        ]
+      ],
+      "kernel_basis_columns": [
+        [
+          7,
+          0,
+          0,
+          0,
+          2,
+          0
+        ],
+        [
+          0,
+          7,
+          0,
+          0,
+          4,
+          1
+        ],
+        [
+          0,
+          0,
+          7,
+          0,
+          3,
+          3
+        ],
+        [
+          0,
+          0,
+          0,
+          7,
+          4,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          1,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          1
+        ]
+      ],
+      "kernel_smith": [
+        1,
+        1,
+        7,
+        7,
+        7,
+        7
+      ],
+      "determinant": 2401,
+      "connection_keys": 2232,
+      "missing_nonzero_quotient_classes": 168,
+      "nested_in_source_kernel": false,
+      "target_independent_set": {
+        "status": "INFEASIBLE",
+        "feasible": false,
+        "proven_infeasible": true,
+        "vertices": [],
+        "candidate_vertices": 169,
+        "edge_constraints": 14028,
+        "elapsed_seconds": 0.02146875000471482,
+        "conflicts": 0,
+        "branches": 0,
+        "solver": "OR-Tools CP-SAT on direct-product quotient residues"
+      }
+    },
+    {
+      "sample": 1316,
+      "sweeps": 1,
+      "rows": [
+        [
+          0,
+          1,
+          3,
+          1,
+          1,
+          2
+        ],
+        [
+          1,
+          4,
+          6,
+          0,
+          4,
+          2
+        ],
+        [
+          1,
+          6,
+          2,
+          6,
+          6,
+          6
+        ],
+        [
+          1,
+          5,
+          2,
+          1,
+          4,
+          2
+        ]
+      ],
+      "kernel_basis_columns": [
+        [
+          7,
+          0,
+          0,
+          5,
+          0,
+          6
+        ],
+        [
+          0,
+          7,
+          0,
+          2,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          7,
+          6,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          1,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          7,
+          5
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          1
+        ]
+      ],
+      "kernel_smith": [
+        1,
+        1,
+        7,
+        7,
+        7,
+        7
+      ],
+      "determinant": 2401,
+      "connection_keys": 2232,
+      "missing_nonzero_quotient_classes": 168,
+      "nested_in_source_kernel": false,
+      "target_independent_set": {
+        "status": "INFEASIBLE",
+        "feasible": false,
+        "proven_infeasible": true,
+        "vertices": [],
+        "candidate_vertices": 169,
+        "edge_constraints": 14028,
+        "elapsed_seconds": 0.02171995900425827,
+        "conflicts": 0,
+        "branches": 0,
+        "solver": "OR-Tools CP-SAT on direct-product quotient residues"
+      }
+    },
+    {
+      "sample": 1442,
+      "sweeps": 1,
+      "rows": [
+        [
+          1,
+          0,
+          1,
+          6,
+          3,
+          0
+        ],
+        [
+          1,
+          4,
+          2,
+          0,
+          6,
+          3
+        ],
+        [
+          1,
+          0,
+          4,
+          6,
+          5,
+          1
+        ],
+        [
+          1,
+          1,
+          3,
+          4,
+          6,
+          6
+        ]
+      ],
+      "kernel_basis_columns": [
+        [
+          7,
+          0,
+          0,
+          0,
+          1,
+          5
+        ],
+        [
+          0,
+          7,
+          0,
+          0,
+          5,
+          4
+        ],
+        [
+          0,
+          0,
+          7,
+          0,
+          4,
+          2
+        ],
+        [
+          0,
+          0,
+          0,
+          7,
+          1,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          1,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          1
+        ]
+      ],
+      "kernel_smith": [
+        1,
+        1,
+        7,
+        7,
+        7,
+        7
+      ],
+      "determinant": 2401,
+      "connection_keys": 2232,
+      "missing_nonzero_quotient_classes": 168,
+      "nested_in_source_kernel": false,
+      "target_independent_set": {
+        "status": "INFEASIBLE",
+        "feasible": false,
+        "proven_infeasible": true,
+        "vertices": [],
+        "candidate_vertices": 169,
+        "edge_constraints": 14028,
+        "elapsed_seconds": 0.03325191699696006,
+        "conflicts": 0,
+        "branches": 0,
+        "solver": "OR-Tools CP-SAT on direct-product quotient residues"
+      }
+    },
+    {
+      "sample": 1663,
+      "sweeps": 1,
+      "rows": [
+        [
+          1,
+          1,
+          4,
+          4,
+          3,
+          4
+        ],
+        [
+          0,
+          0,
+          1,
+          3,
+          1,
+          4
+        ],
+        [
+          1,
+          6,
+          5,
+          5,
+          6,
+          3
+        ],
+        [
+          1,
+          4,
+          3,
+          4,
+          5,
+          6
+        ]
+      ],
+      "kernel_basis_columns": [
+        [
+          7,
+          0,
+          0,
+          2,
+          0,
+          4
+        ],
+        [
+          0,
+          7,
+          0,
+          6,
+          0,
+          3
+        ],
+        [
+          0,
+          0,
+          7,
+          4,
+          0,
+          1
+        ],
+        [
+          0,
+          0,
+          0,
+          1,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          7,
+          2
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          1
+        ]
+      ],
+      "kernel_smith": [
+        1,
+        1,
+        7,
+        7,
+        7,
+        7
+      ],
+      "determinant": 2401,
+      "connection_keys": 2232,
+      "missing_nonzero_quotient_classes": 168,
+      "nested_in_source_kernel": false,
+      "target_independent_set": {
+        "status": "INFEASIBLE",
+        "feasible": false,
+        "proven_infeasible": true,
+        "vertices": [],
+        "candidate_vertices": 169,
+        "edge_constraints": 14028,
+        "elapsed_seconds": 0.02131345799716655,
+        "conflicts": 0,
+        "branches": 0,
+        "solver": "OR-Tools CP-SAT on direct-product quotient residues"
+      }
+    },
+    {
+      "sample": 1689,
+      "sweeps": 1,
+      "rows": [
+        [
+          0,
+          1,
+          3,
+          1,
+          5,
+          4
+        ],
+        [
+          1,
+          3,
+          5,
+          1,
+          3,
+          6
+        ],
+        [
+          1,
+          6,
+          3,
+          0,
+          6,
+          0
+        ],
+        [
+          1,
+          5,
+          0,
+          6,
+          2,
+          6
+        ]
+      ],
+      "kernel_basis_columns": [
+        [
+          7,
+          0,
+          0,
+          5,
+          0,
+          2
+        ],
+        [
+          0,
+          7,
+          0,
+          2,
+          0,
+          1
+        ],
+        [
+          0,
+          0,
+          7,
+          6,
+          0,
+          1
+        ],
+        [
+          0,
+          0,
+          0,
+          1,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          7,
+          4
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          1
+        ]
+      ],
+      "kernel_smith": [
+        1,
+        1,
+        7,
+        7,
+        7,
+        7
+      ],
+      "determinant": 2401,
+      "connection_keys": 2232,
+      "missing_nonzero_quotient_classes": 168,
+      "nested_in_source_kernel": false,
+      "target_independent_set": {
+        "status": "INFEASIBLE",
+        "feasible": false,
+        "proven_infeasible": true,
+        "vertices": [],
+        "candidate_vertices": 169,
+        "edge_constraints": 14028,
+        "elapsed_seconds": 0.02178683300007833,
+        "conflicts": 0,
+        "branches": 0,
+        "solver": "OR-Tools CP-SAT on direct-product quotient residues"
+      }
+    },
+    {
+      "sample": 1693,
+      "sweeps": 1,
+      "rows": [
+        [
+          1,
+          5,
+          6,
+          3,
+          1,
+          0
+        ],
+        [
+          1,
+          3,
+          6,
+          4,
+          2,
+          4
+        ],
+        [
+          0,
+          1,
+          2,
+          1,
+          6,
+          5
+        ],
+        [
+          1,
+          3,
+          0,
+          4,
+          5,
+          3
+        ]
+      ],
+      "kernel_basis_columns": [
+        [
+          7,
+          0,
+          0,
+          0,
+          0,
+          3
+        ],
+        [
+          0,
+          7,
+          0,
+          0,
+          5,
+          6
+        ],
+        [
+          0,
+          0,
+          7,
+          0,
+          4,
+          1
+        ],
+        [
+          0,
+          0,
+          0,
+          7,
+          2,
+          1
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          1,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          1
+        ]
+      ],
+      "kernel_smith": [
+        1,
+        1,
+        7,
+        7,
+        7,
+        7
+      ],
+      "determinant": 2401,
+      "connection_keys": 2232,
+      "missing_nonzero_quotient_classes": 168,
+      "nested_in_source_kernel": false,
+      "target_independent_set": {
+        "status": "INFEASIBLE",
+        "feasible": false,
+        "proven_infeasible": true,
+        "vertices": [],
+        "candidate_vertices": 169,
+        "edge_constraints": 14028,
+        "elapsed_seconds": 0.021723832993302494,
+        "conflicts": 0,
+        "branches": 0,
+        "solver": "OR-Tools CP-SAT on direct-product quotient residues"
+      }
+    },
+    {
+      "sample": 1786,
+      "sweeps": 1,
+      "rows": [
+        [
+          1,
+          0,
+          6,
+          2,
+          2,
+          2
+        ],
+        [
+          1,
+          4,
+          4,
+          1,
+          5,
+          2
+        ],
+        [
+          1,
+          3,
+          0,
+          2,
+          1,
+          3
+        ],
+        [
+          1,
+          4,
+          3,
+          3,
+          6,
+          1
+        ]
+      ],
+      "kernel_basis_columns": [
+        [
+          7,
+          0,
+          0,
+          0,
+          6,
+          4
+        ],
+        [
+          0,
+          7,
+          0,
+          0,
+          6,
+          5
+        ],
+        [
+          0,
+          0,
+          7,
+          0,
+          4,
+          5
+        ],
+        [
+          0,
+          0,
+          0,
+          7,
+          5,
+          3
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          1,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          1
+        ]
+      ],
+      "kernel_smith": [
+        1,
+        1,
+        7,
+        7,
+        7,
+        7
+      ],
+      "determinant": 2401,
+      "connection_keys": 2232,
+      "missing_nonzero_quotient_classes": 168,
+      "nested_in_source_kernel": false,
+      "target_independent_set": {
+        "status": "INFEASIBLE",
+        "feasible": false,
+        "proven_infeasible": true,
+        "vertices": [],
+        "candidate_vertices": 169,
+        "edge_constraints": 14028,
+        "elapsed_seconds": 0.021643041000061203,
+        "conflicts": 0,
+        "branches": 0,
+        "solver": "OR-Tools CP-SAT on direct-product quotient residues"
+      }
+    },
+    {
+      "sample": 1815,
+      "sweeps": 1,
+      "rows": [
+        [
+          1,
+          5,
+          6,
+          3,
+          6,
+          6
+        ],
+        [
+          1,
+          5,
+          5,
+          5,
+          3,
+          3
+        ],
+        [
+          1,
+          2,
+          2,
+          1,
+          6,
+          5
+        ],
+        [
+          1,
+          6,
+          0,
+          2,
+          6,
+          5
+        ]
+      ],
+      "kernel_basis_columns": [
+        [
+          7,
+          0,
+          0,
+          4,
+          0,
+          5
+        ],
+        [
+          0,
+          7,
+          0,
+          6,
+          0,
+          5
+        ],
+        [
+          0,
+          0,
+          7,
+          2,
+          0,
+          3
+        ],
+        [
+          0,
+          0,
+          0,
+          1,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          7,
+          5
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          1
+        ]
+      ],
+      "kernel_smith": [
+        1,
+        1,
+        7,
+        7,
+        7,
+        7
+      ],
+      "determinant": 2401,
+      "connection_keys": 2232,
+      "missing_nonzero_quotient_classes": 168,
+      "nested_in_source_kernel": false,
+      "target_independent_set": {
+        "status": "INFEASIBLE",
+        "feasible": false,
+        "proven_infeasible": true,
+        "vertices": [],
+        "candidate_vertices": 169,
+        "edge_constraints": 14028,
+        "elapsed_seconds": 0.020307207996665966,
+        "conflicts": 0,
+        "branches": 0,
+        "solver": "OR-Tools CP-SAT on direct-product quotient residues"
+      }
+    },
+    {
+      "sample": 1822,
+      "sweeps": 1,
+      "rows": [
+        [
+          1,
+          0,
+          5,
+          1,
+          6,
+          5
+        ],
+        [
+          1,
+          3,
+          6,
+          6,
+          5,
+          3
+        ],
+        [
+          1,
+          5,
+          5,
+          4,
+          3,
+          6
+        ],
+        [
+          1,
+          3,
+          1,
+          0,
+          2,
+          2
+        ]
+      ],
+      "kernel_basis_columns": [
+        [
+          7,
+          0,
+          0,
+          0,
+          0,
+          3
+        ],
+        [
+          0,
+          7,
+          0,
+          0,
+          5,
+          4
+        ],
+        [
+          0,
+          0,
+          7,
+          0,
+          4,
+          4
+        ],
+        [
+          0,
+          0,
+          0,
+          7,
+          2,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          1,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          1
+        ]
+      ],
+      "kernel_smith": [
+        1,
+        1,
+        7,
+        7,
+        7,
+        7
+      ],
+      "determinant": 2401,
+      "connection_keys": 2232,
+      "missing_nonzero_quotient_classes": 168,
+      "nested_in_source_kernel": false,
+      "target_independent_set": {
+        "status": "INFEASIBLE",
+        "feasible": false,
+        "proven_infeasible": true,
+        "vertices": [],
+        "candidate_vertices": 169,
+        "edge_constraints": 14028,
+        "elapsed_seconds": 0.02155404099903535,
+        "conflicts": 0,
+        "branches": 0,
+        "solver": "OR-Tools CP-SAT on direct-product quotient residues"
+      }
+    },
+    {
+      "sample": 1884,
+      "sweeps": 1,
+      "rows": [
+        [
+          0,
+          1,
+          2,
+          5,
+          3,
+          3
+        ],
+        [
+          1,
+          3,
+          0,
+          5,
+          0,
+          3
+        ],
+        [
+          1,
+          2,
+          4,
+          4,
+          5,
+          6
+        ],
+        [
+          1,
+          0,
+          5,
+          2,
+          2,
+          3
+        ]
+      ],
+      "kernel_basis_columns": [
+        [
+          7,
+          0,
+          0,
+          6,
+          0,
+          2
+        ],
+        [
+          0,
+          7,
+          0,
+          1,
+          0,
+          3
+        ],
+        [
+          0,
+          0,
+          7,
+          4,
+          0,
+          1
+        ],
+        [
+          0,
+          0,
+          0,
+          1,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          7,
+          2
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          1
+        ]
+      ],
+      "kernel_smith": [
+        1,
+        1,
+        7,
+        7,
+        7,
+        7
+      ],
+      "determinant": 2401,
+      "connection_keys": 2232,
+      "missing_nonzero_quotient_classes": 168,
+      "nested_in_source_kernel": false,
+      "target_independent_set": {
+        "status": "INFEASIBLE",
+        "feasible": false,
+        "proven_infeasible": true,
+        "vertices": [],
+        "candidate_vertices": 169,
+        "edge_constraints": 14028,
+        "elapsed_seconds": 0.02214583299792139,
+        "conflicts": 0,
+        "branches": 0,
+        "solver": "OR-Tools CP-SAT on direct-product quotient residues"
+      }
+    },
+    {
+      "sample": 1917,
+      "sweeps": 1,
+      "rows": [
+        [
+          1,
+          5,
+          3,
+          4,
+          3,
+          6
+        ],
+        [
+          1,
+          3,
+          0,
+          1,
+          3,
+          0
+        ],
+        [
+          1,
+          3,
+          6,
+          3,
+          3,
+          1
+        ],
+        [
+          1,
+          4,
+          0,
+          5,
+          5,
+          2
+        ]
+      ],
+      "kernel_basis_columns": [
+        [
+          7,
+          0,
+          0,
+          0,
+          5,
+          0
+        ],
+        [
+          0,
+          7,
+          0,
+          0,
+          3,
+          4
+        ],
+        [
+          0,
+          0,
+          7,
+          0,
+          1,
+          5
+        ],
+        [
+          0,
+          0,
+          0,
+          7,
+          4,
+          2
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          1,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          1
+        ]
+      ],
+      "kernel_smith": [
+        1,
+        1,
+        7,
+        7,
+        7,
+        7
+      ],
+      "determinant": 2401,
+      "connection_keys": 2232,
+      "missing_nonzero_quotient_classes": 168,
+      "nested_in_source_kernel": false,
+      "target_independent_set": {
+        "status": "INFEASIBLE",
+        "feasible": false,
+        "proven_infeasible": true,
+        "vertices": [],
+        "candidate_vertices": 169,
+        "edge_constraints": 14028,
+        "elapsed_seconds": 0.021392499998910353,
+        "conflicts": 0,
+        "branches": 0,
+        "solver": "OR-Tools CP-SAT on direct-product quotient residues"
+      }
+    },
+    {
+      "sample": 1927,
+      "sweeps": 1,
+      "rows": [
+        [
+          1,
+          2,
+          4,
+          3,
+          3,
+          6
+        ],
+        [
+          1,
+          4,
+          1,
+          3,
+          2,
+          2
+        ],
+        [
+          1,
+          4,
+          1,
+          1,
+          3,
+          2
+        ],
+        [
+          1,
+          2,
+          3,
+          2,
+          4,
+          6
+        ]
+      ],
+      "kernel_basis_columns": [
+        [
+          7,
+          0,
+          0,
+          0,
+          5,
+          4
+        ],
+        [
+          0,
+          7,
+          0,
+          0,
+          3,
+          2
+        ],
+        [
+          0,
+          0,
+          7,
+          0,
+          4,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          7,
+          4,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          1,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          1
+        ]
+      ],
+      "kernel_smith": [
+        1,
+        1,
+        7,
+        7,
+        7,
+        7
+      ],
+      "determinant": 2401,
+      "connection_keys": 2232,
+      "missing_nonzero_quotient_classes": 168,
+      "nested_in_source_kernel": false,
+      "target_independent_set": {
+        "status": "INFEASIBLE",
+        "feasible": false,
+        "proven_infeasible": true,
+        "vertices": [],
+        "candidate_vertices": 169,
+        "edge_constraints": 14028,
+        "elapsed_seconds": 0.02132591600093292,
+        "conflicts": 0,
+        "branches": 0,
+        "solver": "OR-Tools CP-SAT on direct-product quotient residues"
+      }
+    },
+    {
+      "sample": 1950,
+      "sweeps": 1,
+      "rows": [
+        [
+          0,
+          1,
+          4,
+          0,
+          5,
+          2
+        ],
+        [
+          1,
+          6,
+          6,
+          5,
+          1,
+          5
+        ],
+        [
+          1,
+          6,
+          3,
+          4,
+          3,
+          2
+        ],
+        [
+          1,
+          2,
+          3,
+          1,
+          4,
+          2
+        ]
+      ],
+      "kernel_basis_columns": [
+        [
+          7,
+          0,
+          0,
+          0,
+          2,
+          6
+        ],
+        [
+          0,
+          7,
+          0,
+          0,
+          3,
+          1
+        ],
+        [
+          0,
+          0,
+          7,
+          0,
+          5,
+          1
+        ],
+        [
+          0,
+          0,
+          0,
+          7,
+          1,
+          1
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          1,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          1
+        ]
+      ],
+      "kernel_smith": [
+        1,
+        1,
+        7,
+        7,
+        7,
+        7
+      ],
+      "determinant": 2401,
+      "connection_keys": 2232,
+      "missing_nonzero_quotient_classes": 168,
+      "nested_in_source_kernel": false,
+      "target_independent_set": {
+        "status": "INFEASIBLE",
+        "feasible": false,
+        "proven_infeasible": true,
+        "vertices": [],
+        "candidate_vertices": 169,
+        "edge_constraints": 14028,
+        "elapsed_seconds": 0.019787708995863795,
+        "conflicts": 0,
+        "branches": 0,
+        "solver": "OR-Tools CP-SAT on direct-product quotient residues"
+      }
+    },
+    {
+      "sample": 1952,
+      "sweeps": 1,
+      "rows": [
+        [
+          1,
+          4,
+          6,
+          0,
+          6,
+          1
+        ],
+        [
+          1,
+          2,
+          4,
+          3,
+          1,
+          1
+        ],
+        [
+          1,
+          3,
+          0,
+          0,
+          5,
+          1
+        ],
+        [
+          1,
+          3,
+          1,
+          1,
+          0,
+          0
+        ]
+      ],
+      "kernel_basis_columns": [
+        [
+          7,
+          0,
+          0,
+          3,
+          0,
+          2
+        ],
+        [
+          0,
+          7,
+          0,
+          6,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          7,
+          6,
+          0,
+          5
+        ],
+        [
+          0,
+          0,
+          0,
+          1,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          7,
+          5
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          1
+        ]
+      ],
+      "kernel_smith": [
+        1,
+        1,
+        7,
+        7,
+        7,
+        7
+      ],
+      "determinant": 2401,
+      "connection_keys": 2232,
+      "missing_nonzero_quotient_classes": 168,
+      "nested_in_source_kernel": false,
+      "target_independent_set": {
+        "status": "INFEASIBLE",
+        "feasible": false,
+        "proven_infeasible": true,
+        "vertices": [],
+        "candidate_vertices": 169,
+        "edge_constraints": 14028,
+        "elapsed_seconds": 0.019674125003803056,
+        "conflicts": 0,
+        "branches": 0,
+        "solver": "OR-Tools CP-SAT on direct-product quotient residues"
+      }
+    },
+    {
+      "sample": 1955,
+      "sweeps": 1,
+      "rows": [
+        [
+          1,
+          2,
+          1,
+          4,
+          3,
+          0
+        ],
+        [
+          1,
+          6,
+          6,
+          4,
+          6,
+          4
+        ],
+        [
+          1,
+          1,
+          5,
+          4,
+          3,
+          0
+        ],
+        [
+          1,
+          4,
+          1,
+          0,
+          6,
+          3
+        ]
+      ],
+      "kernel_basis_columns": [
+        [
+          7,
+          0,
+          0,
+          2,
+          0,
+          2
+        ],
+        [
+          0,
+          7,
+          0,
+          2,
+          0,
+          4
+        ],
+        [
+          0,
+          0,
+          7,
+          4,
+          0,
+          1
+        ],
+        [
+          0,
+          0,
+          0,
+          1,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          7,
+          1
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          1
+        ]
+      ],
+      "kernel_smith": [
+        1,
+        1,
+        7,
+        7,
+        7,
+        7
+      ],
+      "determinant": 2401,
+      "connection_keys": 2232,
+      "missing_nonzero_quotient_classes": 168,
+      "nested_in_source_kernel": false,
+      "target_independent_set": {
+        "status": "INFEASIBLE",
+        "feasible": false,
+        "proven_infeasible": true,
+        "vertices": [],
+        "candidate_vertices": 169,
+        "edge_constraints": 14028,
+        "elapsed_seconds": 0.019828167001833208,
+        "conflicts": 0,
+        "branches": 0,
+        "solver": "OR-Tools CP-SAT on direct-product quotient residues"
+      }
+    },
+    {
+      "sample": 1958,
+      "sweeps": 1,
+      "rows": [
+        [
+          1,
+          3,
+          2,
+          1,
+          6,
+          6
+        ],
+        [
+          1,
+          0,
+          3,
+          4,
+          6,
+          4
+        ],
+        [
+          1,
+          2,
+          6,
+          4,
+          5,
+          6
+        ],
+        [
+          1,
+          3,
+          5,
+          2,
+          4,
+          2
+        ]
+      ],
+      "kernel_basis_columns": [
+        [
+          7,
+          0,
+          0,
+          4,
+          0,
+          5
+        ],
+        [
+          0,
+          7,
+          0,
+          4,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          7,
+          2,
+          0,
+          2
+        ],
+        [
+          0,
+          0,
+          0,
+          1,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          7,
+          1
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          1
+        ]
+      ],
+      "kernel_smith": [
+        1,
+        1,
+        7,
+        7,
+        7,
+        7
+      ],
+      "determinant": 2401,
+      "connection_keys": 2232,
+      "missing_nonzero_quotient_classes": 168,
+      "nested_in_source_kernel": false,
+      "target_independent_set": {
+        "status": "INFEASIBLE",
+        "feasible": false,
+        "proven_infeasible": true,
+        "vertices": [],
+        "candidate_vertices": 169,
+        "edge_constraints": 14028,
+        "elapsed_seconds": 0.019920833001378924,
+        "conflicts": 0,
+        "branches": 0,
+        "solver": "OR-Tools CP-SAT on direct-product quotient residues"
+      }
+    }
+  ],
+  "promising_periods": [],
+  "record_graphs": [
+    {
+      "sample": 0,
+      "connection_keys": 2400,
+      "kernel_basis_columns": [
+        [
+          7,
+          0,
+          0,
+          0,
+          6,
+          2
+        ],
+        [
+          0,
+          7,
+          0,
+          0,
+          2,
+          5
+        ],
+        [
+          0,
+          0,
+          7,
+          0,
+          3,
+          4
+        ],
+        [
+          0,
+          0,
+          0,
+          7,
+          3,
+          5
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          1,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          1
+        ]
+      ],
+      "nested_in_source_kernel": false,
+      "target_independent_set": {
+        "status": "INFEASIBLE",
+        "feasible": false,
+        "proven_infeasible": true,
+        "vertices": [],
+        "candidate_vertices": 1,
+        "edge_constraints": 0,
+        "elapsed_seconds": 0.0,
+        "solver": "direct-product cardinality precheck"
+      },
+      "independence_number_upper_bound": 7
+    },
+    {
+      "sample": 1,
+      "connection_keys": 2398,
+      "kernel_basis_columns": [
+        [
+          7,
+          0,
+          0,
+          0,
+          4,
+          4
+        ],
+        [
+          0,
+          7,
+          0,
+          0,
+          3,
+          4
+        ],
+        [
+          0,
+          0,
+          7,
+          0,
+          2,
+          4
+        ],
+        [
+          0,
+          0,
+          0,
+          7,
+          0,
+          4
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          1,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          1
+        ]
+      ],
+      "nested_in_source_kernel": false,
+      "target_independent_set": {
+        "status": "INFEASIBLE",
+        "feasible": false,
+        "proven_infeasible": true,
+        "vertices": [],
+        "candidate_vertices": 3,
+        "edge_constraints": 0,
+        "elapsed_seconds": 0.0,
+        "solver": "direct-product cardinality precheck"
+      },
+      "independence_number_upper_bound": 7
+    },
+    {
+      "sample": 2,
+      "connection_keys": 2372,
+      "kernel_basis_columns": [
+        [
+          7,
+          0,
+          0,
+          0,
+          0,
+          3
+        ],
+        [
+          0,
+          7,
+          0,
+          0,
+          2,
+          0
+        ],
+        [
+          0,
+          0,
+          7,
+          0,
+          1,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          7,
+          6,
+          2
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          1,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          1
+        ]
+      ],
+      "nested_in_source_kernel": false,
+      "target_independent_set": {
+        "status": "INFEASIBLE",
+        "feasible": false,
+        "proven_infeasible": true,
+        "vertices": [],
+        "candidate_vertices": 29,
+        "edge_constraints": 378,
+        "elapsed_seconds": 0.001822416998038534,
+        "conflicts": 0,
+        "branches": 0,
+        "solver": "OR-Tools CP-SAT on direct-product quotient residues"
+      },
+      "independence_number_upper_bound": 7
+    },
+    {
+      "sample": 5,
+      "connection_keys": 2236,
+      "kernel_basis_columns": [
+        [
+          7,
+          0,
+          0,
+          0,
+          6,
+          3
+        ],
+        [
+          0,
+          7,
+          0,
+          0,
+          2,
+          0
+        ],
+        [
+          0,
+          0,
+          7,
+          0,
+          3,
+          4
+        ],
+        [
+          0,
+          0,
+          0,
+          7,
+          1,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          1,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          1
+        ]
+      ],
+      "nested_in_source_kernel": false,
+      "target_independent_set": {
+        "status": "INFEASIBLE",
+        "feasible": false,
+        "proven_infeasible": true,
+        "vertices": [],
+        "candidate_vertices": 165,
+        "edge_constraints": 13366,
+        "elapsed_seconds": 0.019604582994361408,
+        "conflicts": 0,
+        "branches": 0,
+        "solver": "OR-Tools CP-SAT on direct-product quotient residues"
+      },
+      "independence_number_upper_bound": 7
+    },
+    {
+      "sample": 23,
+      "connection_keys": 2232,
+      "kernel_basis_columns": [
+        [
+          7,
+          0,
+          0,
+          0,
+          1,
+          6
+        ],
+        [
+          0,
+          7,
+          0,
+          0,
+          4,
+          6
+        ],
+        [
+          0,
+          0,
+          7,
+          0,
+          1,
+          2
+        ],
+        [
+          0,
+          0,
+          0,
+          7,
+          1,
+          5
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          1,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          1
+        ]
+      ],
+      "nested_in_source_kernel": false,
+      "target_independent_set": {
+        "status": "INFEASIBLE",
+        "feasible": false,
+        "proven_infeasible": true,
+        "vertices": [],
+        "candidate_vertices": 169,
+        "edge_constraints": 14028,
+        "elapsed_seconds": 0.020464167006139178,
+        "conflicts": 0,
+        "branches": 0,
+        "solver": "OR-Tools CP-SAT on direct-product quotient residues"
+      },
+      "independence_number_upper_bound": 7
+    },
+    {
+      "sample": 379,
+      "connection_keys": 1962,
+      "kernel_basis_columns": [
+        [
+          7,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          7,
+          0,
+          0,
+          0,
+          2
+        ],
+        [
+          0,
+          0,
+          7,
+          0,
+          4,
+          1
+        ],
+        [
+          0,
+          0,
+          0,
+          7,
+          2,
+          3
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          1,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          1
+        ]
+      ],
+      "nested_in_source_kernel": false,
+      "target_independent_set": {
+        "status": "INFEASIBLE",
+        "feasible": false,
+        "proven_infeasible": true,
+        "vertices": [],
+        "candidate_vertices": 439,
+        "edge_constraints": 79497,
+        "elapsed_seconds": 0.23176962500292575,
+        "conflicts": 0,
+        "branches": 0,
+        "solver": "OR-Tools CP-SAT on direct-product quotient residues"
+      },
+      "independence_number_upper_bound": 7
+    },
+    {
+      "sample": 1504,
+      "connection_keys": 1932,
+      "kernel_basis_columns": [
+        [
+          7,
+          0,
+          0,
+          0,
+          5,
+          4
+        ],
+        [
+          0,
+          7,
+          0,
+          0,
+          0,
+          2
+        ],
+        [
+          0,
+          0,
+          7,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          7,
+          6,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          1,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          1
+        ]
+      ],
+      "nested_in_source_kernel": false,
+      "target_independent_set": {
+        "status": "INFEASIBLE",
+        "feasible": false,
+        "proven_infeasible": true,
+        "vertices": [],
+        "candidate_vertices": 469,
+        "edge_constraints": 91530,
+        "elapsed_seconds": 0.32384216700302204,
+        "conflicts": 0,
+        "branches": 526,
+        "solver": "OR-Tools CP-SAT on direct-product quotient residues"
+      },
+      "independence_number_upper_bound": 7
+    }
+  ],
+  "target_status_counts": {
+    "INFEASIBLE": 2996
+  },
+  "elapsed_seconds": 66.32872012499865
+}

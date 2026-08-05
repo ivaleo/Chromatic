@@ -1,0 +1,103 @@
+{
+  "method": "valid-period primary search followed by exact compatible-pair maximum matching for non-coset coloring",
+  "lattice": "deformed d6 metric",
+  "metric_source": "audit-data/hd-2026-07/sdp_d6_336_wall7_pass1.json",
+  "parent_basis": [
+    [
+      1.4215962765275434,
+      0.003773228330682823,
+      0.002035905935128417,
+      0.0023199676499730815,
+      0.0023968380558363534,
+      0.0051723064967458855
+    ],
+    [
+      1.0698506200172,
+      1.1659516140257562,
+      0.16253492090697377,
+      0.06975106693336422,
+      -0.04993502373984737,
+      0.08507301616289817
+    ],
+    [
+      1.7807643991885942,
+      0.8313959442445019,
+      1.1023401333656202,
+      0.004793043837427617,
+      -0.0043155531961653025,
+      0.005335422316569359
+    ],
+    [
+      2.1397012401418247,
+      1.5506918334145041,
+      0.9109783881380606,
+      0.8959068144625839,
+      -0.09987004718515029,
+      0.1701460318973271
+    ],
+    [
+      1.4281623138705715,
+      0.9960143681239737,
+      0.6289795182546641,
+      0.5414737770070729,
+      0.9029164644679355,
+      0.17031836713991164
+    ],
+    [
+      0.7172485348628632,
+      0.5493586433680716,
+      0.2750828521956427,
+      0.35429690612699893,
+      0.5007244075907474,
+      0.8676577962236784
+    ]
+  ],
+  "parent_diameter": 1.8316672408418444,
+  "dimension": 6,
+  "target_colors": 342,
+  "index_interval": [
+    344,
+    684
+  ],
+  "structures": [
+    {
+      "index": 350,
+      "moduli": [
+        2,
+        5,
+        5,
+        7
+      ]
+    }
+  ],
+  "forbidden_projective_pairs": 4554,
+  "settings": {
+    "samples_per_index": 5,
+    "sweeps": 20,
+    "top": 12,
+    "keep_per_index": 8,
+    "matching_time_limit": 60.0,
+    "seed": 20260731
+  },
+  "index_results": [
+    {
+      "index": 350,
+      "moduli": [
+        2,
+        5,
+        5,
+        7
+      ],
+      "necessary_independence_number": 2,
+      "valid_samples": 0,
+      "invalid_samples": 5,
+      "unique_valid_kernels": 0,
+      "target_status_counts": {},
+      "best_connection_count": null,
+      "records": []
+    }
+  ],
+  "coloring": null,
+  "valid_combinatorial_witness": false,
+  "elapsed_seconds": 0.14890566599933663
+}

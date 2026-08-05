@@ -1,0 +1,266 @@
+{
+  "method": "all RREF prime-field composite covers of the exact 343 kernel; exact residue profiles plus CP-SAT target-independent-set screens",
+  "lattice": "E6*",
+  "dimension": 6,
+  "source_index": 343,
+  "source_kernel_determinant": 343,
+  "source_kernel_basis_columns": [
+    [
+      7,
+      0,
+      0,
+      5,
+      1,
+      5
+    ],
+    [
+      0,
+      7,
+      0,
+      2,
+      2,
+      0
+    ],
+    [
+      0,
+      0,
+      7,
+      6,
+      6,
+      2
+    ],
+    [
+      0,
+      0,
+      0,
+      1,
+      0,
+      0
+    ],
+    [
+      0,
+      0,
+      0,
+      0,
+      1,
+      0
+    ],
+    [
+      0,
+      0,
+      0,
+      0,
+      0,
+      1
+    ]
+  ],
+  "target_colors": 342,
+  "forbidden_projective_pairs": 3861,
+  "settings": {
+    "cases": [
+      [
+        3,
+        2
+      ]
+    ],
+    "decision_sparsest": 1,
+    "decision_per_profile": 0,
+    "decision_time_limit": 120.0,
+    "decision_workers": 8
+  },
+  "case_screens": [
+    {
+      "prime": 3,
+      "rank": 2,
+      "quotient_size": 9,
+      "subspace_count": 11011,
+      "period_order": 3087,
+      "expected_complete_multipartite_connections": 3078,
+      "connection_count_minimum": 1932,
+      "connection_count_maximum": 3078,
+      "connection_count_histogram": {
+        "2472": 324,
+        "2484": 648,
+        "2456": 864,
+        "2504": 648,
+        "2468": 324,
+        "2466": 216,
+        "2176": 108,
+        "2470": 324,
+        "2170": 162,
+        "1950": 108,
+        "2526": 72,
+        "2564": 36,
+        "2958": 72,
+        "2922": 648,
+        "2980": 1512,
+        "2962": 108,
+        "2880": 216,
+        "2968": 756,
+        "2876": 324,
+        "2992": 648,
+        "2914": 648,
+        "2982": 1332,
+        "2862": 108,
+        "2898": 36,
+        "1932": 12,
+        "3066": 240,
+        "3048": 216,
+        "3054": 27,
+        "3060": 108,
+        "2970": 36,
+        "2934": 72,
+        "2874": 36,
+        "3012": 9,
+        "3078": 9,
+        "2952": 4
+      },
+      "minimum_residues_per_source_class": 4,
+      "complete_multipartite_subspaces": 9,
+      "incomplete_subspace_count": 11002,
+      "incomplete_subspace_indices_preview": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16,
+        17,
+        18,
+        19,
+        20,
+        21,
+        22,
+        23,
+        24,
+        25,
+        26,
+        27,
+        28,
+        29,
+        30,
+        31,
+        32,
+        33,
+        34,
+        35,
+        36,
+        37,
+        38,
+        39
+      ],
+      "necessary_independence_number_for_target": 10,
+      "decision_selected": 1,
+      "decision_unscreened": 11001
+    }
+  ],
+  "exceptional_graphs": [
+    {
+      "prime": 3,
+      "rank": 2,
+      "quotient_size": 9,
+      "subspace_index": 393,
+      "rows": [
+        [
+          1,
+          0,
+          0,
+          2,
+          1,
+          2
+        ],
+        [
+          0,
+          1,
+          1,
+          1,
+          0,
+          0
+        ]
+      ],
+      "period_basis_columns": [
+        [
+          21,
+          0,
+          0,
+          12,
+          15,
+          12
+        ],
+        [
+          0,
+          21,
+          14,
+          16,
+          2,
+          0
+        ],
+        [
+          0,
+          0,
+          7,
+          6,
+          6,
+          2
+        ],
+        [
+          0,
+          0,
+          0,
+          1,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          1,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          1
+        ]
+      ],
+      "period_index": 3087,
+      "connection_keys": 1932,
+      "minimum_residues_per_source_class": 4,
+      "source_fiber_size": 9,
+      "target_independence_number": 10,
+      "target_independent_set": {
+        "status": "INFEASIBLE",
+        "feasible": false,
+        "proven_infeasible": true,
+        "vertices": [],
+        "candidate_vertices": 1155,
+        "edge_constraints": 472353,
+        "elapsed_seconds": 2.147303749996354,
+        "conflicts": 2640,
+        "branches": 13987,
+        "wall_time": 2.143256,
+        "solver": "OR-Tools CP-SAT target-feasibility oracle"
+      },
+      "independence_number": 9,
+      "fractional_chromatic_number": 343.0
+    }
+  ],
+  "promising_periods": [],
+  "elapsed_seconds": 8.029048917000182
+}

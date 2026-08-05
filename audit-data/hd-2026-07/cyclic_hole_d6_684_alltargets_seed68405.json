@@ -1,0 +1,343 @@
+{
+  "method": "joint cyclic-period and missing-difference modular descent, followed by HiGHS maximum matching",
+  "lattice": "E6*",
+  "dimension": 6,
+  "parent_basis": [
+    [
+      1.265404786448986,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    [
+      0.9490535898367389,
+      1.225222916032019,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    [
+      1.581755983061232,
+      0.7351337496192113,
+      0.9801783328256151,
+      0.0,
+      0.0,
+      0.0
+    ],
+    [
+      1.8981071796734779,
+      1.4702674992384224,
+      0.7351337496192115,
+      0.9490535898367394,
+      0.0,
+      0.0
+    ],
+    [
+      1.2654047864489855,
+      0.9801783328256148,
+      0.4900891664128076,
+      0.6327023932244932,
+      0.894776305443993,
+      0.0
+    ],
+    [
+      0.6327023932244927,
+      0.4900891664128074,
+      0.2450445832064038,
+      0.3163511966122466,
+      0.44738815272199645,
+      0.7748990112188825
+    ]
+  ],
+  "parent_diameter": 1.789552610887989,
+  "forbidden_projective_pairs": 3861,
+  "target_colors": 342,
+  "settings": {
+    "indices": [
+      684
+    ],
+    "restarts": 12,
+    "sweeps": 12,
+    "top": 10,
+    "pair_top": 0,
+    "pair_trials": 0,
+    "initial_row": null,
+    "cpsat_time_limit": 0.0,
+    "cpsat_workers": 8,
+    "max_targets_per_index": 0,
+    "matching_time_limit": 60.0,
+    "seed": 68405
+  },
+  "records": [
+    {
+      "period_index": 684,
+      "target_difference": 342,
+      "target_difference_order": 2,
+      "single_difference_matching_size": 342,
+      "required_pairs": 342,
+      "search": {
+        "success": false,
+        "score": 2,
+        "row": [
+          458,
+          623,
+          20,
+          74,
+          477,
+          579
+        ],
+        "restart": 0,
+        "sweep": 2,
+        "elapsed_seconds": 4.980180166996433
+      }
+    },
+    {
+      "period_index": 684,
+      "target_difference": 1,
+      "target_difference_order": 684,
+      "single_difference_matching_size": 342,
+      "required_pairs": 342,
+      "search": {
+        "success": false,
+        "score": 2,
+        "row": [
+          111,
+          26,
+          137,
+          22,
+          213,
+          482
+        ],
+        "restart": 3,
+        "sweep": 11,
+        "elapsed_seconds": 5.015749833000882
+      }
+    },
+    {
+      "period_index": 684,
+      "target_difference": 2,
+      "target_difference_order": 342,
+      "single_difference_matching_size": 342,
+      "required_pairs": 342,
+      "search": {
+        "success": false,
+        "score": 3,
+        "row": [
+          503,
+          629,
+          113,
+          574,
+          476,
+          596
+        ],
+        "restart": 1,
+        "sweep": 4,
+        "elapsed_seconds": 5.459350457997061
+      }
+    },
+    {
+      "period_index": 684,
+      "target_difference": 3,
+      "target_difference_order": 228,
+      "single_difference_matching_size": 342,
+      "required_pairs": 342,
+      "search": {
+        "success": false,
+        "score": 2,
+        "row": [
+          349,
+          575,
+          425,
+          322,
+          425,
+          577
+        ],
+        "restart": 5,
+        "sweep": 6,
+        "elapsed_seconds": 5.756243332994927
+      }
+    },
+    {
+      "period_index": 684,
+      "target_difference": 6,
+      "target_difference_order": 114,
+      "single_difference_matching_size": 342,
+      "required_pairs": 342,
+      "search": {
+        "success": false,
+        "score": 2,
+        "row": [
+          483,
+          320,
+          257,
+          271,
+          485,
+          27
+        ],
+        "restart": 0,
+        "sweep": 6,
+        "elapsed_seconds": 4.965745624998817
+      }
+    },
+    {
+      "period_index": 684,
+      "target_difference": 9,
+      "target_difference_order": 76,
+      "single_difference_matching_size": 342,
+      "required_pairs": 342,
+      "search": {
+        "success": false,
+        "score": 2,
+        "row": [
+          74,
+          211,
+          75,
+          152,
+          531,
+          1
+        ],
+        "restart": 11,
+        "sweep": 0,
+        "elapsed_seconds": 4.962858625003719
+      }
+    },
+    {
+      "period_index": 684,
+      "target_difference": 18,
+      "target_difference_order": 38,
+      "single_difference_matching_size": 342,
+      "required_pairs": 342,
+      "search": {
+        "success": false,
+        "score": 3,
+        "row": [
+          493,
+          42,
+          533,
+          349,
+          648,
+          155
+        ],
+        "restart": 0,
+        "sweep": 6,
+        "elapsed_seconds": 4.964014790995861
+      }
+    },
+    {
+      "period_index": 684,
+      "target_difference": 19,
+      "target_difference_order": 36,
+      "single_difference_matching_size": 342,
+      "required_pairs": 342,
+      "search": {
+        "success": false,
+        "score": 3,
+        "row": [
+          27,
+          435,
+          528,
+          369,
+          644,
+          328
+        ],
+        "restart": 7,
+        "sweep": 9,
+        "elapsed_seconds": 4.9674413750035455
+      }
+    },
+    {
+      "period_index": 684,
+      "target_difference": 38,
+      "target_difference_order": 18,
+      "single_difference_matching_size": 342,
+      "required_pairs": 342,
+      "search": {
+        "success": false,
+        "score": 2,
+        "row": [
+          315,
+          490,
+          566,
+          164,
+          110,
+          251
+        ],
+        "restart": 1,
+        "sweep": 7,
+        "elapsed_seconds": 4.957406832996639
+      }
+    },
+    {
+      "period_index": 684,
+      "target_difference": 57,
+      "target_difference_order": 12,
+      "single_difference_matching_size": 342,
+      "required_pairs": 342,
+      "search": {
+        "success": false,
+        "score": 2,
+        "row": [
+          313,
+          493,
+          98,
+          53,
+          260,
+          451
+        ],
+        "restart": 0,
+        "sweep": 5,
+        "elapsed_seconds": 6.188860916998237
+      }
+    },
+    {
+      "period_index": 684,
+      "target_difference": 114,
+      "target_difference_order": 6,
+      "single_difference_matching_size": 342,
+      "required_pairs": 342,
+      "search": {
+        "success": false,
+        "score": 2,
+        "row": [
+          0,
+          391,
+          214,
+          24,
+          252,
+          663
+        ],
+        "restart": 3,
+        "sweep": 4,
+        "elapsed_seconds": 4.9953458339950885
+      }
+    },
+    {
+      "period_index": 684,
+      "target_difference": 171,
+      "target_difference_order": 4,
+      "single_difference_matching_size": 342,
+      "required_pairs": 342,
+      "search": {
+        "success": false,
+        "score": 2,
+        "row": [
+          180,
+          479,
+          143,
+          475,
+          295,
+          104
+        ],
+        "restart": 4,
+        "sweep": 2,
+        "elapsed_seconds": 4.962313542004267
+      }
+    }
+  ],
+  "coloring": null,
+  "valid_combinatorial_witness": false,
+  "elapsed_seconds": 62.18205045800278
+}
