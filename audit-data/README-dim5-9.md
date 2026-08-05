@@ -56,19 +56,19 @@
 Воспроизведение:
 
 ```bash
-.venv/bin/python audit-data/hd-2026-07/verify_metric_candidate.py \
-  audit-data/hd-2026-07/active_metric_a5_132_stage1.json \
+.venv/bin/python audit-data/chromatic_research/campaigns/verify_metric_candidate.py \
+  audit-data/results/active_metric_a5_132_stage1.json \
   --denominator 100000 --interval 1.01 \
-  --output audit-data/hd-2026-07/metric_deform_a5_132_refined_certificate.json
+  --output audit-data/results/metric_deform_a5_132_refined_certificate.json
 
-.venv/bin/python audit-data/hd-2026-07/verify_exact_voronoi.py \
-  audit-data/hd-2026-07/metric_deform_a5_132_refined_certificate.json \
+.venv/bin/python audit-data/chromatic_research/campaigns/verify_exact_voronoi.py \
+  audit-data/results/metric_deform_a5_132_refined_certificate.json \
   --output \
-  audit-data/hd-2026-07/metric_deform_a5_132_refined_independent_exact_audit.json
+  audit-data/results/metric_deform_a5_132_refined_independent_exact_audit.json
 ```
 
 Подробности и хеши — в
-[`RESEARCH_2026-07-30.md`](RESEARCH_2026-07-30.md).
+[`RESEARCH_2026-07-30.md`](../journal/RESEARCH_2026-07-30.md).
 
 ## Промежуточный сертифицированный результат: χ(ℝ⁵) ≤ 134
 
@@ -127,21 +127,21 @@
 Воспроизведение сертификата из корня репозитория:
 
 ```bash
-.venv/bin/python -u audit-data/hd-2026-07/verify_metric_candidate.py \
-  audit-data/hd-2026-07/active_metric_a5_136_postcross.json \
+.venv/bin/python -u audit-data/chromatic_research/campaigns/verify_metric_candidate.py \
+  audit-data/results/active_metric_a5_136_postcross.json \
   --denominator 100000 \
   --interval 1.0008 \
-  --output audit-data/hd-2026-07/metric_deform_a5_136_certificate.json
+  --output audit-data/results/metric_deform_a5_136_certificate.json
 
-.venv/bin/python -u audit-data/hd-2026-07/verify_exact_voronoi.py \
-  audit-data/hd-2026-07/metric_deform_a5_136_certificate.json \
+.venv/bin/python -u audit-data/chromatic_research/campaigns/verify_exact_voronoi.py \
+  audit-data/results/metric_deform_a5_136_certificate.json \
   --output \
-  audit-data/hd-2026-07/metric_deform_a5_136_independent_exact_audit.json
+  audit-data/results/metric_deform_a5_136_independent_exact_audit.json
 ```
 
 Полный протокол нового поиска, включая точную конструкцию и отрицательные
 экраны на 135, 134 и 133 цвета:
-[`RESEARCH_2026-07-30.md`](RESEARCH_2026-07-30.md).
+[`RESEARCH_2026-07-30.md`](../journal/RESEARCH_2026-07-30.md).
 
 ## Исчерпывающие экраны фиксированных метрик в ℝ⁵
 
@@ -204,10 +204,10 @@ Scale-aware повторы взвешенного поиска 134 со степ
 Воспроизведение итогового сертификата из корня репозитория:
 
 ```bash
-.venv/bin/python -u audit-data/hd-2026-07/verify_metric_candidate.py \
-  audit-data/hd-2026-07/metric_deform_e7_1323.json \
+.venv/bin/python -u audit-data/chromatic_research/campaigns/verify_metric_candidate.py \
+  audit-data/results/metric_deform_e7_1323.json \
   --denominator 10000 \
-  --output audit-data/hd-2026-07/metric_deform_e7_1323_certificate.json
+  --output audit-data/results/metric_deform_e7_1323_certificate.json
 ```
 
 ## Экраны ближайших индексов в ℝ⁶–ℝ⁹
@@ -647,7 +647,7 @@ LP HiGHS и последовательный SDP, остановилась на 
 `affine_cycle1_d6_342_*.json`, `cyclic_block_d6_342_*.json`,
 `cpsat_d6_336_44_active_*.json` и `fixed7_d6_nonmonotonic_*.json`.
 Подробная интерпретация и ограничения:
-[`RESEARCH_2026-07-30.md`](RESEARCH_2026-07-30.md).
+[`RESEARCH_2026-07-30.md`](../journal/RESEARCH_2026-07-30.md).
 
 | Размерность / цель | Экран и воспроизводимый итог |
 |---|---|

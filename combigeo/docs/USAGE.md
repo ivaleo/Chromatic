@@ -182,8 +182,8 @@ combigeo.dist_to_halfspaces(point, facets)               -> float
   проекции Дейкстры; 0, если точка внутри.
 
 Радиус покрытия (⇒ `diam`) без вершин считается в python поверх
-`relevant_facets` — см. `../audit-data/hd-2026-07/covrad.py`; все эксперименты
-больших размерностей и их результаты — в `../audit-data/hd-2026-07/`.
+`relevant_facets` — см. `../audit-data/chromatic_research/core/covrad.py`; все эксперименты
+больших размерностей и их результаты — в `../audit-data/`.
 
 ---
 
