@@ -8,16 +8,7 @@ import numpy as np
 from scipy.optimize import minimize
 import combigeo
 from chromatic_research.paths import results_path
-
-def unpack(x):
-    L = np.zeros((4, 4))
-    L[np.tril_indices(4)] = x
-    Q = L @ L.T
-    d = abs(np.linalg.det(Q))
-    return Q / d ** 0.25 if d > 1e-12 else None
-
-def pack(Q):
-    return np.linalg.cholesky(Q)[np.tril_indices(4)]
+from chromatic_research.forms import norm_gram, pack, unpack
 
 def d_of(Q, k):
     if Q is None: return 0.0
@@ -26,10 +17,6 @@ def d_of(Q, k):
         return combigeo.find_optimal(B.tolist(), index=k).normalized
     except Exception:
         return 0.0
-
-def norm_gram(M):
-    G = M @ M.T
-    return G / abs(np.linalg.det(G)) ** 0.25
 
 D4 = norm_gram(np.array([[2,0,0,0],[1,1,0,0],[1,0,1,0],[1,0,0,1]], float))
 A4G = np.array([[2,-1,0,0],[-1,2,-1,0],[0,-1,2,-1],[0,0,-1,2]], float)
@@ -45,7 +32,7 @@ def campaign(k, starts, maxfev, tag):
     for i, s in enumerate(starts):
         hist = {"b": 0.0}
         def obj(x):
-            d = d_of(unpack(x), k)
+            d = d_of(unpack(x, 4), k)
             if d > hist["b"] + 5e-4:
                 hist["b"] = d
                 print(f"  [{tag} start{i}] d({k})={d:.6f}", flush=True)
@@ -53,7 +40,7 @@ def campaign(k, starts, maxfev, tag):
         r = minimize(obj, s, method="Nelder-Mead",
                      options={"maxfev": maxfev, "xatol": 1e-6, "fatol": 1e-10})
         if -r.fun > best_d:
-            best_d, best_Q = -r.fun, unpack(r.x)
+            best_d, best_Q = -r.fun, unpack(r.x, 4)
     print(f"{tag}: k={k} max d = {best_d:.7f}", flush=True)
     return {"d": best_d, "Q": None if best_Q is None else best_Q.tolist()}
 

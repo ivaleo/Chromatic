@@ -8,11 +8,7 @@ import sys, time, json
 import numpy as np
 from multiprocessing import Pool
 from chromatic_research.paths import results_path
-
-
-def norm_gram(L, n):
-    G = L @ L.T
-    return G / abs(np.linalg.det(G)) ** (1.0 / n)
+from chromatic_research.forms import norm_gram
 
 
 def work(args):
@@ -54,7 +50,7 @@ if __name__ == "__main__":
         base = A5 if i % 2 == 0 else D5
         L = np.linalg.cholesky(base)
         P = L * (1 + rng.normal(scale=0.10, size=L.shape) * np.tri(n))
-        forms.append((f"g{i}", norm_gram(P, n)))
+        forms.append((f"g{i}", norm_gram(P)))
 
     best = 140
     out = {}

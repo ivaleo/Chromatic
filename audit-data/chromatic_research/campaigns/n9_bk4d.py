@@ -14,17 +14,7 @@ import time
 import numpy as np
 from multiprocessing import Pool
 from chromatic_research.paths import results_path
-
-
-def unpack(x):
-    L = np.zeros((4, 4)); L[np.tril_indices(4)] = x
-    Q = L @ L.T; d = abs(np.linalg.det(Q))
-    return Q / d ** 0.25 if d > 1e-12 else None
-
-
-def norm_gram(M):
-    G = M @ M.T
-    return G / abs(np.linalg.det(G)) ** 0.25
+from chromatic_research.forms import norm_gram, unpack
 
 
 def work(args):

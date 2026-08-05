@@ -6,11 +6,7 @@ import sys, time, json
 import numpy as np
 from multiprocessing import Pool
 from chromatic_research.paths import results_path
-
-
-def norm_gram(M, n):
-    G = M @ M.T
-    return G / abs(np.linalg.det(G)) ** (1.0 / n)
+from chromatic_research.forms import norm_gram
 
 
 def min_cyclic_index(args):
@@ -46,7 +42,7 @@ if __name__ == "__main__":
         M[j, j] = -n
     A5 = norm_gram(np.linalg.cholesky(M.T @ M) @ np.linalg.cholesky(M.T @ M).T * 0 +
                   (np.linalg.cholesky(M.T @ M)), n) if False else \
-         (lambda L: norm_gram(L, n))(np.linalg.cholesky(M.T @ M))
+         (lambda L: norm_gram(L))(np.linalg.cholesky(M.T @ M))
     # базовые решётки
     D5 = norm_gram(np.array([[1,1,0,0,0],[1,-1,0,0,0],[0,1,-1,0,0],[0,0,1,-1,0],
                              [0,0,0,1,-1]], float), n)
@@ -56,7 +52,7 @@ if __name__ == "__main__":
         base = A5 if i % 2 == 0 else D5
         L = np.linalg.cholesky(base)
         P = L * (1 + rng.normal(scale=0.12, size=L.shape) * np.tri(n))
-        forms.append((f"g{i}", norm_gram(P, n)))
+        forms.append((f"g{i}", norm_gram(P)))
 
     print(f"CSP-развёртка 5D: {len(forms)} форм, индексы {k_lo}..{k_hi}", flush=True)
     jobs = [(Q.tolist(), n, k_lo, k_hi, s) for s, (_, Q) in enumerate(forms)]
