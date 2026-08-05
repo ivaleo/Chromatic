@@ -6,7 +6,7 @@ testpaths = [
     "voronoi/tests",
     "chromatic/tests",
     "combigeo/tests/python",
-    "audit-data",
+    "audit-data/tests",
 ]
 pythonpath = ["voronoi/src", "chromatic/src"]
 

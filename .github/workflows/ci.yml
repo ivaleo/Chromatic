@@ -23,12 +23,10 @@ jobs:
           pip install -e voronoi
           pip install ./combigeo          # нужен компилятор C++17; в ubuntu-latest есть
           pip install -e 'chromatic[dev]'
+          pip install -e 'audit-data[solvers]'
 
-      # Тесты audit-data пока зависят от абсолютных путей и в CI не проходят.
-      # Полный `pytest -q` возвращается вместе с пакетом chromatic_research
-      # (план 2026-08-05, задача 11, шаг 11).
       - name: Тесты
-        run: pytest -q voronoi/tests chromatic/tests combigeo/tests/python
+        run: pytest -q
 
       - name: Линтер
         run: ruff check .

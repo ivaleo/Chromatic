@@ -17,7 +17,7 @@ plt.rcParams.update({
     "figure.dpi": 140, "savefig.bbox": "tight", "axes.axisbelow": True,
 })
 _HERE = Path(__file__).resolve().parent
-DATA = str(_HERE.parent / "audit-data")   # ../audit-data
+DATA = str(_HERE.parent / "audit-data" / "results")   # ../audit-data/results
 OUT = str(_HERE)                          # каталог этого файла (paper/)
 BLUE, RED, GREEN, ORANGE, PURPLE = "#2456a6", "#c0392b", "#1e8449", "#e08a00", "#7d3c98"
 
