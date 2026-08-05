@@ -1179,7 +1179,7 @@ git commit -m "voronoi4d: ускорить dist_to_s в 1.4 раза, CHECK_DIST
 - `chromatic_research.paths.load_json(name: str) -> dict` — читает из `results/`, при
   отсутствии — `runs/<name>` или `runs/<name>.gz`; иначе `FileNotFoundError`
 
-- [ ] **Шаг 1: создать `audit-data/pyproject.toml`**
+- [x] **Шаг 1: создать `audit-data/pyproject.toml`**
 
 ```toml
 [build-system]
@@ -1205,7 +1205,7 @@ where = ["."]
 include = ["chromatic_research*"]
 ```
 
-- [ ] **Шаг 2: создать `audit-data/chromatic_research/__init__.py`**
+- [x] **Шаг 2: создать `audit-data/chromatic_research/__init__.py`**
 
 ```python
 """Computational campaigns behind the χ(ℝⁿ) upper bounds.
@@ -1220,7 +1220,7 @@ from . import paths
 __all__ = ["paths"]
 ```
 
-- [ ] **Шаг 3: создать `audit-data/chromatic_research/paths.py`**
+- [x] **Шаг 3: создать `audit-data/chromatic_research/paths.py`**
 
 ```python
 """Artifact locations, resolved relative to the checkout — never absolute.
@@ -1274,7 +1274,7 @@ def load_json(name: str) -> dict:
     return json.loads(path.read_text(encoding="utf-8"))
 ```
 
-- [ ] **Шаг 4: тест на пути**
+- [x] **Шаг 4: тест на пути**
 
 Создать `audit-data/tests/test_paths.py`:
 
@@ -1318,7 +1318,7 @@ def test_missing_artifact_names_both_directories():
         raise AssertionError("ожидался FileNotFoundError")
 ```
 
-- [ ] **Шаг 5: установить пакет и прогнать тест**
+- [x] **Шаг 5: установить пакет и прогнать тест**
 
 ```bash
 .venv/bin/pip install -e audit-data -q
@@ -1326,7 +1326,7 @@ def test_missing_artifact_names_both_directories():
 make test                                                        # 213 passed
 ```
 
-- [ ] **Шаг 6: коммит**
+- [x] **Шаг 6: коммит**
 
 ```bash
 git add audit-data/pyproject.toml audit-data/chromatic_research audit-data/tests
@@ -1351,7 +1351,7 @@ git commit -m "audit-data: пакет chromatic_research и модуль пут�
 `r5_push48.py`, `sweep.py`, `verify2.py`, `verify_a5s.py`, `verify_e6s.py`,
 `verify_e8.py`; `audit-data/hd-2026-07/`: `bench_mc.py`, `permutohedral_cover.py`
 
-- [ ] **Шаг 1: получить точный список и убедиться, что он совпал**
+- [x] **Шаг 1: получить точный список и убедиться, что он совпал**
 
 ```bash
 cd /Users/mac/Documents/_My_code/Chromatic/audit-data
@@ -1362,7 +1362,7 @@ done | sort
 
 Ожидается ровно 24 строки (22 + 2 из `hd-2026-07`).
 
-- [ ] **Шаг 2: разобрать один файл как образец**
+- [x] **Шаг 2: разобрать один файл как образец**
 
 Для `audit-data/campaign_c.py`: весь код верхнего уровня, кроме импортов и
 констант, обернуть в `def main():`, а запись результата перевести на `results_path`.
@@ -1389,7 +1389,7 @@ if __name__ == "__main__":
     main()
 ```
 
-- [ ] **Шаг 3: найти все абсолютные пути вывода**
+- [x] **Шаг 3: найти все абсолютные пути вывода**
 
 ```bash
 grep -rn '"/Users/mac' --include='*.py' audit-data | grep -v sys.path
@@ -1399,7 +1399,7 @@ grep -rn '"/Users/mac' --include='*.py' audit-data | grep -v sys.path
 `f"...{переменная}.json"` (например `cma_form.py`, `dim6.py`, `csp_campaign5d.py`)
 переводятся так же: `results_path(f"cma_d{dim}_k{k}.json")`.
 
-- [ ] **Шаг 4: проверить, что импорт больше ничего не запускает**
+- [x] **Шаг 4: проверить, что импорт больше ничего не запускает**
 
 ```bash
 cd /Users/mac/Documents/_My_code/Chromatic/audit-data
@@ -1410,7 +1410,7 @@ done
 
 Ожидается: пусто.
 
-- [ ] **Шаг 5: убедиться, что записи ушли из старого места**
+- [x] **Шаг 5: убедиться, что записи ушли из старого места**
 
 ```bash
 grep -rn '"/Users/mac' --include='*.py' audit-data | grep -v sys.path
@@ -1418,7 +1418,7 @@ grep -rn '"/Users/mac' --include='*.py' audit-data | grep -v sys.path
 
 Ожидается: пусто (останутся только `sys.path`-хаки — их снимает задача 12).
 
-- [ ] **Шаг 6: проверка и коммит**
+- [x] **Шаг 6: проверка и коммит**
 
 ```bash
 make test                                    # 213 passed
@@ -1436,7 +1436,7 @@ git commit -m "audit-data: main-guard и относительные пути в�
 **Файлы:**
 - Создать: `audit-data/tests/test_all_modules_import.py`
 
-- [ ] **Шаг 1: написать тест**
+- [x] **Шаг 1: написать тест**
 
 ```python
 """Каждый модуль исследования должен импортироваться без побочных эффектов.
@@ -1467,7 +1467,7 @@ def test_module_imports(name):
     importlib.import_module(name)
 ```
 
-- [ ] **Шаг 2: запустить (пока модулей мало — пройдёт быстро)**
+- [x] **Шаг 2: запустить (пока модулей мало — пройдёт быстро)**
 
 ```bash
 .venv/bin/python -m pytest audit-data/tests/test_all_modules_import.py -q
@@ -1476,7 +1476,7 @@ def test_module_imports(name):
 Ожидается: `1 passed` (пока в пакете только `paths`). После задачи 11 здесь
 станет 118 тестов.
 
-- [ ] **Шаг 3: коммит**
+- [x] **Шаг 3: коммит**
 
 ```bash
 git add audit-data/tests/test_all_modules_import.py
@@ -1505,7 +1505,7 @@ git commit -m "тесты: smoke-проверка импортируемости
 - Переместить: 118 `.py` (git mv), 34 теста в `audit-data/tests/`
 - Изменить: импорты во всех перемещённых файлах и тестах
 
-- [ ] **Шаг 1: подготовить каталоги**
+- [x] **Шаг 1: подготовить каталоги**
 
 ```bash
 cd /Users/mac/Documents/_My_code/Chromatic/audit-data
@@ -1514,7 +1514,7 @@ printf '"""Modules shared by several campaigns."""\n' > chromatic_research/core/
 printf '"""Individual computational campaigns."""\n' > chromatic_research/campaigns/__init__.py
 ```
 
-- [ ] **Шаг 2: перенести ядро**
+- [x] **Шаг 2: перенести ядро**
 
 ```bash
 cd /Users/mac/Documents/_My_code/Chromatic/audit-data
@@ -1527,14 +1527,14 @@ git mv general_csp.py chromatic_research/core/general_csp.py
 git mv cyclic_csp.py chromatic_research/core/cyclic_csp.py
 ```
 
-- [ ] **Шаг 3: перенести тесты**
+- [x] **Шаг 3: перенести тесты**
 
 ```bash
 cd /Users/mac/Documents/_My_code/Chromatic/audit-data
 git mv hd-2026-07/test_*.py tests/
 ```
 
-- [ ] **Шаг 4: перенести остальные модули в campaigns**
+- [x] **Шаг 4: перенести остальные модули в campaigns**
 
 ```bash
 cd /Users/mac/Documents/_My_code/Chromatic/audit-data
@@ -1550,7 +1550,7 @@ done
 ls *.py hd-2026-07/*.py 2>/dev/null    # ожидается: No such file
 ```
 
-- [ ] **Шаг 5: переписать импорты скриптом**
+- [x] **Шаг 5: переписать импорты скриптом**
 
 Создать временный `/tmp/rewrite_imports.py` (после прогона удалить):
 
@@ -1600,7 +1600,7 @@ for path in targets:
 grep -rnE "^\s*import [a-z_0-9]+, " audit-data/chromatic_research audit-data/tests
 ```
 
-- [ ] **Шаг 6: убрать `sys.path`-хаки**
+- [x] **Шаг 6: убрать `sys.path`-хаки**
 
 ```bash
 cd /Users/mac/Documents/_My_code/Chromatic/audit-data
@@ -1632,7 +1632,7 @@ for path in (HERE, AUDIT):
 grep -rn "/Users/mac" --include='*.py' . | wc -l    # ожидается 0
 ```
 
-- [ ] **Шаг 7: тесты читают json через `paths`**
+- [x] **Шаг 7: тесты читают json через `paths`**
 
 21 тест читает артефакты как `(HERE / name).read_text()`, где `HERE` — каталог
 теста. После переезда каталог другой. В каждом тесте заменить
@@ -1661,7 +1661,7 @@ def _load(name: str) -> dict:
 grep -rn "Path(__file__)" audit-data/tests/*.py
 ```
 
-- [ ] **Шаг 8: smoke-тест ловит всё, что сломалось**
+- [x] **Шаг 8: smoke-тест ловит всё, что сломалось**
 
 ```bash
 .venv/bin/python -m pytest audit-data/tests/test_all_modules_import.py -q
@@ -1671,13 +1671,13 @@ grep -rn "Path(__file__)" audit-data/tests/*.py
 упавший модуль чинить точечно — как правило это импорт, который скрипт не выносил
 на верхний уровень.
 
-- [ ] **Шаг 9: полный прогон**
+- [x] **Шаг 9: полный прогон**
 
 ```bash
 make test                                    # 332 passed (213 + 119 smoke)
 ```
 
-- [ ] **Шаг 10: обновить документацию запуска**
+- [x] **Шаг 10: обновить документацию запуска**
 
 В `audit-data/README.md` и `audit-data/hd-2026-07/README.md` заменить примеры
 вида `python cert_generic.py` и
@@ -1701,7 +1701,7 @@ make test                                    # 332 passed (213 + 119 smoke)
 Общие модули — в `chromatic_research/core/`, они импортируются, а не запускаются.
 ```
 
-- [ ] **Шаг 11: сузить `testpaths` и включить audit-data в CI**
+- [x] **Шаг 11: сузить `testpaths` и включить audit-data в CI**
 
 В корневом `pyproject.toml` заменить `"audit-data"` на `"audit-data/tests"` —
 теперь тесты лежат в отдельном каталоге, и pytest не должен обходить
@@ -1729,7 +1729,7 @@ testpaths = [
         run: pytest -q
 ```
 
-- [ ] **Шаг 12: коммит**
+- [x] **Шаг 12: коммит**
 
 ```bash
 make test                                    # 332 passed
@@ -1747,7 +1747,7 @@ rm /tmp/rewrite_imports.py
 **Файлы:**
 - Создать: `audit-data/tests/test_no_absolute_paths.py`
 
-- [ ] **Шаг 1: написать тест**
+- [x] **Шаг 1: написать тест**
 
 ```python
 """В репозитории не должно быть путей, привязанных к машине автора."""
@@ -1779,7 +1779,7 @@ def test_no_machine_specific_paths_in_sources():
 Тест исключает сам себя (иначе строки из `FORBIDDEN` считались бы нарушением) и
 каталог `journal/` — там исторические отчёты, которые правке не подлежат.
 
-- [ ] **Шаг 2: запустить**
+- [x] **Шаг 2: запустить**
 
 ```bash
 .venv/bin/python -m pytest audit-data/tests/test_no_absolute_paths.py -q
@@ -1787,7 +1787,7 @@ def test_no_machine_specific_paths_in_sources():
 
 Ожидается: всё зелено. Если что-то падает — это остаток задачи 11, починить.
 
-- [ ] **Шаг 3: коммит**
+- [x] **Шаг 3: коммит**
 
 ```bash
 git add audit-data/tests/test_no_absolute_paths.py
@@ -1815,7 +1815,7 @@ git commit -m "тесты: запрет машинно-зависимых пут
 - `pack(form: np.ndarray) -> np.ndarray` — нижний треугольник холецкого разложения
 - `unpack(vector: np.ndarray, dim: int, tol: float = 1e-12) -> np.ndarray | None` — обратно; `None` для вырожденной формы
 
-- [ ] **Шаг 1: написать тест до реализации**
+- [x] **Шаг 1: написать тест до реализации**
 
 Создать `audit-data/tests/test_forms.py`:
 
@@ -1860,7 +1860,7 @@ def test_d4_gram_matches_known_value():
     assert form == pytest.approx(form.T, abs=1e-15)
 ```
 
-- [ ] **Шаг 2: убедиться, что тест падает**
+- [x] **Шаг 2: убедиться, что тест падает**
 
 ```bash
 .venv/bin/python -m pytest audit-data/tests/test_forms.py -q
@@ -1868,7 +1868,7 @@ def test_d4_gram_matches_known_value():
 
 Ожидается: `ModuleNotFoundError: chromatic_research.forms`.
 
-- [ ] **Шаг 3: реализовать `audit-data/chromatic_research/forms.py`**
+- [x] **Шаг 3: реализовать `audit-data/chromatic_research/forms.py`**
 
 ```python
 """Cholesky parametrization of normalized Gram forms.
@@ -1910,13 +1910,13 @@ def unpack(vector: np.ndarray, dim: int, tol: float = 1e-12) -> np.ndarray | Non
     return form / determinant ** (1.0 / dim)
 ```
 
-- [ ] **Шаг 4: тест зелёный**
+- [x] **Шаг 4: тест зелёный**
 
 ```bash
 .venv/bin/python -m pytest audit-data/tests/test_forms.py -q     # 11 passed
 ```
 
-- [ ] **Шаг 5: заменить копии**
+- [x] **Шаг 5: заменить копии**
 
 Найти их:
 
@@ -1943,7 +1943,7 @@ from chromatic_research.forms import norm_gram, pack, unpack
    `csp_campaign5d.py` принимают размерность вторым аргументом — она равна
    `M.shape[0]`, поэтому вызовы становятся `norm_gram(M)`.
 
-- [ ] **Шаг 6: проверить, что численные результаты не поехали**
+- [x] **Шаг 6: проверить, что численные результаты не поехали**
 
 Прогнать самую дешёвую из затронутых кампаний и сверить с сохранённым результатом:
 
@@ -1965,7 +1965,7 @@ print('форма D4 воспроизводится:', np.linalg.det(form))
 "
 ```
 
-- [ ] **Шаг 7: коммит**
+- [x] **Шаг 7: коммит**
 
 ```bash
 git add audit-data
@@ -1993,7 +1993,7 @@ git commit -m "audit-data: единая параметризация форм Г
 - Изменить: `audit-data/chromatic_research/campaigns/n3_5d_probe.py:13-18`
 - Создать: `audit-data/tests/test_lattices.py`
 
-- [ ] **Шаг 1: тест, фиксирующий инварианты решёток**
+- [x] **Шаг 1: тест, фиксирующий инварианты решёток**
 
 Создать `audit-data/tests/test_lattices.py`:
 
@@ -2028,7 +2028,7 @@ def test_a5_star_invariants_are_stable():
     assert float(np.linalg.norm(shortest)) == pytest.approx(1.092004686004, abs=1e-11)
 ```
 
-- [ ] **Шаг 2: запустить — должен пройти сразу**
+- [x] **Шаг 2: запустить — должен пройти сразу**
 
 ```bash
 .venv/bin/python -m pytest audit-data/tests/test_lattices.py -q    # 10 passed
@@ -2036,7 +2036,7 @@ def test_a5_star_invariants_are_stable():
 
 Это характеризационный тест: он фиксирует значения ДО правки.
 
-- [ ] **Шаг 3: заменить локальную конструкцию A₅***
+- [x] **Шаг 3: заменить локальную конструкцию A₅***
 
 В `audit-data/chromatic_research/campaigns/n3_5d_probe.py` строки 13-18:
 
@@ -2058,7 +2058,7 @@ n, K = 5, 139
 A5S = lattices.Astar(n)
 ```
 
-- [ ] **Шаг 4: убедиться, что решётка та же**
+- [x] **Шаг 4: убедиться, что решётка та же**
 
 ```bash
 .venv/bin/python - <<'PY'
@@ -2072,7 +2072,7 @@ PY
 
 Импорт модуля не должен запускать кампанию — гарантировано задачей 9.
 
-- [ ] **Шаг 5: проверка и коммит**
+- [x] **Шаг 5: проверка и коммит**
 
 ```bash
 make test
@@ -2100,7 +2100,7 @@ git commit -m "audit-data: A5* берётся из core.lattices вместо л
 - Изменить: `paper/figures.py:20`
 - Изменить: `audit-data/README.md`, `audit-data/README-dim5-9.md`
 
-- [ ] **Шаг 1: получить точные списки**
+- [x] **Шаг 1: получить точные списки**
 
 Создать `/tmp/classify_json.py`:
 
@@ -2151,7 +2151,7 @@ print(f"опорных {len(referenced)} ({mb(referenced):.1f} МБ), "
 Ожидается примерно: `опорных 125 (35.4 МБ), сырых 537 (187.4 МБ)`. Числа могут
 слегка отличаться после фазы 3 — это нормально, важно, что порядок тот же.
 
-- [ ] **Шаг 2: перенести опорные в `results/`**
+- [x] **Шаг 2: перенести опорные в `results/`**
 
 ```bash
 cd /Users/mac/Documents/_My_code/Chromatic
@@ -2162,7 +2162,7 @@ done < /tmp/referenced.txt
 ls audit-data/results | wc -l     # ожидается 125
 ```
 
-- [ ] **Шаг 3: перенести и сжать сырые**
+- [x] **Шаг 3: перенести и сжать сырые**
 
 ```bash
 cd /Users/mac/Documents/_My_code/Chromatic
@@ -2177,7 +2177,7 @@ git add audit-data/runs
 du -sh audit-data/runs        # ожидается около 14 МБ
 ```
 
-- [ ] **Шаг 4: проверить, что данные читаются обратно**
+- [x] **Шаг 4: проверить, что данные читаются обратно**
 
 ```bash
 .venv/bin/python - <<'PY'
@@ -2192,7 +2192,7 @@ print("10 случайных файлов распакованы и разобр
 PY
 ```
 
-- [ ] **Шаг 5: обновить `paper/figures.py`**
+- [x] **Шаг 5: обновить `paper/figures.py`**
 
 Строка 20:
 
@@ -2216,7 +2216,7 @@ git status --porcelain paper/*.pdf      # рисунки пересобрали�
 Затем сверить, что PDF рисунков не изменились по содержанию (они пересобираются
 из тех же данных — допустимо различие только в метке времени внутри PDF).
 
-- [ ] **Шаг 6: написать `audit-data/runs/MANIFEST.md`**
+- [x] **Шаг 6: написать `audit-data/runs/MANIFEST.md`**
 
 ```markdown
 # runs/ — сырые выгрузки кампаний
@@ -2235,7 +2235,7 @@ git status --porcelain paper/*.pdf      # рисунки пересобрали�
 разжатым: `gzcat runs/X.json.gz > results/X.json && git rm runs/X.json.gz`.
 ```
 
-- [ ] **Шаг 7: обновить README каталога**
+- [x] **Шаг 7: обновить README каталога**
 
 В `audit-data/README.md` заменить упоминания путей вида
 `hd-2026-07/metric_deform_e7_1323_certificate.json` на
@@ -2253,14 +2253,14 @@ git status --porcelain paper/*.pdf      # рисунки пересобрали�
 | `runs/` | Сырые выгрузки прогонов, gzip; см. `runs/MANIFEST.md`. |
 ```
 
-- [ ] **Шаг 8: полная проверка**
+- [x] **Шаг 8: полная проверка**
 
 ```bash
 make test                     # все тесты, включая 21 читающий json
 du -sh audit-data             # было 228 МБ, ожидается около 50 МБ
 ```
 
-- [ ] **Шаг 9: коммит**
+- [x] **Шаг 9: коммит**
 
 ```bash
 git add -A audit-data paper/figures.py
@@ -2275,7 +2275,7 @@ rm /tmp/classify_json.py /tmp/referenced.txt /tmp/orphans.txt
 **Файлы:**
 - Создать: `audit-data/tests/test_docs_references_exist.py`
 
-- [ ] **Шаг 1: написать тест**
+- [x] **Шаг 1: написать тест**
 
 ```python
 """Каждый json, упомянутый в README, должен существовать."""
@@ -2310,7 +2310,7 @@ def test_every_mentioned_artifact_exists():
 проекта. Имена с фигурными скобками (`..._{certificate,audit}.json` в
 `README-dim5-9.md`) под неё не подпадают и проверяются глазами.
 
-- [ ] **Шаг 2: запустить и починить найденное**
+- [x] **Шаг 2: запустить и починить найденное**
 
 ```bash
 .venv/bin/python -m pytest audit-data/tests/test_docs_references_exist.py -q
@@ -2320,7 +2320,7 @@ def test_every_mentioned_artifact_exists():
 (поправить README), файл удалён (убрать упоминание), файл в `runs/` (это норма,
 `find_artifact` его найдёт).
 
-- [ ] **Шаг 3: коммит**
+- [x] **Шаг 3: коммит**
 
 ```bash
 git add audit-data/tests/test_docs_references_exist.py audit-data/*.md
@@ -2341,7 +2341,7 @@ git commit -m "тесты: сторож против битых ссылок н�
 - Изменить: `README.md`
 - Создать: `RESULTS.md`
 
-- [ ] **Шаг 1: создать `RESULTS.md`**
+- [x] **Шаг 1: создать `RESULTS.md`**
 
 Перенести в него без изменения текста:
 - абзац про кампании из `README.md:45-59` (determinant-aware exact-repair и далее);
@@ -2361,7 +2361,7 @@ git commit -m "тесты: сторож против битых ссылок н�
 а не доказательства невозможности.
 ```
 
-- [ ] **Шаг 2: сократить `README.md`**
+- [x] **Шаг 2: сократить `README.md`**
 
 На месте вырезанных блоков оставить по одной ссылке:
 
@@ -2374,12 +2374,12 @@ git commit -m "тесты: сторож против битых ссылок н�
 χ(ℝ⁵) ≤ 132, χ(ℝ⁷) ≤ 1323, кампания «ниже 45», точные ширины АБПР) без
 детализации методов.
 
-- [ ] **Шаг 3: обновить структурную схему в README**
+- [x] **Шаг 3: обновить структурную схему в README**
 
 Заменить блок со схемой каталогов на актуальный (см. «Целевая структура» этого
 плана), добавив `audit-data/results`, `audit-data/runs`, `journal/`, `RESULTS.md`.
 
-- [ ] **Шаг 4: проверить ссылки**
+- [x] **Шаг 4: проверить ссылки**
 
 ```bash
 grep -oE '\[[^]]+\]\(([^)]+)\)' README.md | sed -E 's/.*\((.*)\)/\1/' | \
@@ -2390,7 +2390,7 @@ grep -oE '\[[^]]+\]\(([^)]+)\)' README.md | sed -E 's/.*\((.*)\)/\1/' | \
 
 Ожидается: пусто.
 
-- [ ] **Шаг 5: коммит**
+- [x] **Шаг 5: коммит**
 
 ```bash
 git add README.md RESULTS.md
@@ -2415,7 +2415,7 @@ git commit -m "материалы: README — точка входа, хрони�
 - Создать: `journal/README.md`
 - Удалить: пустой `archive/`, пустой `audit-data/hd-2026-07/`
 
-- [ ] **Шаг 1: перенести**
+- [x] **Шаг 1: перенести**
 
 ```bash
 cd /Users/mac/Documents/_My_code/Chromatic
@@ -2434,7 +2434,7 @@ rmdir archive audit-data/hd-2026-07 2>/dev/null || ls archive audit-data/hd-2026
 
 Если `rmdir` не сработал — посмотреть, что осталось, и разобрать вручную.
 
-- [ ] **Шаг 2: создать `journal/README.md`**
+- [x] **Шаг 2: создать `journal/README.md`**
 
 ```markdown
 # journal/ — датированные документы
@@ -2457,7 +2457,7 @@ rmdir archive audit-data/hd-2026-07 2>/dev/null || ls archive audit-data/hd-2026
 в [audit-data/README-dim5-9.md](../audit-data/README-dim5-9.md).
 ```
 
-- [ ] **Шаг 3: починить ссылки на переехавшие файлы**
+- [x] **Шаг 3: починить ссылки на переехавшие файлы**
 
 ```bash
 grep -rn "archive/\|hd-2026-07/\|paper/AUDIT-2026-08-05\|paper/PLAN-podacha" \
@@ -2466,7 +2466,7 @@ grep -rn "archive/\|hd-2026-07/\|paper/AUDIT-2026-08-05\|paper/PLAN-podacha" \
 
 Каждую найденную ссылку поправить на новый путь.
 
-- [ ] **Шаг 4: проверка и коммит**
+- [x] **Шаг 4: проверка и коммит**
 
 ```bash
 make test
@@ -2487,7 +2487,7 @@ git commit -m "материалы: датированные отчёты в jour
 - Изменить: `paper/chi4-45.tex` (остаются преамбула, титул, `\input`, библиография)
 - Изменить: `paper/README.md`
 
-- [ ] **Шаг 1: зафиксировать эталон PDF**
+- [x] **Шаг 1: зафиксировать эталон PDF**
 
 ```bash
 cd paper && latexmk -pdf chi4-45.tex >/dev/null 2>&1
@@ -2503,7 +2503,7 @@ print('страниц текста:', text.count(chr(12)) + 1, 'символов
 Если `pdftotext` недоступен — поставить (`brew install poppler`) или сравнивать
 по числу страниц из `pdfinfo`.
 
-- [ ] **Шаг 2: нарезать по границам секций**
+- [x] **Шаг 2: нарезать по границам секций**
 
 Границы (номера строк на 2026-08-05):
 
@@ -2529,7 +2529,7 @@ grep -n '^\\section' paper/chi4-45.tex
 перенести его в `chi4-45.tex`, в общий список `\input`, чтобы все включения были
 в одном месте.
 
-- [ ] **Шаг 3: собрать `chi4-45.tex` из включений**
+- [x] **Шаг 3: собрать `chi4-45.tex` из включений**
 
 После преамбулы и `\maketitle` оставить:
 
@@ -2550,7 +2550,7 @@ grep -n '^\\section' paper/chi4-45.tex
 «Границы метода» — если он был подразделом, поставить его строго туда же
 относительно текста.
 
-- [ ] **Шаг 4: пересобрать и сверить текст**
+- [x] **Шаг 4: пересобрать и сверить текст**
 
 ```bash
 cd paper && latexmk -pdf chi4-45.tex >/dev/null 2>&1
@@ -2561,7 +2561,7 @@ diff /tmp/paper-before.txt /tmp/paper-after.txt && echo "текст статьи
 Ожидается: `diff` молчит. Любое расхождение — ошибка нарезки, чинить до нуля
 различий.
 
-- [ ] **Шаг 5: обновить `paper/README.md`**
+- [x] **Шаг 5: обновить `paper/README.md`**
 
 В таблицу «Что внутри» добавить строку:
 
@@ -2569,7 +2569,7 @@ diff /tmp/paper-before.txt /tmp/paper-after.txt && echo "текст статьи
 | `sections/*.tex` | Девять секций статьи; `chi4-45.tex` содержит преамбулу и `\input`. |
 ```
 
-- [ ] **Шаг 6: коммит**
+- [x] **Шаг 6: коммит**
 
 ```bash
 git add paper
@@ -2599,7 +2599,7 @@ git commit -m "статья: разбить chi4-45.tex на секции (те�
 - Изменить: `voronoi/src/voronoi4d/distances.py` (векторизованный `dist_to_s`)
 - Создать: `voronoi/tests/test_distances_vectorized.py`
 
-- [ ] **Шаг 1: тест эквивалентности против текущей реализации**
+- [x] **Шаг 1: тест эквивалентности против текущей реализации**
 
 ```python
 """Векторизованный dist_to_s обязан совпадать с каскадным на всех решётках."""
@@ -2631,13 +2631,13 @@ def test_vectorized_matches_cascade(name):
         assert fast == pytest.approx(slow, abs=1e-12)
 ```
 
-- [ ] **Шаг 2: сохранить текущую реализацию под именем `dist_to_s_cascade`**
+- [x] **Шаг 2: сохранить текущую реализацию под именем `dist_to_s_cascade`**
 
 Переименовать существующую функцию в `dist_to_s_cascade` (оставить как эталон
 для сверки, экспортировать из модуля, но НЕ из `__init__`), а `dist_to_s` писать
 заново.
 
-- [ ] **Шаг 3: собрать плоские массивы при построении ячейки**
+- [x] **Шаг 3: собрать плоские массивы при построении ячейки**
 
 В `VoronoiPolyhedra.build` после `create_polyhedrons()` добавить:
 
@@ -2674,7 +2674,7 @@ def test_vectorized_matches_cascade(name):
         self.edge_parent = np.array(parent1)
 ```
 
-- [ ] **Шаг 4: написать векторизованный `dist_to_s`**
+- [x] **Шаг 4: написать векторизованный `dist_to_s`**
 
 ```python
 def dist_to_s(vor4, s, max_len, early_stop=1.0, check=True):
@@ -2730,7 +2730,7 @@ def dist_to_s(vor4, s, max_len, early_stop=1.0, check=True):
     return float(best * 2 / max_len)
 ```
 
-- [ ] **Шаг 5: тест эквивалентности зелёный**
+- [x] **Шаг 5: тест эквивалентности зелёный**
 
 ```bash
 .venv/bin/python -m pytest voronoi/tests/test_distances_vectorized.py -q      # 3 passed
@@ -2741,7 +2741,7 @@ make test
 Если эквивалентность нарушается — НЕ подгонять допуск. Разобраться, какая ветвь
 каскада не воспроизведена, и починить логику.
 
-- [ ] **Шаг 6: замерить**
+- [x] **Шаг 6: замерить**
 
 ```bash
 .venv/bin/python - <<'PY'
@@ -2762,7 +2762,7 @@ PY
 (векторизация не окупилась) и зафиксировать замер в коммите как отрицательный
 результат.
 
-- [ ] **Шаг 7: коммит**
+- [x] **Шаг 7: коммит**
 
 ```bash
 git add voronoi
@@ -2812,3 +2812,32 @@ shortest_vector x200: 0.009 с  (0.05 мс/вызов)
   репозитория (архив в релизе GitHub), это решается здесь, а не позже;
 - задача 20 — единственная, где допустим отрицательный итог: если замер не
   показал двукратного выигрыша, откатываем и оставляем каскад.
+
+---
+
+# Итог выполнения (05.08.2026)
+
+Все 20 задач выполнены в ветке `refactor/monorepo-cleanup`.
+`make test` → **362 passed**, `make lint` → **All checks passed**.
+
+| Что обещали | Что вышло |
+|---|---|
+| единая точка запуска | `make test` = 362 теста одной командой, CI на GitHub Actions |
+| ×1.4 на `dist_to_s` | **×56** (0.921 → 0.016 с): ×1.6 от замены scipy, дальше ×31 от векторизации |
+| 0 абсолютных путей | 0, сторожевой тест не даёт вернуться |
+| чекаут 227 → 50 МБ | **228 → 54 МБ** |
+| −13 копий форм | −20 копий в 20 файлах, численно сверено |
+
+**Отклонения от плана по ходу работы:**
+1. Порядок задач 9 и 15 переставлен: абсолютные пути оказались не только на
+   запись, но и на чтение, а читать через `find_artifact` можно лишь после
+   переезда данных.
+2. Оценка «21 тест читает json» была завышена грепом: читает **один**,
+   остальные использовали `Path(__file__)` для `importlib`. Зато нашлось
+   15 тестов, грузивших модуль через `spec_from_file_location` только потому,
+   что он не был импортируемым — стали обычными импортами.
+3. Дублирование решёток: из четырёх мест настоящая копия одна
+   (`n3_5d_probe`), см. задачу 14.
+4. `shortest_vector` оптимизировать не потребовалось (замер в фазе 7).
+5. Линтер потребовал границы «библиотеки против кампаний»: 466 из 589
+   замечаний — плотный стиль черновиков, а не дефекты.
