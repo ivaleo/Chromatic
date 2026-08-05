@@ -108,8 +108,8 @@ class Voronoi4dBackend(Backend):
         # вывод в файл подавляем во временный путь, прогресс отключаем
         with tempfile.NamedTemporaryFile(suffix=".txt") as tmp:
             det_dist, det_center, det_mat = _find_optimal(
-                range(index, index + 1), None, reduced, vor, vor.max_len,
-                threshold=0.0, output_file=tmp.name, verbose=False,
+                range(index, index + 1), reduced, vor, vor.max_len,
+                threshold=0.0, output_file=tmp.name,
             )
 
         diam = float(vor.max_len)
