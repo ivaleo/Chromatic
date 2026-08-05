@@ -53,10 +53,10 @@ def lll_reduce_python(basis, delta=0.75):
     k = 1
     while k < n:
         # Size Reduction
-        for l in range(k - 1, -1, -1):
-            if abs(mu[k, l]) > 0.5:
-                q = round(mu[k, l])
-                basis[k] -= q * basis[l]
+        for j in range(k - 1, -1, -1):
+            if abs(mu[k, j]) > 0.5:
+                q = round(mu[k, j])
+                basis[k] -= q * basis[j]
                 # пересчитываем Грама-Шмидта после изменения базиса
                 b_star, mu = gram_schmidt(basis)
                 beta = [np.dot(b_star[i], b_star[i]) for i in range(n)]

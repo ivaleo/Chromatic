@@ -1,26 +1,44 @@
+# окружение и локальные настройки
 .venv/
-.DS_Store
+venv/
 .claude/
+.DS_Store
 
-# LaTeX build artifacts
-paper/*.aux
-paper/*.log
-paper/*.out
-paper/*.toc
-paper/*.synctex.gz
-paper/*.fdb_latexmk
-paper/*.fls
-
-# Python / logs
+# python
 __pycache__/
 *.pyc
+*.egg-info/
+build*/
+dist/
+.pytest_cache/
+.ipynb_checkpoints/
+
+# C++ / clangd
+*.o
+*.so
+*.dylib
+.cache/
+
+# логи
 *.log
 
-# Reproducible but expensive high-dimensional forbidden-set caches
-audit-data/hd-2026-07/.search-cache/
-audit-data/hd-2026-07/*_forbidden*.npz
+# LaTeX
+paper/*.aux
+paper/*.fdb_latexmk
+paper/*.fls
+paper/*.log
+paper/*.out
+paper/*.synctex.gz
+paper/*.toc
 
-# Locally compiled exhaustive-search enumerators
-audit-data/hd-2026-07/threshold_enum
-audit-data/hd-2026-07/threshold_enum_rebuilt
-audit-data/hd-2026-07/threshold_mask_enum
+# результаты локальных прогонов voronoi4d
+results.txt
+
+# воспроизводимые, но дорогие кэши запрещённых множеств
+audit-data/**/.search-cache/
+audit-data/**/*_forbidden*.npz
+
+# локально скомпилированные переборщики
+audit-data/**/threshold_enum
+audit-data/**/threshold_enum_rebuilt
+audit-data/**/threshold_mask_enum

@@ -16,7 +16,6 @@ from qsearch import qsearch, cholesky_unpack, make_objective, default_bounds
 def one_instance(args):
     k, seed, budget, warm = args
     import numpy as np
-    from qsearch import qsearch, make_objective, default_bounds, cholesky_unpack
     f = make_objective(4, k, threads=1)
     xl, xg = default_bounds(4)
     # тёплый старт: если дан warm (вектор параметров), сузим брус вокруг него

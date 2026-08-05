@@ -1,0 +1,29 @@
+# Корень монорепо пакетом не является: здесь только настройки инструментов.
+# Установка пакетов — см. Makefile (make install) и README.
+
+[tool.pytest.ini_options]
+testpaths = [
+    "voronoi/tests",
+    "chromatic/tests",
+    "combigeo/tests/python",
+    "audit-data",
+]
+pythonpath = ["voronoi/src", "chromatic/src"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py310"
+# Ноутбуки — черновой формат: плотные строки вида "plt.scatter(...); plt.show()"
+# там уместны и правятся вручную, а не линтером.
+exclude = [".venv", "audit-data/runs", "paper", "journal", "*.ipynb"]
+
+[tool.ruff.lint]
+select = ["E4", "E7", "E9", "F"]
+
+[tool.ruff.lint.per-file-ignores]
+# Кампании писались плотно и одноразово: "G = M @ M.T; return G / d" и
+# "import json, math, time" — это стиль черновика, а не дефект (466 из 589
+# замечаний были именно такими). Правила, ловящие настоящие ошибки —
+# E9 (синтаксис), F811 (переопределение), F821 (неизвестное имя) — здесь
+# работают в полную силу.
+"audit-data/**" = ["E401", "E402", "E701", "E702", "E741", "F401", "F541", "F841"]
