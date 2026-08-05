@@ -464,3 +464,34 @@ class VoronoiPolyhedra(Voronoi):
         self.map_vertices_to_faces()
         self._validate_cell()
         self.create_triangulation(verbose=verbose)
+        self._pack_face_arrays()
+
+    def _pack_face_arrays(self):
+        """Плоские массивы граней всех уровней — для векторизованного dist_to_s.
+
+        Каскад проекций обходит гиперграни, их 2-мерные грани и рёбра. Собрав
+        каждый уровень в один массив с индексом родителя, весь уровень можно
+        обработать одним numpy-выражением и одним вызовом find_simplex.
+        """
+        self.face3_normal = np.array([p.normal for p in self.polyhedrons])
+        self.face3_center = np.array([p.center for p in self.polyhedrons])
+
+        face2, parent2 = [], []
+        for i, pol in enumerate(self.polyhedrons):
+            for face in pol.faces:
+                face2.append(face)
+                parent2.append(i)
+        self.face2_normal = np.array([f.normal for f in face2])
+        self.face2_center = np.array([f.center for f in face2])
+        self.face2_parent = np.array(parent2)
+
+        edges, parent1 = [], []
+        for j, face in enumerate(face2):
+            for edge in face.edges:
+                edges.append(edge)
+                parent1.append(j)
+        self.edge_normal = np.array([e.normal for e in edges])
+        self.edge_center = np.array([e.center for e in edges])
+        self.edge_vertex1 = np.array([e.vertex1 for e in edges])
+        self.edge_vertex2 = np.array([e.vertex2 for e in edges])
+        self.edge_parent = np.array(parent1)
