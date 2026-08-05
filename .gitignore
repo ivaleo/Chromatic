@@ -42,3 +42,7 @@ audit-data/**/*_forbidden*.npz
 audit-data/**/threshold_enum
 audit-data/**/threshold_enum_rebuilt
 audit-data/**/threshold_mask_enum
+
+# рабочие каталоги сессий: не под контролем версий
+/tmp/
+/output/
