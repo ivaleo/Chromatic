@@ -47,21 +47,27 @@ def push(k, starts, maxfev):
     out[f"k{k}"] = {"d": best_d, "Q": None if best_Q is None else best_Q.tolist()}
     return best_d, best_Q
 
-# каскад: 45 от победителя-46, потом ниже от каждого нового победителя
-prev_x = x46
-for k in (45, 44, 43):
-    starts = [prev_x] + [prev_x * (1 + rng.normal(scale=s, size=10))
-                         for s in (0.01, 0.03, 0.06, 0.1) for _ in range(2)]
-    d, Qw = push(k, starts, 650)
-    if d >= 1.0 and Qw is not None:
-        prev_x = pack(Qw)
-    else:
-        break
 
-# ретрай 47 от победителя-46 (правдоподобно, что и 47 пробивается из этой зоны)
-push(47, [x46] + [x46 * (1 + rng.normal(scale=s, size=10)) for s in (0.02, 0.05)],
-     500)
+def main():
+    # каскад: 45 от победителя-46, потом ниже от каждого нового победителя
+    prev_x = x46
+    for k in (45, 44, 43):
+        starts = [prev_x] + [prev_x * (1 + rng.normal(scale=s, size=10))
+                             for s in (0.01, 0.03, 0.06, 0.1) for _ in range(2)]
+        d, Qw = push(k, starts, 650)
+        if d >= 1.0 and Qw is not None:
+            prev_x = pack(Qw)
+        else:
+            break
 
-json.dump(out, open("/Users/mac/Documents/_My_code/Chromatic/audit-data/n5_cascade.json", "w"),
-          indent=1)
-print("DONE", flush=True)
+    # ретрай 47 от победителя-46 (правдоподобно, что и 47 пробивается из этой зоны)
+    push(47, [x46] + [x46 * (1 + rng.normal(scale=s, size=10)) for s in (0.02, 0.05)],
+         500)
+
+    json.dump(out, open("/Users/mac/Documents/_My_code/Chromatic/audit-data/n5_cascade.json", "w"),
+              indent=1)
+    print("DONE", flush=True)
+
+
+if __name__ == "__main__":
+    main()

@@ -54,28 +54,34 @@ def eval_form(B):
         best = max(best, min_D(cell, diam, T @ B) / diam)
     return best
 
-rng = np.random.default_rng(31)
-t0 = time.time()
-results = []
-base = eval_form(A5S)
-results.append(("A5*", base))
-print(f"A5* restricted d(139) = {base:.6f}", flush=True)
-best = (base, "A5*")
-for i in range(30):
-    L = np.linalg.cholesky(A5S @ A5S.T)
-    P = L * (1 + rng.normal(scale=0.10, size=L.shape) * np.tri(n))
-    Q = P @ P.T
-    Q /= abs(np.linalg.det(Q)) ** (1 / n)
-    try:
-        B = np.linalg.cholesky(Q)
-        d = eval_form(B)
-    except Exception:
-        continue
-    if d > best[0]:
-        best = (d, f"pert{i}")
-        print(f"  new best {d:.6f} at pert{i} [{time.time()-t0:.0f}s]", flush=True)
-print(f"probe done: best restricted d(139) = {best[0]:.6f} ({best[1]}) "
-      f"[{time.time()-t0:.0f}s]", flush=True)
-json.dump({"best": best[0], "tag": best[1]},
-          open("/Users/mac/Documents/_My_code/Chromatic/audit-data/n3_5d_probe.json", "w"))
-print("DONE", flush=True)
+
+def main():
+    rng = np.random.default_rng(31)
+    t0 = time.time()
+    results = []
+    base = eval_form(A5S)
+    results.append(("A5*", base))
+    print(f"A5* restricted d(139) = {base:.6f}", flush=True)
+    best = (base, "A5*")
+    for i in range(30):
+        L = np.linalg.cholesky(A5S @ A5S.T)
+        P = L * (1 + rng.normal(scale=0.10, size=L.shape) * np.tri(n))
+        Q = P @ P.T
+        Q /= abs(np.linalg.det(Q)) ** (1 / n)
+        try:
+            B = np.linalg.cholesky(Q)
+            d = eval_form(B)
+        except Exception:
+            continue
+        if d > best[0]:
+            best = (d, f"pert{i}")
+            print(f"  new best {d:.6f} at pert{i} [{time.time()-t0:.0f}s]", flush=True)
+    print(f"probe done: best restricted d(139) = {best[0]:.6f} ({best[1]}) "
+          f"[{time.time()-t0:.0f}s]", flush=True)
+    json.dump({"best": best[0], "tag": best[1]},
+              open("/Users/mac/Documents/_My_code/Chromatic/audit-data/n3_5d_probe.json", "w"))
+    print("DONE", flush=True)
+
+
+if __name__ == "__main__":
+    main()

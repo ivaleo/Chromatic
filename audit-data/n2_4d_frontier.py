@@ -56,19 +56,25 @@ def campaign(k, starts, maxfev, tag):
     print(f"{tag}: k={k} max d = {best_d:.7f}", flush=True)
     return {"d": best_d, "Q": None if best_Q is None else best_Q.tolist()}
 
-# (a) k=47, 46 — жёсткие мультистарты
-for k in (47, 46):
-    starts = [pack(W48)] + [pack(W48) * (1 + rng.normal(scale=s, size=10))
-                            for s in (0.04, 0.08, 0.12, 0.2) for _ in range(2)] + \
-             [pack(D4), pack(A4S)]
-    out[f"k{k}"] = campaign(k, starts, 320, f"break{k}")
 
-# (b) ширины k=49..56
-for k in range(49, 57):
-    starts = [pack(D4), pack(A4S), pack(W48),
-              pack(W48) * (1 + rng.normal(scale=0.1, size=10))]
-    out[f"width{k}"] = campaign(k, starts, 240, f"width{k}")
+def main():
+    # (a) k=47, 46 — жёсткие мультистарты
+    for k in (47, 46):
+        starts = [pack(W48)] + [pack(W48) * (1 + rng.normal(scale=s, size=10))
+                                for s in (0.04, 0.08, 0.12, 0.2) for _ in range(2)] + \
+                 [pack(D4), pack(A4S)]
+        out[f"k{k}"] = campaign(k, starts, 320, f"break{k}")
 
-json.dump(out, open("/Users/mac/Documents/_My_code/Chromatic/audit-data/n2_4d_frontier.json", "w"),
-          indent=1)
-print("DONE", flush=True)
+    # (b) ширины k=49..56
+    for k in range(49, 57):
+        starts = [pack(D4), pack(A4S), pack(W48),
+                  pack(W48) * (1 + rng.normal(scale=0.1, size=10))]
+        out[f"width{k}"] = campaign(k, starts, 240, f"width{k}")
+
+    json.dump(out, open("/Users/mac/Documents/_My_code/Chromatic/audit-data/n2_4d_frontier.json", "w"),
+              indent=1)
+    print("DONE", flush=True)
+
+
+if __name__ == "__main__":
+    main()
