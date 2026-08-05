@@ -7,6 +7,8 @@
 import math
 import warnings
 
+import numpy as np
+
 TOL_SIMPLEX = 1e-9  # допуск поиска симплекса в триангуляции
 
 # --------------------------------------------------------------------------------
@@ -38,8 +40,11 @@ def check_dist(dist1, dist2):
 # --------------------------------------------------------------------------------
 
 
-def dist_to_s(vor4, s, max_len, early_stop=1.0, check=True):
-    """Нормированное расстояние от точки s до центрального многогранника V0.
+def dist_to_s_cascade(vor4, s, max_len, early_stop=1.0, check=True):
+    """Каскадный эталон dist_to_s: полный скан граней на чистом python.
+
+    Оставлен как независимая реализация для сверки с векторизованной версией
+    (tests/test_distances_vectorized.py). В API пакета не экспортируется.
 
     s — середина отрезка между началом координат и центром соседней области
     Вороного подрешётки. По лемме Иванова минимальное расстояние D между
@@ -142,3 +147,72 @@ def dist_to_s(vor4, s, max_len, early_stop=1.0, check=True):
             return float(min_dist_to_pol * 2 / max_len)
 
     return float(min_dist_to_pol * 2 / max_len)
+
+
+# --------------------------------------------------------------------------------
+
+
+def dist_to_s(vor4, s, max_len, early_stop=1.0, check=True):
+    """Нормированное расстояние от точки s до центрального многогранника V0.
+
+    Векторизованный вариант каскада проекций: все грани каждого уровня
+    обрабатываются одним numpy-выражением, принадлежность проверяется одним
+    вызовом Delaunay.find_simplex на массив точек. Эталон — dist_to_s_cascade,
+    сверка в tests/test_distances_vectorized.py.
+
+    Каскад обрывал спуск, когда проекция на грань попадала внутрь ячейки.
+    Пропущенные при этом кандидаты — точки той же грани или её границы, то есть
+    не ближе найденной, поэтому вычисление всех уровней даёт тот же минимум.
+
+    Отличие от каскада: значение всегда точное. Каскад при early_stop возвращал
+    верхнюю оценку, а точное значение её не хуже, поэтому решения find_optimal
+    не меняются, и сам параметр здесь не нужен.
+
+    Для точки внутри V0 (включая границу) возвращается 0.0.
+
+    :param vor4: объект VoronoiPolyhedra после build().
+    :param s: координаты точки (np.array).
+    :param max_len: диаметр центрального многогранника diam(V0).
+    :param early_stop: не используется (принимается ради совместимости вызовов).
+    :param check: не используется: прямые расстояния сверять по Пифагору нечего.
+    :return: нормированное расстояние d.
+    """
+    del early_stop, check
+    s = np.asarray(s, dtype=float)
+
+    # точка внутри многогранника (все гиперграни: normal наружу от центра ячейки)
+    offset = np.einsum("ij,ij->i", vor4.face3_normal, vor4.face3_center)
+    d0 = vor4.face3_normal @ s - offset
+    if np.all(d0 <= TOL_SIMPLEX):
+        return 0.0
+
+    # уровень 3: проекция на каждую гипергрань
+    coord0 = s - d0[:, None] * vor4.face3_normal
+    hit0 = vor4.delaunay.find_simplex(coord0, tol=TOL_SIMPLEX) != -1
+    best = float(np.abs(d0[hit0]).min()) if hit0.any() else float("inf")
+
+    # уровень 2: проекция на каждую 2-мерную грань
+    base1 = coord0[vor4.face2_parent]
+    d1 = np.einsum("ij,ij->i", vor4.face2_normal, base1 - vor4.face2_center)
+    coord1 = base1 - d1[:, None] * vor4.face2_normal
+    hit1 = vor4.delaunay.find_simplex(coord1, tol=TOL_SIMPLEX) != -1
+    if hit1.any():
+        best = min(best, float(np.linalg.norm(coord1[hit1] - s, axis=1).min()))
+
+    # уровень 1: проекция на каждое ребро, иначе — ближайшая его вершина
+    base2 = coord1[vor4.edge_parent]
+    d2 = np.einsum("ij,ij->i", vor4.edge_normal, base2 - vor4.edge_center)
+    coord2 = base2 - d2[:, None] * vor4.edge_normal
+    hit2 = vor4.delaunay.find_simplex(coord2, tol=TOL_SIMPLEX) != -1
+    if hit2.any():
+        best = min(best, float(np.linalg.norm(coord2[hit2] - s, axis=1).min()))
+
+    outside = ~hit2
+    if outside.any():
+        v1, v2 = vor4.edge_vertex1[outside], vor4.edge_vertex2[outside]
+        nearer_v1 = (np.linalg.norm(coord2[outside] - v1, axis=1)
+                     < np.linalg.norm(coord2[outside] - v2, axis=1))
+        nearest = np.where(nearer_v1[:, None], v1, v2)
+        best = min(best, float(np.linalg.norm(nearest - s, axis=1).min()))
+
+    return float(best * 2 / max_len)
