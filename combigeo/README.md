@@ -113,9 +113,9 @@ d    = combigeo.dist_to_halfspaces(point, rf)   # расстояние до H-м
 - `min_conflicts` ищет гомоморфизм φ: Λ → Z/e₁×…×Z/eₘ с φ(f)≠0 ∀f∈F (тогда
   раскраска пригодна на индексе = |образ|). Воспроизводит E₆*/343 за ≈0.3 с.
 - Радиус покрытия (⇒ `diam`) без вершин считается в python поверх
-  `relevant_facets` — см. `../audit-data/hd-2026-07/covrad.py`.
+  `relevant_facets` — см. `../audit-data/chromatic_research/core/covrad.py`.
 - Все эксперименты больших размерностей и их результаты:
-  `../audit-data/hd-2026-07/` (там же README с разбором).
+  `../audit-data/` (там же README с разбором).
 
 **Грабли сборки** (учтено в `setup.py`/`CMakeLists.txt`): `src/bigdim.cpp` должен
 быть в списке источников; в pybind11-обёртке `py::gil_scoped_release` охватывает
