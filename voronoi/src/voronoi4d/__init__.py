@@ -10,17 +10,9 @@
 
 from importlib.metadata import PackageNotFoundError, version
 
-from .distances import (
-    check_dist,
-    dist_to_s,
-    find_faces_from_nearest_vertices,
-)
+from .distances import check_dist, dist_to_s
 from .enumeration import lattice_points_within, shortest_vector
-from .factorization import (
-    compute_factorizations,
-    ordered_factorizations,
-    pad_lists_with_ones,
-)
+from .factorization import compute_factorizations, ordered_factorizations
 from .grids import (
     canonical_form_by_rows,
     check_grid,
@@ -33,7 +25,7 @@ from .grids import (
 from .io import plot_results, save_result
 from .lll import HAS_FPYLLL, gram_schmidt, lll_reduce, lll_reduce_python
 from .polyhedra import Edge2D, Face2D, Face3D, VoronoiPolyhedra
-from .search import find_optimal, lattice_points_no_central_symmetry
+from .search import find_optimal
 
 # единый источник версии — поле version в pyproject.toml (читаем из метаданных)
 try:
@@ -53,13 +45,11 @@ __all__ = [
     "check_grid",
     "compute_factorizations",
     "dist_to_s",
-    "find_faces_from_nearest_vertices",
     "find_optimal",
     "generate_grids",
     "generate_integer_grids",
     "generate_random_matrix",
     "gram_schmidt",
-    "lattice_points_no_central_symmetry",
     "lattice_points_within",
     "lll_reduce",
     "lll_reduce_python",
@@ -67,7 +57,6 @@ __all__ = [
     "shortest_vector",
     "min_max_det",
     "normalize_rows",
-    "pad_lists_with_ones",
     "plot_results",
     "save_result",
 ]

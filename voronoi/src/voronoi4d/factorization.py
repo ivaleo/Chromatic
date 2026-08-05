@@ -40,15 +40,3 @@ def compute_factorizations(n):
     :return: отсортированный список разложений длины 4.
     """
     return sorted(ordered_factorizations(n, 4))
-
-
-def pad_lists_with_ones(list_of_lists):
-    """Дополняет каждый список единицами в начале до длины 4.
-
-    Сохранена для совместимости: compute_factorizations() теперь возвращает
-    разложения длины ровно 4, так что функция — тождественная.
-
-    :param list_of_lists: список разложений.
-    :return: список разложений, каждое длиной ровно 4.
-    """
-    return [[1] * (4 - len(lst)) + lst if len(lst) < 4 else lst for lst in list_of_lists]
