@@ -5,7 +5,7 @@
 числом подрешёток данного индекса Σ d2 * d3**2 * d4**3.
 """
 
-from voronoi4d import compute_factorizations, ordered_factorizations, pad_lists_with_ones
+from voronoi4d import compute_factorizations, ordered_factorizations
 
 
 def _sublattice_count(n):
@@ -41,18 +41,3 @@ def test_sublattice_counts_match_classical_formula():
 
 def test_ordered_factorizations_small():
     assert ordered_factorizations(4, 2) == [[1, 4], [2, 2], [4, 1]]
-
-
-def test_pad_lists_with_ones():
-    padded = pad_lists_with_ones([[12], [2, 6], [2, 2, 3]])
-    assert padded == [
-        [1, 1, 1, 12],
-        [1, 1, 2, 6],
-        [1, 2, 2, 3],
-    ]
-
-
-def test_pad_lists_with_ones_does_not_mutate_input():
-    original = [[12]]
-    pad_lists_with_ones(original)
-    assert original == [[12]]

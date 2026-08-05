@@ -2,24 +2,7 @@
 
 import numpy as np
 
-from voronoi4d import (
-    check_dist,
-    dist_to_s,
-    lattice_points_no_central_symmetry,
-)
-
-
-def test_lattice_points_no_central_symmetry(vor):
-    points = lattice_points_no_central_symmetry(np.eye(4), 1, vor.max_len)
-
-    assert isinstance(points, list)
-    assert any(np.array_equal(p, np.zeros(4)) for p in points), \
-        "Нулевая точка должна присутствовать в списке"
-
-    # из пары центрально-симметричных точек остаётся только одна
-    points_list = [list(p) for p in points]
-    if [1.0, 0.0, 0.0, 0.0] in points_list:
-        assert [-1.0, 0.0, 0.0, 0.0] not in points_list
+from voronoi4d import check_dist, dist_to_s
 
 
 def test_check_dist_does_not_raise():

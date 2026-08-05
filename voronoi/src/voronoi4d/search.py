@@ -14,56 +14,12 @@ import math
 
 import numpy as np
 from itertools import product
-from scipy.spatial import distance
 
 from .distances import dist_to_s
 from .enumeration import lattice_points_within, shortest_vector
-from .factorization import compute_factorizations, pad_lists_with_ones
+from .factorization import compute_factorizations
 from .io import save_result
 from .lll import lll_reduce
-
-# --------------------------------------------------------------------------------
-
-
-def lattice_points_no_central_symmetry(basis, limits, max_len):
-    """Генерирует точки решётки без центрально-симметричных дубликатов.
-
-    УСТАРЕЛА для поиска: find_optimal() с версии 1.1.0 использует точный
-    сферический перебор с границей достаточности |v| < D + diam
-    (enumeration.lattice_points_within). Оставлена в API для совместимости.
-
-    Из каждой пары точек (p, -p) остаётся одна: первый ненулевой коэффициент
-    должен быть положительным. Если минимальное расстояние между точками
-    не превышает max_len, решётка отбрасывается (возвращается только ноль).
-
-    :param basis: базис решётки (numpy.ndarray).
-    :param limits: диапазон коэффициентов (-limits, limits).
-    :param max_len: диаметр многогранника.
-    :return: список точек решётки (включая нулевую).
-    """
-    points = []
-
-    for coeffs in product(range(-limits, limits + 1), repeat=4):
-        if all(c == 0 for c in coeffs):  # пропускаем нулевую точку
-            continue
-
-        # каноничность: первый ненулевой коэффициент должен быть положительным
-        first_nonzero = next((c for c in coeffs if c != 0), None)
-        if first_nonzero is not None and first_nonzero < 0:
-            continue
-
-        points.append(np.dot(coeffs, basis))
-
-    points.append(np.array([0, 0, 0, 0]))
-
-    # если минимальное расстояние между точками слишком мало, решётка не подходит
-    if len(points) >= 2:
-        min_dist = np.min(distance.pdist(points))
-        if min_dist <= max_len:
-            return [np.array([0, 0, 0, 0])]
-
-    return points
-
 
 # --------------------------------------------------------------------------------
 
@@ -116,7 +72,7 @@ def find_optimal(det_range, limits, grid, vor4, max_len, precision=12, threshold
             print("det:", det)
 
         # все варианты диагоналей матрицы перехода с данным определителем
-        list_diag_el = pad_lists_with_ones(compute_factorizations(det))
+        list_diag_el = compute_factorizations(det)
 
         # среди расстояний ищем максимальное по всем матрицам mat
         mat_dist = {}
