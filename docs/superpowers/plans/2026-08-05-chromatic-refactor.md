@@ -93,7 +93,7 @@ Chromatic/
 - `make figures` / `make paper` — пересборка рисунков и PDF
 - `make install` — установка всех пакетов в `.venv` в правильном порядке
 
-- [ ] **Шаг 1: зафиксировать базовую линию**
+- [x] **Шаг 1: зафиксировать базовую линию**
 
 ```bash
 cd /Users/mac/Documents/_My_code/Chromatic
@@ -103,7 +103,7 @@ cd /Users/mac/Documents/_My_code/Chromatic
 Ожидается: `199 passed`. Если число другое — остановиться и разобраться, план
 опирается на это значение.
 
-- [ ] **Шаг 2: создать корневой `pyproject.toml`**
+- [x] **Шаг 2: создать корневой `pyproject.toml`**
 
 Секции `[project]` и `[build-system]` НЕ добавляем: корень — не пакет, и
 `pip install .` в нём не должен работать.
@@ -132,7 +132,7 @@ exclude = [".venv", "audit-data/runs", "paper", "journal"]
 select = ["E4", "E7", "E9", "F"]
 ```
 
-- [ ] **Шаг 3: проверить, что конфиг не сломал сбор тестов**
+- [x] **Шаг 3: проверить, что конфиг не сломал сбор тестов**
 
 ```bash
 .venv/bin/python -m pytest -q 2>&1 | tail -3
@@ -141,7 +141,7 @@ select = ["E4", "E7", "E9", "F"]
 Ожидается: `199 passed`. Если pytest вдруг подхватил другой rootdir (например,
 `voronoi/pyproject.toml`), запустить с явным `-c pyproject.toml`.
 
-- [ ] **Шаг 4: создать `Makefile`**
+- [x] **Шаг 4: создать `Makefile`**
 
 ```makefile
 PY := .venv/bin/python
@@ -186,7 +186,7 @@ clean:
 строка будет падать, поэтому добавляем её сразу, но саму цель до фазы 3 не
 запускаем (в этом плане `make install` первый раз вызывается в задаче 7).
 
-- [ ] **Шаг 5: свести `.gitignore` в один корневой**
+- [x] **Шаг 5: свести `.gitignore` в один корневой**
 
 Заменить содержимое корневого `.gitignore` целиком:
 
@@ -242,14 +242,14 @@ git rm --cached -q voronoi/.gitignore chromatic/.gitignore combigeo/.gitignore
 rm voronoi/.gitignore chromatic/.gitignore combigeo/.gitignore
 ```
 
-- [ ] **Шаг 6: проверить, что ничего лишнего не всплыло и не пропало**
+- [x] **Шаг 6: проверить, что ничего лишнего не всплыло и не пропало**
 
 ```bash
 git status --porcelain -uall | head -20      # должно быть пусто, кроме правок выше
 git ls-files | wc -l                          # было 945; станет 945 - 3 + 3 = 945
 ```
 
-- [ ] **Шаг 7: добавить CI**
+- [x] **Шаг 7: добавить CI**
 
 Репозиторий живёт на GitHub (`Homepage` во всех трёх `pyproject.toml`), поэтому
 шлюз «199 тестов» имеет смысл вынести в Actions. Создать `.github/workflows/ci.yml`:
@@ -301,7 +301,7 @@ workflow временно ограничиваем прогон:
 
 и возвращаем полный `pytest -q` в задаче 11, шаг 12.
 
-- [ ] **Шаг 8: коммит**
+- [x] **Шаг 8: коммит**
 
 ```bash
 git add pyproject.toml Makefile .gitignore .github/workflows/ci.yml
@@ -319,7 +319,7 @@ git commit -m "инфраструктура: единая точка запус�
 **Файлы:**
 - Создать: `chromatic/tests/test_versions.py`
 
-- [ ] **Шаг 1: воспроизвести дефект**
+- [x] **Шаг 1: воспроизвести дефект**
 
 ```bash
 .venv/bin/python -c "import voronoi4d; print(voronoi4d.__version__)"
@@ -327,7 +327,7 @@ git commit -m "инфраструктура: единая точка запус�
 
 Ожидается: `1.0.0` (расходится с `pyproject.toml`).
 
-- [ ] **Шаг 2: написать падающий тест**
+- [x] **Шаг 2: написать падающий тест**
 
 Создать `chromatic/tests/test_versions.py`:
 
@@ -357,7 +357,7 @@ def test_installed_version_matches_pyproject(dist_name, pyproject):
     )
 ```
 
-- [ ] **Шаг 3: убедиться, что тест падает**
+- [x] **Шаг 3: убедиться, что тест падает**
 
 ```bash
 .venv/bin/python -m pytest chromatic/tests/test_versions.py -q
@@ -365,20 +365,20 @@ def test_installed_version_matches_pyproject(dist_name, pyproject):
 
 Ожидается: `1 failed` — `voronoi4d: установлено 1.0.0, объявлено 1.1.0`.
 
-- [ ] **Шаг 4: переустановить пакет**
+- [x] **Шаг 4: переустановить пакет**
 
 ```bash
 .venv/bin/pip install -e voronoi --no-deps --force-reinstall -q
 ```
 
-- [ ] **Шаг 5: тест зелёный**
+- [x] **Шаг 5: тест зелёный**
 
 ```bash
 .venv/bin/python -m pytest chromatic/tests/test_versions.py -q   # 3 passed
 make test                                                        # 202 passed
 ```
 
-- [ ] **Шаг 6: коммит**
+- [x] **Шаг 6: коммит**
 
 ```bash
 git add chromatic/tests/test_versions.py
