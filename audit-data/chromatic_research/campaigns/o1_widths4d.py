@@ -6,14 +6,7 @@ import json
 import numpy as np
 from multiprocessing import Pool
 from chromatic_research.paths import results_path
-
-def unpack(x):
-    L=np.zeros((4,4)); L[np.tril_indices(4)]=x
-    Q=L@L.T; d=abs(np.linalg.det(Q))
-    return Q/d**0.25 if d>1e-12 else None
-def pack(Q): return np.linalg.cholesky(Q)[np.tril_indices(4)]
-def norm_gram(M):
-    G=M@M.T; return G/abs(np.linalg.det(G))**0.25
+from chromatic_research.forms import norm_gram, pack, unpack
 
 def one(args):
     x0,k,mf=args
@@ -23,7 +16,7 @@ def one(args):
         if Q is None: return 0.0
         try: return combigeo.find_optimal(np.linalg.cholesky(Q+1e-12*np.eye(4)).tolist(),index=k,threads=1).normalized
         except Exception: return 0.0
-    r=minimize(lambda x:-d_of(unpack(x)),np.asarray(x0),method="Nelder-Mead",
+    r=minimize(lambda x:-d_of(unpack(x, 4)),np.asarray(x0),method="Nelder-Mead",
                options={"maxfev":mf,"xatol":1e-7,"fatol":1e-11})
     return (-r.fun,r.x.tolist())
 

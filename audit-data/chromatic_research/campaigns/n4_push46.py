@@ -4,16 +4,7 @@ import numpy as np
 from scipy.optimize import minimize
 import combigeo
 from chromatic_research.paths import results_path
-
-def unpack(x):
-    L = np.zeros((4, 4))
-    L[np.tril_indices(4)] = x
-    Q = L @ L.T
-    d = abs(np.linalg.det(Q))
-    return Q / d ** 0.25 if d > 1e-12 else None
-
-def pack(Q):
-    return np.linalg.cholesky(Q)[np.tril_indices(4)]
+from chromatic_research.forms import pack, unpack
 
 def d_of(Q, k=46):
     if Q is None: return 0.0
@@ -38,7 +29,7 @@ def main():
     for i, s in enumerate(starts):
         hist = {"b": 0.0}
         def obj(x):
-            d = d_of(unpack(x))
+            d = d_of(unpack(x, 4))
             if d > hist["b"] + 2e-4:
                 hist["b"] = d
                 if d > best_d:
@@ -47,7 +38,7 @@ def main():
         r = minimize(obj, s, method="Nelder-Mead",
                      options={"maxfev": 700, "xatol": 1e-8, "fatol": 1e-12})
         if -r.fun > best_d:
-            best_d, best_Q = -r.fun, unpack(r.x)
+            best_d, best_Q = -r.fun, unpack(r.x, 4)
             print(f"start{i}: улучшение до {best_d:.7f}", flush=True)
             if best_d >= 1.0:
                 break

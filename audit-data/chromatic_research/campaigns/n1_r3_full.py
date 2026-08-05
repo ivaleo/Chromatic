@@ -5,16 +5,7 @@ import numpy as np
 from scipy.optimize import minimize
 import combigeo
 from chromatic_research.paths import results_path
-
-def unpack(x):
-    L = np.zeros((3, 3))
-    L[np.tril_indices(3)] = x
-    Q = L @ L.T
-    d = abs(np.linalg.det(Q))
-    return Q / d ** (1/3) if d > 1e-10 else None
-
-def pack(Q):
-    return np.linalg.cholesky(Q)[np.tril_indices(3)]
+from chromatic_research.forms import pack, unpack
 
 def d_of(Q, k):
     if Q is None: return 0.0
@@ -43,10 +34,10 @@ def main():
         starts += [starts[0] * (1 + rng.normal(scale=0.15, size=6)) for _ in range(3)]
         best_d, best_Q = prev.get(str(k), {}).get("d", 0.0), None
         for s in starts:
-            r = minimize(lambda x: -d_of(unpack(x), k), s, method="Nelder-Mead",
+            r = minimize(lambda x: -d_of(unpack(x, 3), k), s, method="Nelder-Mead",
                          options={"maxfev": 500, "xatol": 1e-7, "fatol": 1e-10})
             if -r.fun > best_d:
-                best_d, best_Q = -r.fun, unpack(r.x)
+                best_d, best_Q = -r.fun, unpack(r.x, 3)
         base = prev.get(str(k), {}).get("d", 0.0)
         mark = f"+{best_d-base:.5f} vs семейство" if best_d > base + 1e-5 else "= семейство"
         print(f"k={k:2d}  d={best_d:.7f}  {mark}", flush=True)

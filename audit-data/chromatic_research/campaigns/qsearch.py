@@ -9,6 +9,7 @@
 бассейнов, где NM застревает.
 """
 import numpy as np
+from chromatic_research.forms import unpack as cholesky_unpack
 
 
 def qsearch(f, xl, xg, max_prob=3000, eps_brus=1e-4, seed=0, callback=None):
@@ -63,15 +64,6 @@ def qsearch(f, xl, xg, max_prob=3000, eps_brus=1e-4, seed=0, callback=None):
 
 
 # ------------------- применение к нашей задаче d(Q, k) -------------------
-
-def cholesky_unpack(x, dim):
-    """Вектор нижнетреугольных параметров -> нормированная (det=1) форма Грама."""
-    L = np.zeros((dim, dim))
-    L[np.tril_indices(dim)] = x
-    Q = L @ L.T
-    d = abs(np.linalg.det(Q))
-    return Q / d ** (1.0 / dim) if d > 1e-12 else None
-
 
 def make_objective(dim, k, threads=1):
     """Возвращает f(x) = -d(Q(x), k) для минимизации Q-поиском."""

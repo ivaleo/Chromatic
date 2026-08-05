@@ -12,21 +12,11 @@ from fractions import Fraction
 from scipy.optimize import minimize
 import combigeo
 from chromatic_research.paths import results_path
+from chromatic_research.forms import pack, unpack
 
 cand = json.load(open(results_path("r2_k48_candidate.json")))
 Q0 = np.array(cand["Q"])
 Q0 /= abs(np.linalg.det(Q0)) ** 0.25          # нормировка масштаба
-
-def pack(Q):
-    L = np.linalg.cholesky(Q)
-    return L[np.tril_indices(4)]
-
-def unpack(x):
-    L = np.zeros((4, 4))
-    L[np.tril_indices(4)] = x
-    Q = L @ L.T
-    d = abs(np.linalg.det(Q))
-    return Q / d ** 0.25 if d > 1e-12 else None
 
 def d_of(Q, k):
     if Q is None:
@@ -40,7 +30,7 @@ def d_of(Q, k):
 def climb(k, x0, maxfev, tag):
     hist = {"best": 0.0, "x": None}
     def obj(x):
-        d = d_of(unpack(x), k)
+        d = d_of(unpack(x, 4), k)
         if d > hist["best"] + 1e-7:
             hist["best"], hist["x"] = d, x.copy()
             print(f"  [{tag}] d({k}) = {d:.7f}", flush=True)
@@ -57,7 +47,7 @@ def main():
     # (a) полировка k=48
     d48, x48 = climb(48, x0, 500, "polish48")
     print(f"POLISH k=48: d = {d48:.7f}", flush=True)
-    Q48 = unpack(x48)
+    Q48 = unpack(x48, 4)
     out["k48"] = {"d": d48, "Q": Q48.tolist()}
 
     # (b) k=47 и k=46 от победителя и возмущений
@@ -70,7 +60,7 @@ def main():
             if d > best[0]:
                 best = (d, x)
         print(f"BEST k={k}: d = {best[0]:.7f}  {'>=1 !!!' if best[0] >= 1 else '< 1'}", flush=True)
-        out[f"k{k}"] = {"d": best[0], "Q": None if best[1] is None else unpack(best[1]).tolist()}
+        out[f"k{k}"] = {"d": best[0], "Q": None if best[1] is None else unpack(best[1], 4).tolist()}
 
     # (c) малознаменательные рациональные формы вблизи победителя-48
     best_rat = None

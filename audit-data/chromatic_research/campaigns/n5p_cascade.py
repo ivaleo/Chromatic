@@ -3,16 +3,7 @@ import json
 import numpy as np
 from multiprocessing import Pool
 from chromatic_research.paths import results_path
-
-def unpack(x):
-    L = np.zeros((4, 4))
-    L[np.tril_indices(4)] = x
-    Q = L @ L.T
-    d = abs(np.linalg.det(Q))
-    return Q / d ** 0.25 if d > 1e-12 else None
-
-def pack(Q):
-    return np.linalg.cholesky(Q)[np.tril_indices(4)]
+from chromatic_research.forms import pack, unpack
 
 def one_start(args):
     """Один NM-старт (в отдельном процессе)."""
@@ -26,7 +17,7 @@ def one_start(args):
             return combigeo.find_optimal(B.tolist(), index=k).normalized
         except Exception:
             return 0.0
-    r = minimize(lambda x: -d_of(unpack(x)), np.asarray(s), method="Nelder-Mead",
+    r = minimize(lambda x: -d_of(unpack(x, 4)), np.asarray(s), method="Nelder-Mead",
                  options={"maxfev": maxfev, "xatol": 1e-8, "fatol": 1e-12})
     return (-r.fun, r.x.tolist())
 

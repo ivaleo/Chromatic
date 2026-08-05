@@ -17,12 +17,7 @@ import numpy as np
 import combigeo
 from voronoi4d import lattice_points_within, lll_reduce, shortest_vector
 from chromatic_research.paths import results_path
-
-
-def cholesky_unpack(x, dim):
-    L = np.zeros((dim, dim)); L[np.tril_indices(dim)] = x
-    Q = L @ L.T; d = abs(np.linalg.det(Q))
-    return Q / d ** (1.0 / dim) if d > 1e-12 else None
+from chromatic_research.forms import unpack as cholesky_unpack
 
 
 def d_of_pair(B, cell, diam, c_int, k, dim):
