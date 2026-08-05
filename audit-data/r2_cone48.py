@@ -62,15 +62,21 @@ def optimize(cone, k, maxfev, seeds):
     print(f"{cone} k={k}: max d = {best_d:.7f}", flush=True)
     return {"d": best_d, "t": best_t}
 
-out = {}
-# главная попытка: k=48 на генерическом конусе (старт с представителя, d=0.99941)
-out["111-_k48"] = optimize("111-", 48, maxfev=260, seeds=[0, 1, 2])
-# k=47 и 46 — на всякий случай (дешевле по числу подрешёток)
-out["111-_k47"] = optimize("111-", 47, maxfev=200, seeds=[0, 1])
-out["K3,3_k48"] = optimize("K3,3", 48, maxfev=200, seeds=[0, 1])
-# ширина интервала на 49: можно ли лучше sqrt(7/6) = 1.0801235?
-out["111-_k49"] = optimize("111-", 49, maxfev=200, seeds=[0, 1])
-out["K3,3_k49"] = optimize("K3,3", 49, maxfev=200, seeds=[0, 1])
-out["K5_k54"]   = optimize("K5", 54, maxfev=150, seeds=[0])
-json.dump(out, open("/Users/mac/Documents/_My_code/Chromatic/audit-data/r2_cone.json", "w"), indent=1)
-print("DONE", flush=True)
+
+def main():
+    out = {}
+    # главная попытка: k=48 на генерическом конусе (старт с представителя, d=0.99941)
+    out["111-_k48"] = optimize("111-", 48, maxfev=260, seeds=[0, 1, 2])
+    # k=47 и 46 — на всякий случай (дешевле по числу подрешёток)
+    out["111-_k47"] = optimize("111-", 47, maxfev=200, seeds=[0, 1])
+    out["K3,3_k48"] = optimize("K3,3", 48, maxfev=200, seeds=[0, 1])
+    # ширина интервала на 49: можно ли лучше sqrt(7/6) = 1.0801235?
+    out["111-_k49"] = optimize("111-", 49, maxfev=200, seeds=[0, 1])
+    out["K3,3_k49"] = optimize("K3,3", 49, maxfev=200, seeds=[0, 1])
+    out["K5_k54"]   = optimize("K5", 54, maxfev=150, seeds=[0])
+    json.dump(out, open("/Users/mac/Documents/_My_code/Chromatic/audit-data/r2_cone.json", "w"), indent=1)
+    print("DONE", flush=True)
+
+
+if __name__ == "__main__":
+    main()

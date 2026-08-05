@@ -18,27 +18,33 @@ def gram(rays):
         Q += np.array(R[i], float)
     return np.linalg.cholesky(Q).tolist()
 
-A4G = np.array([[2,-1,0,0],[-1,2,-1,0],[0,-1,2,-1],[0,0,-1,2]], float)
-A4S = np.linalg.inv(np.linalg.cholesky(A4G)).T.tolist()
 
-LATTICES = {
-    "D4":   [[2,0,0,0],[1,1,0,0],[1,0,1,0],[1,0,0,1]],
-    "A4s":  A4S,
-    "K3,3": gram([1,2,3,4,6,7,8,9,12]),
-    "111-": gram([1,2,3,4,6,7,8,9,10,11]),
-}
+def main():
+    A4G = np.array([[2,-1,0,0],[-1,2,-1,0],[0,-1,2,-1],[0,0,-1,2]], float)
+    A4S = np.linalg.inv(np.linalg.cholesky(A4G)).T.tolist()
 
-out = {}
-for name, basis in LATTICES.items():
-    t0 = time.time()
-    res = combigeo.find_optimal_range(basis, 2, 100)
-    rows = []
-    for k in sorted(res):
-        d = res[k].normalized
-        f = Fraction(d*d).limit_denominator(500000)
-        rows.append({"k": k, "d": d, "d2": [f.numerator, f.denominator]})
-    feas = [r["k"] for r in rows if r["d"] >= 1.0 - 1e-12]
-    print(f"{name}: feasible k = {feas}  [{time.time()-t0:.0f}s]", flush=True)
-    out[name] = rows
-json.dump(out, open("/Users/mac/Documents/_My_code/Chromatic/audit-data/campaign_c.json", "w"), indent=1)
-print("DONE", flush=True)
+    LATTICES = {
+        "D4":   [[2,0,0,0],[1,1,0,0],[1,0,1,0],[1,0,0,1]],
+        "A4s":  A4S,
+        "K3,3": gram([1,2,3,4,6,7,8,9,12]),
+        "111-": gram([1,2,3,4,6,7,8,9,10,11]),
+    }
+
+    out = {}
+    for name, basis in LATTICES.items():
+        t0 = time.time()
+        res = combigeo.find_optimal_range(basis, 2, 100)
+        rows = []
+        for k in sorted(res):
+            d = res[k].normalized
+            f = Fraction(d*d).limit_denominator(500000)
+            rows.append({"k": k, "d": d, "d2": [f.numerator, f.denominator]})
+        feas = [r["k"] for r in rows if r["d"] >= 1.0 - 1e-12]
+        print(f"{name}: feasible k = {feas}  [{time.time()-t0:.0f}s]", flush=True)
+        out[name] = rows
+    json.dump(out, open("/Users/mac/Documents/_My_code/Chromatic/audit-data/campaign_c.json", "w"), indent=1)
+    print("DONE", flush=True)
+
+
+if __name__ == "__main__":
+    main()

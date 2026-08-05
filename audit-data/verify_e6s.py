@@ -167,66 +167,71 @@ def report(name, d, D, diam):
           flush=True)
 
 
-# ---- calibration: D4, sublattice of index 49 must give d = sqrt(7/6) = 1.080123 ----
-D4 = np.array([[2, 0, 0, 0], [1, 1, 0, 0], [1, 0, 1, 0], [1, 0, 0, 1]], float)
-rel = relevant_vectors(D4)
-print(f"[calib] D4 relevant vectors: {len(rel)} (expect 24)", flush=True)
-diam = 2 * max(0.0, *(np.linalg.norm(w) for w in rel))  # placeholder, recomputed below
+def main():
+    # ---- calibration: D4, sublattice of index 49 must give d = sqrt(7/6) = 1.080123 ----
+    D4 = np.array([[2, 0, 0, 0], [1, 1, 0, 0], [1, 0, 1, 0], [1, 0, 0, 1]], float)
+    rel = relevant_vectors(D4)
+    print(f"[calib] D4 relevant vectors: {len(rel)} (expect 24)", flush=True)
+    diam = 2 * max(0.0, *(np.linalg.norm(w) for w in rel))  # placeholder, recomputed below
 
-# diameter of D4 cell is known = 2; for E6* we will use 2R = sqrt(2)*lambda1 (see below).
-# Here calibrate distance code with the known transition (HNF w.r.t. LLL(D4) from combigeo):
-H = np.array([[1, 0, 0, 2], [0, 1, 2, 4], [0, 0, 7, 0], [0, 0, 0, 7]], float)
-LLL_D4 = lll(D4)
-subD4 = H @ LLL_D4
-D = min_color_distance(rel, 2.0, subD4)
-report("[calib] D4/49", D / 2.0, D, 2.0)
+    # diameter of D4 cell is known = 2; for E6* we will use 2R = sqrt(2)*lambda1 (see below).
+    # Here calibrate distance code with the known transition (HNF w.r.t. LLL(D4) from combigeo):
+    H = np.array([[1, 0, 0, 2], [0, 1, 2, 4], [0, 0, 7, 0], [0, 0, 0, 7]], float)
+    LLL_D4 = lll(D4)
+    subD4 = H @ LLL_D4
+    D = min_color_distance(rel, 2.0, subD4)
+    report("[calib] D4/49", D / 2.0, D, 2.0)
 
-# ---- E6* ----
-u1 = (THETA, 0, 0)
-u2 = (1, 1, 1)
-u3 = (0, THETA, 0)
-gens_c = []
-for u in (u1, u2, u3):
-    gens_c.append(u)
-    gens_c.append(tuple(OMEGA * z for z in u))
-B_E6 = realify(gens_c)                      # 6x6, rows = Z-basis of complex E6
-lam1_E6 = min(np.linalg.norm(v) for v in vectors_within(B_E6, 1.75))
-n_roots = sum(1 for v in vectors_within(B_E6, lam1_E6 + 1e-9))
-print(f"E6 check: lambda1^2 = {lam1_E6**2:.6f} (expect 3), "
-      f"#min vectors = {2*n_roots} (expect 72)", flush=True)
+    # ---- E6* ----
+    u1 = (THETA, 0, 0)
+    u2 = (1, 1, 1)
+    u3 = (0, THETA, 0)
+    gens_c = []
+    for u in (u1, u2, u3):
+        gens_c.append(u)
+        gens_c.append(tuple(OMEGA * z for z in u))
+    B_E6 = realify(gens_c)                      # 6x6, rows = Z-basis of complex E6
+    lam1_E6 = min(np.linalg.norm(v) for v in vectors_within(B_E6, 1.75))
+    n_roots = sum(1 for v in vectors_within(B_E6, lam1_E6 + 1e-9))
+    print(f"E6 check: lambda1^2 = {lam1_E6**2:.6f} (expect 3), "
+          f"#min vectors = {2*n_roots} (expect 72)", flush=True)
 
-B_dual = np.linalg.inv(B_E6).T              # rows = Z-basis of E6*
-lam1 = min(np.linalg.norm(v) for v in vectors_within(B_dual, 1.2))
-count_min = 2 * sum(1 for v in vectors_within(B_dual, lam1 + 1e-9))
-print(f"E6*: lambda1^2 = {lam1**2:.6f}, #min vectors = {count_min} (expect 54 for E6*)",
-      flush=True)
+    B_dual = np.linalg.inv(B_E6).T              # rows = Z-basis of E6*
+    lam1 = min(np.linalg.norm(v) for v in vectors_within(B_dual, 1.2))
+    count_min = 2 * sum(1 for v in vectors_within(B_dual, lam1 + 1e-9))
+    print(f"E6*: lambda1^2 = {lam1**2:.6f}, #min vectors = {count_min} (expect 54 for E6*)",
+          flush=True)
 
-rel6 = relevant_vectors(B_dual)
-print(f"E6* relevant vectors: {len(rel6)} (expect 63 canonical pairs = 126 total)", flush=True)
+    rel6 = relevant_vectors(B_dual)
+    print(f"E6* relevant vectors: {len(rel6)} (expect 63 canonical pairs = 126 total)", flush=True)
 
-# diameter = 2R; covering/packing ratio of E6* = sqrt(2) (Arman et al. Table) => R = lam1/sqrt(2)
-R = lam1 / math.sqrt(2)
-diam6 = 2 * R
-# independent numeric check of R: max over many random points of dist to lattice
-rng = np.random.default_rng(7)
-Binv = np.linalg.inv(B_dual)
-best = 0.0
-for _ in range(4000):
-    x = rng.uniform(-0.5, 0.5, 6) @ B_dual
-    c = np.rint(x @ Binv)
-    y = x - c @ B_dual
-    dmin2 = min((y - v) @ (y - v) for v in ([np.zeros(6)] + vectors_within(B_dual, np.linalg.norm(y) + lam1)))
-    best = max(best, dmin2)
-print(f"covering radius: analytic {R:.6f}; sampled lower bound {math.sqrt(best):.6f}", flush=True)
+    # diameter = 2R; covering/packing ratio of E6* = sqrt(2) (Arman et al. Table) => R = lam1/sqrt(2)
+    R = lam1 / math.sqrt(2)
+    diam6 = 2 * R
+    # independent numeric check of R: max over many random points of dist to lattice
+    rng = np.random.default_rng(7)
+    Binv = np.linalg.inv(B_dual)
+    best = 0.0
+    for _ in range(4000):
+        x = rng.uniform(-0.5, 0.5, 6) @ B_dual
+        c = np.rint(x @ Binv)
+        y = x - c @ B_dual
+        dmin2 = min((y - v) @ (y - v) for v in ([np.zeros(6)] + vectors_within(B_dual, np.linalg.norm(y) + lam1)))
+        best = max(best, dmin2)
+    print(f"covering radius: analytic {R:.6f}; sampled lower bound {math.sqrt(best):.6f}", flush=True)
 
-A_alpha = np.kron(np.eye(3), np.array([[ALPHA.real, -ALPHA.imag], [ALPHA.imag, ALPHA.real]]))
-sub6 = B_dual @ A_alpha.T
-idx = abs(np.linalg.det(sub6)) / abs(np.linalg.det(B_dual))
-print(f"index [E6* : alpha E6*] = {idx:.3f} (expect 343)", flush=True)
+    A_alpha = np.kron(np.eye(3), np.array([[ALPHA.real, -ALPHA.imag], [ALPHA.imag, ALPHA.real]]))
+    sub6 = B_dual @ A_alpha.T
+    idx = abs(np.linalg.det(sub6)) / abs(np.linalg.det(B_dual))
+    print(f"index [E6* : alpha E6*] = {idx:.3f} (expect 343)", flush=True)
 
-t0 = time.time()
-D6 = min_color_distance(rel6, diam6, sub6)
-report("E6*/343 (alpha=3+omega)", D6 / diam6, D6, diam6)
-print(f"guaranteed floor from their proof: 3/(2*sqrt(2)) = {3/(2*math.sqrt(2)):.6f} "
-      f"[{time.time()-t0:.1f}s]", flush=True)
-print("DONE", flush=True)
+    t0 = time.time()
+    D6 = min_color_distance(rel6, diam6, sub6)
+    report("E6*/343 (alpha=3+omega)", D6 / diam6, D6, diam6)
+    print(f"guaranteed floor from their proof: 3/(2*sqrt(2)) = {3/(2*math.sqrt(2)):.6f} "
+          f"[{time.time()-t0:.1f}s]", flush=True)
+    print("DONE", flush=True)
+
+
+if __name__ == "__main__":
+    main()
