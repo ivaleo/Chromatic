@@ -400,7 +400,7 @@ git commit -m "тесты: сверка версий установленных 
 - Удалить: `tmp/` (27 файлов), `output/` (1 файл)
 - Изменить: `README.md` (если есть ссылки), `.gitignore`
 
-- [ ] **Шаг 1: убедиться, что на них правда никто не ссылается**
+- [x] **Шаг 1: убедиться, что на них правда никто не ссылается**
 
 ```bash
 grep -rn "tmp/pdfs\|output/pdf" --include='*.md' --include='*.py' --include='*.tex' . | grep -v .venv
@@ -408,7 +408,7 @@ grep -rn "tmp/pdfs\|output/pdf" --include='*.md' --include='*.py' --include='*.t
 
 Ожидается: пусто. Если что-то найдено — сначала починить ссылку, потом удалять.
 
-- [ ] **Шаг 2: сверить, что удаляемый PDF действительно устарел**
+- [x] **Шаг 2: сверить, что удаляемый PDF действительно устарел**
 
 ```bash
 md5 -q output/pdf/chi4-45.pdf paper/chi4-45.pdf
@@ -418,13 +418,13 @@ ls -l output/pdf/chi4-45.pdf paper/chi4-45.pdf
 Ожидается: разные хеши, `paper/` новее. Если наоборот — остановиться: значит,
 `output/` содержит что-то уникальное.
 
-- [ ] **Шаг 3: удалить**
+- [x] **Шаг 3: удалить**
 
 ```bash
 git rm -r -q tmp output
 ```
 
-- [ ] **Шаг 4: закрыть путь назад**
+- [x] **Шаг 4: закрыть путь назад**
 
 Добавить в конец `.gitignore`:
 
@@ -434,7 +434,7 @@ git rm -r -q tmp output
 /output/
 ```
 
-- [ ] **Шаг 5: проверка и коммит**
+- [x] **Шаг 5: проверка и коммит**
 
 ```bash
 make test                                     # 202 passed
@@ -468,7 +468,7 @@ git add -A && git commit -m "репозиторий: убрать tmp/ и уст
 - Изменить: `voronoi/tests/test_distances.py:5-22` (удалить импорт и 1 тест)
 - Изменить: `voronoi/README.md:65`, `voronoi/docs/USAGE.md` (упоминания)
 
-- [ ] **Шаг 1: подтвердить, что внешних потребителей нет**
+- [x] **Шаг 1: подтвердить, что внешних потребителей нет**
 
 ```bash
 grep -rn "pad_lists_with_ones\|lattice_points_no_central_symmetry\|find_faces_from_nearest_vertices" \
@@ -477,7 +477,7 @@ grep -rn "pad_lists_with_ones\|lattice_points_no_central_symmetry\|find_faces_fr
 
 Ожидается: только `voronoi/tests/test_factorization.py` и `voronoi/tests/test_distances.py`.
 
-- [ ] **Шаг 2: удалить `pad_lists_with_ones`**
+- [x] **Шаг 2: удалить `pad_lists_with_ones`**
 
 Из `voronoi/src/voronoi4d/factorization.py` удалить строки 45-54 целиком
 (функцию `pad_lists_with_ones` вместе с докстрингом).
@@ -506,7 +506,7 @@ from .factorization import compute_factorizations
         list_diag_el = compute_factorizations(det)
 ```
 
-- [ ] **Шаг 3: удалить `lattice_points_no_central_symmetry`**
+- [x] **Шаг 3: удалить `lattice_points_no_central_symmetry`**
 
 Из `voronoi/src/voronoi4d/search.py` удалить строки 28-65 (функцию с докстрингом)
 и разделитель-комментарий над ней. Затем удалить ставшие ненужными импорты в
@@ -519,7 +519,7 @@ from scipy.spatial import distance
 
 — эту строку (`search.py:17`) удалить.
 
-- [ ] **Шаг 4: удалить `find_faces_from_nearest_vertices`**
+- [x] **Шаг 4: удалить `find_faces_from_nearest_vertices`**
 
 Из `voronoi/src/voronoi4d/distances.py` удалить строки 35-62 вместе с
 разделителями-комментариями и константой `TOL_NEAREST` (строка 15) — она
@@ -529,7 +529,7 @@ from scipy.spatial import distance
 grep -n "TOL_NEAREST" voronoi/src/voronoi4d/*.py    # должно остаться пусто
 ```
 
-- [ ] **Шаг 5: почистить `__init__.py`**
+- [x] **Шаг 5: почистить `__init__.py`**
 
 В `voronoi/src/voronoi4d/__init__.py` удалить:
 - из блока `from .distances import (...)` — строку `find_faces_from_nearest_vertices,`
@@ -539,7 +539,7 @@ grep -n "TOL_NEAREST" voronoi/src/voronoi4d/*.py    # должно остать�
 - из `__all__` — строки `"find_faces_from_nearest_vertices",`,
   `"lattice_points_no_central_symmetry",`, `"pad_lists_with_ones",`
 
-- [ ] **Шаг 6: удалить осиротевшие тесты**
+- [x] **Шаг 6: удалить осиротевшие тесты**
 
 В `voronoi/tests/test_factorization.py` удалить строки 46-58 (тесты
 `test_pad_lists_with_ones` и `test_pad_lists_with_ones_does_not_mutate_input`) и
@@ -549,7 +549,7 @@ grep -n "TOL_NEAREST" voronoi/src/voronoi4d/*.py    # должно остать�
 `test_lattice_points_no_central_symmetry` (строки 12-22) и убрать
 `lattice_points_no_central_symmetry` из импорта в шапке.
 
-- [ ] **Шаг 7: обновить документацию**
+- [x] **Шаг 7: обновить документацию**
 
 В `voronoi/README.md` и `voronoi/docs/USAGE.md` убрать абзацы про удалённые
 функции. Найти их:
@@ -559,14 +559,14 @@ grep -n "pad_lists_with_ones\|lattice_points_no_central\|find_faces_from_nearest
   voronoi/README.md voronoi/docs/USAGE.md
 ```
 
-- [ ] **Шаг 8: проверка**
+- [x] **Шаг 8: проверка**
 
 ```bash
 .venv/bin/python -c "import voronoi4d; print(len(voronoi4d.__all__))"   # было 27, стало 24
 make test                                                               # 199 passed (3 теста удалены)
 ```
 
-- [ ] **Шаг 9: коммит**
+- [x] **Шаг 9: коммит**
 
 ```bash
 git add voronoi chromatic
@@ -595,7 +595,7 @@ stdout из вычислительного ядра — в библиотеке 
 - `progress: Callable[[str], None] | None` — если задан, вызывается со строками
   прогресса; по умолчанию молчит.
 
-- [ ] **Шаг 1: написать падающий тест на новую сигнатуру**
+- [x] **Шаг 1: написать падающий тест на новую сигнатуру**
 
 Создать `voronoi/tests/test_search_progress.py`:
 
@@ -649,7 +649,7 @@ def test_no_progress_means_silence(tmp_path, capsys):
     assert capsys.readouterr().out == ""
 ```
 
-- [ ] **Шаг 2: убедиться, что тест падает**
+- [x] **Шаг 2: убедиться, что тест падает**
 
 ```bash
 .venv/bin/python -m pytest voronoi/tests/test_search_progress.py -q
@@ -658,7 +658,7 @@ def test_no_progress_means_silence(tmp_path, capsys):
 Ожидается: `3 failed` — старая сигнатура требует `limits` вторым позиционным
 аргументом.
 
-- [ ] **Шаг 3: поменять сигнатуру и вывод**
+- [x] **Шаг 3: поменять сигнатуру и вывод**
 
 В `voronoi/src/voronoi4d/search.py` заменить объявление функции (строки 71-72) на:
 
@@ -685,7 +685,7 @@ def find_optimal(det_range, grid, vor4, max_len, *, precision=12, threshold=1.0,
             progress(message)
 ```
 
-- [ ] **Шаг 4: заменить все `print` на `report`**
+- [x] **Шаг 4: заменить все `print` на `report`**
 
 В теле `find_optimal` заменить блоки печати. Строки 112-116:
 
@@ -746,7 +746,7 @@ def find_optimal(det_range, grid, vor4, max_len, *, precision=12, threshold=1.0,
                 report(f"  кандидат d={min_dist_mat:.6f} при {min_center}")
 ```
 
-- [ ] **Шаг 5: обновить фасад**
+- [x] **Шаг 5: обновить фасад**
 
 В `chromatic/src/chromatic/_voronoi4d.py` заменить строки 110-113:
 
@@ -766,7 +766,7 @@ def find_optimal(det_range, grid, vor4, max_len, *, precision=12, threshold=1.0,
             )
 ```
 
-- [ ] **Шаг 6: обновить notebook**
+- [x] **Шаг 6: обновить notebook**
 
 В `voronoi/notebooks/voronoi_main.ipynb` два места. Найти:
 
@@ -778,7 +778,7 @@ grep -n "limits" voronoi/notebooks/voronoi_main.ipynb
 на `find_optimal(range(49, 50), grid, vor4, vor4.max_len, threshold=1.0, progress=print)`
 и убрать строку-комментарий про устаревший `limits`.
 
-- [ ] **Шаг 7: обновить документацию**
+- [x] **Шаг 7: обновить документацию**
 
 В `voronoi/docs/USAGE.md` (строки 38, 84, 90) и `voronoi/README.md` (строки 65, 131)
 убрать `limits` из примеров и описания, добавить строку про `progress`:
@@ -788,14 +788,14 @@ grep -n "limits" voronoi/notebooks/voronoi_main.ipynb
   (например, `progress=print`); по умолчанию функция ничего не печатает.
 ```
 
-- [ ] **Шаг 8: тесты зелёные**
+- [x] **Шаг 8: тесты зелёные**
 
 ```bash
 .venv/bin/python -m pytest voronoi/tests/test_search_progress.py -q   # 3 passed
 make test                                                             # 202 passed
 ```
 
-- [ ] **Шаг 9: коммит**
+- [x] **Шаг 9: коммит**
 
 ```bash
 git add voronoi chromatic
@@ -812,7 +812,7 @@ git commit -m "voronoi4d: убрать мёртвый параметр limits, v
 **Файлы:**
 - Изменить: `voronoi/src/voronoi4d/search.py:97-208`
 
-- [ ] **Шаг 1: убедиться, что поведение зафиксировано тестами**
+- [x] **Шаг 1: убедиться, что поведение зафиксировано тестами**
 
 ```bash
 .venv/bin/python -m pytest voronoi/tests/test_search.py -q
@@ -820,7 +820,7 @@ git commit -m "voronoi4d: убрать мёртвый параметр limits, v
 
 Ожидается: зелено. Это характеризационная страховка для рефакторинга.
 
-- [ ] **Шаг 2: добавить запись-кандидата**
+- [x] **Шаг 2: добавить запись-кандидата**
 
 В шапку `voronoi/src/voronoi4d/search.py` добавить импорт:
 
@@ -840,7 +840,7 @@ class _Candidate:
     center: "np.ndarray"
 ```
 
-- [ ] **Шаг 3: заменить три словаря на список**
+- [x] **Шаг 3: заменить три словаря на список**
 
 Строки 122-125:
 
@@ -910,14 +910,14 @@ class _Candidate:
                     for center in neighbours:
 ```
 
-- [ ] **Шаг 4: проверка**
+- [x] **Шаг 4: проверка**
 
 ```bash
 make test                                                # 202 passed
 grep -n "mat_dist\|list_mats\|index += 1" voronoi/src/voronoi4d/search.py   # пусто
 ```
 
-- [ ] **Шаг 5: коммит**
+- [x] **Шаг 5: коммит**
 
 ```bash
 git add voronoi/src/voronoi4d/search.py
@@ -938,7 +938,7 @@ git commit -m "voronoi4d: один список записей вместо тр
 - Создать: `voronoi/tests/test_distances_characterization.py`
 - Изменить: `voronoi/src/voronoi4d/distances.py:7-15,68-176`
 
-- [ ] **Шаг 1: написать характеризационный тест (он должен пройти ДО правки)**
+- [x] **Шаг 1: написать характеризационный тест (он должен пройти ДО правки)**
 
 Создать `voronoi/tests/test_distances_characterization.py`:
 
@@ -999,7 +999,7 @@ def test_result_is_plain_float(cell):
     assert type(got) is float, "функция должна возвращать float, а не np.float64"
 ```
 
-- [ ] **Шаг 2: запустить — 17 из 18 проходят**
+- [x] **Шаг 2: запустить — 17 из 18 проходят**
 
 ```bash
 .venv/bin/python -m pytest voronoi/tests/test_distances_characterization.py -q
@@ -1009,7 +1009,7 @@ def test_result_is_plain_float(cell):
 (сейчас возвращается `np.float64`). Это и есть цель правки. Если падает
 что-то ещё — остановиться: значит, опорные значения сняты не с той сборки.
 
-- [ ] **Шаг 3: заменить scipy-расстояние на прямое**
+- [x] **Шаг 3: заменить scipy-расстояние на прямое**
 
 В `voronoi/src/voronoi4d/distances.py` удалить импорт scipy (строка 11):
 
@@ -1042,7 +1042,7 @@ def _dist(a, b):
 | 161 | `dist = distance.euclidean(s, edge.vertex1)` | `dist = _dist(s, edge.vertex1)` |
 | 164 | `dist = distance.euclidean(s, edge.vertex2)` | `dist = _dist(s, edge.vertex2)` |
 
-- [ ] **Шаг 4: убрать глобальный флаг `CHECK_DIST`**
+- [x] **Шаг 4: убрать глобальный флаг `CHECK_DIST`**
 
 `CHECK_DIST` не упоминается нигде за пределами своего модуля (проверено). Удалить
 строку 13 и заменить проверки на параметр. Сигнатуру `dist_to_s` заменить на:
@@ -1060,7 +1060,7 @@ def dist_to_s(vor4, s, max_len, early_stop=1.0, check=True):
 
 Три вхождения `if CHECK_DIST:` (строки 134, 151, 167) заменить на `if check:`.
 
-- [ ] **Шаг 5: вернуть обычный float**
+- [x] **Шаг 5: вернуть обычный float**
 
 Две строки возврата в конце `dist_to_s` (173-176):
 
@@ -1080,7 +1080,7 @@ def dist_to_s(vor4, s, max_len, early_stop=1.0, check=True):
     return float(min_dist_to_pol * 2 / max_len)
 ```
 
-- [ ] **Шаг 6: убрать замыкание `update_min_distance`**
+- [x] **Шаг 6: убрать замыкание `update_min_distance`**
 
 Оно читает свободную переменную `dist`, которую тело цикла присваивает побочным
 эффектом в шести местах. Удалить строки 103-107:
@@ -1108,14 +1108,14 @@ def dist_to_s(vor4, s, max_len, early_stop=1.0, check=True):
             continue
 ```
 
-- [ ] **Шаг 7: все тесты зелёные, включая тип возврата**
+- [x] **Шаг 7: все тесты зелёные, включая тип возврата**
 
 ```bash
 .venv/bin/python -m pytest voronoi/tests/test_distances_characterization.py -q   # 7 passed
 make test                                                                        # 209 passed
 ```
 
-- [ ] **Шаг 8: подтвердить ускорение замером**
+- [x] **Шаг 8: подтвердить ускорение замером**
 
 ```bash
 .venv/bin/python - <<'PY'
@@ -1133,7 +1133,7 @@ PY
 Ожидается: около 0.66 с. Если больше 0.80 — оптимизация не применилась, проверить,
 что заменены все шесть вызовов.
 
-- [ ] **Шаг 9: коммит**
+- [x] **Шаг 9: коммит**
 
 ```bash
 git add voronoi/src/voronoi4d/distances.py voronoi/tests/test_distances_characterization.py
@@ -1141,6 +1141,18 @@ git commit -m "voronoi4d: ускорить dist_to_s в 1.4 раза, CHECK_DIST
 ```
 
 ---
+
+> **Фазы 1 и 2 выполнены 05.08.2026** (коммиты `654b15d`, `e6269c8`, `e6d1afe`,
+> `3f942a9`, `3aafe3a`). Отклонения:
+> - Задача 4: линтер поймал, что после удаления `find_faces_from_nearest_vertices`
+>   в `distances.py` осиротел импорт `numpy` — убран.
+> - Задача 5: кроме перечисленных мест, старую сигнатуру звали ещё два теста
+>   (`test_search.py:38,62`) — обновлены.
+> - Задача 7: ускорение вышло **×1.59**, а не ×1.39: снятие замыкания
+>   `update_min_distance` (109 тыс. вызовов) дало прибавку сверх замены scipy.
+>   0.921 → 0.579 с; без проверки Пифагора 0.563 с.
+>
+> Итог фаз 1-2: `make test` → **209 passed**, `make lint` → **All checks passed**.
 
 # Фаза 3. audit-data как устанавливаемый пакет
 
