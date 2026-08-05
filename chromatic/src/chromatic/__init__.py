@@ -28,11 +28,19 @@ transition == матрица перехода M (HNF); witness == вектор, 
 
 from __future__ import annotations
 
+from importlib.metadata import PackageNotFoundError, version
+
 from .backend import Backend, available_backends, get_backend, register_backend
 from .compare import ComparisonReport, Discrepancy, compare_backends
 from .model import Cell, Facet, OptimalResult, as_matrix
 
-__version__ = "1.1.0"
+# единый источник версии — поле version в pyproject.toml (как в voronoi4d):
+# зашитая здесь строка уже расходилась с метаданными установленного пакета
+try:
+    __version__ = version("chromatic")
+except PackageNotFoundError:
+    # пакет не установлен (запуск из исходников без установки)
+    __version__ = "0.0.0+unknown"
 
 __all__ = [
     "Backend",
