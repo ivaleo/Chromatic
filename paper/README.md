@@ -7,7 +7,9 @@ PDF — `chi4-45.pdf`.
 
 | Файл | Что это |
 |---|---|
-| `chi4-45.tex` | Исходный текст статьи (LaTeX). |
+| `chi4-45.tex` | Каркас статьи: преамбула, титул, `\input` секций, библиография. |
+| `sections/*.tex` | Девять секций статьи (`intro`, `method`, `algo`, `main`, `dim57`, `intervals`, `extra`, `open`, `screens`). |
+| `origin-and-ai.tex` | Раздел о происхождении результатов и роли ИИ. |
 | `chi4-45.pdf` | Собранная версия (для чтения без TeX). |
 | `figures.py` | Генератор всех иллюстраций из данных `../audit-data`. |
 | `fig_*.pdf` | 5 готовых рисунков (method, interval, descent, eisenstein, staircase). |
