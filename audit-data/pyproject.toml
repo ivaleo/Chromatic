@@ -1,0 +1,21 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "chromatic-research"
+version = "1.1.0"
+description = "Вычислительные кампании и общие модули исследования верхних оценок χ(ℝⁿ)"
+requires-python = ">=3.10"
+license = { text = "MIT" }
+authors = [{ name = "Leonid Ivanov", email = "leo.ivadev@gmail.com" }]
+dependencies = ["numpy", "scipy", "sympy"]
+
+[project.optional-dependencies]
+# combigeo и voronoi4d — локальные пакеты монорепо, ставятся отдельно (см. Makefile).
+solvers = ["ortools", "cma", "cvxpy"]
+dev = ["pytest"]
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["chromatic_research*"]
