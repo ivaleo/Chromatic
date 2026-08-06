@@ -1,0 +1,51 @@
+{
+ "index": 9604,
+ "modulus": 4,
+ "seed": 17,
+ "height": 1.0,
+ "glue": [
+  3,
+  3,
+  5,
+  2
+ ],
+ "offset": [
+  -0.22827793277686415,
+  0.7799374221878349,
+  0.28322037115539683,
+  -0.02936310815615456,
+  -0.02370389221704655,
+  0.6823533132068161,
+  0.5983809365870943,
+  0.18746456469129893
+ ],
+ "base_covering_radius": 1.2247448713915892,
+ "note": "offset perturbed off the deep-hole cosets: breaks the doubly-deep hole, lowering the true diameter below the (P1) bound",
+ "exact_index": 9604,
+ "diameter_safe": 2.6457513110645907,
+ "diameter_measured": 2.5251006764994397,
+ "n_vectors": 256,
+ "n_horizontal": 240,
+ "n_layered_checked": 16,
+ "separation_horizontal": 2.6457513110657787,
+ "separation_layered": 2.699575938129772,
+ "separation_min": 2.6457513110657787,
+ "ratio_rigorous_diameter": 1.000000000000449,
+ "ratio_measured_diameter": 1.0477805244318408,
+ "layered_witness": {
+  "vector": [
+   -0.08688826889249412,
+   0.34435192638641476,
+   -0.6328814846215778,
+   -0.7485729711598204,
+   2.094815568868186,
+   -0.9973624452583874,
+   0.6064762536516213,
+   -0.7498582587651957,
+   -4.0
+  ],
+  "dykstra": 2.699575938137618,
+  "slsqp": 2.699575938129772
+ },
+ "valid": true
+}

@@ -1,0 +1,24 @@
+{
+ "index": 9604,
+ "modulus": 4,
+ "seed": 11,
+ "height": 0.93,
+ "glue": [
+  5,
+  1,
+  4,
+  5
+ ],
+ "offset": [
+  0.9705034916130507,
+  -0.3732490963241605,
+  0.011779609822157783,
+  1.1357925410333534,
+  -0.7360993736712149,
+  0.23858069755514733,
+  1.2322465258821609,
+  0.20493575287167398
+ ],
+ "base_covering_radius": 1.2247448713915892,
+ "note": "strict rigorous interval: at t<1 the (P1) diameter sqrt(6+t^2) is already below D_min = sqrt(7), so no covering-radius estimate enters the claim"
+}

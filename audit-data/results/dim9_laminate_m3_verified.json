@@ -1,0 +1,51 @@
+{
+ "index": 7203,
+ "modulus": 3,
+ "seed": 11,
+ "height": 1.15,
+ "glue": [
+  0,
+  0,
+  0,
+  0
+ ],
+ "offset": [
+  -0.008925685055568712,
+  0.3688659069366165,
+  0.24209834487613324,
+  0.22383880940202744,
+  -0.12499529576623823,
+  0.1170572389582128,
+  0.3689895858062944,
+  0.25575705513342306
+ ],
+ "base_covering_radius": 1.2247448713915892,
+ "note": "CMA over the 8-dim layer offset; binding constraint is horizontal (D_min = sqrt(7) exactly, proven by (P2)); status MEASURED because the (P1) diameter bound 2.706 exceeds sqrt(7) -- the claim rests on the LP diameter 2.602570238, stable over n_dirs 800..6000 and two seeds",
+ "exact_index": 7203,
+ "diameter_safe": 2.7060118255469616,
+ "diameter_measured": 2.6025702383941183,
+ "n_vectors": 302,
+ "n_horizontal": 240,
+ "n_layered_checked": 56,
+ "separation_horizontal": 2.6457513110657787,
+ "separation_layered": 2.6819756547592957,
+ "separation_min": 2.6457513110657787,
+ "ratio_rigorous_diameter": 0.9777308754114544,
+ "ratio_measured_diameter": 1.0165917030920575,
+ "layered_witness": {
+  "vector": [
+   -0.026777055166706136,
+   1.1065977208098496,
+   0.7262950346283997,
+   0.6715164282060824,
+   -0.3749858872987147,
+   0.3511717168746384,
+   1.1069687574188831,
+   0.7672711654002692,
+   3.4499999999999997
+  ],
+  "dykstra": 2.6819756547593006,
+  "slsqp": 2.6819756547592957
+ },
+ "valid": false
+}
