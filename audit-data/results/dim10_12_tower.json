@@ -1,0 +1,77 @@
+{
+ "tower": [
+  {
+   "n": 9,
+   "index": 19683,
+   "layer_height": 0.7071067811865475,
+   "lambda1": 0.9999999999999998,
+   "covering_radius_upper": 0.7905694150420949,
+   "covering_radius_measured": 0.790569415042095,
+   "diam_rigorous": 1.5811388300841898,
+   "diam_measured": 1.58113883008419,
+   "D_min": 1.9999999999999907,
+   "d_rigorous": 1.2649110640673458,
+   "d_measured": 1.2649110640673455,
+   "n_vectors": 272,
+   "n_checked": 272,
+   "valid_rigorous": true
+  },
+  {
+   "n": 10,
+   "index": 59049,
+   "layer_height": 0.6123724356957944,
+   "lambda1": 0.9999999999999994,
+   "covering_radius_upper": 0.8477912478906585,
+   "covering_radius_measured": 0.8164965809277265,
+   "diam_rigorous": 1.695582495781317,
+   "diam_measured": 1.632993161855453,
+   "D_min": 1.9999999999999902,
+   "d_rigorous": 1.1795356492391713,
+   "d_measured": 1.2247448713915825,
+   "n_vectors": 336,
+   "n_checked": 336,
+   "valid_rigorous": true
+  },
+  {
+   "n": 11,
+   "index": 177147,
+   "layer_height": 0.5773502691896252,
+   "lambda1": 0.9999999999999979,
+   "covering_radius_upper": 0.8955910525085281,
+   "covering_radius_measured": 0.8660254037844405,
+   "diam_rigorous": 1.7911821050170562,
+   "diam_measured": 1.732050807568881,
+   "D_min": 1.9999999999999907,
+   "d_rigorous": 1.1165810524781599,
+   "d_measured": 1.1547005383792437,
+   "n_vectors": 432,
+   "n_checked": 432,
+   "valid_rigorous": true
+  },
+  {
+   "n": 12,
+   "index": 531441,
+   "layer_height": 0.4999999999999968,
+   "lambda1": 0.9999999999999928,
+   "covering_radius_upper": 0.9298297335175577,
+   "covering_radius_measured": 0.8660254037844436,
+   "diam_rigorous": 1.8596594670351154,
+   "diam_measured": 1.7320508075688872,
+   "D_min": 1.9999999999999842,
+   "d_rigorous": 1.0754657158757222,
+   "d_measured": 1.154700538379236,
+   "n_vectors": 4080,
+   "n_checked": 4080,
+   "valid_rigorous": true
+  }
+ ],
+ "class_scan": {
+  "n": 10,
+  "classes": 59048,
+  "survivors": 0,
+  "projections": 59048,
+  "enumerated": 945276,
+  "diameter_lower": 1.632993161855453,
+  "conclusion": "3^n is optimal among sublattices containing 3*Lambda"
+ }
+}
