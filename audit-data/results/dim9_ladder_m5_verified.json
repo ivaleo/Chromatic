@@ -1,0 +1,51 @@
+{
+ "index": 12005,
+ "modulus": 5,
+ "seed": 11,
+ "height": 0.69,
+ "glue": [
+  5,
+  6,
+  6,
+  4
+ ],
+ "offset": [
+  -0.0,
+  -0.0,
+  0.24999999999999986,
+  0.4330127018922192,
+  -0.24999999999999953,
+  0.43301270189221974,
+  1.0000000000000002,
+  -0.0
+ ],
+ "base_covering_radius": 1.2247448713915892,
+ "note": "rigorous ladder step: d = sqrt(7)/sqrt(6+t^2), the horizontal ceiling; deep-hole offset, so no covering-radius estimate enters",
+ "exact_index": 12005,
+ "diameter_safe": 2.5448182646310915,
+ "diameter_measured": 2.544818264631093,
+ "n_vectors": 266,
+ "n_horizontal": 240,
+ "n_layered_checked": 26,
+ "separation_horizontal": 2.645751311057596,
+ "separation_layered": 2.653173247264489,
+ "separation_min": 2.645751311057596,
+ "ratio_rigorous_diameter": 1.039662182494252,
+ "ratio_measured_diameter": 1.0396621824942516,
+ "layered_witness": {
+  "vector": [
+   0.0,
+   0.0,
+   -0.25,
+   -0.4330127018922201,
+   0.25000000000000266,
+   -0.4330127018922174,
+   -2.499999999999999,
+   -0.8660254037844386,
+   3.4499999999999997
+  ],
+  "dykstra": 2.6531732472774463,
+  "slsqp": 2.653173247264489
+ },
+ "valid": true
+}

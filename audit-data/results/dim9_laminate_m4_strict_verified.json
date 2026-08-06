@@ -1,0 +1,51 @@
+{
+ "index": 9604,
+ "modulus": 4,
+ "seed": 11,
+ "height": 0.93,
+ "glue": [
+  5,
+  1,
+  4,
+  5
+ ],
+ "offset": [
+  0.9705034916130507,
+  -0.3732490963241605,
+  0.011779609822157783,
+  1.1357925410333534,
+  -0.7360993736712149,
+  0.23858069755514733,
+  1.2322465258821609,
+  0.20493575287167398
+ ],
+ "base_covering_radius": 1.2247448713915892,
+ "note": "strict rigorous interval: at t<1 the (P1) diameter sqrt(6+t^2) is already below D_min = sqrt(7), so no covering-radius estimate enters the claim",
+ "exact_index": 9604,
+ "diameter_safe": 2.6200954181098064,
+ "diameter_measured": 2.500409408611981,
+ "n_vectors": 266,
+ "n_horizontal": 240,
+ "n_layered_checked": 26,
+ "separation_horizontal": 2.6457513110657787,
+ "separation_layered": 2.653959210058594,
+ "separation_min": 2.6457513110657787,
+ "ratio_rigorous_diameter": 1.009791968940765,
+ "ratio_measured_diameter": 1.0581272418641552,
+ "layered_witness": {
+  "vector": [
+   2.1179860335478224,
+   -0.23905442227223528,
+   -1.0471184392886244,
+   0.6529822585732186,
+   -0.5556025053151394,
+   -0.0882973864361507,
+   0.07101389647135647,
+   -0.8197430114866959,
+   -3.72
+  ],
+  "dykstra": 2.653959210058594,
+  "slsqp": 2.653959210074673
+ },
+ "valid": true
+}
