@@ -22,6 +22,10 @@ OUT = str(_HERE)                          # каталог этого файла
 BLUE, RED, GREEN, ORANGE, PURPLE = "#2456a6", "#c0392b", "#1e8449", "#e08a00", "#7d3c98"
 
 
+def num(x, nd=4):
+    """Число как формула с русской десятичной запятой: 1.6073 -> $1{,}6073$."""
+    return "$" + f"{x:.{nd}f}".replace(".", "{,}") + "$"
+
 def running_max(rows):
     ks, ds, best = [], [], 0.0
     for r in sorted(rows, key=lambda r: r["k"]):
@@ -103,15 +107,15 @@ for k, d in zip(ks, ds):
     col = GREEN if d >= 1.0 else RED
     ax.plot([k], [d], "o", color=col, ms=3.6, zorder=5)
 ax.plot(ks, ds, "-", color="gray", lw=0.8, alpha=0.6, zorder=1)
-ax.annotate(r"$k=45$: $d=%.4f$ (рекорд, сертификат)" % d45, (45, d45),
+ax.annotate(r"$k=45$: $d=$" + num(d45) + " (рекорд, сертификат)", (45, d45),
             (45.4, 1.15), fontsize=9, color=GREEN,
             arrowprops=dict(arrowstyle="->", color=GREEN))
-ax.annotate(r"$k=48$: $d=1.0433$", (48, best_at[48]), (49.5, 1.17), fontsize=9, color=GREEN,
+ax.annotate(r"$k=48$: $d=$" + num(1.0433), (48, best_at[48]), (49.5, 1.17), fontsize=9, color=GREEN,
             arrowprops=dict(arrowstyle="->", color=GREEN))
-ax.annotate(r"$k=47$: $d=%.4f<1$" % best_at[47], (47, best_at[47]), (47, 0.93),
+ax.annotate(r"$k=47$: $d=$" + num(best_at[47]) + r"$\,<1$", (47, best_at[47]), (47, 0.93),
             fontsize=9, color=RED, ha="center",
             arrowprops=dict(arrowstyle="->", color=RED))
-ax.annotate(r"$k=44$: $d=%.4f<1$" % best_at[44], (44, best_at[44]), (37.5, 1.04),
+ax.annotate(r"$k=44$: $d=$" + num(best_at[44]) + r"$\,<1$", (44, best_at[44]), (37.5, 1.04),
             fontsize=9, color=RED,
             arrowprops=dict(arrowstyle="->", color=RED))
 ax.text(53.3, 1.02, "область пригодных\nраскрасок ($d\\geq1$)", fontsize=8.5, color=GREEN)
@@ -331,12 +335,13 @@ for (a, b), tag, k, tpos in marks:
     col = GREEN if ok else RED
     ax.plot([P[0], q[0]], [P[1], q[1]], "-", color=col, lw=0.9, alpha=0.8, zorder=4)
     ax.plot(*P, "o", color=col, ms=4.6, zorder=6, mec="white", mew=0.6)
-    ax.annotate(f"$\\alpha={tag[1:-1]}$,  $k={k}$\ndist $= {d:.4f}$",
+    ax.annotate(f"$\\alpha={tag[1:-1]}$,  $k={k}$\n"
+                r"$\mathrm{dist}=$" + num(d),
                 xy=P, xytext=tpos, fontsize=9, color=col, ha="left",
                 arrowprops=dict(arrowstyle="-", lw=0.7, color=col, alpha=0.6))
 ax.set_aspect("equal"); ax.set_xlim(-3.0, 3.4); ax.set_ylim(-2.6, 2.8)
-ax.set_title(r"порог $\mathrm{dist}(\alpha/2,\,V_0)\geq\sqrt{7/3}=1.5275$"
-             "\nрозовое запрещено; $k=16$ не дотягивает 1.8 процента", fontsize=10.5)
+ax.set_title(r"порог $\mathrm{dist}(\alpha/2,\,V_0)\geq\sqrt{7/3}=1{,}5275$"
+             "\nрозовое запрещено; $k=16$ не дотягивает $1{,}8\\%$", fontsize=10.5)
 ax.grid(alpha=0.25)
 fig.tight_layout()
 fig.savefig(f"{OUT}/fig_spacer.pdf")
@@ -365,7 +370,8 @@ for ax, key, colour, title in [
                   zorder=3)
         ax.plot(x, c, "o", color=colour if good else "0.72", ms=3.6, zorder=4)
     if key == "rank2":
-        ax.annotate("три орбиты почти вырождены\n(3.2909 / 3.2913 / 3.2916)",
+        ax.annotate("три орбиты почти вырождены\n"
+                    r"($3{,}2909\ /\ 3{,}2913\ /\ 3{,}2916$)",
                     xy=(3.2913, 6), xytext=(4.35, 7.6), fontsize=8.5, color=colour,
                     arrowprops=dict(arrowstyle="->", lw=0.8, color=colour))
     else:
@@ -432,12 +438,12 @@ for i, n in enumerate(gain_n):
         axB.bar(i - (w / 2 if n in CAND else 0), PRIOR[n] / NEW[n], width=w,
                 color=GREEN, edgecolor="white")
         axB.text(i - (w / 2 if n in CAND else 0), PRIOR[n] / NEW[n] + 0.05,
-                 f"{PRIOR[n]/NEW[n]:.2f}", ha="center", fontsize=8.5, color=GREEN)
+                 num(PRIOR[n] / NEW[n], 2), ha="center", fontsize=8.5, color=GREEN)
     if n in CAND:
         axB.bar(i + w / 2, PRIOR[n] / CAND[n], width=w, color=ORANGE,
                 edgecolor="white")
         axB.text(i + w / 2, PRIOR[n] / CAND[n] + 0.05,
-                 f"{PRIOR[n]/CAND[n]:.2f}", ha="center", fontsize=8.5, color=ORANGE)
+                 num(PRIOR[n] / CAND[n], 2), ha="center", fontsize=8.5, color=ORANGE)
 axB.axhline(1.0, color="0.4", lw=1.0)
 axB.set_xticks(range(len(gain_n)))
 axB.set_xticklabels([f"$n={n}$" for n in gain_n], fontsize=9)
