@@ -88,17 +88,25 @@ NUMERIC_2D = [(15, 2.1866070), (20, 2.8628207), (22, 3.0157908), (24, 3.1787814)
 
 
 def hurwitz_ladder(limit: int = 40) -> list[Entry]:
-    """``Gamma = alpha D4`` for Hurwitz ``alpha``; index ``N(alpha)^2``."""
+    """``Gamma = alpha D4`` for Hurwitz ``alpha``; index ``N(alpha)^2``.
+
+    The Hurwitz order is ``Z^4`` *together with* the half-integer points
+    ``(a+bi+cj+dk)/2`` with ``a,b,c,d`` all odd.  Both halves must be swept:
+    Lagrange makes every norm reachable by an integer quaternion already, but a
+    half-integer element of the same norm sits in a different direction relative
+    to the 24-cell and can be farther from it, which is what the rung measures.
+    """
     out: dict[int, float] = {}
-    span = int(math.isqrt(limit)) + 1
-    for a, b, c, d in itertools.product(range(-span, span + 1), repeat=4):
-        n = a * a + b * b + c * c + d * d
-        if not 1 < n <= limit:
+    span = 2 * int(math.isqrt(limit)) + 2
+    for doubled in itertools.product(range(-span, span + 1), repeat=4):
+        if len({v % 2 for v in doubled}) != 1:
+            continue                      # all even (integer) or all odd (half)
+        quadruple = [v / 2 for v in doubled]
+        n = sum(v * v for v in quadruple)
+        if not 1 < n <= limit or abs(n - round(n)) > 1e-9:
             continue
-        out[n] = max(out.get(n, 0.0), SQRT2 * hurwitz_distance([a, b, c, d]))
-    for a, b, c, d in itertools.product([x / 2 for x in range(-2 * span, 2 * span + 1, 2)],
-                                        repeat=4):
-        pass    # half-integer Hurwitz units are already covered by the norm sweep
+        n = round(n)
+        out[n] = max(out.get(n, 0.0), SQRT2 * hurwitz_distance(quadruple))
     return [Entry(4, n * n, w, f"D4 x Hurwitz N={n}") for n, w in sorted(out.items())
             if w > 1.0]
 
