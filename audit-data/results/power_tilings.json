@@ -1,0 +1,228 @@
+{
+  "closed_forms": [
+    {
+      "case": "A2/7",
+      "colours": 7,
+      "width": 1.322875655537412,
+      "expected": 1.3228756555322954,
+      "expected_tex": "\\sqrt7/2",
+      "error": 5.1165738312874964e-12,
+      "ok": true
+    },
+    {
+      "case": "A2/9",
+      "colours": 9,
+      "width": 1.732050807578993,
+      "expected": 1.7320508075688772,
+      "expected_tex": "\\sqrt3",
+      "error": 1.0115908111174576e-11,
+      "ok": true
+    },
+    {
+      "case": "Z3/27",
+      "colours": 27,
+      "width": 1.1547005383792517,
+      "expected": 1.1547005383792517,
+      "expected_tex": "2/\\sqrt3",
+      "error": 0.0,
+      "ok": true
+    },
+    {
+      "case": "A3*/27",
+      "colours": 27,
+      "width": 1.5491933383415668,
+      "expected": 1.5491933384829668,
+      "expected_tex": "2/\\sqrt{5/3}",
+      "error": 1.4140000281770426e-10,
+      "ok": true
+    },
+    {
+      "case": "D4/81",
+      "colours": 81,
+      "width": 1.4142135622353083,
+      "expected": 1.4142135623730951,
+      "expected_tex": "\\sqrt2",
+      "error": 1.3778689300636415e-10,
+      "ok": true
+    },
+    {
+      "case": "A4*/81",
+      "colours": 81,
+      "width": 1.4142135621479495,
+      "expected": 1.4142135623730951,
+      "expected_tex": "\\sqrt2",
+      "error": 2.251456798774143e-10,
+      "ok": true
+    }
+  ],
+  "closed_forms_all_ok": true,
+  "paradigm": {
+    "landscape": [
+      {
+        "n": 2,
+        "colours": 7,
+        "parent": "A2",
+        "width": 1.3228756555322954,
+        "source": "classical",
+        "base": 2.6457513110645907,
+        "floor_2n": 4,
+        "slack_2n": 1.75,
+        "rho": 1.1547005383792517,
+        "Theta": 1.2091995761561456,
+        "delta": 0.9068996821171089,
+        "floor_parent": 4.408471797738682,
+        "slack_parent": 1.5878518273816877
+      },
+      {
+        "n": 3,
+        "colours": 15,
+        "parent": "A3* (bcc)",
+        "width": 1.0,
+        "source": "Coulson",
+        "base": 2.46621207433047,
+        "floor_2n": 8,
+        "slack_2n": 1.875,
+        "rho": 1.2909944487358056,
+        "Theta": 1.4635030689668178,
+        "delta": 0.6801747615878316,
+        "floor_parent": 9.736649084683357,
+        "slack_parent": 1.5405710804137305
+      },
+      {
+        "n": 4,
+        "colours": 45,
+        "parent": "generic",
+        "width": 1.0163,
+        "source": "project",
+        "base": 2.5900200641113513,
+        "floor_2n": 16,
+        "slack_2n": 2.8125
+      },
+      {
+        "n": 5,
+        "colours": 132,
+        "parent": "generic",
+        "width": 1.0109,
+        "source": "project",
+        "base": 2.6553072804614666,
+        "floor_2n": 32,
+        "slack_2n": 4.125
+      },
+      {
+        "n": 6,
+        "colours": 343,
+        "parent": "E6*",
+        "width": 1.0801234497346435,
+        "source": "ABPR",
+        "base": 2.6457513110645903,
+        "floor_2n": 64,
+        "slack_2n": 5.359375,
+        "rho": 1.4142135623730951,
+        "Theta": 2.6522480000000015,
+        "delta": 0.331531,
+        "floor_parent": 106.31286836720577,
+        "slack_parent": 3.226326269509298
+      },
+      {
+        "n": 7,
+        "colours": 1029,
+        "parent": "lam E6*/343",
+        "width": 1.0329,
+        "source": "project",
+        "base": 2.693674118802643,
+        "floor_2n": 128,
+        "slack_2n": 8.0390625
+      },
+      {
+        "n": 8,
+        "colours": 2401,
+        "parent": "E8",
+        "width": 1.0801234497346435,
+        "source": "ABPR",
+        "base": 2.6457513110645907,
+        "floor_2n": 256,
+        "slack_2n": 9.37890625,
+        "rho": 1.4142135623730951,
+        "Theta": 4.058712000000002,
+        "delta": 0.2536695,
+        "floor_parent": 531.7822362030719,
+        "slack_parent": 4.515006024163487
+      },
+      {
+        "n": 9,
+        "colours": 7203,
+        "parent": "lam E8/2401",
+        "width": 1.0166,
+        "source": "project",
+        "base": 2.68295013896468,
+        "floor_2n": 512,
+        "slack_2n": 14.068359375
+      },
+      {
+        "n": 10,
+        "colours": 45619,
+        "parent": "E8 x A2 product",
+        "width": 1.0069849510239888,
+        "source": "project",
+        "base": 2.92357726592532,
+        "floor_2n": 1024,
+        "slack_2n": 44.5498046875
+      },
+      {
+        "n": 11,
+        "colours": 177147,
+        "parent": "Lambda_11 tower",
+        "width": 1.116581,
+        "source": "project",
+        "base": 3.0,
+        "floor_2n": 2048,
+        "slack_2n": 86.49755859375,
+        "rho": 1.7911821892007833,
+        "Theta": 36.79509917307402,
+        "delta": 0.06043,
+        "floor_parent": 14390.978820585375,
+        "slack_parent": 12.309586596472684
+      },
+      {
+        "n": 12,
+        "colours": 531441,
+        "parent": "K12",
+        "width": 1.224744871391589,
+        "source": "project",
+        "base": 3.0,
+        "floor_2n": 4096,
+        "slack_2n": 129.746337890625,
+        "rho": 1.632993161855452,
+        "Theta": 17.783323952812072,
+        "delta": 0.0494539,
+        "floor_parent": 18825.853287000642,
+        "slack_parent": 28.229318049926746
+      },
+      {
+        "n": 24,
+        "colours": 13841287201,
+        "parent": "Leech",
+        "width": 1.0801234497346435,
+        "source": "ABPR",
+        "base": 2.6457513110645903,
+        "floor_2n": 16777216,
+        "slack_2n": 825.0050068497658,
+        "rho": 1.4142135623730951,
+        "Theta": 7.903641600000013,
+        "delta": 0.0019296,
+        "floor_parent": 48227829.02130499,
+        "slack_parent": 286.99793214588846
+      }
+    ],
+    "eisenstein_window": {
+      "rho_needed_eisenstein": 1.5275252316519468,
+      "rho_needed_real_three": 2.0,
+      "kl_asymptotic_floor": 1.5146663158769758,
+      "window_percent": 0.8489603049979921,
+      "base_eisenstein": 2.6457513110645907,
+      "base_real_three": 3.0
+    },
+    "note": "floor_2n is rigorous for every convex-tiling colouring, lattice or not; floor_parent = (1+Theta^{1/n})^n is the Brunn-Minkowski bound for the named parent."
+  },
+  "note": "power_coloring reproduces the Voronoi scheme exactly; the probes seeded at the champions of R^2/7, R^3/15, R^4/45 and R^4/44 found no improvement in the enlarged space."
+}
