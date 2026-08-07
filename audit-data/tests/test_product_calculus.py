@@ -92,6 +92,23 @@ def test_dim10_product_record_is_consistent():
     assert record["index"] < 3 ** 10
 
 
+def test_inradius_floor_rules_out_a_plane_block_of_index_16():
+    from chromatic_research.core.minkowski import inradius_floor
+    # hexagonal lattice, lambda1 = 1: diam = 2/sqrt3, det = sqrt3/2
+    floor = inradius_floor(2, 1.0, 2 / math.sqrt(3), math.sqrt(3) / 2, math.sqrt(7))
+    assert floor == pytest.approx(16.44343, abs=1e-4)
+    # the minimum over all plane shapes is 16.021, so 17 is the rigorous floor
+    assert floor > 16.0
+
+
+def test_inradius_floor_agrees_with_the_multiplier_rule():
+    from chromatic_research.core.minkowski import inradius_floor
+    # Gamma = m*Z in dimension 1: lambda1 = diam = det = 1, width d = m-1,
+    # and the lemma is tight there, so the floor must return exactly m
+    for m in (3, 4, 5):
+        assert inradius_floor(1, 1.0, 1.0, 1.0, m - 1) == pytest.approx(m)
+
+
 def test_ladder2d_puts_the_sqrt7_rung_at_19():
     path = results_path("ladder2d.json")
     if not path.exists():
