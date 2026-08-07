@@ -101,7 +101,7 @@ ax.axvline(31, color="k", ls=":", lw=1.0, alpha=0.7)
 ax.text(31.4, 1.13, "предел Кулсона\n$k=2^{n+1}-1=31$", fontsize=8.5, color="k")
 for k, d in zip(ks, ds):
     col = GREEN if d >= 1.0 else RED
-    ax.plot([k], [d], "o", color=col, ms=5.5, zorder=5)
+    ax.plot([k], [d], "o", color=col, ms=3.6, zorder=5)
 ax.plot(ks, ds, "-", color="gray", lw=0.8, alpha=0.6, zorder=1)
 ax.annotate(r"$k=45$: $d=%.4f$ (рекорд, сертификат)" % d45, (45, d45),
             (45.4, 1.15), fontsize=9, color=GREEN,
@@ -132,7 +132,7 @@ pts = [(2/math.sqrt(3), math.sqrt(7)/2, r"$A_2$"),
        (math.sqrt(8/3), math.sqrt(7/3)/math.sqrt(8/3), r"$K_{12}$")]
 for rr, dd, lab in pts:
     col = GREEN if dd >= 1 else RED
-    ax.plot([rr], [dd], "o", color=col, ms=5.5, zorder=5)
+    ax.plot([rr], [dd], "o", color=col, ms=3.6, zorder=5)
     ax.annotate(lab, (rr, dd), (rr - 0.02, dd + 0.06), fontsize=9,
                 ha="center", color=col)
 ax.axhline(1.0, color="k", ls="--", lw=1)
@@ -174,8 +174,8 @@ ax.add_collection(pc)
 c0 = np.array([0.0, 0.0])
 same = [p for p, (a, b) in zip(pts, coords) if (a + 3 * b) % 7 == 0 and np.linalg.norm(p) > 1e-6]
 c1 = min(same, key=np.linalg.norm)
-ax.plot(*c0, "o", color="#c0392b", ms=5, zorder=6)
-ax.plot(*c1, "o", color="#c0392b", ms=5, zorder=6)
+ax.plot(*c0, "o", color="#c0392b", ms=3.4, zorder=6)
+ax.plot(*c1, "o", color="#c0392b", ms=3.4, zorder=6)
 # отрезок D между ближайшими точками ячеек (вдоль линии центров, минус по «радиусу» ячейки)
 inr = math.sqrt(3) / 2 * (1 / math.sqrt(3))   # инрадиус ячейки = 1/2
 u = (c1 - c0) / np.linalg.norm(c1 - c0)
@@ -261,15 +261,15 @@ axL.grid(axis="x", alpha=0.3)
 ks = [r["index"] for r in lad2["records"]]
 cost = [1.0 / r["d"] ** 2 for r in lad2["records"]]
 axR.axvspan(2, 16.5, color="0.86", alpha=0.7, zorder=0)
-axR.plot(ks, cost, "o-", color=BLUE, ms=4, lw=1.2, zorder=3)
+axR.plot(ks, cost, "o-", color=BLUE, ms=2.8, lw=1.0, zorder=3)
 axR.axhline(1 / 7, color=RED, lw=1.3, ls="--", zorder=2)
 axR.text(2.6, 1 / 7 * 1.07, r"остаток бюджета $1/7$,  т.е. $d\geq\sqrt{7}$",
          color=RED, fontsize=9, va="bottom")
 axR.text(8.6, 1.9, "запрещено экранами\nМинковского:  $k\\leq 16$",
          ha="center", fontsize=9, color="0.25")
 for k in (16, 17, 18):
-    axR.plot([k], [cost[ks.index(k)]], "o", color=ORANGE, ms=6.5, zorder=5)
-axR.plot([19], [cost[ks.index(19)]], "*", color=GREEN, ms=16, zorder=6)
+    axR.plot([k], [cost[ks.index(k)]], "o", color=ORANGE, ms=4.2, zorder=5)
+axR.plot([19], [cost[ks.index(19)]], "*", color=GREEN, ms=9.5, zorder=6)
 axR.annotate(r"$k=19$", xy=(19, cost[ks.index(19)]), xytext=(19.6, 0.34),
              fontsize=10.5, color=GREEN,
              arrowprops=dict(arrowstyle="->", lw=0.9, color=GREEN))
@@ -319,9 +319,9 @@ ax.contour(gx, gy, Z, levels=[THR], colors=[RED], linewidths=1.5)
 ax.add_patch(plt.Polygon(HEXV, closed=True, fc="#dae3f3", ec=BLUE, lw=1.8, zorder=3))
 ax.text(0, 0, r"$V_0$", ha="center", va="center", color=BLUE, fontsize=11, zorder=4)
 
-marks = [((3, 1), r"$3+\omega$", 7, (-1.55, 1.62)),
+marks = [((3, 1), r"$3+\omega$", 7, (-2.35, 1.72)),
          ((3, 0), r"$3$", 9, (0.15, -1.42)),
-         ((4, 0), r"$4$", 16, (0.55, -2.28)),
+         ((4, 0), r"$4$", 16, (-0.35, -2.42)),
          ((5, 2), r"$5+2\omega$", 19, (0.62, 2.05))]
 for (a, b), tag, k, tpos in marks:
     z = (a + b * OM) / 2
@@ -329,8 +329,8 @@ for (a, b), tag, k, tpos in marks:
     q, d = hex_nearest(P)
     ok = d >= THR - 1e-12
     col = GREEN if ok else RED
-    ax.plot([P[0], q[0]], [P[1], q[1]], "-", color=col, lw=1.1, alpha=0.85, zorder=4)
-    ax.plot(*P, "o", color=col, ms=8, zorder=6, mec="white", mew=0.8)
+    ax.plot([P[0], q[0]], [P[1], q[1]], "-", color=col, lw=0.9, alpha=0.8, zorder=4)
+    ax.plot(*P, "o", color=col, ms=4.6, zorder=6, mec="white", mew=0.6)
     ax.annotate(f"$\\alpha={tag[1:-1]}$,  $k={k}$\ndist $= {d:.4f}$",
                 xy=P, xytext=tpos, fontsize=9, color=col, ha="left",
                 arrowprops=dict(arrowstyle="-", lw=0.7, color=col, alpha=0.6))
@@ -361,9 +361,9 @@ for ax, key, colour, title in [
     ax.axvline(w, color="0.30", ls="--", lw=1.2, zorder=2)
     for x, c in rec["shells"]:
         good = x <= w
-        ax.vlines(x, 0, c, color=colour if good else "0.72", lw=3.2 if good else 2.2,
+        ax.vlines(x, 0, c, color=colour if good else "0.72", lw=2.0 if good else 1.3,
                   zorder=3)
-        ax.plot(x, c, "o", color=colour if good else "0.72", ms=5.5, zorder=4)
+        ax.plot(x, c, "o", color=colour if good else "0.72", ms=3.6, zorder=4)
     if key == "rank2":
         ax.annotate("три орбиты почти вырождены\n(3.2909 / 3.2913 / 3.2916)",
                     xy=(3.2913, 6), xytext=(4.35, 7.6), fontsize=8.5, color=colour,
@@ -385,3 +385,67 @@ fig.savefig(f"{OUT}/fig_shells.pdf")
 plt.close(fig)
 print("fig_shells.pdf")
 print("DONE")
+
+
+# --------------------------------------------------------------------------
+# fig_landscape: карта всех оценок -- что было, что стало, относительно 3^n
+# --------------------------------------------------------------------------
+# верхние оценки до настоящей работы
+PRIOR = {2: 7, 3: 15, 4: 49, 5: 140, 6: 343, 7: 1372, 8: 2401, 9: 17253,
+         10: 3 ** 10, 11: 3 ** 11, 12: 3 ** 12, 24: 7 ** 12,
+         25: 3 ** 25, 26: 3 ** 26}
+# настоящая работа: доказанные и сертифицированные
+NEW = {4: 45, 5: 132, 7: 1029, 9: 7203, 10: 45619,
+       25: 4 * 7 ** 12, 26: 19 * 7 ** 12}
+CAND = {10: 21609}                      # кандидаты, статус «измерено»
+
+fig, (axA, axB) = plt.subplots(1, 2, figsize=(11.0, 3.9))
+
+ns = np.arange(2, 27)
+axA.plot(ns, [3.0] * len(ns), "-", color="0.55", lw=1.3)
+axA.text(13.0, 3.03, r"$3^n$  (Ларман--Роджерс)", color="0.40", fontsize=9)
+axA.plot(ns, [math.sqrt(7)] * len(ns), "-", color=PURPLE, lw=1.3, alpha=0.8)
+axA.text(13.0, math.sqrt(7) - 0.13, r"$7^{n/2}$  (эйзенштейнов)", color=PURPLE,
+         fontsize=9)
+pk = sorted(PRIOR)
+axA.plot(pk, [PRIOR[n] ** (1 / n) for n in pk], "o", color="0.45", ms=3.8,
+         label="было")
+nk = sorted(NEW)
+axA.plot(nk, [NEW[n] ** (1 / n) for n in nk], "o", color=GREEN, ms=4.6,
+         label="наст. работа", zorder=5)
+ck = sorted(CAND)
+axA.plot(ck, [CAND[n] ** (1 / n) for n in ck], "s", color=ORANGE, ms=4.0,
+         label="кандидат", zorder=5)
+for n in nk:
+    axA.annotate("", xy=(n, NEW[n] ** (1 / n)), xytext=(n, PRIOR[n] ** (1 / n)),
+                 arrowprops=dict(arrowstyle="->", lw=0.8, color=GREEN, alpha=0.7,
+                                 shrinkA=2.5, shrinkB=2.5))
+axA.set_xlabel("размерность $n$"); axA.set_ylabel(r"база $k^{1/n}$")
+axA.set_title(r"оценки в пересчёте на измерение", fontsize=10.5)
+axA.set_xticks([2, 4, 6, 8, 10, 12, 24, 26]); axA.set_ylim(2.2, 3.9)
+axA.legend(fontsize=9, loc="upper left", framealpha=0.9)
+
+gain_n = sorted(set(NEW) | set(CAND))
+w = 0.36
+for i, n in enumerate(gain_n):
+    if n in NEW:
+        axB.bar(i - (w / 2 if n in CAND else 0), PRIOR[n] / NEW[n], width=w,
+                color=GREEN, edgecolor="white")
+        axB.text(i - (w / 2 if n in CAND else 0), PRIOR[n] / NEW[n] + 0.05,
+                 f"{PRIOR[n]/NEW[n]:.2f}", ha="center", fontsize=8.5, color=GREEN)
+    if n in CAND:
+        axB.bar(i + w / 2, PRIOR[n] / CAND[n], width=w, color=ORANGE,
+                edgecolor="white")
+        axB.text(i + w / 2, PRIOR[n] / CAND[n] + 0.05,
+                 f"{PRIOR[n]/CAND[n]:.2f}", ha="center", fontsize=8.5, color=ORANGE)
+axB.axhline(1.0, color="0.4", lw=1.0)
+axB.set_xticks(range(len(gain_n)))
+axB.set_xticklabels([f"$n={n}$" for n in gain_n], fontsize=9)
+axB.set_ylabel("во сколько раз лучше прежней")
+axB.set_title("выигрыш к прежней оценке", fontsize=10.5)
+axB.set_ylim(0, max(max(PRIOR[n] / NEW[n] for n in NEW),
+                    max(PRIOR[n] / CAND[n] for n in CAND)) * 1.18)
+fig.tight_layout()
+fig.savefig(f"{OUT}/fig_landscape.pdf")
+plt.close(fig)
+print("fig_landscape.pdf")
