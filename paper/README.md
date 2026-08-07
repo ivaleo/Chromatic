@@ -12,7 +12,7 @@ PDF — `chi4-45.pdf`.
 | `origin-and-ai.tex` | Раздел о происхождении результатов и роли ИИ. |
 | `chi4-45.pdf` | Собранная версия (для чтения без TeX). |
 | `figures.py` | Генератор всех иллюстраций из данных `../audit-data`. |
-| `fig_*.pdf` | 5 готовых рисунков (method, interval, descent, eisenstein, staircase). |
+| `fig_*.pdf` | 8 готовых рисунков: method, interval, descent, eisenstein, staircase, budget (продуктовое исчисление), spacer (почему плоский блок стоит 19), shells (почему слой ранга 2 не проходит). |
 
 ## Требования к сборке
 
