@@ -64,6 +64,38 @@ def brunn_minkowski_bound(n: int, covering_radius: float, det: float = 1.0) -> f
     return (det ** (1 / n) + covering_radius * unit_ball_volume(n) ** (1 / n)) ** n / det
 
 
+def hermite_constant_bound(n: int) -> float:
+    """Upper bound for Hermite's constant ``gamma_n`` (exact for ``n <= 8``)."""
+    exact = {1: 1.0, 2: 2 / math.sqrt(3), 3: 2 ** (1 / 3), 4: math.sqrt(2),
+             5: 8 ** (1 / 5), 6: (64 / 3) ** (1 / 6), 7: 64 ** (1 / 7), 8: 2.0}
+    if n in exact:
+        return exact[n]
+    return 1 + n / 4              # Minkowski-Hlawka style bound, valid for all n
+
+
+def inradius_floor(n: int, lambda1: float, diameter: float, det: float,
+                   width: float = 1.0) -> float:
+    """Index floor from the inradius lemma plus Hermite -- complementary to (1).
+
+    ``B(0, lambda1/2) subset V0`` gives ``D(v) <= |v| - lambda1``, so a colouring
+    of width ``l`` forces every nonzero ``v`` of ``G`` to satisfy
+
+        |v| >= l * diam + lambda1,      i.e.   lambda1(G) >= l * diam + lambda1,
+
+    and Hermite's inequality ``lambda1(G)^n <= gamma_n^{n/2} det G`` turns that
+    into a bound on the index:
+
+        k = det G / det L  >=  (l * diam + lambda1)^n / (gamma_n^{n/2} det L).
+
+    This is *not* implied by the volumetric bound (1) and is sometimes sharper.
+    In the plane at ``l = sqrt 7`` -- the width a spacer needs beside ``E8/2401``
+    in the dimension-10 product -- it gives ``k >= 16.44`` against (1)'s
+    ``15.57``, so it is what rules out a plane block of index 16.
+    """
+    required = width * diameter + lambda1
+    return required ** n / (hermite_constant_bound(n) ** (n / 2) * det)
+
+
 @dataclass
 class MinkowskiBound:
     """All three bound fields are indices, i.e. already divided by ``det L``.
