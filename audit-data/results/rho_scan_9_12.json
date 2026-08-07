@@ -1,0 +1,256 @@
+{
+ "records": [
+  {
+   "name": "A9*",
+   "n": 9,
+   "lambda1": 1.078144099141388,
+   "covering_radius_measured": 1.0322443865855027,
+   "rho_measured": 1.914854215512678,
+   "d_upper_estimate": 1.0444659357341861,
+   "admissible": true,
+   "seconds": 7.1
+  },
+  {
+   "name": "D9",
+   "n": 9,
+   "lambda1": 1.3093845751749735,
+   "covering_radius_measured": 1.388812068430936,
+   "rho_measured": 2.121320343559643,
+   "d_upper_estimate": 0.9428090415820632,
+   "admissible": false,
+   "seconds": 1.4
+  },
+  {
+   "name": "D9*",
+   "n": 9,
+   "lambda1": 1.080059738892306,
+   "covering_radius_measured": 1.1133000963575026,
+   "rho_measured": 2.061552812808831,
+   "d_upper_estimate": 0.9701425001453314,
+   "admissible": false,
+   "seconds": 4.2
+  },
+  {
+   "name": "A10*",
+   "n": 10,
+   "lambda1": 1.0749129415953733,
+   "covering_radius_measured": 1.074912941595375,
+   "rho_measured": 2.000000000000003,
+   "d_upper_estimate": 0.9999999999999984,
+   "admissible": false,
+   "seconds": 15.4
+  },
+  {
+   "name": "D10",
+   "n": 10,
+   "lambda1": 1.3195079107728942,
+   "covering_radius_measured": 1.475254692668459,
+   "rho_measured": 2.2360679774997894,
+   "d_upper_estimate": 0.894427190999916,
+   "admissible": false,
+   "seconds": 1.5
+  },
+  {
+   "name": "D10*",
+   "n": 10,
+   "lambda1": 1.0717734625362931,
+   "covering_radius_measured": 1.1982791593557378,
+   "rho_measured": 2.23606797749979,
+   "d_upper_estimate": 0.8944271909999159,
+   "admissible": false,
+   "seconds": 8.9
+  },
+  {
+   "name": "A11*",
+   "n": 11,
+   "lambda1": 1.0719126903559661,
+   "covering_radius_measured": 1.1156821009551428,
+   "rho_measured": 2.0816659994661344,
+   "d_upper_estimate": 0.9607689228305221,
+   "admissible": false,
+   "seconds": 38.3
+  },
+  {
+   "name": "D11",
+   "n": 11,
+   "lambda1": 1.3278488279891059,
+   "covering_radius_measured": 1.5570407673657929,
+   "rho_measured": 2.3452078799117144,
+   "d_upper_estimate": 0.8528028654224419,
+   "admissible": false,
+   "seconds": 1.8
+  },
+  {
+   "name": "D11*",
+   "n": 11,
+   "lambda1": 1.0650410894399627,
+   "covering_radius_measured": 1.2201578526492158,
+   "rho_measured": 2.291287847477921,
+   "d_upper_estimate": 0.8728715609439692,
+   "admissible": false,
+   "seconds": 20.2
+  },
+  {
+   "name": "A12*",
+   "n": 12,
+   "lambda1": 1.0691367381360501,
+   "covering_radius_measured": 1.1547996618335559,
+   "rho_measured": 2.160246899469289,
+   "d_upper_estimate": 0.9258200997725504,
+   "admissible": false,
+   "seconds": 91.2
+  },
+  {
+   "name": "D12",
+   "n": 12,
+   "lambda1": 1.3348398541700344,
+   "covering_radius_measured": 1.6348382655238463,
+   "rho_measured": 2.4494897427831783,
+   "d_upper_estimate": 0.8164965809277259,
+   "admissible": false,
+   "seconds": 2.1
+  },
+  {
+   "name": "D12*",
+   "n": 12,
+   "lambda1": 1.0594630943592953,
+   "covering_radius_measured": 1.2975719912452102,
+   "rho_measured": 2.4494897427831783,
+   "d_upper_estimate": 0.8164965809277259,
+   "admissible": false,
+   "seconds": 43.7
+  },
+  {
+   "name": "K12",
+   "n": 12,
+   "lambda1": 1.9999999999999998,
+   "covering_radius_measured": 1.6329931618554536,
+   "rho_measured": 1.6329931618554538,
+   "d_upper_estimate": 1.2247448713915876,
+   "admissible": true,
+   "seconds": 33.3
+  },
+  {
+   "name": "Lam9",
+   "n": 9,
+   "lambda1": 0.9999999999999998,
+   "covering_radius_measured": 0.790569415042095,
+   "rho_measured": 1.5811388300841904,
+   "d_upper_estimate": 1.264911064067351,
+   "admissible": true,
+   "seconds": 3.8
+  },
+  {
+   "name": "Lam10",
+   "n": 10,
+   "lambda1": 0.9999999999999994,
+   "covering_radius_measured": 0.8164965809277265,
+   "rho_measured": 1.6329931618554538,
+   "d_upper_estimate": 1.2247448713915876,
+   "admissible": true,
+   "seconds": 6.8
+  },
+  {
+   "name": "Lam11",
+   "n": 11,
+   "lambda1": 0.9999999999999979,
+   "covering_radius_measured": 0.8660254037844405,
+   "rho_measured": 1.7320508075688845,
+   "d_upper_estimate": 1.1547005383792468,
+   "admissible": true,
+   "seconds": 14.2
+  },
+  {
+   "name": "Lam12",
+   "n": 12,
+   "lambda1": 0.9999999999999928,
+   "covering_radius_measured": 0.8660254037844471,
+   "rho_measured": 1.7320508075689067,
+   "d_upper_estimate": 1.154700538379232,
+   "admissible": true,
+   "seconds": 30.4
+  },
+  {
+   "name": "K12sec11a",
+   "n": 11,
+   "lambda1": 1.9999999999999998,
+   "covering_radius_measured": 1.9364916731037098,
+   "rho_measured": 1.93649167310371,
+   "d_upper_estimate": 1.0327955589886437,
+   "admissible": true,
+   "seconds": 15.8
+  },
+  {
+   "name": "K12sec10a",
+   "n": 10,
+   "lambda1": 1.9999999999999998,
+   "covering_radius_measured": 1.7320508075688776,
+   "rho_measured": 1.7320508075688779,
+   "d_upper_estimate": 1.1547005383792512,
+   "admissible": true,
+   "seconds": 8.3
+  },
+  {
+   "name": "K12sec11b",
+   "n": 11,
+   "lambda1": 1.9999999999999998,
+   "covering_radius_measured": 1.936491673103709,
+   "rho_measured": 1.9364916731037092,
+   "d_upper_estimate": 1.0327955589886442,
+   "admissible": true,
+   "seconds": 15.5
+  },
+  {
+   "name": "K12sec10b",
+   "n": 10,
+   "lambda1": 1.9999999999999998,
+   "covering_radius_measured": 1.7320508075688776,
+   "rho_measured": 1.7320508075688779,
+   "d_upper_estimate": 1.1547005383792512,
+   "admissible": true,
+   "seconds": 8.5
+  }
+ ],
+ "best_per_dimension": {
+  "9": {
+   "name": "Lam9",
+   "n": 9,
+   "lambda1": 0.9999999999999998,
+   "covering_radius_measured": 0.790569415042095,
+   "rho_measured": 1.5811388300841904,
+   "d_upper_estimate": 1.264911064067351,
+   "admissible": true,
+   "seconds": 3.8
+  },
+  "10": {
+   "name": "Lam10",
+   "n": 10,
+   "lambda1": 0.9999999999999994,
+   "covering_radius_measured": 0.8164965809277265,
+   "rho_measured": 1.6329931618554538,
+   "d_upper_estimate": 1.2247448713915876,
+   "admissible": true,
+   "seconds": 6.8
+  },
+  "11": {
+   "name": "Lam11",
+   "n": 11,
+   "lambda1": 0.9999999999999979,
+   "covering_radius_measured": 0.8660254037844405,
+   "rho_measured": 1.7320508075688845,
+   "d_upper_estimate": 1.1547005383792468,
+   "admissible": true,
+   "seconds": 14.2
+  },
+  "12": {
+   "name": "K12",
+   "n": 12,
+   "lambda1": 1.9999999999999998,
+   "covering_radius_measured": 1.6329931618554536,
+   "rho_measured": 1.6329931618554538,
+   "d_upper_estimate": 1.2247448713915876,
+   "admissible": true,
+   "seconds": 33.3
+  }
+ }
+}

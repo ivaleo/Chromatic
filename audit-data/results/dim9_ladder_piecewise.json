@@ -1,0 +1,62 @@
+[
+ {
+  "index": 12005,
+  "m": 5,
+  "t": 0.69,
+  "certified_diam": 2.54481905054171,
+  "separation": 2.645751311057596,
+  "width_certified": 1.03966186141777,
+  "sound": true,
+  "pieces": 144
+ },
+ {
+  "index": 14406,
+  "m": 6,
+  "t": 0.55,
+  "certified_diam": 2.5104788387875354,
+  "separation": 2.645751311059236,
+  "width_certified": 1.0538831358311835,
+  "sound": true,
+  "pieces": 144
+ },
+ {
+  "index": 16807,
+  "m": 7,
+  "t": 0.45,
+  "certified_diam": 2.490482684139765,
+  "separation": 2.6457513110487234,
+  "width_certified": 1.062344792797702,
+  "sound": true,
+  "pieces": 144
+ },
+ {
+  "index": 19208,
+  "m": 8,
+  "t": 0.39,
+  "certified_diam": 2.4803435245949323,
+  "separation": 2.6457513110562214,
+  "width_certified": 1.0666874506781483,
+  "sound": true,
+  "pieces": 144
+ },
+ {
+  "index": 24010,
+  "m": 10,
+  "t": 0.33,
+  "certified_diam": 2.471619711848894,
+  "separation": 2.645751311051994,
+  "width_certified": 1.0704524237156374,
+  "sound": true,
+  "pieces": 144
+ },
+ {
+  "index": 28812,
+  "m": 12,
+  "t": 0.27,
+  "certified_diam": 2.464326277098881,
+  "separation": 2.64575131104464,
+  "width_certified": 1.0736205410913935,
+  "sound": true,
+  "pieces": 144
+ }
+]
