@@ -1,0 +1,21 @@
+{
+ "exact_r2": 1.619025,
+ "above": {
+  "certified": true,
+  "target_r2": 1.62226305,
+  "processed": 1,
+  "waves": 1,
+  "measured_max_r2_lower": 0.4760999999999999,
+  "seconds": 0.0
+ },
+ "below": {
+  "certified": false,
+  "reason": "budget",
+  "target_r2": 1.61578695,
+  "processed": 131071,
+  "queue": 131008,
+  "measured_max_r2_lower": 1.3420296361424693,
+  "seconds": 153.0
+ },
+ "passed": true
+}

@@ -1,0 +1,46 @@
+{
+ "index": 1029,
+ "modulus": 3,
+ "height": 1.0,
+ "seed": 11,
+ "ratio_measured": 1.00904708839398,
+ "glue": [
+  0,
+  0,
+  0
+ ],
+ "offset": [
+  0.22060994247306545,
+  -0.1757653744986786,
+  -0.5422225079822929,
+  -0.47009028269357755,
+  0.04383911726620565,
+  0.279263371645145
+ ],
+ "diameter_measured": 2.5645652504910523,
+ "evaluations": 1072,
+ "exact_index": 1029,
+ "diameter_safe": 2.6457513110645903,
+ "n_vectors": 80,
+ "n_horizontal": 54,
+ "n_layered_checked": 18,
+ "separation_horizontal": 2.6457513110660216,
+ "separation_layered": 2.587751240074606,
+ "separation_min": 2.587751240074606,
+ "ratio_rigorous_diameter": 0.9780780337337728,
+ "ratio_measured_diameter": 1.0090409045272348,
+ "layered_witness": {
+  "vector": [
+   -2.4000323510597754,
+   -1.587956295275855,
+   1.435194654532093,
+   -0.34961067630091347,
+   0.13151735179861695,
+   0.8377901149354341,
+   3.0
+  ],
+  "dykstra": 2.587751240078009,
+  "slsqp": 2.587751240074606
+ },
+ "valid_rigorous": false
+}

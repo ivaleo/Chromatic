@@ -1,0 +1,51 @@
+{
+ "index": 1029,
+ "modulus": 3,
+ "height": 1.08,
+ "seed": 7,
+ "ratio_certified": 1.032880807600874,
+ "glue": [
+  0,
+  0,
+  0
+ ],
+ "offset": [
+  0.24968913205670232,
+  -0.30403009134873726,
+  -0.4550221202687203,
+  -0.39442379182156134,
+  -0.09296852015298618,
+  0.3119452193761096
+ ],
+ "certified_diam": 2.5615262584833993,
+ "evaluations": 740,
+ "exact_index": 1029,
+ "diameter_safe": 2.6770132610803405,
+ "diameter_measured": 2.5615254776987797,
+ "n_vectors": 82,
+ "n_horizontal": 54,
+ "n_layered_checked": 28,
+ "separation_horizontal": 2.6457513110660216,
+ "separation_layered": 2.645753570122911,
+ "separation_min": 2.6457513110660216,
+ "ratio_rigorous_diameter": 0.9883220787626197,
+ "ratio_measured_diameter": 1.032881122635918,
+ "layered_witness": {
+  "vector": [
+   0.749067396170107,
+   -0.9120902740462118,
+   1.6967958176728108,
+   -0.12261120368486478,
+   2.170584182324217,
+   -1.1854846854313141,
+   3.24
+  ],
+  "dykstra": 2.645753570125538,
+  "slsqp": 2.645753570122911
+ },
+ "valid_rigorous": false,
+ "offset_rational_denominator": 10000,
+ "cert_sound": true,
+ "width_certified": 1.0328808078005254,
+ "valid_certified": true
+}

@@ -1,0 +1,19 @@
+{
+ "config": 9604,
+ "height": 0.93,
+ "safe_diameter": 2.6200954181098064,
+ "runs": [
+  {
+   "certified": false,
+   "reason": "budget",
+   "target_r2": 1.6900000000000002,
+   "processed": 1324111,
+   "queue": 1311470,
+   "measured_max_r2_lower": 1.4541324976266148,
+   "seconds": 1462.9,
+   "diam_target": 2.6,
+   "width_if_certified": 1.0175966581017657
+  }
+ ],
+ "best_certified": null
+}

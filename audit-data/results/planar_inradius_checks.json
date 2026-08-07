@@ -1,0 +1,77 @@
+{
+ "planar": [
+  {
+   "lattice": "A2",
+   "n": 2,
+   "lambda1": 0.9999999999999999,
+   "checked": 18,
+   "worst_margin_D_minus_floor": 6.3511418346706705e-12,
+   "equality_gap_at_minimal": 6.3511418346706705e-12,
+   "holds": true,
+   "seconds": 0.0
+  },
+  {
+   "lattice": "E6*",
+   "n": 6,
+   "lambda1": 1.732050807568877,
+   "checked": 2466,
+   "worst_margin_D_minus_floor": -2.8816948827170563e-11,
+   "equality_gap_at_minimal": 2.1023183194301964e-12,
+   "holds": true,
+   "seconds": 1.1
+  },
+  {
+   "lattice": "E8",
+   "n": 8,
+   "lambda1": 1.732050807568877,
+   "checked": 26640,
+   "worst_margin_D_minus_floor": 1.2030376694838196e-12,
+   "equality_gap_at_minimal": 3.034905660115328e-12,
+   "holds": true,
+   "seconds": 20.7
+  }
+ ],
+ "inradius": [
+  {
+   "lattice": "Lam9",
+   "n": 9,
+   "lambda1": 0.9999999999999998,
+   "covering_radius_measured": 0.790569415042095,
+   "worst_D_minus_bound": -0.15470053836244835,
+   "lemma_holds": true,
+   "three_R_minus_diam_minus_lam1": -0.209430584957905,
+   "subgroup_scan_provably_empty": true
+  },
+  {
+   "lattice": "Lam10",
+   "n": 10,
+   "lambda1": 0.9999999999999994,
+   "covering_radius_measured": 0.8164965809277265,
+   "worst_D_minus_bound": -0.15470053837505093,
+   "lemma_holds": true,
+   "three_R_minus_diam_minus_lam1": -0.18350341907227286,
+   "subgroup_scan_provably_empty": true
+  },
+  {
+   "lattice": "Lam11",
+   "n": 11,
+   "lambda1": 0.9999999999999979,
+   "covering_radius_measured": 0.8660254037844405,
+   "worst_D_minus_bound": -0.11822607940815533,
+   "lemma_holds": true,
+   "three_R_minus_diam_minus_lam1": -0.13397459621555763,
+   "subgroup_scan_provably_empty": true
+  },
+  {
+   "lattice": "K12",
+   "n": 12,
+   "lambda1": 1.9999999999999998,
+   "covering_radius_measured": 1.6329931618554536,
+   "worst_D_minus_bound": -0.3094010767501012,
+   "lemma_holds": true,
+   "three_R_minus_diam_minus_lam1": -0.3670068381445457,
+   "subgroup_scan_provably_empty": true
+  }
+ ],
+ "all_hold": true
+}

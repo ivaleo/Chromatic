@@ -1,0 +1,20 @@
+{
+ "n": 12,
+ "index": 531441,
+ "lattice": "K12 (Coxeter-Todd)",
+ "lambda1": 1.9999999999999998,
+ "kissing": 756,
+ "index_in_z_omega_6": 64,
+ "covering_radius_literature": 1.632993161855452,
+ "covering_radius_measured_lower": 1.6329931618554536,
+ "diameter": 3.265986323710904,
+ "rho": 1.6329931618554523,
+ "D_min": 3.999999999999867,
+ "n_vectors": 756,
+ "n_checked": 756,
+ "d": 1.2247448713915483,
+ "d_closed_form": 1.224744871391589,
+ "prediction_2_over_rho": 1.224744871391589,
+ "valid": true,
+ "tower_d_at_12_for_comparison": 1.075465716
+}
