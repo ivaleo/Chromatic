@@ -1,0 +1,380 @@
+===== m2_t1.0_rig =====
+E6* base: 56 admissible glues at m=2, index 686
+t=1.0 index=686: deep-hole start d=0.5976143 diam=2.645751 (rigorous 2.645751, threshold sqrt7=2.645751)
+  eval 6: d=0.5998424 diam=2.645751 glue=(1, 6, 4) [1s]
+  eval 10: d=0.6033611 diam=2.645751 glue=(3, 5, 0) [2s]
+  eval 24: d=0.6204008 diam=2.645751 glue=(1, 2, 2) [4s]
+    [heartbeat] 48 evaluations, best 0.6204008, 8s
+  eval 65: d=0.6432688 diam=2.645751 glue=(4, 5, 5) [10s]
+    [heartbeat] 96 evaluations, best 0.6432688, 15s
+    [heartbeat] 144 evaluations, best 0.6432688, 22s
+    [heartbeat] 192 evaluations, best 0.6432688, 29s
+    [heartbeat] 240 evaluations, best 0.6432688, 36s
+    [heartbeat] 288 evaluations, best 0.6432688, 43s
+    [heartbeat] 336 evaluations, best 0.6432688, 50s
+    [heartbeat] 384 evaluations, best 0.6432688, 57s
+    [heartbeat] 432 evaluations, best 0.6432688, 64s
+    [heartbeat] 480 evaluations, best 0.6432688, 72s
+    [heartbeat] 528 evaluations, best 0.6432688, 79s
+    [heartbeat] 576 evaluations, best 0.6432688, 86s
+    [heartbeat] 624 evaluations, best 0.6432688, 93s
+    [heartbeat] 672 evaluations, best 0.6432688, 101s
+    [heartbeat] 720 evaluations, best 0.6432688, 108s
+    [heartbeat] 768 evaluations, best 0.6432688, 115s
+    [heartbeat] 816 evaluations, best 0.6432688, 123s
+    [heartbeat] 864 evaluations, best 0.6432688, 130s
+    [heartbeat] 912 evaluations, best 0.6432688, 138s
+    [heartbeat] 960 evaluations, best 0.6432688, 145s
+    [heartbeat] 1008 evaluations, best 0.6432688, 153s
+  eval 1056: d=0.6469798 diam=2.645751 glue=(3, 5, 5) [160s]
+    [heartbeat] 1056 evaluations, best 0.6469798, 160s
+    [heartbeat] 1104 evaluations, best 0.6469798, 168s
+  eval 1110: d=0.6493548 diam=2.645751 glue=(3, 5, 5) [169s]
+    [heartbeat] 1152 evaluations, best 0.6493548, 175s
+    [heartbeat] 1200 evaluations, best 0.6493548, 182s
+  eval 1246: d=0.6495475 diam=2.645751 glue=(3, 5, 5) [189s]
+    [heartbeat] 1248 evaluations, best 0.6495475, 189s
+  eval 1267: d=0.6503512 diam=2.645751 glue=(3, 5, 5) [192s]
+  eval 1274: d=0.6504125 diam=2.645751 glue=(3, 5, 5) [193s]
+  eval 1279: d=0.6521330 diam=2.645751 glue=(3, 5, 5) [194s]
+    [heartbeat] 1296 evaluations, best 0.6521330, 197s
+  eval 1302: d=0.6521464 diam=2.645751 glue=(3, 5, 5) [197s]
+  eval 1327: d=0.6521927 diam=2.645751 glue=(3, 5, 5) [201s]
+  eval 1328: d=0.6525567 diam=2.645751 glue=(3, 5, 5) [201s]
+    [heartbeat] 1344 evaluations, best 0.6525567, 204s
+  eval 1349: d=0.6535328 diam=2.645751 glue=(3, 5, 5) [205s]
+  eval 1354: d=0.6537463 diam=2.645751 glue=(3, 5, 5) [206s]
+  eval 1374: d=0.6542594 diam=2.645751 glue=(3, 5, 5) [209s]
+    [heartbeat] 1392 evaluations, best 0.6542594, 212s
+  eval 1405: d=0.6547187 diam=2.645751 glue=(3, 5, 5) [214s]
+  eval 1439: d=0.6547921 diam=2.645751 glue=(3, 5, 5) [219s]
+    [heartbeat] 1440 evaluations, best 0.6547921, 219s
+  eval 1475: d=0.6548508 diam=2.645751 glue=(3, 5, 5) [225s]
+    [heartbeat] 1488 evaluations, best 0.6548508, 228s
+  eval 1498: d=0.6549416 diam=2.645751 glue=(3, 5, 5) [229s]
+    [heartbeat] 1536 evaluations, best 0.6549416, 235s
+  eval 1547: d=0.6550648 diam=2.645751 glue=(3, 5, 5) [237s]
+  eval 1551: d=0.6551106 diam=2.645751 glue=(3, 5, 5) [237s]
+  eval 1558: d=0.6551296 diam=2.645751 glue=(3, 5, 5) [238s]
+  eval 1573: d=0.6551334 diam=2.645751 glue=(3, 5, 5) [241s]
+  eval 1578: d=0.6552962 diam=2.645751 glue=(3, 5, 5) [241s]
+    [heartbeat] 1584 evaluations, best 0.6552962, 242s
+  eval 1593: d=0.6553234 diam=2.645751 glue=(3, 5, 5) [244s]
+  eval 1607: d=0.6554385 diam=2.645751 glue=(3, 5, 5) [246s]
+  eval 1616: d=0.6554707 diam=2.645751 glue=(3, 5, 5) [247s]
+  eval 1623: d=0.6555381 diam=2.645751 glue=(3, 5, 5) [248s]
+  eval 1631: d=0.6555383 diam=2.645751 glue=(3, 5, 5) [249s]
+    [heartbeat] 1632 evaluations, best 0.6555383, 249s
+  eval 1635: d=0.6555660 diam=2.645751 glue=(3, 5, 5) [250s]
+  eval 1636: d=0.6556456 diam=2.645751 glue=(3, 5, 5) [250s]
+  eval 1660: d=0.6557132 diam=2.645751 glue=(3, 5, 5) [253s]
+  eval 1672: d=0.6558892 diam=2.645751 glue=(3, 5, 5) [255s]
+    [heartbeat] 1680 evaluations, best 0.6558892, 256s
+  eval 1684: d=0.6559172 diam=2.645751 glue=(3, 5, 5) [257s]
+    [heartbeat] 1728 evaluations, best 0.6559172, 263s
+  eval 1733: d=0.6559571 diam=2.645751 glue=(3, 5, 5) [263s]
+  eval 1753: d=0.6559766 diam=2.645751 glue=(3, 5, 5) [266s]
+  eval 1756: d=0.6560875 diam=2.645751 glue=(3, 5, 5) [267s]
+  eval 1769: d=0.6561659 diam=2.645751 glue=(3, 5, 5) [268s]
+    [heartbeat] 1776 evaluations, best 0.6561659, 269s
+  eval 1788: d=0.6561825 diam=2.645751 glue=(3, 5, 5) [271s]
+  eval 1795: d=0.6562285 diam=2.645751 glue=(3, 5, 5) [272s]
+  eval 1805: d=0.6563011 diam=2.645751 glue=(3, 5, 5) [273s]
+  eval 1807: d=0.6563393 diam=2.645751 glue=(3, 5, 5) [274s]
+    [heartbeat] 1824 evaluations, best 0.6563393, 276s
+  eval 1827: d=0.6563923 diam=2.645751 glue=(3, 5, 5) [276s]
+  eval 1836: d=0.6564563 diam=2.645751 glue=(3, 5, 5) [278s]
+  eval 1837: d=0.6566679 diam=2.645751 glue=(3, 5, 5) [278s]
+  eval 1851: d=0.6571181 diam=2.645751 glue=(3, 5, 5) [280s]
+  eval 1864: d=0.6576079 diam=2.645751 glue=(3, 5, 5) [282s]
+    [heartbeat] 1872 evaluations, best 0.6576079, 283s
+  eval 1873: d=0.6576847 diam=2.645751 glue=(3, 5, 5) [283s]
+  eval 1876: d=0.6578125 diam=2.645751 glue=(3, 5, 5) [283s]
+  eval 1878: d=0.6578661 diam=2.645751 glue=(3, 5, 5) [283s]
+  eval 1883: d=0.6580620 diam=2.645751 glue=(3, 5, 5) [284s]
+  eval 1885: d=0.6583824 diam=2.645751 glue=(3, 5, 5) [284s]
+  eval 1886: d=0.6586042 diam=2.645751 glue=(3, 5, 5) [285s]
+  eval 1888: d=0.6587231 diam=2.645751 glue=(3, 5, 5) [285s]
+  eval 1892: d=0.6590999 diam=2.645751 glue=(3, 5, 5) [285s]
+  eval 1898: d=0.6592930 diam=2.645751 glue=(3, 5, 5) [286s]
+  eval 1907: d=0.6596653 diam=2.645751 glue=(3, 5, 5) [287s]
+  eval 1909: d=0.6600242 diam=2.645751 glue=(3, 5, 5) [288s]
+  eval 1910: d=0.6619502 diam=2.645751 glue=(3, 5, 5) [288s]
+    [heartbeat] 1920 evaluations, best 0.6619502, 289s
+  eval 1933: d=0.6624112 diam=2.645751 glue=(3, 5, 5) [291s]
+  eval 1940: d=0.6633710 diam=2.645751 glue=(3, 5, 5) [292s]
+  eval 1945: d=0.6637166 diam=2.645751 glue=(3, 5, 5) [293s]
+  eval 1951: d=0.6639145 diam=2.645751 glue=(3, 5, 5) [294s]
+  eval 1965: d=0.6648876 diam=2.645751 glue=(3, 5, 5) [296s]
+    [heartbeat] 1968 evaluations, best 0.6648876, 297s
+  eval 1981: d=0.6648994 diam=2.645751 glue=(3, 5, 5) [299s]
+  eval 2013: d=0.6653101 diam=2.645751 glue=(3, 5, 5) [303s]
+    [heartbeat] 2016 evaluations, best 0.6653101, 304s
+  eval 2023: d=0.6666564 diam=2.645751 glue=(3, 5, 5) [305s]
+  eval 2043: d=0.6667468 diam=2.645751 glue=(3, 5, 5) [309s]
+    [heartbeat] 2064 evaluations, best 0.6667468, 313s
+  eval 2079: d=0.6668323 diam=2.645751 glue=(3, 5, 5) [315s]
+    [heartbeat] 2112 evaluations, best 0.6668323, 320s
+  eval 2120: d=0.6670169 diam=2.645751 glue=(3, 5, 5) [322s]
+    [heartbeat] 2160 evaluations, best 0.6670169, 328s
+  eval 2183: d=0.6670369 diam=2.645751 glue=(3, 5, 5) [331s]
+  eval 2188: d=0.6670373 diam=2.645751 glue=(3, 5, 5) [332s]
+  eval 2199: d=0.6670541 diam=2.645751 glue=(3, 5, 5) [334s]
+  eval 2208: d=0.6670670 diam=2.645751 glue=(3, 5, 5) [335s]
+    [heartbeat] 2208 evaluations, best 0.6670670, 335s
+  eval 2242: d=0.6671252 diam=2.645751 glue=(3, 5, 5) [341s]
+  eval 2254: d=0.6672373 diam=2.645751 glue=(3, 5, 5) [343s]
+    [heartbeat] 2256 evaluations, best 0.6672373, 343s
+    [heartbeat] 2304 evaluations, best 0.6672373, 352s
+  eval 2344: d=0.6672585 diam=2.645751 glue=(3, 5, 5) [360s]
+    [heartbeat] 2352 evaluations, best 0.6672585, 362s
+  eval 2376: d=0.6672865 diam=2.645751 glue=(3, 5, 5) [367s]
+  eval 2387: d=0.6673003 diam=2.645751 glue=(3, 5, 5) [370s]
+    [heartbeat] 2400 evaluations, best 0.6673003, 372s
+  eval 2414: d=0.6673128 diam=2.645751 glue=(3, 5, 5) [376s]
+  eval 2422: d=0.6673131 diam=2.645751 glue=(3, 5, 5) [377s]
+  eval 2425: d=0.6673382 diam=2.645751 glue=(3, 5, 5) [378s]
+  eval 2439: d=0.6673513 diam=2.645751 glue=(3, 5, 5) [380s]
+  eval 2441: d=0.6673631 diam=2.645751 glue=(3, 5, 5) [381s]
+    [heartbeat] 2448 evaluations, best 0.6673631, 382s
+  eval 2453: d=0.6673886 diam=2.645751 glue=(3, 5, 5) [383s]
+  eval 2477: d=0.6674119 diam=2.645751 glue=(3, 5, 5) [386s]
+  eval 2491: d=0.6675398 diam=2.645751 glue=(3, 5, 5) [389s]
+    [heartbeat] 2496 evaluations, best 0.6675398, 389s
+  eval 2497: d=0.6675623 diam=2.645751 glue=(3, 5, 5) [389s]
+  eval 2513: d=0.6676047 diam=2.645751 glue=(3, 5, 5) [392s]
+  eval 2543: d=0.6676595 diam=2.645751 glue=(3, 5, 5) [397s]
+    [heartbeat] 2544 evaluations, best 0.6676595, 397s
+  eval 2546: d=0.6676886 diam=2.645751 glue=(3, 5, 5) [397s]
+  eval 2556: d=0.6676953 diam=2.645751 glue=(3, 5, 5) [399s]
+    [heartbeat] 2592 evaluations, best 0.6676953, 404s
+  eval 2623: d=0.6677007 diam=2.645751 glue=(3, 5, 5) [409s]
+    [heartbeat] 2640 evaluations, best 0.6677007, 412s
+  eval 2652: d=0.6677262 diam=2.645751 glue=(3, 5, 5) [413s]
+  eval 2682: d=0.6677450 diam=2.645751 glue=(3, 5, 5) [418s]
+    [heartbeat] 2688 evaluations, best 0.6677450, 419s
+  eval 2694: d=0.6677491 diam=2.645751 glue=(3, 5, 5) [420s]
+  [budget] stop after 2700 evaluations
+[422s] m2_t1.0_rig done
+===== m2_t0.95_rig =====
+E6* base: 56 admissible glues at m=2, index 686
+t=0.95 index=686: deep-hole start d=0.5899680 diam=2.627261 (rigorous 2.627261, threshold sqrt7=2.645751)
+  eval 6: d=0.5922570 diam=2.627261 glue=(1, 6, 4) [1s]
+  eval 10: d=0.5959549 diam=2.627261 glue=(3, 5, 0) [2s]
+  eval 24: d=0.6133771 diam=2.627261 glue=(1, 2, 2) [4s]
+  eval 46: d=0.6176819 diam=2.627261 glue=(6, 6, 1) [7s]
+    [heartbeat] 48 evaluations, best 0.6176819, 7s
+    [heartbeat] 96 evaluations, best 0.6176819, 14s
+  eval 115: d=0.6233110 diam=2.627261 glue=(3, 2, 2) [17s]
+  eval 135: d=0.6244881 diam=2.627261 glue=(6, 3, 6) [20s]
+    [heartbeat] 144 evaluations, best 0.6244881, 21s
+  eval 151: d=0.6328203 diam=2.627261 glue=(3, 2, 2) [22s]
+    [heartbeat] 192 evaluations, best 0.6328203, 28s
+    [heartbeat] 240 evaluations, best 0.6328203, 35s
+    [heartbeat] 288 evaluations, best 0.6328203, 42s
+    [heartbeat] 336 evaluations, best 0.6328203, 49s
+    [heartbeat] 384 evaluations, best 0.6328203, 56s
+    [heartbeat] 432 evaluations, best 0.6328203, 63s
+    [heartbeat] 480 evaluations, best 0.6328203, 69s
+    [heartbeat] 528 evaluations, best 0.6328203, 76s
+    [heartbeat] 576 evaluations, best 0.6328203, 83s
+    [heartbeat] 624 evaluations, best 0.6328203, 90s
+    [heartbeat] 672 evaluations, best 0.6328203, 97s
+    [heartbeat] 720 evaluations, best 0.6328203, 104s
+    [heartbeat] 768 evaluations, best 0.6328203, 111s
+    [heartbeat] 816 evaluations, best 0.6328203, 118s
+    [heartbeat] 864 evaluations, best 0.6328203, 125s
+    [heartbeat] 912 evaluations, best 0.6328203, 132s
+    [heartbeat] 960 evaluations, best 0.6328203, 139s
+    [heartbeat] 1008 evaluations, best 0.6328203, 145s
+    [heartbeat] 1056 evaluations, best 0.6328203, 152s
+    [heartbeat] 1104 evaluations, best 0.6328203, 159s
+    [heartbeat] 1152 evaluations, best 0.6328203, 166s
+    [heartbeat] 1200 evaluations, best 0.6328203, 173s
+    [heartbeat] 1248 evaluations, best 0.6328203, 179s
+    [heartbeat] 1296 evaluations, best 0.6328203, 186s
+  eval 1299: d=0.6329092 diam=2.627261 glue=(3, 0, 6) [186s]
+  eval 1310: d=0.6337978 diam=2.627261 glue=(3, 0, 6) [188s]
+  eval 1322: d=0.6347800 diam=2.627261 glue=(5, 2, 3) [190s]
+  eval 1323: d=0.6418040 diam=2.627261 glue=(3, 0, 6) [190s]
+    [heartbeat] 1344 evaluations, best 0.6418040, 193s
+  eval 1391: d=0.6421805 diam=2.627261 glue=(5, 2, 3) [199s]
+    [heartbeat] 1392 evaluations, best 0.6421805, 199s
+    [heartbeat] 1440 evaluations, best 0.6421805, 206s
+  eval 1477: d=0.6426258 diam=2.627261 glue=(5, 2, 3) [211s]
+  eval 1482: d=0.6457030 diam=2.627261 glue=(5, 2, 3) [212s]
+    [heartbeat] 1488 evaluations, best 0.6457030, 213s
+  eval 1504: d=0.6457331 diam=2.627261 glue=(5, 2, 3) [215s]
+  eval 1534: d=0.6486315 diam=2.627261 glue=(5, 2, 3) [219s]
+    [heartbeat] 1536 evaluations, best 0.6486315, 220s
+  eval 1556: d=0.6513893 diam=2.627261 glue=(5, 2, 3) [223s]
+    [heartbeat] 1584 evaluations, best 0.6513893, 227s
+  eval 1587: d=0.6528071 diam=2.627261 glue=(5, 2, 3) [227s]
+  eval 1594: d=0.6528132 diam=2.627261 glue=(5, 2, 3) [228s]
+  eval 1607: d=0.6528995 diam=2.627261 glue=(5, 2, 3) [230s]
+  eval 1610: d=0.6559568 diam=2.627261 glue=(5, 2, 3) [231s]
+    [heartbeat] 1632 evaluations, best 0.6559568, 234s
+  eval 1638: d=0.6560885 diam=2.627261 glue=(5, 2, 3) [235s]
+  eval 1657: d=0.6577550 diam=2.627261 glue=(5, 2, 3) [239s]
+  eval 1659: d=0.6582232 diam=2.627261 glue=(5, 2, 3) [239s]
+  eval 1666: d=0.6582704 diam=2.627261 glue=(5, 2, 3) [240s]
+  eval 1674: d=0.6585398 diam=2.627261 glue=(5, 2, 3) [241s]
+    [heartbeat] 1680 evaluations, best 0.6585398, 242s
+    [heartbeat] 1728 evaluations, best 0.6585398, 250s
+  eval 1744: d=0.6591066 diam=2.627261 glue=(5, 2, 3) [252s]
+  eval 1757: d=0.6597955 diam=2.627261 glue=(5, 2, 3) [254s]
+  eval 1766: d=0.6599995 diam=2.627261 glue=(5, 2, 3) [256s]
+  eval 1768: d=0.6600718 diam=2.627261 glue=(5, 2, 3) [256s]
+  eval 1773: d=0.6605282 diam=2.627261 glue=(5, 2, 3) [257s]
+    [heartbeat] 1776 evaluations, best 0.6605282, 258s
+    [heartbeat] 1824 evaluations, best 0.6605282, 265s
+  eval 1846: d=0.6607880 diam=2.627261 glue=(5, 2, 3) [269s]
+    [heartbeat] 1872 evaluations, best 0.6607880, 273s
+  eval 1875: d=0.6608027 diam=2.627261 glue=(5, 2, 3) [274s]
+  eval 1887: d=0.6609606 diam=2.627261 glue=(5, 2, 3) [276s]
+  eval 1899: d=0.6610305 diam=2.627261 glue=(5, 2, 3) [277s]
+  eval 1909: d=0.6610424 diam=2.627261 glue=(5, 2, 3) [279s]
+    [heartbeat] 1920 evaluations, best 0.6610424, 281s
+  eval 1929: d=0.6610900 diam=2.627261 glue=(5, 2, 3) [282s]
+  eval 1943: d=0.6611397 diam=2.627261 glue=(5, 2, 3) [284s]
+    [heartbeat] 1968 evaluations, best 0.6611397, 288s
+  eval 2008: d=0.6611952 diam=2.627261 glue=(5, 2, 3) [295s]
+    [heartbeat] 2016 evaluations, best 0.6611952, 296s
+  eval 2046: d=0.6612322 diam=2.627261 glue=(5, 2, 3) [301s]
+  eval 2057: d=0.6612531 diam=2.627261 glue=(5, 2, 3) [302s]
+  eval 2060: d=0.6613483 diam=2.627261 glue=(5, 2, 3) [303s]
+    [heartbeat] 2064 evaluations, best 0.6613483, 303s
+  eval 2091: d=0.6614211 diam=2.627261 glue=(5, 2, 3) [307s]
+    [heartbeat] 2112 evaluations, best 0.6614211, 310s
+  eval 2134: d=0.6614987 diam=2.627261 glue=(5, 2, 3) [314s]
+    [heartbeat] 2160 evaluations, best 0.6614987, 317s
+  eval 2199: d=0.6615007 diam=2.627261 glue=(5, 2, 3) [323s]
+  eval 2201: d=0.6615506 diam=2.627261 glue=(5, 2, 3) [324s]
+    [heartbeat] 2208 evaluations, best 0.6615506, 325s
+  eval 2222: d=0.6615642 diam=2.627261 glue=(5, 2, 3) [327s]
+  eval 2223: d=0.6615757 diam=2.627261 glue=(5, 2, 3) [327s]
+    [heartbeat] 2256 evaluations, best 0.6615757, 332s
+  eval 2271: d=0.6615760 diam=2.627261 glue=(5, 2, 3) [334s]
+  eval 2288: d=0.6615801 diam=2.627261 glue=(5, 2, 3) [336s]
+    [heartbeat] 2304 evaluations, best 0.6615801, 339s
+  eval 2324: d=0.6615964 diam=2.627261 glue=(5, 2, 3) [342s]
+  eval 2338: d=0.6616004 diam=2.627261 glue=(5, 2, 3) [344s]
+    [heartbeat] 2352 evaluations, best 0.6616004, 346s
+  eval 2361: d=0.6616437 diam=2.627261 glue=(5, 2, 3) [347s]
+  eval 2373: d=0.6616710 diam=2.627261 glue=(5, 2, 3) [349s]
+    [heartbeat] 2400 evaluations, best 0.6616710, 353s
+  eval 2422: d=0.6616731 diam=2.627261 glue=(5, 2, 3) [356s]
+  eval 2430: d=0.6616750 diam=2.627261 glue=(5, 2, 3) [357s]
+  eval 2435: d=0.6616995 diam=2.627261 glue=(5, 2, 3) [358s]
+  eval 2444: d=0.6617121 diam=2.627261 glue=(5, 2, 3) [359s]
+    [heartbeat] 2448 evaluations, best 0.6617121, 360s
+  eval 2470: d=0.6617206 diam=2.627261 glue=(5, 2, 3) [363s]
+  eval 2476: d=0.6617426 diam=2.627261 glue=(5, 2, 3) [364s]
+  eval 2494: d=0.6617450 diam=2.627261 glue=(5, 2, 3) [366s]
+    [heartbeat] 2496 evaluations, best 0.6617450, 366s
+  eval 2533: d=0.6617478 diam=2.627261 glue=(5, 2, 3) [372s]
+  eval 2541: d=0.6617560 diam=2.627261 glue=(5, 2, 3) [373s]
+    [heartbeat] 2544 evaluations, best 0.6617560, 373s
+  eval 2585: d=0.6617594 diam=2.627261 glue=(5, 2, 3) [379s]
+  eval 2586: d=0.6617628 diam=2.627261 glue=(5, 2, 3) [380s]
+    [heartbeat] 2592 evaluations, best 0.6617628, 380s
+  eval 2631: d=0.6617672 diam=2.627261 glue=(5, 2, 3) [386s]
+    [heartbeat] 2640 evaluations, best 0.6617672, 387s
+  eval 2642: d=0.6617782 diam=2.627261 glue=(5, 2, 3) [388s]
+  eval 2658: d=0.6617805 diam=2.627261 glue=(5, 2, 3) [390s]
+  eval 2670: d=0.6617808 diam=2.627261 glue=(5, 2, 3) [392s]
+  eval 2680: d=0.6617912 diam=2.627261 glue=(5, 2, 3) [393s]
+    [heartbeat] 2688 evaluations, best 0.6617912, 394s
+  eval 2694: d=0.6617929 diam=2.627261 glue=(5, 2, 3) [395s]
+  eval 2704: d=0.6618010 diam=2.627261 glue=(5, 2, 3) [397s]
+  eval 2726: d=0.6618086 diam=2.627261 glue=(5, 2, 3) [400s]
+    [heartbeat] 2736 evaluations, best 0.6618086, 401s
+  eval 2777: d=0.6618150 diam=2.627261 glue=(5, 2, 3) [407s]
+  eval 2781: d=0.6618162 diam=2.627261 glue=(5, 2, 3) [408s]
+    [heartbeat] 2784 evaluations, best 0.6618162, 408s
+  eval 2794: d=0.6618168 diam=2.627261 glue=(5, 2, 3) [409s]
+    [heartbeat] 2832 evaluations, best 0.6618168, 415s
+  eval 2836: d=0.6618172 diam=2.627261 glue=(5, 2, 3) [415s]
+  eval 2861: d=0.6618210 diam=2.627261 glue=(5, 2, 3) [419s]
+  eval 2869: d=0.6618234 diam=2.627261 glue=(5, 2, 3) [420s]
+    [heartbeat] 2880 evaluations, best 0.6618234, 422s
+  [budget] stop after 2880 evaluations
+[844s] m2_t0.95_rig done
+===== m2_t1.05_meas =====
+E6* base: 56 admissible glues at m=2, index 686
+t=1.05 index=686: deep-hole start d=0.6053266 diam=2.665052 (rigorous 2.665052, threshold sqrt7=2.645751)
+  eval 2: d=0.6137947 diam=2.574758 glue=(0, 5, 4) [1s]
+  eval 6: d=0.6260974 diam=2.585866 glue=(1, 6, 4) [3s]
+  eval 10: d=0.6312673 diam=2.578842 glue=(3, 5, 0) [5s]
+  eval 13: d=0.6386809 diam=2.570860 glue=(3, 2, 6) [6s]
+  eval 26: d=0.6609098 diam=2.563062 glue=(3, 2, 6) [11s]
+    [heartbeat] 48 evaluations, best 0.6609098, 21s
+    [heartbeat] 96 evaluations, best 0.6609098, 40s
+    [heartbeat] 144 evaluations, best 0.6609098, 60s
+    [heartbeat] 192 evaluations, best 0.6609098, 80s
+    [heartbeat] 240 evaluations, best 0.6609098, 100s
+    [heartbeat] 288 evaluations, best 0.6609098, 120s
+  eval 305: d=0.6733041 diam=2.542348 glue=(4, 1, 6) [127s]
+    [heartbeat] 336 evaluations, best 0.6733041, 140s
+    [heartbeat] 384 evaluations, best 0.6733041, 160s
+    [heartbeat] 432 evaluations, best 0.6733041, 180s
+    [heartbeat] 480 evaluations, best 0.6733041, 200s
+    [heartbeat] 528 evaluations, best 0.6733041, 220s
+    [heartbeat] 576 evaluations, best 0.6733041, 240s
+    [heartbeat] 624 evaluations, best 0.6733041, 260s
+    [heartbeat] 672 evaluations, best 0.6733041, 280s
+  eval 687: d=0.6769216 diam=2.556805 glue=(6, 3, 6) [286s]
+  eval 720: d=0.6773632 diam=2.569418 glue=(6, 3, 6) [299s]
+    [heartbeat] 720 evaluations, best 0.6773632, 299s
+  eval 753: d=0.6827489 diam=2.571678 glue=(6, 3, 6) [313s]
+    [heartbeat] 768 evaluations, best 0.6827489, 319s
+    [heartbeat] 816 evaluations, best 0.6827489, 338s
+  eval 857: d=0.6844512 diam=2.542561 glue=(6, 3, 6) [355s]
+    [heartbeat] 864 evaluations, best 0.6844512, 358s
+  eval 893: d=0.6859057 diam=2.537339 glue=(6, 3, 6) [369s]
+  eval 905: d=0.6867364 diam=2.540591 glue=(6, 3, 6) [373s]
+    [heartbeat] 912 evaluations, best 0.6867364, 376s
+  eval 936: d=0.6873169 diam=2.543292 glue=(6, 3, 6) [385s]
+    [heartbeat] 960 evaluations, best 0.6873169, 394s
+  eval 964: d=0.6888035 diam=2.539207 glue=(6, 3, 6) [396s]
+  eval 1005: d=0.6891292 diam=2.540545 glue=(6, 3, 6) [411s]
+    [heartbeat] 1008 evaluations, best 0.6891292, 412s
+  eval 1024: d=0.6899297 diam=2.537982 glue=(6, 3, 6) [418s]
+  [budget] stop after 1032 evaluations
+[1265s] m2_t1.05_meas done
+===== m2_t1.15_meas =====
+E6* base: 56 admissible glues at m=2, index 686
+t=1.15 index=686: deep-hole start d=0.6208509 diam=2.706012 (rigorous 2.706012, threshold sqrt7=2.645751)
+  eval 2: d=0.6302449 diam=2.615557 glue=(0, 5, 4) [2s]
+  eval 6: d=0.6415301 diam=2.627433 glue=(1, 6, 4) [3s]
+  eval 10: d=0.6463722 diam=2.620536 glue=(3, 5, 0) [5s]
+  eval 13: d=0.6536327 diam=2.612535 glue=(3, 2, 6) [6s]
+  eval 26: d=0.6746363 diam=2.604087 glue=(3, 2, 6) [12s]
+    [heartbeat] 48 evaluations, best 0.6746363, 21s
+    [heartbeat] 96 evaluations, best 0.6746363, 42s
+    [heartbeat] 144 evaluations, best 0.6746363, 62s
+  eval 157: d=0.6747205 diam=2.608307 glue=(2, 2, 3) [68s]
+  eval 160: d=0.6773541 diam=2.604319 glue=(6, 3, 2) [69s]
+    [heartbeat] 192 evaluations, best 0.6773541, 83s
+  eval 233: d=0.6833977 diam=2.609465 glue=(6, 1, 1) [101s]
+    [heartbeat] 240 evaluations, best 0.6833977, 104s
+    [heartbeat] 288 evaluations, best 0.6833977, 124s
+    [heartbeat] 336 evaluations, best 0.6833977, 145s
+    [heartbeat] 384 evaluations, best 0.6833977, 165s
+    [heartbeat] 432 evaluations, best 0.6833977, 186s
+    [heartbeat] 480 evaluations, best 0.6833977, 206s
+    [heartbeat] 528 evaluations, best 0.6833977, 226s
+    [heartbeat] 576 evaluations, best 0.6833977, 247s
+    [heartbeat] 624 evaluations, best 0.6833977, 267s
+  eval 650: d=0.6878806 diam=2.580726 glue=(3, 2, 3) [278s]
+    [heartbeat] 672 evaluations, best 0.6878806, 287s
+  eval 680: d=0.6965633 diam=2.576695 glue=(1, 2, 6) [291s]
+    [heartbeat] 720 evaluations, best 0.6965633, 307s
+    [heartbeat] 768 evaluations, best 0.6965633, 328s
+    [heartbeat] 816 evaluations, best 0.6965633, 348s
+    [heartbeat] 864 evaluations, best 0.6965633, 369s
+    [heartbeat] 912 evaluations, best 0.6965633, 389s
+    [heartbeat] 960 evaluations, best 0.6965633, 409s
+  [budget] stop after 996 evaluations
+[1690s] m2_t1.15_meas done
+ГОТОВО

@@ -1,0 +1,12 @@
+{
+ "target": "χ(ℝ¹²,[1,√(21/16)]) ≤ m·7⁶ через Γ=(3+ω)Γ'",
+ "width_if_found": 1.14564392373896,
+ "diam": 3.265986323710904,
+ "Dmin_bound": 3.7416573867739413,
+ "mod2_survivors": 0,
+ "mod3_survivors": 0,
+ "mod4_klein_survivors": 0,
+ "mod4_cyclic_survivors": 0,
+ "found": null,
+ "wall_s": 148.3
+}
