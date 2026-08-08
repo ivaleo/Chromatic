@@ -29,12 +29,14 @@
 \newcommand{\vol}{\operatorname{vol}}
 
 % пометки статуса результата, единые по всей работе
-\newcommand{\stP}{\textcolor{ForestGreen}{$\blacksquare$}}   % доказано
-\newcommand{\stC}{\textcolor{RoyalBlue}{$\blacklozenge$}}    % сертифицировано вычислением
-\newcommand{\stM}{\textcolor{BurntOrange}{$\square$}}        % измерено (кандидат)
-\newcommand{\statuslegend}{\small\stP~--- доказано аналитически;\quad
-\stC~--- сертифицировано точным вычислением;\quad
-\stM~--- измерено (кандидат)}
+\newcommand{\stP}{\textcolor{ForestGreen}{\textbf{[Т]}}}     % теорема
+\newcommand{\stC}{\textcolor{RoyalBlue}{\textbf{[С]}}}       % точный сертификат
+\newcommand{\stN}{\textcolor{BurntOrange}{\textbf{[Ч]}}}     % численный (повышенной пробы)
+\newcommand{\stM}{\textcolor{BurntOrange}{\textbf{[Ч]}${}^{*}$}} % кандидат без сертификата
+\newcommand{\statuslegend}{\small Статусы --- единая шкала работы:
+\stP~теорема; \stC~точный рациональный сертификат; \stN~численный результат
+(сертификат в плавающей точке); ${}^{*}$~--- кандидат без сертификата
+диаметра. Определения шкалы --- в конце введения.}
 
 % рамка для ключевых утверждений
 \newmdenv[linecolor=NavyBlue!60,linewidth=0.8pt,backgroundcolor=NavyBlue!4,
