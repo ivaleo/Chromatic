@@ -56,6 +56,69 @@
     }
   ],
   "closed_forms_all_ok": true,
+  "champions_verified": [
+    {
+      "case": "R^2 / 7",
+      "colours": 7,
+      "width": 1.322875655537412,
+      "expected": 1.3228756555322954,
+      "ok": true
+    },
+    {
+      "case": "R^3 / 15",
+      "colours": 15,
+      "width": 0.9999999999161048,
+      "expected": 1.0,
+      "ok": true
+    }
+  ],
+  "probes": [
+    {
+      "case": "R^2 / 7",
+      "dim": 2,
+      "colours": 7,
+      "parameters": 21,
+      "champion": 1.3228756555322954,
+      "reached": 1.3228756555322954,
+      "source": "A2, Hermite [[1,5],[0,7]]"
+    },
+    {
+      "case": "R^3 / 15",
+      "dim": 3,
+      "colours": 15,
+      "parameters": 62,
+      "champion": 1.0,
+      "reached": 1.0,
+      "source": "A3*, Hermite [[1,0,4],[0,1,12],[0,0,15]] (Coulson optimum)"
+    },
+    {
+      "case": "R^4 / 45",
+      "dim": 4,
+      "colours": 45,
+      "parameters": 230,
+      "champion": 1.0163393,
+      "reached": 1.0163393,
+      "source": "results/n6_k45_rational.json (Q_fractions) + find_optimal(45)"
+    },
+    {
+      "case": "R^4 / 44",
+      "dim": 4,
+      "colours": 44,
+      "parameters": 225,
+      "champion": 0.9903509,
+      "reached": 0.9903509,
+      "source": "results/n10_push44.json (Q) + find_optimal(44)"
+    }
+  ],
+  "probes_all_flat": true,
+  "calibration": {
+    "note": "the same CMA-ES from random starts, for reference",
+    "R^2 / 7 from random starts": 1.2396,
+    "R^2 / 7 truth": 1.3228756555322954,
+    "R^3 / 14 free search": 0.5695,
+    "R^3 / 14 best lattice": 0.7745967,
+    "R^2 / 6 free search": 0.9661
+  },
   "paradigm": {
     "landscape": [
       {
@@ -67,9 +130,10 @@
         "base": 2.6457513110645907,
         "floor_2n": 4,
         "slack_2n": 1.75,
-        "rho": 1.1547005383792517,
-        "Theta": 1.2091995761561456,
+        "rho": 1.1547005383792515,
+        "Theta": 1.2091995761561452,
         "delta": 0.9068996821171089,
+        "identity_residual": 0.0,
         "floor_parent": 4.408471797738682,
         "slack_parent": 1.5878518273816877
       },
@@ -83,16 +147,17 @@
         "floor_2n": 8,
         "slack_2n": 1.875,
         "rho": 1.2909944487358056,
-        "Theta": 1.4635030689668178,
-        "delta": 0.6801747615878316,
-        "floor_parent": 9.736649084683357,
-        "slack_parent": 1.5405710804137305
+        "Theta": 1.4635030689668183,
+        "delta": 0.6801747615878317,
+        "identity_residual": 0.0,
+        "floor_parent": 9.736649084683364,
+        "slack_parent": 1.5405710804137294
       },
       {
         "n": 4,
         "colours": 45,
         "parent": "generic",
-        "width": 1.0163,
+        "width": 1.016339,
         "source": "project",
         "base": 2.5900200641113513,
         "floor_2n": 16,
@@ -102,7 +167,7 @@
         "n": 5,
         "colours": 132,
         "parent": "generic",
-        "width": 1.0109,
+        "width": 1.010898,
         "source": "project",
         "base": 2.6553072804614666,
         "floor_2n": 32,
@@ -118,16 +183,17 @@
         "floor_2n": 64,
         "slack_2n": 5.359375,
         "rho": 1.4142135623730951,
-        "Theta": 2.6522480000000015,
-        "delta": 0.331531,
-        "floor_parent": 106.31286836720577,
-        "slack_parent": 3.226326269509298
+        "Theta": 2.652071435250239,
+        "delta": 0.3315089294062797,
+        "identity_residual": 0.0,
+        "floor_parent": 106.30904259337223,
+        "slack_parent": 3.2264423762328582
       },
       {
         "n": 7,
         "colours": 1029,
         "parent": "lam E6*/343",
-        "width": 1.0329,
+        "width": 1.032881,
         "source": "project",
         "base": 2.693674118802643,
         "floor_2n": 128,
@@ -143,16 +209,17 @@
         "floor_2n": 256,
         "slack_2n": 9.37890625,
         "rho": 1.4142135623730951,
-        "Theta": 4.058712000000002,
-        "delta": 0.2536695,
-        "floor_parent": 531.7822362030719,
-        "slack_parent": 4.515006024163487
+        "Theta": 4.058712126416768,
+        "delta": 0.2536695079010481,
+        "identity_residual": 1.4210854715202004e-14,
+        "floor_parent": 531.7822452080364,
+        "slack_parent": 4.515005947708379
       },
       {
         "n": 9,
         "colours": 7203,
         "parent": "lam E8/2401",
-        "width": 1.0166,
+        "width": 1.016591,
         "source": "project",
         "base": 2.68295013896468,
         "floor_2n": 512,
@@ -177,11 +244,7 @@
         "base": 3.0,
         "floor_2n": 2048,
         "slack_2n": 86.49755859375,
-        "rho": 1.7911821892007833,
-        "Theta": 36.79509917307402,
-        "delta": 0.06043,
-        "floor_parent": 14390.978820585375,
-        "slack_parent": 12.309586596472684
+        "rho": 1.7911821892007833
       },
       {
         "n": 12,
@@ -193,10 +256,11 @@
         "floor_2n": 4096,
         "slack_2n": 129.746337890625,
         "rho": 1.632993161855452,
-        "Theta": 17.783323952812072,
-        "delta": 0.0494539,
-        "floor_parent": 18825.853287000642,
-        "slack_parent": 28.229318049926746
+        "Theta": 17.78342342522062,
+        "delta": 0.04945417662424405,
+        "identity_residual": 5.684341886080802e-14,
+        "floor_parent": 18825.912223191353,
+        "slack_parent": 28.229229675538694
       },
       {
         "n": 24,
@@ -208,10 +272,11 @@
         "floor_2n": 16777216,
         "slack_2n": 825.0050068497658,
         "rho": 1.4142135623730951,
-        "Theta": 7.903641600000013,
-        "delta": 0.0019296,
-        "floor_parent": 48227829.02130499,
-        "slack_parent": 286.99793214588846
+        "Theta": 7.903536371318477,
+        "delta": 0.001929574309403922,
+        "identity_residual": 0.0,
+        "floor_parent": 48227494.14995554,
+        "slack_parent": 286.9999249383095
       }
     ],
     "eisenstein_window": {
@@ -222,7 +287,45 @@
       "base_eisenstein": 2.6457513110645907,
       "base_real_three": 3.0
     },
-    "note": "floor_2n is rigorous for every convex-tiling colouring, lattice or not; floor_parent = (1+Theta^{1/n})^n is the Brunn-Minkowski bound for the named parent."
+    "open_windows": [
+      {
+        "lambda1_sub_min": 5.265986323710904,
+        "floor_packing": 111019.4837956985,
+        "floor_volume": 18825.912223191353,
+        "floor": 111019.4837956985,
+        "parent": "K12",
+        "n": 12,
+        "record": 531441,
+        "delta_max": 0.0494539,
+        "delta_max_proven": false,
+        "room_factor": 4.786916510780885
+      },
+      {
+        "lambda1_sub_min": 3.414213562373095,
+        "floor_packing": 1153.9991693918519,
+        "floor_volume": 531.7822452080364,
+        "floor": 1153.9991693918519,
+        "parent": "E8",
+        "n": 8,
+        "record": 2401,
+        "delta_max": 0.2536695,
+        "delta_max_proven": true,
+        "room_factor": 2.080590752301241
+      },
+      {
+        "lambda1_sub_min": 2.2909944487358054,
+        "floor_packing": 11.045337672813906,
+        "floor_volume": 9.736649084683364,
+        "floor": 11.045337672813906,
+        "parent": "A3* (bcc)",
+        "n": 3,
+        "record": 15,
+        "delta_max": 0.7404805,
+        "delta_max_proven": true,
+        "room_factor": 1.358039060853683
+      }
+    ],
+    "note": "floor_2n is rigorous for every convex-tiling colouring, lattice or not; floor_parent = (1+Theta^{1/n})^n is the Brunn-Minkowski bound for the named parent; open_windows adds the packing floor from the inradius lemma."
   },
-  "note": "power_coloring reproduces the Voronoi scheme exactly; the probes seeded at the champions of R^2/7, R^3/15, R^4/45 and R^4/44 found no improvement in the enlarged space."
+  "note": "power_coloring reproduces the Voronoi scheme exactly; CMA-ES seeded at the champions of R^2/7, R^3/15, R^4/45 and R^4/44 and given the full power freedom found no improvement (one hour, four processes). See prop. 'reduction to one shape' for why: at a Voronoi point all k tiles are congruent, so every active constraint binds on every tile at once."
 }

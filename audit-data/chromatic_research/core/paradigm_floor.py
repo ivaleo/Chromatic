@@ -108,42 +108,69 @@ def packing_density(n: int, lambda1: float, det: float) -> float:
 # the landscape of the records                                                 #
 # --------------------------------------------------------------------------- #
 
-# The parent enters only through the scale-free pair (rho, delta): the covering
-# density then follows from the identity (5), Theta = delta * rho^n, which is a
-# cheap self-check -- it reproduces the tabulated Theta of A2 (1.2092), A3*
-# (1.4635), E6* (2.6522), E8 (4.0587) and Leech (7.9035) to four digits.
+# The parent enters through its three exact invariants (lambda_1^2, R^2, det L),
+# from which rho, Theta and delta are all derived -- so the identity (5) is a
+# genuine cross-check rather than a definition.
 #
-# (n, colours, parent, rho = 2R/lambda_1, delta = packing density, width, source)
+# (n, colours, parent, lambda_1^2, R^2, det L, width, source)
 RECORDS = [
-    (2, 7, "A2", 2 / math.sqrt(3), math.pi / math.sqrt(12), math.sqrt(7) / 2, "classical"),
-    (3, 15, "A3* (bcc)", math.sqrt(5 / 3), math.pi * math.sqrt(3) / 8, 1.0, "Coulson"),
-    (4, 45, "generic", None, None, 1.0163, "project"),
-    (5, 132, "generic", None, None, 1.0109, "project"),
-    (6, 343, "E6*", math.sqrt(2), 0.331531, math.sqrt(7 / 6), "ABPR"),
-    (7, 1029, "lam E6*/343", None, None, 1.0329, "project"),
-    (8, 2401, "E8", math.sqrt(2), 0.2536695, math.sqrt(7 / 6), "ABPR"),
-    (9, 7203, "lam E8/2401", None, None, 1.0166, "project"),
-    (10, 45619, "E8 x A2 product", None, None, math.sqrt(217 / 214), "project"),
-    (11, 3 ** 11, "Lambda_11 tower", 2 / 1.116581, 0.06043, 1.116581, "project"),
-    (12, 3 ** 12, "K12", math.sqrt(8 / 3), 0.0494539, math.sqrt(1.5), "project"),
-    (24, 7 ** 12, "Leech", math.sqrt(2), 0.0019296, math.sqrt(7 / 6), "ABPR"),
+    (2, 7, "A2", 1.0, 1 / 3, math.sqrt(3) / 2, math.sqrt(7) / 2, "classical"),
+    (3, 15, "A3* (bcc)", 1.0, 5 / 12, 4 / (3 * math.sqrt(3)), 1.0, "Coulson"),
+    (4, 45, "generic", None, None, None, 1.016339, "project"),
+    (5, 132, "generic", None, None, None, 1.010898, "project"),
+    (6, 343, "E6*", 4 / 3, 2 / 3, 1 / math.sqrt(3), math.sqrt(7 / 6), "ABPR"),
+    (7, 1029, "lam E6*/343", None, None, None, 1.032881, "project"),
+    (8, 2401, "E8", 2.0, 1.0, 1.0, math.sqrt(7 / 6), "ABPR"),
+    (9, 7203, "lam E8/2401", None, None, None, 1.016591, "project"),
+    (10, 45619, "E8 x A2 product", None, None, None, math.sqrt(217 / 214), "project"),
+    # tower lattice: only rho is known exactly (rho = 2/d), det is not pinned
+    (11, 3 ** 11, "Lambda_11 tower", 1.0, (1 / 1.116581) ** 2, None, 1.116581, "project"),
+    (12, 3 ** 12, "K12", 4.0, 8 / 3, 27.0, math.sqrt(1.5), "project"),
+    (24, 7 ** 12, "Leech", 4.0, 2.0, 1.0, math.sqrt(7 / 6), "ABPR"),
 ]
 
 
 def landscape() -> list[dict]:
     """Slack of every record against the floors of the paradigm."""
     rows = []
-    for n, k, name, rho, delta, width, src in RECORDS:
+    for n, k, name, lam2, R2, det, width, src in RECORDS:
         row = {"n": n, "colours": k, "parent": name, "width": width, "source": src,
                "base": k ** (1.0 / n), "floor_2n": tiling_floor(n),
                "slack_2n": k / tiling_floor(n)}
-        if rho is not None:
-            theta = delta * rho ** n                       # identity (5)
-            fl = (1.0 + theta ** (1.0 / n)) ** n
-            row |= {"rho": rho, "Theta": theta, "delta": delta,
+        if R2 is not None:
+            row["rho"] = 2 * math.sqrt(R2 / lam2)
+        if det is not None:
+            theta = thinness(n, math.sqrt(R2), det)
+            delta = packing_density(n, math.sqrt(lam2), det)
+            fl = brunn_floor(n, math.sqrt(R2), det)
+            # identity (5): Theta / delta = rho^n -- exact, kept as a self-check
+            row |= {"Theta": theta, "delta": delta,
+                    "identity_residual": abs(theta / delta - row["rho"] ** n),
                     "floor_parent": fl, "slack_parent": k / fl}
         rows.append(row)
     return rows
+
+
+def index_window(n: int, lambda1_parent: float, covering_radius: float,
+                 det_parent: float, delta_max: float) -> dict:
+    """Where a better sublattice of a given parent could still live.
+
+    Two rigorous necessary conditions, combined.  The inradius lemma
+    ``D(v) <= |v| - lambda_1(L)`` turns admissibility ``D(v) > diam = 2R`` into
+    ``lambda_1(G) > 2R + lambda_1(L)``; a lattice with that minimum is a sphere
+    packing of radius ``lambda_1(G)/2``, so
+
+        det G >= w_n (lambda_1(G)/2)^n / delta_max(n),
+        k = det G / det L >= w_n (R + lambda_1(L)/2)^n / (delta_max det L).
+
+    Reported together with the volume floor, so the reader sees which of the two
+    binds and how much room is left below the current record.
+    """
+    lam_min = 2 * covering_radius + lambda1_parent
+    packing = unit_ball_volume(n) * (lam_min / 2) ** n / (delta_max * det_parent)
+    volume = brunn_floor(n, covering_radius, det_parent)
+    return {"lambda1_sub_min": lam_min, "floor_packing": packing,
+            "floor_volume": volume, "floor": max(packing, volume)}
 
 
 def eisenstein_window() -> dict:
@@ -155,11 +182,38 @@ def eisenstein_window() -> dict:
             "base_eisenstein": math.sqrt(7.0), "base_real_three": 3.0}
 
 
+# Parents whose remaining room is worth quantifying.  ``delta_proven`` says
+# whether the sphere-packing density used is a *theorem* (Hales in dimension 3,
+# Viazovska in 8, Cohn-Kumar-Miller-Radchenko-Viazovska in 24) or merely the
+# best density known -- in dimension 12 the optimality of K12 is open, so the
+# floor below is conditional on it and must be quoted as such.
+# (name, n, lambda1, R, det, delta_max, delta_proven, record)
+OPEN_PARENTS = [
+    ("K12", 12, 2.0, math.sqrt(8 / 3), 27.0, 0.0494539, False, 3 ** 12),
+    ("E8", 8, math.sqrt(2), 1.0, 1.0, 0.2536695, True, 2401),
+    ("A3* (bcc)", 3, 1.0, math.sqrt(5 / 12), 4 / (3 * math.sqrt(3)), 0.7404805, True, 15),
+]
+
+
+def open_windows() -> list[dict]:
+    """For each parent: the two floors, the record, and the factor still free."""
+    rows = []
+    for name, n, lam1, R, det, dmax, proven, record in OPEN_PARENTS:
+        w = index_window(n, lam1, R, det, dmax)
+        w |= {"parent": name, "n": n, "record": record,
+              "delta_max": dmax, "delta_max_proven": proven,
+              "room_factor": record / w["floor"]}
+        rows.append(w)
+    return rows
+
+
 def report() -> dict:
     return {"landscape": landscape(), "eisenstein_window": eisenstein_window(),
+            "open_windows": open_windows(),
             "note": "floor_2n is rigorous for every convex-tiling colouring, "
                     "lattice or not; floor_parent = (1+Theta^{1/n})^n is the "
-                    "Brunn-Minkowski bound for the named parent."}
+                    "Brunn-Minkowski bound for the named parent; open_windows "
+                    "adds the packing floor from the inradius lemma."}
 
 
 if __name__ == "__main__":
@@ -173,8 +227,14 @@ if __name__ == "__main__":
               f"{r.get('rho', float('nan')):>7.4f} {r.get('Theta', float('nan')):>8.3f} "
               f"{r.get('floor_parent', float('nan')):>11.1f} "
               f"{r.get('slack_parent', float('nan')):>8.2f} {r['slack_2n']:>8.1f}")
+    print(f"\n{'parent':<12}{'n':>3}{'lam1(G)>=':>11}{'floor(pack)':>13}"
+          f"{'floor(vol)':>12}{'record':>10}{'room':>8}")
+    for r in rep["open_windows"]:
+        mark = "" if r["delta_max_proven"] else "  (conditional on delta_max)"
+        print(f"{r['parent']:<12}{r['n']:>3}{r['lambda1_sub_min']:>11.4f}"
+              f"{r['floor_packing']:>13.0f}{r['floor_volume']:>12.0f}"
+              f"{r['record']:>10}{r['room_factor']:>8.2f}{mark}")
     w = rep["eisenstein_window"]
     print(f"\nEisenstein ladder needs rho <= {w['rho_needed_eisenstein']:.5f}; "
           f"Kabatiansky-Levenshtein forces rho >= {w['kl_asymptotic_floor']:.5f} "
           f"asymptotically -- a window of {w['window_percent']:.2f} %.")
-    print(json.dumps({"eisenstein_window": w}, indent=2)[:0])

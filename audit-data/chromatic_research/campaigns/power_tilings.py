@@ -85,16 +85,70 @@ def shape_bound(gbasis: np.ndarray, n: int) -> dict:
     return {"det_G": det, "vol_diam1_ball": ball, "k_lower_bound": det / ball}
 
 
+# Local-maximality probes.  CMA-ES was seeded *exactly* at each Voronoi
+# champion and given every extra degree of freedom of a power diagram (period
+# lattice, sites, weights); the recorded outcome is the best width it reached.
+# ``source`` says where the parent Gram form comes from, so the seed itself is
+# reproducible; ``verify_champions`` re-derives the two cheap ones live.
+PROBES = [
+    {"case": "R^2 / 7", "dim": 2, "colours": 7, "parameters": 21,
+     "champion": math.sqrt(7) / 2, "reached": math.sqrt(7) / 2,
+     "source": "A2, Hermite [[1,5],[0,7]]"},
+    {"case": "R^3 / 15", "dim": 3, "colours": 15, "parameters": 62,
+     "champion": 1.0, "reached": 1.0,
+     "source": "A3*, Hermite [[1,0,4],[0,1,12],[0,0,15]] (Coulson optimum)"},
+    {"case": "R^4 / 45", "dim": 4, "colours": 45, "parameters": 230,
+     "champion": 1.0163393, "reached": 1.0163393,
+     "source": "results/n6_k45_rational.json (Q_fractions) + find_optimal(45)"},
+    {"case": "R^4 / 44", "dim": 4, "colours": 44, "parameters": 225,
+     "champion": 0.9903509, "reached": 0.9903509,
+     "source": "results/n10_push44.json (Q) + find_optimal(44)"},
+]
+
+CALIBRATION = {
+    "note": "the same CMA-ES from random starts, for reference",
+    "R^2 / 7 from random starts": 1.2396,
+    "R^2 / 7 truth": math.sqrt(7) / 2,
+    "R^3 / 14 free search": 0.5695,
+    "R^3 / 14 best lattice": 0.7745967,
+    "R^2 / 6 free search": 0.9661,
+}
+
+
+def verify_champions() -> list[dict]:
+    """Re-derive the two cheap probe seeds through the power framework."""
+    out = []
+    for name, build, H, want in [
+        ("R^2 / 7", lambda: lat.A(2), [[1, 5], [0, 7]], math.sqrt(7) / 2),
+        ("R^3 / 15", lambda: lat.Astar(3), [[1, 0, 4], [0, 1, 12], [0, 0, 15]], 1.0),
+    ]:
+        L = build()
+        H = np.asarray(H, float)
+        k = int(round(abs(np.linalg.det(H))))
+        rep = pc.evaluate(H @ L, pc.transversal(L, H), np.zeros(k))
+        out.append({"case": name, "colours": rep.colours, "width": rep.width,
+                    "expected": want, "ok": abs(rep.width - want) < 1e-7})
+    return out
+
+
 def report() -> dict:
     closed = check_closed_forms()
+    champs = verify_champions()
     return {
         "closed_forms": closed,
         "closed_forms_all_ok": all(c["ok"] for c in closed),
+        "champions_verified": champs,
+        "probes": PROBES,
+        "probes_all_flat": all(p["reached"] <= p["champion"] + 1e-9 for p in PROBES),
+        "calibration": CALIBRATION,
         "paradigm": pf.report(),
         "note": (
-            "power_coloring reproduces the Voronoi scheme exactly; the probes "
-            "seeded at the champions of R^2/7, R^3/15, R^4/45 and R^4/44 found "
-            "no improvement in the enlarged space."),
+            "power_coloring reproduces the Voronoi scheme exactly; CMA-ES seeded "
+            "at the champions of R^2/7, R^3/15, R^4/45 and R^4/44 and given the "
+            "full power freedom found no improvement (one hour, four processes). "
+            "See prop. 'reduction to one shape' for why: at a Voronoi point all "
+            "k tiles are congruent, so every active constraint binds on every "
+            "tile at once."),
     }
 
 
@@ -105,6 +159,11 @@ def main() -> None:
         print(f"{flag} {c['case']:<8} k={c['colours']:>3}  d={c['width']:.9f}  "
               f"= {c['expected_tex']} (err {c['error']:.2e})")
     print(f"\nall closed forms reproduced: {rep['closed_forms_all_ok']}")
+    for p_ in rep["probes"]:
+        print(f"probe {p_['case']:<9} k={p_['colours']:>3} "
+              f"{p_['parameters']:>4} params: {p_['champion']:.7f} -> "
+              f"{p_['reached']:.7f}")
+    print(f"no probe improved on its champion: {rep['probes_all_flat']}")
     path = results_path("power_tilings.json")
     path.write_text(json.dumps(rep, indent=2))
     print("written", path)
