@@ -122,7 +122,7 @@ RECORDS = [
     (7, 1029, "lam E6*/343", None, None, None, 1.032881, "project"),
     (8, 2401, "E8", 2.0, 1.0, 1.0, math.sqrt(7 / 6), "ABPR"),
     (9, 7203, "lam E8/2401", None, None, None, 1.016591, "project"),
-    (10, 45619, "E8 x A2 product", None, None, None, math.sqrt(217 / 214), "project"),
+    (10, 28812, "lam E8 + A2 layer", None, None, None, 1.043297, "project"),
     # tower lattice: only rho is known exactly (rho = 2/d), det is not pinned
     (11, 3 ** 11, "Lambda_11 tower", 1.0, (1 / 1.116581) ** 2, None, 1.116581, "project"),
     (12, 3 ** 12, "K12", 4.0, 8 / 3, 27.0, math.sqrt(1.5), "project"),
