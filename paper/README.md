@@ -1,4 +1,4 @@
-# paper/ — статья об оценках χ(ℝ⁴) ≤ 45, χ(ℝ⁵) ≤ 132, χ(ℝ⁷) ≤ 1029 и χ(ℝ⁹) ≤ 7203
+# paper/ — статья об оценках χ(ℝ⁴) ≤ 45, χ(ℝ⁵) ≤ 132, χ(ℝ⁷) ≤ 1029, χ(ℝ⁹) ≤ 7203 и χ(ℝ¹⁰) ≤ 28812
 
 Основной итог исследования. Исходник — [`chi4-45.tex`](chi4-45.tex), собранный
 PDF — `chi4-45.pdf`.
@@ -8,11 +8,11 @@ PDF — `chi4-45.pdf`.
 | Файл | Что это |
 |---|---|
 | `chi4-45.tex` | Каркас статьи: преамбула, титул, `\input` секций, библиография. |
-| `sections/*.tex` | Десять секций статьи (`intro`, `method`, `algo`, `main`, `dim57`, `intervals`, `extra`, `dim9-12`, `open`, `screens`). |
+| `sections/*.tex` | Секции статьи (`intro`, `method`, `algo`, `main`, `dim57`, `intervals`, `extra`, `dim9-12`, `product`, `tilings`, `open`, `screens`). |
 | `origin-and-ai.tex` | Раздел о происхождении результатов и роли ИИ. |
 | `chi4-45.pdf` | Собранная версия (для чтения без TeX). |
 | `figures.py` | Генератор всех иллюстраций из данных `../audit-data`. |
-| `fig_*.pdf` | 8 готовых рисунков: method, interval, descent, eisenstein, staircase, budget (продуктовое исчисление), spacer (почему плоский блок стоит 19), shells (почему слой ранга 2 не проходит). |
+| `fig_*.pdf` | 9 готовых рисунков: method, interval, descent, eisenstein, staircase, budget (продуктовое исчисление), spacer (почему плоский блок стоит 19), shells (почему слой ранга 2 не проходит), landscape (карта оценок). |
 
 ## Требования к сборке
 
