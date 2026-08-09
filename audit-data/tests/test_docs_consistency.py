@@ -8,6 +8,7 @@
 """
 
 import json
+import re
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[2]
@@ -67,3 +68,24 @@ def test_intro_headline_matches_certificate():
     # таблица известных оценок: n=10 должен вести на 28812, а не на 45619
     assert r"\mathbf{28812}" in INTRO
     assert r"\mathbf{45619}" not in INTRO
+
+
+def test_paper_artifact_paths_exist():
+    """Каждый путь audit-data/..., на который ссылается статья, существует.
+
+    Ловит класс ошибок «сертификат переехал, статья ссылается в пустоту»
+    (замечания №2 и №23 к версии 5: пути hd-2026-07/ и cert46.json).
+    """
+    texts = dict(SECTIONS)
+    texts["origin-and-ai.tex"] = (ROOT / "paper" / "origin-and-ai.tex").read_text()
+    missing = []
+    for name, text in texts.items():
+        for m in re.finditer(r"\\path\{(audit-data/[^}]+)\}", text):
+            rel = m.group(1).replace(r"\_", "_")
+            if not (ROOT / rel).exists():
+                missing.append(f"{name}: {rel}")
+        for m in re.finditer(r"\\texttt\{(results/[^}]*\.json)\}", text):
+            rel = m.group(1).replace(r"\_", "_")
+            if not (ROOT / "audit-data" / rel).exists():
+                missing.append(f"{name}: audit-data/{rel}")
+    assert not missing, "битые ссылки на артефакты:\n  " + "\n  ".join(missing)
