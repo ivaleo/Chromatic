@@ -1,0 +1,195 @@
+"""Точный сертификат ширины k = 15 в R^3: конструкция Кулсона и её деформация.
+
+Историческая 15-раскраска Кулсона --- ОЦК-решётка (A3*) с подрешёткой индекса
+15; здесь она реализована как альфа = 1/3 однопараметрического семейства
+
+    G(alpha) = [[1, -a, 2a-1], [-a, 1, -a], [2a-1, -a, 1]],
+
+в котором подрешётка T = [[1,0,11],[0,1,7],[0,0,15]] держится фиксированной.
+Символьное решение KKT-систем связывающих орбит даёт замкнутые формы
+
+    D^2_{(3,2,2)} = (4a^2+3a+1)/(a+1),   D^2_{(2,1,-1)} = 2(5a^2-6a+2)/(1-a),
+    diam^2 = 2 - a,
+
+откуда при a = 1/3 ширина равна ровно 1 (интервал вырожден --- случай
+Кулсона), а максимум семейства достигается в корне кубики
+14a^3 - 3a^2 - 10a + 3 = 0, a* = 0.313695331..., d* = 1.026598584...
+
+Сертифицируется рациональная точка a = 16/51 (целочисленный грамиан
+51*G = [[51,-16,-19],[-16,51,-16],[-19,-16,51]]): полный точный конвейер ---
+вершины ячейки над Q, радиус покрытия, окно |v| < 2(1+l)R, KKT-сертификат
+каждого вектора --- как в verify_metric_candidate. Итог:
+
+    chi(R^3, [1, l]) <= 15   при l <= 513/500 = 1.026   [С]
+
+Запуск::
+
+    python -m chromatic_research.campaigns.dim3_k15
+"""
+
+from __future__ import annotations
+
+import itertools
+import json
+import math
+from fractions import Fraction
+
+import numpy as np
+from sympy import Matrix, Rational
+
+import combigeo
+from chromatic_research.campaigns.verify_metric_candidate import (
+    exact_positive_definite,
+    exact_projection_certificate,
+    exact_vertex_radius,
+    fraction_text,
+    voronoi_data,
+)
+from chromatic_research.core.prime_radon import hnf_columns
+from chromatic_research.paths import results_path
+
+T_ROWS = np.array([[1, 0, 11], [0, 1, 7], [0, 0, 15]], dtype=np.int64)
+
+
+def closed_forms(alpha: Fraction) -> dict[str, Fraction]:
+    d2_a = (4 * alpha**2 + 3 * alpha + 1) / (alpha + 1)
+    d2_b = 2 * (5 * alpha**2 - 6 * alpha + 2) / (1 - alpha)
+    diam2 = 2 - alpha
+    return {"D2_322": d2_a, "D2_21m1": d2_b, "diam2": diam2,
+            "width2": min(d2_a, d2_b) / diam2}
+
+
+def audit(alpha: Fraction, ell: Fraction | None) -> dict:
+    denominator = alpha.denominator
+    a_num = alpha.numerator
+    gram_int = np.array(
+        [[denominator, -a_num, 2 * a_num - denominator],
+         [-a_num, denominator, -a_num],
+         [2 * a_num - denominator, -a_num, denominator]], dtype=np.int64)
+    exact_positive_definite(gram_int)
+    basis = np.linalg.cholesky(gram_int.astype(np.float64) / denominator)
+
+    facets, facet_normals, hull, _ = voronoi_data(basis)
+    facet_coordinates = np.rint(
+        facet_normals @ np.linalg.inv(basis)).astype(np.int64)
+    assert np.allclose(facet_coordinates @ basis, facet_normals, atol=1e-9)
+    assert all(len(active) == 3 for active in hull.dual_facets)
+    radius_sq, _, _ = exact_vertex_radius(
+        gram_int, denominator, facet_coordinates, hull, progress_every=0)
+    radius_sq = Fraction(int(radius_sq.p), int(radius_sq.q))
+    diam_sq = 4 * radius_sq
+    forms = closed_forms(alpha)
+    assert diam_sq == forms["diam2"], (diam_sq, forms["diam2"])
+
+    # окно нарушителя: для цели d > l достаточно |v| < 2(1+l)R; при l=None
+    # (калибровка Кулсона) берём то же окно с l = 1
+    ell_eff = ell if ell is not None else Fraction(1)
+    cutoff_sq = 4 * (1 + ell_eff) ** 2 * radius_sq
+    p, q = cutoff_sq.numerator, cutoff_sq.denominator
+
+    kernel = hnf_columns(T_ROWS.T.copy())
+    sub = np.asarray(kernel).T @ basis
+    reduced = np.asarray(combigeo.lll_reduce(sub.tolist()), dtype=np.float64)
+    reduced_rows = np.rint(reduced @ np.linalg.inv(basis)).astype(np.int64)
+    assert np.allclose(reduced_rows @ basis, reduced, atol=1e-7)
+
+    sub_gram = Matrix(reduced_rows.tolist()) * Matrix(gram_int.tolist()) \
+        * Matrix(reduced_rows.tolist()).T
+    sub_inv = sub_gram.inv() * denominator
+    box = []
+    for i in range(3):
+        entry = Rational(sub_inv[i, i])
+        bound = Fraction(int(entry.p), int(entry.q)) * cutoff_sq
+        box.append(math.isqrt(int(bound)))
+
+    S = [[int(sub_gram[i, j]) for j in range(3)] for i in range(3)]
+    vectors = []
+    for z in itertools.product(*[range(-b, b + 1) for b in box]):
+        if not any(z):
+            continue
+        norm_num = sum(z[i] * S[i][j] * z[j]
+                       for i in range(3) for j in range(3))
+        # нестрогое сравнение: граничные векторы (|v| = 2(1+l)R) включаются,
+        # это надмножество окна нарушителя и потому всегда корректно
+        if norm_num * q <= p * denominator:
+            vectors.append(np.asarray(z, dtype=np.int64) @ reduced_rows)
+
+    certificates = [
+        exact_projection_certificate(
+            coord, basis, facets, facet_coordinates, gram_int, denominator)
+        for coord in vectors]
+    distances = [Fraction(c["distance_squared"]) for c in certificates]
+    min_d_sq = min(distances)
+    width_sq = Fraction(min_d_sq, diam_sq)
+    assert width_sq == forms["width2"], (width_sq, forms["width2"])
+
+    record = {
+        "alpha": f"{alpha.numerator}/{alpha.denominator}",
+        "integer_gram": gram_int.tolist(),
+        "denominator": denominator,
+        "transition_rows": T_ROWS.tolist(),
+        "index": 15,
+        "facets": len(facets),
+        "vertices": len(hull.intersections),
+        "covering_radius_squared": f"{radius_sq.numerator}/{radius_sq.denominator}",
+        "diameter_squared": f"{diam_sq.numerator}/{diam_sq.denominator}",
+        "window_cutoff_squared": f"{p}/{q}",
+        "coefficient_box": box,
+        "vector_count": len(vectors),
+        "minimum_distance_squared":
+            f"{min_d_sq.numerator}/{min_d_sq.denominator}",
+        "width_squared": f"{width_sq.numerator}/{width_sq.denominator}",
+        "width": math.sqrt(float(width_sq)),
+        "closed_forms_match": True,
+        "all_projection_certificates": certificates,
+    }
+    if ell is not None:
+        margin = min_d_sq - ell * ell * diam_sq
+        assert margin > 0, f"interval l={ell} not certified: margin={margin}"
+        record["certified_interval"] = {
+            "valid": True,
+            "upper_endpoint": f"{ell.numerator}/{ell.denominator}",
+            "squared_margin": f"{margin.numerator}/{margin.denominator}",
+            "squared_margin_float": float(margin),
+        }
+    else:
+        record["degenerate_interval"] = bool(width_sq == 1)
+    return record
+
+
+def main() -> int:
+    coulson = audit(Fraction(1, 3), None)
+    print(f"Кулсон (alpha=1/3): width^2 = {coulson['width_squared']} "
+          f"(вырожденный интервал: {coulson['degenerate_interval']}), "
+          f"векторов в окне: {coulson['vector_count']}", flush=True)
+    assert coulson["width_squared"] == "1/1"
+
+    optimal = audit(Fraction(16, 51), Fraction(513, 500))
+    print(f"alpha=16/51: width = {optimal['width']:.9f} "
+          f"(width^2 = {optimal['width_squared']}), "
+          f"интервал l=513/500 подтверждён, векторов: "
+          f"{optimal['vector_count']}", flush=True)
+
+    payload = {
+        "method": "family G(a)=[[1,-a,2a-1],[-a,1,-a],[2a-1,-a,1]] with fixed "
+                  "index-15 sublattice; exact vertices + exact KKT projections",
+        "closed_forms": {
+            "D2_orbit_322": "(4a^2+3a+1)/(a+1)",
+            "D2_orbit_21m1": "2(5a^2-6a+2)/(1-a)",
+            "diam2": "2-a",
+            "optimal_alpha_cubic": "14a^3 - 3a^2 - 10a + 3 = 0",
+            "optimal_alpha_float": 0.3136953314651367,
+            "optimal_width_float": 1.0265985837974336,
+        },
+        "coulson_bcc": coulson,
+        "certified_optimum": optimal,
+        "certified_upper_bound": 15,
+    }
+    path = results_path("dim3_k15_certificate.json")
+    path.write_text(json.dumps(payload, indent=2) + "\n")
+    print(f"written {path}", flush=True)
+    return 0
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())

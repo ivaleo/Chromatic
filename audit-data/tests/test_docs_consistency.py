@@ -96,6 +96,21 @@ def test_interval_certificates_match_paper_claims():
         assert f"ровно ${count}$ ненулевых вектор" in dim57
 
 
+def test_dim3_certificate_matches_paper():
+    """ℝ³/15: точная ширина 1586/1505 при α=16/51 и вырожденный Кулсон."""
+    cert = json.loads((RESULTS_DIR / "dim3_k15_certificate.json").read_text())
+    assert cert["coulson_bcc"]["width_squared"] == "1/1"
+    assert cert["coulson_bcc"]["degenerate_interval"]
+    opt = cert["certified_optimum"]
+    assert opt["width_squared"] == "1586/1505"
+    assert opt["certified_interval"]["upper_endpoint"] == "513/500"
+    intervals = (ROOT / "paper" / "sections" / "intervals.tex").read_text()
+    for token in ("1586/1505", "513/500", "16/51",
+                  "14\\alpha^3-3\\alpha^2-10\\alpha+3"):
+        assert token in intervals, f"нет {token} в intervals.tex"
+    assert "1586/1505" in RESULTS
+
+
 def test_paper_artifact_paths_exist():
     """Каждый путь audit-data/..., на который ссылается статья, существует.
 

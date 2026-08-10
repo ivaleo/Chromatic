@@ -1,0 +1,851 @@
+{
+  "method": "family G(a)=[[1,-a,2a-1],[-a,1,-a],[2a-1,-a,1]] with fixed index-15 sublattice; exact vertices + exact KKT projections",
+  "closed_forms": {
+    "D2_orbit_322": "(4a^2+3a+1)/(a+1)",
+    "D2_orbit_21m1": "2(5a^2-6a+2)/(1-a)",
+    "diam2": "2-a",
+    "optimal_alpha_cubic": "14a^3 - 3a^2 - 10a + 3 = 0",
+    "optimal_alpha_float": 0.3136953314651367,
+    "optimal_width_float": 1.0265985837974336
+  },
+  "coulson_bcc": {
+    "alpha": "1/3",
+    "integer_gram": [
+      [
+        3,
+        -1,
+        -1
+      ],
+      [
+        -1,
+        3,
+        -1
+      ],
+      [
+        -1,
+        -1,
+        3
+      ]
+    ],
+    "denominator": 3,
+    "transition_rows": [
+      [
+        1,
+        0,
+        11
+      ],
+      [
+        0,
+        1,
+        7
+      ],
+      [
+        0,
+        0,
+        15
+      ]
+    ],
+    "index": 15,
+    "facets": 14,
+    "vertices": 24,
+    "covering_radius_squared": "5/12",
+    "diameter_squared": "5/3",
+    "window_cutoff_squared": "20/3",
+    "coefficient_box": [
+      1,
+      1,
+      1
+    ],
+    "vector_count": 12,
+    "minimum_distance_squared": "5/3",
+    "width_squared": "1/1",
+    "width": 1.0,
+    "closed_forms_match": true,
+    "all_projection_certificates": [
+      {
+        "coordinate": [
+          -1,
+          -1,
+          -3
+        ],
+        "distance_squared": "11/6",
+        "distance_squared_float": 1.8333333333333333,
+        "active_facets": [
+          [
+            0,
+            0,
+            -1
+          ],
+          [
+            -1,
+            -1,
+            -1
+          ]
+        ],
+        "multipliers": [
+          "5/8",
+          "1/8"
+        ],
+        "dykstra_distance": 1.3540064007748398,
+        "exact_distance": 1.35400640077266,
+        "solver_difference": 2.1798118865490324e-12
+      },
+      {
+        "coordinate": [
+          2,
+          1,
+          -1
+        ],
+        "distance_squared": "5/3",
+        "distance_squared_float": 1.6666666666666667,
+        "active_facets": [
+          [
+            1,
+            0,
+            0
+          ],
+          [
+            1,
+            1,
+            0
+          ],
+          [
+            0,
+            0,
+            -1
+          ]
+        ],
+        "multipliers": [
+          "1/4",
+          "1/4",
+          "1/4"
+        ],
+        "dykstra_distance": 1.2909944487175213,
+        "exact_distance": 1.2909944487358056,
+        "solver_difference": -1.8284262992551703e-11
+      },
+      {
+        "coordinate": [
+          -1,
+          -3,
+          -2
+        ],
+        "distance_squared": "5/3",
+        "distance_squared_float": 1.6666666666666667,
+        "active_facets": [
+          [
+            0,
+            -1,
+            0
+          ],
+          [
+            0,
+            -1,
+            -1
+          ],
+          [
+            -1,
+            -1,
+            -1
+          ]
+        ],
+        "multipliers": [
+          "1/4",
+          "1/4",
+          "1/4"
+        ],
+        "dykstra_distance": 1.2909944487175211,
+        "exact_distance": 1.2909944487358056,
+        "solver_difference": -1.8284485037156628e-11
+      },
+      {
+        "coordinate": [
+          2,
+          -1,
+          0
+        ],
+        "distance_squared": "11/6",
+        "distance_squared_float": 1.8333333333333333,
+        "active_facets": [
+          [
+            1,
+            0,
+            0
+          ],
+          [
+            0,
+            -1,
+            0
+          ]
+        ],
+        "multipliers": [
+          "5/8",
+          "1/8"
+        ],
+        "dykstra_distance": 1.3540064007922727,
+        "exact_distance": 1.35400640077266,
+        "solver_difference": 1.9612755863818165e-11
+      },
+      {
+        "coordinate": [
+          0,
+          2,
+          -1
+        ],
+        "distance_squared": "11/6",
+        "distance_squared_float": 1.8333333333333333,
+        "active_facets": [
+          [
+            0,
+            1,
+            0
+          ],
+          [
+            0,
+            0,
+            -1
+          ]
+        ],
+        "multipliers": [
+          "5/8",
+          "1/8"
+        ],
+        "dykstra_distance": 1.3540064007748394,
+        "exact_distance": 1.35400640077266,
+        "solver_difference": 2.1793677973391823e-12
+      },
+      {
+        "coordinate": [
+          -3,
+          -2,
+          -2
+        ],
+        "distance_squared": "11/6",
+        "distance_squared_float": 1.8333333333333333,
+        "active_facets": [
+          [
+            -1,
+            0,
+            0
+          ],
+          [
+            -1,
+            -1,
+            -1
+          ]
+        ],
+        "multipliers": [
+          "1/8",
+          "5/8"
+        ],
+        "dykstra_distance": 1.354006400772128,
+        "exact_distance": 1.35400640077266,
+        "solver_difference": -5.32018873400375e-13
+      },
+      {
+        "coordinate": [
+          3,
+          2,
+          2
+        ],
+        "distance_squared": "11/6",
+        "distance_squared_float": 1.8333333333333333,
+        "active_facets": [
+          [
+            1,
+            0,
+            0
+          ],
+          [
+            1,
+            1,
+            1
+          ]
+        ],
+        "multipliers": [
+          "1/8",
+          "5/8"
+        ],
+        "dykstra_distance": 1.354006400772128,
+        "exact_distance": 1.35400640077266,
+        "solver_difference": -5.32018873400375e-13
+      },
+      {
+        "coordinate": [
+          0,
+          -2,
+          1
+        ],
+        "distance_squared": "11/6",
+        "distance_squared_float": 1.8333333333333333,
+        "active_facets": [
+          [
+            0,
+            -1,
+            0
+          ],
+          [
+            0,
+            0,
+            1
+          ]
+        ],
+        "multipliers": [
+          "5/8",
+          "1/8"
+        ],
+        "dykstra_distance": 1.3540064007748394,
+        "exact_distance": 1.35400640077266,
+        "solver_difference": 2.1793677973391823e-12
+      },
+      {
+        "coordinate": [
+          -2,
+          1,
+          0
+        ],
+        "distance_squared": "11/6",
+        "distance_squared_float": 1.8333333333333333,
+        "active_facets": [
+          [
+            -1,
+            0,
+            0
+          ],
+          [
+            0,
+            1,
+            0
+          ]
+        ],
+        "multipliers": [
+          "5/8",
+          "1/8"
+        ],
+        "dykstra_distance": 1.3540064007922727,
+        "exact_distance": 1.35400640077266,
+        "solver_difference": 1.9612755863818165e-11
+      },
+      {
+        "coordinate": [
+          1,
+          3,
+          2
+        ],
+        "distance_squared": "5/3",
+        "distance_squared_float": 1.6666666666666667,
+        "active_facets": [
+          [
+            0,
+            1,
+            0
+          ],
+          [
+            0,
+            1,
+            1
+          ],
+          [
+            1,
+            1,
+            1
+          ]
+        ],
+        "multipliers": [
+          "1/4",
+          "1/4",
+          "1/4"
+        ],
+        "dykstra_distance": 1.2909944487175211,
+        "exact_distance": 1.2909944487358056,
+        "solver_difference": -1.8284485037156628e-11
+      },
+      {
+        "coordinate": [
+          -2,
+          -1,
+          1
+        ],
+        "distance_squared": "5/3",
+        "distance_squared_float": 1.6666666666666667,
+        "active_facets": [
+          [
+            -1,
+            0,
+            0
+          ],
+          [
+            -1,
+            -1,
+            0
+          ],
+          [
+            0,
+            0,
+            1
+          ]
+        ],
+        "multipliers": [
+          "1/4",
+          "1/4",
+          "1/4"
+        ],
+        "dykstra_distance": 1.2909944487175213,
+        "exact_distance": 1.2909944487358056,
+        "solver_difference": -1.8284262992551703e-11
+      },
+      {
+        "coordinate": [
+          1,
+          1,
+          3
+        ],
+        "distance_squared": "11/6",
+        "distance_squared_float": 1.8333333333333333,
+        "active_facets": [
+          [
+            0,
+            0,
+            1
+          ],
+          [
+            1,
+            1,
+            1
+          ]
+        ],
+        "multipliers": [
+          "5/8",
+          "1/8"
+        ],
+        "dykstra_distance": 1.3540064007748398,
+        "exact_distance": 1.35400640077266,
+        "solver_difference": 2.1798118865490324e-12
+      }
+    ],
+    "degenerate_interval": true
+  },
+  "certified_optimum": {
+    "alpha": "16/51",
+    "integer_gram": [
+      [
+        51,
+        -16,
+        -19
+      ],
+      [
+        -16,
+        51,
+        -16
+      ],
+      [
+        -19,
+        -16,
+        51
+      ]
+    ],
+    "denominator": 51,
+    "transition_rows": [
+      [
+        1,
+        0,
+        11
+      ],
+      [
+        0,
+        1,
+        7
+      ],
+      [
+        0,
+        0,
+        15
+      ]
+    ],
+    "index": 15,
+    "facets": 14,
+    "vertices": 24,
+    "covering_radius_squared": "43/102",
+    "diameter_squared": "86/51",
+    "window_cutoff_squared": "44125267/6375000",
+    "coefficient_box": [
+      1,
+      1,
+      1
+    ],
+    "vector_count": 12,
+    "minimum_distance_squared": "3172/1785",
+    "width_squared": "1586/1505",
+    "width": 1.0265576447558338,
+    "closed_forms_match": true,
+    "all_projection_certificates": [
+      {
+        "coordinate": [
+          -1,
+          -1,
+          -3
+        ],
+        "distance_squared": "6073/3417",
+        "distance_squared_float": 1.7772900204858062,
+        "active_facets": [
+          [
+            0,
+            0,
+            -1
+          ],
+          [
+            -1,
+            -1,
+            -1
+          ]
+        ],
+        "multipliers": [
+          "83/134",
+          "8/67"
+        ],
+        "dykstra_distance": 1.333150411806591,
+        "exact_distance": 1.3331504118012365,
+        "solver_difference": 5.35460564776713e-12
+      },
+      {
+        "coordinate": [
+          2,
+          1,
+          -1
+        ],
+        "distance_squared": "3172/1785",
+        "distance_squared_float": 1.7770308123249299,
+        "active_facets": [
+          [
+            1,
+            0,
+            0
+          ],
+          [
+            1,
+            1,
+            0
+          ],
+          [
+            0,
+            0,
+            -1
+          ]
+        ],
+        "multipliers": [
+          "19/70",
+          "8/35",
+          "19/70"
+        ],
+        "dykstra_distance": 1.3330531918805555,
+        "exact_distance": 1.3330531918587982,
+        "solver_difference": 2.1757262658184118e-11
+      },
+      {
+        "coordinate": [
+          -1,
+          -3,
+          -2
+        ],
+        "distance_squared": "3172/1785",
+        "distance_squared_float": 1.7770308123249299,
+        "active_facets": [
+          [
+            0,
+            -1,
+            0
+          ],
+          [
+            0,
+            -1,
+            -1
+          ],
+          [
+            -1,
+            -1,
+            -1
+          ]
+        ],
+        "multipliers": [
+          "19/70",
+          "8/35",
+          "19/70"
+        ],
+        "dykstra_distance": 1.3330531918805557,
+        "exact_distance": 1.3330531918587982,
+        "solver_difference": 2.1757484702789043e-11
+      },
+      {
+        "coordinate": [
+          2,
+          -1,
+          0
+        ],
+        "distance_squared": "6073/3417",
+        "distance_squared_float": 1.7772900204858062,
+        "active_facets": [
+          [
+            1,
+            0,
+            0
+          ],
+          [
+            0,
+            -1,
+            0
+          ]
+        ],
+        "multipliers": [
+          "83/134",
+          "8/67"
+        ],
+        "dykstra_distance": 1.3331504118065909,
+        "exact_distance": 1.3331504118012365,
+        "solver_difference": 5.354383603162205e-12
+      },
+      {
+        "coordinate": [
+          0,
+          2,
+          -1
+        ],
+        "distance_squared": "6073/3417",
+        "distance_squared_float": 1.7772900204858062,
+        "active_facets": [
+          [
+            0,
+            1,
+            0
+          ],
+          [
+            0,
+            0,
+            -1
+          ]
+        ],
+        "multipliers": [
+          "83/134",
+          "8/67"
+        ],
+        "dykstra_distance": 1.3331504118065918,
+        "exact_distance": 1.3331504118012365,
+        "solver_difference": 5.355271781581905e-12
+      },
+      {
+        "coordinate": [
+          -3,
+          -2,
+          -2
+        ],
+        "distance_squared": "6073/3417",
+        "distance_squared_float": 1.7772900204858062,
+        "active_facets": [
+          [
+            -1,
+            0,
+            0
+          ],
+          [
+            -1,
+            -1,
+            -1
+          ]
+        ],
+        "multipliers": [
+          "8/67",
+          "83/134"
+        ],
+        "dykstra_distance": 1.3331504117982684,
+        "exact_distance": 1.3331504118012365,
+        "solver_difference": -2.9680702340328935e-12
+      },
+      {
+        "coordinate": [
+          3,
+          2,
+          2
+        ],
+        "distance_squared": "6073/3417",
+        "distance_squared_float": 1.7772900204858062,
+        "active_facets": [
+          [
+            1,
+            0,
+            0
+          ],
+          [
+            1,
+            1,
+            1
+          ]
+        ],
+        "multipliers": [
+          "8/67",
+          "83/134"
+        ],
+        "dykstra_distance": 1.3331504117982684,
+        "exact_distance": 1.3331504118012365,
+        "solver_difference": -2.9680702340328935e-12
+      },
+      {
+        "coordinate": [
+          0,
+          -2,
+          1
+        ],
+        "distance_squared": "6073/3417",
+        "distance_squared_float": 1.7772900204858062,
+        "active_facets": [
+          [
+            0,
+            -1,
+            0
+          ],
+          [
+            0,
+            0,
+            1
+          ]
+        ],
+        "multipliers": [
+          "83/134",
+          "8/67"
+        ],
+        "dykstra_distance": 1.3331504118065918,
+        "exact_distance": 1.3331504118012365,
+        "solver_difference": 5.355271781581905e-12
+      },
+      {
+        "coordinate": [
+          -2,
+          1,
+          0
+        ],
+        "distance_squared": "6073/3417",
+        "distance_squared_float": 1.7772900204858062,
+        "active_facets": [
+          [
+            -1,
+            0,
+            0
+          ],
+          [
+            0,
+            1,
+            0
+          ]
+        ],
+        "multipliers": [
+          "83/134",
+          "8/67"
+        ],
+        "dykstra_distance": 1.3331504118065909,
+        "exact_distance": 1.3331504118012365,
+        "solver_difference": 5.354383603162205e-12
+      },
+      {
+        "coordinate": [
+          1,
+          3,
+          2
+        ],
+        "distance_squared": "3172/1785",
+        "distance_squared_float": 1.7770308123249299,
+        "active_facets": [
+          [
+            0,
+            1,
+            0
+          ],
+          [
+            0,
+            1,
+            1
+          ],
+          [
+            1,
+            1,
+            1
+          ]
+        ],
+        "multipliers": [
+          "19/70",
+          "8/35",
+          "19/70"
+        ],
+        "dykstra_distance": 1.3330531918805557,
+        "exact_distance": 1.3330531918587982,
+        "solver_difference": 2.1757484702789043e-11
+      },
+      {
+        "coordinate": [
+          -2,
+          -1,
+          1
+        ],
+        "distance_squared": "3172/1785",
+        "distance_squared_float": 1.7770308123249299,
+        "active_facets": [
+          [
+            -1,
+            0,
+            0
+          ],
+          [
+            -1,
+            -1,
+            0
+          ],
+          [
+            0,
+            0,
+            1
+          ]
+        ],
+        "multipliers": [
+          "19/70",
+          "8/35",
+          "19/70"
+        ],
+        "dykstra_distance": 1.3330531918805555,
+        "exact_distance": 1.3330531918587982,
+        "solver_difference": 2.1757262658184118e-11
+      },
+      {
+        "coordinate": [
+          1,
+          1,
+          3
+        ],
+        "distance_squared": "6073/3417",
+        "distance_squared_float": 1.7772900204858062,
+        "active_facets": [
+          [
+            0,
+            0,
+            1
+          ],
+          [
+            1,
+            1,
+            1
+          ]
+        ],
+        "multipliers": [
+          "83/134",
+          "8/67"
+        ],
+        "dykstra_distance": 1.333150411806591,
+        "exact_distance": 1.3331504118012365,
+        "solver_difference": 5.35460564776713e-12
+      }
+    ],
+    "certified_interval": {
+      "valid": true,
+      "upper_endpoint": "513/500",
+      "squared_margin": "86131/44625000",
+      "squared_margin_float": 0.0019301064425770308
+    }
+  },
+  "certified_upper_bound": 15
+}
