@@ -70,6 +70,32 @@ def test_intro_headline_matches_certificate():
     assert r"\mathbf{45619}" not in INTRO
 
 
+def test_interval_certificates_match_paper_claims():
+    """Теоремы 2 и 3: окна, счётчики векторов и интервалы в артефактах.
+
+    Замечание №3 к версии 5: текст статьи говорил 38/72 вектора, артефакты
+    содержали 36/70 (окно 4R вместо 2(1+ell)R) и у ℝ⁷ не было
+    certified_interval. Тест закрепляет согласованность после перегенерации.
+    """
+    dim57 = " ".join((ROOT / "paper" / "sections" / "dim57.tex").read_text().split())
+    for name, count, ell, extra in (
+        ("metric_deform_a5_132_refined_certificate.json", 38, "101/100",
+         [-2, 2, -2, 2, 2]),
+        ("metric_deform_e7_1323_certificate.json", 72, "1007/1000",
+         [2, -1, 0, 0, 0, 0, 1]),
+    ):
+        cert = json.loads((RESULTS_DIR / name).read_text())
+        sv = cert["short_vector_certificate"]
+        assert sv["exact_vector_count"] == count == sv["cpp_vector_count"]
+        pairs = {tuple(p) for p in sv["beyond_4R_pairs"]}
+        assert tuple(extra) in pairs and tuple(-x for x in extra) in pairs
+        ci = cert["certified_interval"]
+        assert ci["valid"] and ci["upper_endpoint"] == ell
+        # каждый вектор окна обязан иметь KKT-сертификат в файле
+        assert len(cert["separation"]["all_projection_certificates"]) == count
+        assert f"ровно ${count}$ ненулевых вектор" in dim57
+
+
 def test_paper_artifact_paths_exist():
     """Каждый путь audit-data/..., на который ссылается статья, существует.
 
