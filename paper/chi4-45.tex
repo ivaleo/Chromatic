@@ -1,7 +1,8 @@
+\pdfoutput=1
 \documentclass[11pt]{article}
 \usepackage[utf8]{inputenc}
 \usepackage[T2A]{fontenc}
-\usepackage[russian]{babel}
+\usepackage[english,russian]{babel}
 \usepackage{amsmath,amssymb,amsthm}
 \usepackage[a4paper,left=24mm,right=20mm,top=22mm,bottom=24mm]{geometry}
 \usepackage{graphicx}
@@ -29,14 +30,18 @@
 \newcommand{\vol}{\operatorname{vol}}
 
 % пометки статуса результата, единые по всей работе
-\newcommand{\stP}{\textcolor{ForestGreen}{\textbf{[Т]}}}     % теорема
-\newcommand{\stC}{\textcolor{RoyalBlue}{\textbf{[С]}}}       % точный сертификат
-\newcommand{\stN}{\textcolor{BurntOrange}{\textbf{[Ч]}}}     % численный (повышенной пробы)
-\newcommand{\stM}{\textcolor{BurntOrange}{\textbf{[Ч]}${}^{*}$}} % кандидат без сертификата
+% (\cyrbadge --- принудительный T2A: бейджи работают и в английских блоках)
+\newcommand{\cyrbadge}[1]{{\fontencoding{T2A}\selectfont #1}}
+\newcommand{\stP}{\textcolor{ForestGreen}{\textbf{\cyrbadge{[Т]}}}}     % теорема
+\newcommand{\stC}{\textcolor{RoyalBlue}{\textbf{\cyrbadge{[С]}}}}       % точный сертификат
+\newcommand{\stN}{\textcolor{BurntOrange}{\textbf{\cyrbadge{[Ч]}}}}     % численный (повышенной пробы)
+\newcommand{\stM}{\textcolor{BurntOrange}{\textbf{\cyrbadge{[Ч]}}${}^{*}$}} % кандидат без сертификата
 \newcommand{\statuslegend}{\small Статусы --- единая шкала работы:
 \stP~теорема; \stC~точный рациональный сертификат; \stN~численный результат
-(сертификат в плавающей точке); ${}^{*}$~--- кандидат без сертификата
-диаметра. Определения шкалы --- в конце введения.}
+(сертификат в плавающей точке); \stM~кандидат (сертификат диаметра
+отсутствует или на грани разрешения плавающей точки); метка \textbf{[Э]}
+(отрицательный экран) в этой таблице не встречается.
+Определения шкалы --- в конце введения.}
 
 % рамка для ключевых утверждений
 \newmdenv[linecolor=NavyBlue!60,linewidth=0.8pt,backgroundcolor=NavyBlue!4,
@@ -49,12 +54,12 @@
 $\chi(\R^9)\le7203$,\; $\chi(\R^{10})\le28812$\\[4pt]
 \normalsize\mdseries решётки общего положения, ламинирование,
 продуктовое исчисление ширин%
-\thanks{Черновик от 09.08.2026. Аффилиации и контактные данные авторов подлежат
-уточнению. Все вычислительные скрипты, точные сертификаты и промежуточные данные
-приложены к репозиторию проекта (пакеты \texttt{voronoi4d} и \texttt{combigeo},
-каталог \texttt{audit-data}); репозиторий открывается одновременно с публикацией.}}
-\author{Л.\,Л.~Иванов \and Н.~Глушкова}
-\date{9 августа 2026 г.}
+\thanks{Все вычислительные скрипты, точные сертификаты и промежуточные данные
+открыты в репозитории проекта \url{https://github.com/ivaleo/Chromatic}
+(лицензия MIT; пакеты \texttt{voronoi4d} и \texttt{combigeo}, каталог
+\texttt{audit-data}).}}
+\author{Л.\,Л.~Иванов\thanks{E-mail: \texttt{leo.ivanov@gmail.com}.}}
+\date{17 августа 2026 г.}
 
 \begin{document}
 \maketitle
@@ -86,7 +91,7 @@ $A_4^*$, $A_5^*$, $E_7^*$ и дают $45$, $132$ и $1323$; ключевые н
 слабое звено, верхнюю границу диаметра, закрывает \emph{кусочный сертификат}: на
 конечном общем измельчении двух сдвинутых разбиений Вороного максимум по высоте
 оказывается выпуклой квадратикой, и диаметр вычисляется по вершинам явных
-политопов. Отсюда цепочка $17253\to9604\to7203$ в $\R^9$ и $1372\to1323\to1029$
+политопов. Отсюда цепочка $17253\to9604\to7203$ в $\R^9$ и шаг $1323\to1029$
 в $\R^7$. \emph{Планарная теорема}
 $D((3+\omega)\Lambda)\ge\sqrt{7/3}\,\lambda_1$ доказывает половину
 эйзенштейнова тождества и делает строгой ширину интервала для
@@ -95,11 +100,11 @@ $\chi(\R^{24})\le7^{12}$. Наконец, \emph{продуктовое исчи�
 $\sum_i 1/d_i^2\le1$ по одним лишь ширинам: ширина оказывается не отчётом о
 качестве раскраски, а расходуемым ресурсом, блоки можно брать разного индекса, и
 $\chi(\R^{10})\le2401\cdot19=45619$; слоевое ламинирование --- те же два блока,
-но со сдвигами слоёв внутри ячейки $E_8$ --- вместе с полосным сертификатом
-диаметра опускает оценку до $28812$.
+но со сдвигами слоёв внутри ячейки $E_8$ --- вместе с кусочным сертификатом
+диаметра в полосовой форме опускает оценку до $28812$.
 
 Границы возможного очерчены двумя строгими экранами индекса --- объёмным
-экраном Минковского и инрадиусным, --- которые не следуют друг из друга; вместе
+экраном Минковского и инрадиусным (второй не следует из первого); вместе
 они, например, запрещают плоский блок индекса $\le16$ рядом с $E_8/2401$.
 Отрицательные результаты (недостижимость $7^6$ в $\R^{12}$, отказ слоя ранга~2,
 локальная минимальность $\rho$ у~$E_8$) приведены наравне с положительными.
@@ -108,9 +113,52 @@ $\chi(\R^{10})\le2401\cdot19=45619$; слоевое ламинирование -
 \end{abstract}
 
 
+\begin{otherlanguage}{english}
+\begin{center}
+{\bfseries New upper bounds for the chromatic numbers of Euclidean spaces:\\
+$\chi(\R^4)\le45$, $\chi(\R^5)\le132$, $\chi(\R^7)\le1029$,
+$\chi(\R^9)\le7203$, $\chi(\R^{10})\le28812$}
+\end{center}
+
+\noindent\textbf{Abstract.}
+A coloring of Euclidean space is proper for the forbidden distance segment
+$[1,\ell]$ if no two points of the same color realize a distance in
+$[1,\ell]$; the minimum number of colors is denoted
+$\chi(\R^n,[1,\ell])$, and $\ell=1$ recovers the classical chromatic number
+$\chi(\R^n)$ of the Nelson--Hadwiger problem. We lower the known upper bounds
+in five dimensions: $\chi(\R^4)\le45$, $\chi(\R^5)\le132$,
+$\chi(\R^7)\le1029$, $\chi(\R^9)\le7203$, $\chi(\R^{10})\le28812$, against
+the previously known $49$, $140$, $1372$, $17253$, and $3^{10}=59049$. In
+particular, this refutes the expectation of Arman, Bondarenko, Prymak, and
+Radchenko that $49$ and $140$ are optimal among lattice colorings of $\R^4$
+and $\R^5$. Four independent mechanisms drive the improvements:
+(i)~\emph{lattices in general position}, found by optimizing the metric
+itself, give $45$, $132$, and $1323$, with all key inequalities verified in
+exact rational arithmetic; (ii)~\emph{lamination} --- lifting a coloring of
+$\R^{n-1}$ in layers --- combined with a \emph{piecewise certificate} of the
+diameter yields the chains $17253\to9604\to7203$ in $\R^9$ and
+$1323\to1029$ in $\R^7$; (iii)~a \emph{planar theorem}
+$D((3+\omega)\Lambda)\ge\sqrt{7/3}\,\lambda_1$ makes the interval width for
+$\chi(\R^{24})\le7^{12}$ rigorous; (iv)~a \emph{product calculus of widths}
+reduces admissibility of an orthogonal product to the single inequality
+$\sum_i 1/d_i^2\le1$, giving $\chi(\R^{10})\le2401\cdot19=45619$, improved
+to $28812$ by layered lamination. Two rigorous index screens
+(Minkowski-volume and inradius) trace the limits of the method; negative
+results are reported alongside positive ones. Every claim carries an
+explicit status label (theorem\,/\,exact rational certificate\,/\,numerical);
+all code, exact certificates, and data are open.
+
+\smallskip
+\noindent\emph{The paper is in Russian; an extended English summary follows
+the table of contents.}
+\end{otherlanguage}
+
+
 \tableofcontents
 \medskip
 
+
+\input{sections/summary-en}
 
 \input{sections/intro}
 \input{sections/method}
@@ -126,6 +174,11 @@ $\chi(\R^{10})\le2401\cdot19=45619$; слоевое ламинирование -
 
 \input{origin-and-ai}
 
+\section*{Благодарности}
+\addcontentsline{toc}{section}{Благодарности}
+Автор благодарит Надежду Глушкову за внимательную вычитку рукописи и сверку
+формулировок и таблиц.
+
 \appendix
 
 \input{sections/screens}
@@ -140,12 +193,16 @@ Electron. J. Combin. \textbf{31} ($2024$), no.~2, \#P2.35; arXiv:$2112$.$13\,438
 \emph{Finite Euclidean Ramsey theory},
 J. Combin. Theory Ser.~A \textbf{73} ($1996$), 273--285.
 
-\bibitem{ConwaySloane} J.~H.~Conway, N.~J.~A.~Sloane,
-\emph{Sphere Packings, Lattices and Groups}, 3rd ed., Springer, $1999$.
+\bibitem{CKR} D.~Cherkashin, A.~Kulikov, A.~Raigorodskii,
+\emph{On the chromatic numbers of small-dimensional Euclidean spaces},
+Discrete Appl. Math. \textbf{243} ($2018$), 125--131; arXiv:$1512$.$03\,472$.
 
 \bibitem{ChJW} J.~Chybowska-Sok\'o\l{}, K.~Junosza-Szaniawski, K.~W\c{e}sek,
 \emph{Coloring distance graphs on the plane},
 arXiv:$2201$.$04\,499$ ($2022$).
+
+\bibitem{ConwaySloane} J.~H.~Conway, N.~J.~A.~Sloane,
+\emph{Sphere Packings, Lattices and Groups}, 3rd ed., Springer, $1999$.
 
 \bibitem{Coulson} D.~Coulson,
 \emph{A 15-colouring of 3-space omitting distance one},
@@ -154,10 +211,6 @@ Discrete Math. \textbf{256} ($2002$), 83--90.
 \bibitem{Coulson2004} D.~Coulson,
 \emph{On the chromatic number of plane tilings},
 J. Aust. Math. Soc. \textbf{77} ($2004$), no.~2, 191--196.
-
-\bibitem{CKR} D.~Cherkashin, A.~Kulikov, A.~Raigorodskii,
-\emph{On the chromatic numbers of small-dimensional Euclidean spaces},
-Discrete Appl. Math. \textbf{243} ($2018$), 125--131; arXiv:1512.03472.
 
 \bibitem{CoulsonPayne2007} D.~Coulson, M.~S.~Payne,
 \emph{A dense distance 1 excluding set in $\R^3$},
@@ -177,13 +230,13 @@ Geombinatorics \textbf{28} ($2018$), no.~1, 18--31.
 $k$-colourings},
 Geombinatorics \textbf{32} ($2022$), no.~2, 57--71.
 
-\bibitem{Exoo2005} G.~Exoo,
-\emph{$\varepsilon$-unit distance graphs},
-Discrete Comput. Geom. \textbf{33} ($2005$), 117--123.
-
 \bibitem{DSMMV} M.~Dutour~Sikiri\'c, D.~Madore, P.~Moustrou, F.~Vallentin,
 \emph{Coloring the Voronoi tessellation of lattices},
 J. London Math. Soc. (2) \textbf{104} ($2021$), $1135$--$1171$.
+
+\bibitem{Exoo2005} G.~Exoo,
+\emph{$\varepsilon$-unit distance graphs},
+Discrete Comput. Geom. \textbf{33} ($2005$), 117--123.
 
 \bibitem{ExooIsmailescu} G.~Exoo, D.~Ismailescu, M.~Lim,
 \emph{On the chromatic number of $\R^4$},
@@ -201,13 +254,13 @@ Math. Comp. \textbf{44} ($1985$), 463--471.
 \emph{A fast procedure for computing the distance between complex objects},
 IEEE J. Robotics and Automation \textbf{4} ($1988$), 193--203.
 
-\bibitem{Hansen} N.~Hansen, A.~Ostermeier,
-\emph{Completely derandomized self-adaptation in evolution strategies},
-Evolutionary Computation \textbf{9} ($2001$), no.~2, 159--195.
-
 \bibitem{GornovQ} А.~Горнов,
 \emph{Q-поиск: метод многократного сжатия допустимого бруса для глобальной
 оптимизации многомерных функций}, рукопись.
+
+\bibitem{Hansen} N.~Hansen, A.~Ostermeier,
+\emph{Completely derandomized self-adaptation in evolution strategies},
+Evolutionary Computation \textbf{9} ($2001$), no.~2, 159--195.
 
 \bibitem{Ivanov2006} Л.~Л.~Иванов,
 \emph{Оценка хроматического числа пространства $\R^4$},
@@ -221,18 +274,18 @@ Evolutionary Computation \textbf{9} ($2001$), no.~2, 159--195.
 \emph{Factoring polynomials with rational coefficients},
 Math. Ann. \textbf{261} ($1982$), 515--534.
 
-\bibitem{Parts2023} J.~Parts,
-\emph{More certainty in coloring the plane with a forbidden distance
-interval},
-Geombinatorics \textbf{32} ($2023$), no.~4, 159--185; arXiv:$2303$.$14\,722$.
+\bibitem{Nechushtan} O.~Nechushtan,
+\emph{On the space chromatic number},
+Discrete Math. \textbf{256} ($2002$), 499--507.
 
 \bibitem{NelderMead} J.~A.~Nelder, R.~Mead,
 \emph{A simplex method for function minimization},
 Comput. J. \textbf{7} ($1965$), 308--313.
 
-\bibitem{Nechushtan} O.~Nechushtan,
-\emph{On the space chromatic number},
-Discrete Math. \textbf{256} ($2002$), 499--507.
+\bibitem{Parts2023} J.~Parts,
+\emph{More certainty in coloring the plane with a forbidden distance
+interval},
+Geombinatorics \textbf{32} ($2023$), no.~4, 159--185; arXiv:$2303$.$14\,722$.
 
 \bibitem{RadoicicToth} R.~Radoi\v{c}i\'c, G.~T\'oth,
 \emph{Note on the chromatic number of the space},
@@ -246,12 +299,12 @@ Discrete Comput. Geom. \textbf{35} ($2006$), 73--116.
 \bibitem{Soifer} A.~Soifer,
 \emph{The Mathematical Coloring Book}, Springer, New York, $2009$.
 
-\bibitem{Voronoi} Г.~Ф.~Вороной,
-\emph{Собрание сочинений}, т.~2, Изд-во АН УССР, Киев, $1952$.
-
 \bibitem{VWZ} F.~Vallentin, S.~Wei\ss bach, M.~C.~Zimmermann,
 \emph{The chromatic number of 4-dimensional lattices},
-Indag. Math. (N.S.) \textbf{36} ($2025$), no.~4, 988--$1004$; arXiv:$2407$.$03\,513$.
+Indag. Math. (N.S.) \textbf{36} ($2025$), no.~4, $988$--$1004$; arXiv:$2407$.$03\,513$.
+
+\bibitem{Voronoi} Г.~Ф.~Вороной,
+\emph{Собрание сочинений}, т.~2, Изд-во АН УССР, Киев, $1952$.
 
 \end{thebibliography}
 \end{document}
