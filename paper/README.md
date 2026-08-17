@@ -8,7 +8,7 @@ PDF — `chi4-45.pdf`.
 | Файл | Что это |
 |---|---|
 | `chi4-45.tex` | Каркас статьи: преамбула, титул, `\input` секций, библиография. |
-| `sections/*.tex` | Секции статьи (`intro`, `method`, `algo`, `main`, `dim57`, `intervals`, `extra`, `dim9-12`, `product`, `tilings`, `open`, `screens`). |
+| `sections/*.tex` | Секции статьи (`summary-en` — расширенное английское резюме, `intro`, `method`, `algo`, `main`, `dim57`, `intervals`, `extra`, `dim9-12`, `product`, `tilings`, `open`, `screens`). |
 | `origin-and-ai.tex` | Раздел о происхождении результатов и роли ИИ. |
 | `chi4-45.pdf` | Собранная версия (для чтения без TeX). |
 | `figures.py` | Генератор всех иллюстраций из данных `../audit-data`. |
@@ -17,7 +17,9 @@ PDF — `chi4-45.pdf`.
 ## Требования к сборке
 
 - **TeX Live** (или MacTeX / TeX Live ≥ 2021) с поддержкой кириллицы:
-  преамбула использует `fontenc[T2A]` и `babel[russian]`.
+  преамбула использует `fontenc[T2A]` и `babel[english,russian]`
+  (статья на русском, аннотация и расширенное резюме продублированы
+  по-английски).
 - Для перегенерации рисунков — Python с `numpy` и `matplotlib`
   (см. корневой [`README.md`](../README.md) про общий `.venv`).
 
@@ -46,11 +48,11 @@ BibTeX-прогона не требуется.
 Точные сертификаты и результаты экспериментов — в [`../audit-data/`](../audit-data/README.md).
 Ключевые:
 
-- `cert45.json` — точный рациональный сертификат главной теоремы (χ(ℝ⁴) ≤ 45);
-- `cert46.json`, `cert48.json` — сертификаты вторичных конструкций;
+- `results/cert45.json` — точный рациональный сертификат главной теоремы (χ(ℝ⁴) ≤ 45);
+- `results/cert46.json`, `results/cert48.json` — сертификаты вторичных конструкций;
 - `results/metric_deform_a5_132_refined_certificate.json` —
   рациональный сертификат новой оценки χ(ℝ⁵) ≤ 132 и интервала
-  `[1,1.01]` (720 точных вершинных систем и 36 точных
+  `[1,1.01]` (720 точных вершинных систем и 38 точных
   KKT-сертификатов расстояния);
 - `results/metric_deform_a5_132_refined_independent_exact_audit.json`
   — независимый точный аудит той же конструкции без Qhull;

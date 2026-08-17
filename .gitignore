@@ -46,3 +46,6 @@ audit-data/**/threshold_mask_enum
 # рабочие каталоги сессий: не под контролем версий
 /tmp/
 /output/
+
+# бинарные документы ревью не отслеживаются (конспект — journal/REVIEW-notes-v5.md)
+docs/*.docx

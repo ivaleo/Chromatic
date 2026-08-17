@@ -110,7 +110,7 @@ Chromatic/
 ## Быстрая установка (всё сразу, для разработки)
 
 ```bash
-git clone <URL-репозитория> Chromatic
+git clone https://github.com/ivaleo/Chromatic.git Chromatic
 cd Chromatic
 python3 -m venv .venv && source .venv/bin/activate
 

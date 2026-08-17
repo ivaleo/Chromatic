@@ -1,0 +1,170 @@
+% Расширенное английское резюме --- точка входа для нерусскоязычного читателя.
+% Вся содержательная часть продублирована из русских разделов; числа обязаны
+% совпадать с таблицей tab:new и секциями.
+\begin{otherlanguage}{english}
+\section*{Extended English summary}
+\addcontentsline{toc}{section}{Extended English summary}
+
+\subsection*{Problem}
+
+The \emph{chromatic number of the plane} $\chi(\R^2)$ is the minimum number
+of colors needed to color all points of the plane so that no two points at
+distance exactly~$1$ share a color (the Nelson--Hadwiger problem); the
+definition extends to $\chi(\R^n)$ verbatim. A natural strengthening forbids
+a whole \emph{segment} of distances: $\chi(\R^n,[1,\ell])$ is the minimum
+number of colors of a coloring in which no two points of the same color
+realize any distance in $[1,\ell]$, $\ell\ge1$. Forbidding more distances
+cannot require fewer colors, so
+$\chi(\R^n)\le\chi(\R^n,[1,\ell])$ and every upper bound below also bounds
+the classical chromatic number. All known upper bounds in small dimensions
+come from periodic colorings by the Voronoi cells of a lattice $\Lambda$,
+with cells colored by cosets of a sublattice $\Gamma\subset\Lambda$ using
+$k=|\Lambda/\Gamma|$ colors; the \emph{width} $d$ of a construction is the
+ratio of the minimal same-color inter-cell distance to the cell
+diameter, and the coloring is proper for $[1,\ell]$ whenever $\ell<d$
+(Section~\ref{sec:method}).
+
+\subsection*{Main results}
+
+\begin{center}\small
+\begin{tabular}{@{}cllll@{}}
+\toprule
+$n$ & previous & new & $\ell$ & mechanism \\
+\midrule
+$4$  & $49$ & $\mathbf{45}$ & $1.015$ & general-position lattice \hfill\stC\\
+$5$  & $140$ & $\mathbf{132}$ & $1.010$ & general-position lattice \hfill\stC\\
+$7$  & $1372$ & $1323$ & $1.007$ & general-position lattice \hfill\stC\\
+$7$  & $1323$ & $\mathbf{1029}$ & $1.032$ & lamination of $E_6^*/343$ \hfill\stN\\
+$9$  & $17253$ & $9604$ & $1.058$ & lamination of $E_8/2401$ \hfill\stN\\
+$9$  & $9604$ & $\mathbf{7203}$ & $1.016$ & same + piecewise certificate \hfill\stN\\
+$10$ & $3^{10}$ & $45619$ & $\sqrt{217/214}$ & product calculus \hfill\stP\\
+$10$ & $45619$ & $\mathbf{28812}$ & $1.043$ & layered lamination + certificate \hfill\stN\\
+$12$ & \multicolumn{2}{l}{$3^{12}$ (known bound~\cite{ABPR})} & $\sqrt{3/2}$ & new width: $d=2/\rho$ on $K_{12}$ \hfill\stP\\
+$24$ & \multicolumn{2}{l}{$7^{12}$ (known bound~\cite{ABPR})} & $<\sqrt{7/6}$ & new width: planar theorem \hfill\stP\\
+$25$ & $3^{25}$ & $4\cdot7^{12}$ & $1.016$ & product with $\Lambda_{24}$ \hfill\stP\\
+$26$ & $3^{26}$ & $19\cdot7^{12}$ & $\sqrt{217/214}$ & product with $\Lambda_{24}$ \hfill\stP\\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\noindent
+Here $\ell$ is the proven width of the forbidden segment $[1,\ell]$ (an
+entry $<x$ means the bound is proven for every $\ell<x$), and the trailing
+badge is the status label used throughout the paper (see below). In
+particular, the expectation of Arman, Bondarenko, Prymak, and
+Radchenko~\cite{ABPR} that $49$ and $140$ are optimal among all lattice
+colorings of $\R^4$ and $\R^5$ is refuted.
+
+\subsection*{Mechanism 1: lattices in general position}
+
+Instead of measuring the width of classical lattices ($D_4$, $A_4^*$,
+$A_5^*$, $E_7^*$), we optimize the metric itself: the Gram form and the
+sublattice are treated as unknowns, the proper-coloring condition is recast
+as a constraint-satisfaction problem, and the search alternates
+\texttt{min\_conflicts}-style local moves with global steps (a port of
+Gornov's Q-search and a primary Radon search), sweeping in turn over the
+kernel and the Gram form. The numerical optimum is then rounded to a
+rational lattice, and every claimed inequality is re-proven in exact
+rational arithmetic: the certificate contains the rational Gram matrix, the
+sublattice matrix, the exact squared covering radius, the full list of
+potentially dangerous vectors, and a KKT certificate of the projection for
+each of them. This gives $\chi(\R^4,[1,\ell])\le45$ for $\ell\le203/200$
+(Section~\ref{sec:main}), $\chi(\R^5,[1,\ell])\le132$ for $\ell\le101/100$,
+and $\chi(\R^7,[1,\ell])\le1323$ for $\ell\le1007/1000$
+(Section~\ref{sec:r57}), all with status \stC. A byproduct is a
+colors-versus-width trade-off in $\R^4$: $46$ colors for $\ell\le1.004$ and
+$48$ colors for $\ell\le1.0396$ (Section~\ref{sec:wide}).
+
+\subsection*{Mechanism 2: lamination and the piecewise diameter certificate}
+
+\emph{Lamination} lifts a coloring of $\R^{n-1}$ to $\R^n$ in layers; its
+admissibility rests on two one-line inequalities, and its weak point --- an
+upper bound on the diameter of the laminated cells --- is closed by a
+\emph{piecewise certificate}: on a finite common refinement of two shifted
+Voronoi partitions the height maximum is a convex quadratic, so the diameter
+is computed at the vertices of explicit polytopes. This produces the chains
+$17253\to9604\to7203$ in $\R^9$ (lamination over $E_8/2401$,
+Section~\ref{sec:dim912}) and the step $1323\to1029$ in $\R^7$ (lamination
+over $E_6^*/343$). These bounds carry status \stN: the floating-point
+computation is reduced to evaluating explicit quadratics at vertices of
+explicit polytopes, but the final rational write-up has not been carried
+out.
+
+\subsection*{Mechanism 3: the planar theorem and the Eisenstein identity}
+
+For lattices with a $\Z[\omega]$-structure ($\omega=e^{2\pi i/3}$) and the
+sublattice $\Gamma=(3+\omega)\Lambda$ (multiplication by $\alpha=3+\omega$,
+$|\alpha|^2=7$, index $7^{n/2}$), the exact identity
+$D((3+\omega)\Lambda)^2=\frac73\,\lambda_1(\Lambda)^2$ holds in all verified
+cases ($n=2,4,6,8$, i.e.\ for $A_2$, $D_4$, $E_6^*$, $E_8$; status \stC). The \emph{planar theorem} proves the
+lower bound $D((3+\omega)\Lambda)\ge\sqrt{7/3}\,\lambda_1(\Lambda)$ for all
+Eisenstein lattices (status \stP, Section~\ref{sec:extra}); combined with
+the covering radius of the Leech lattice it makes the bound
+$\chi(\R^{24},[1,\ell])\le7^{12}$ rigorous for every $\ell<\sqrt{7/6}$.
+
+\subsection*{Mechanism 4: the product calculus of widths}
+
+For an orthogonal product of colorings with widths $d_i$, admissibility
+collapses to the single inequality $\sum_i 1/d_i^2\le1$
+(Section~\ref{sec:product}): width is an expendable resource, and the
+factors may have different indices. The block $E_8/2401$ with width
+$\sqrt{7/6}$ leaves exactly enough budget for a planar block with $19$
+colors, giving $\chi(\R^{10})\le2401\cdot19=45619<3^{10}$ --- the first
+bound in $\R^{10}$ below the classical $3^n$ tower --- with status \stP.
+\emph{Layered lamination} --- the same two blocks, but with layer shifts
+inside the $E_8$ cell, plus a strip certificate of the diameter --- lowers
+this to $\chi(\R^{10})\le2401\cdot12=28812$ (status \stN). The same
+calculus yields $4\cdot7^{12}$ in $\R^{25}$ and $19\cdot7^{12}$ in
+$\R^{26}$.
+
+\subsection*{Limits of the method and negative results}
+
+Two rigorous index screens --- the Minkowski volume screen and the inradius
+screen, neither implied by the other --- bound what any construction of
+this type can achieve; for instance, they forbid a flat block of index
+$\le16$ next to $E_8/2401$. Negative results are reported alongside
+positive ones: unattainability of $7^6$ in $\R^{12}$, failure of rank-$2$
+layers, local minimality of $\rho$ at $E_8$, and exhaustive negative
+screens in dimensions $5$--$9$ (Appendix~\ref{app:screens}). Beyond
+lattices, the paper studies power (Laguerre) tilings: it proves a floor
+theorem $k\ge2^n$ for tiling colorings (Section~\ref{sec:tilings}) and gives
+certified non-lattice tiling steps in the plane --- $\chi(\R^2,[1,\ell])\le8$
+for $\ell\le1.4413$ and $\le15$ for $\ell\le2.2815$ --- which are, to our
+knowledge, the first exact rational certificates for non-lattice tiling
+colorings.
+
+\subsection*{Status labels}
+
+Every claim in the paper carries one of the following labels:
+\stP{} --- \emph{theorem}, proven by ordinary means; \stC{} --- \emph{exact
+certificate}, reduced to a finite list of inequalities between explicitly
+written rational numbers verified in exact fraction arithmetic (floating
+point may have guided the \emph{search}, never the verification); \stN{}
+--- \emph{numerical result}, obtained in floating point and carrying no
+proof strength; \stM{} --- a candidate whose diameter certificate is absent
+or at the edge of floating-point resolution;
+\textbf{\cyrbadge{[Э]}} --- a \emph{negative screen}: an exhaustive search that ended
+negatively on a fixed numerical form. The five bounds of the title split
+as: $45$ and $132$ (with the intermediate $1323$) have status \stC;
+$1029$, $7203$, and $28812$ have status \stN.
+
+\subsection*{Reproducibility, code, and the role of AI}
+
+All code, exact certificates, and data are open at
+\begin{center}
+\url{https://github.com/ivaleo/Chromatic}\quad(MIT license):
+\end{center}
+a reference Python implementation (\texttt{voronoi4d}), a fast C++ core
+(\texttt{combigeo}), a cross-validation superpackage (\texttt{chromatic}),
+and \texttt{audit-data/} with all certificates and campaign results. Each
+certificate is self-contained: it can be re-verified by a short independent
+program without any code from this project. The work was carried out with
+systematic use of an AI assistant (a general-purpose large language model in
+an agentic coding environment), which produced the implementation of all
+algorithms, ran the computational campaigns, built the figures, and drafted
+the text; problem selection, search directions,
+acceptance criteria, and final verification belong to the author. Section~\ref{sec:origin}
+(in Russian) describes the provenance of the results, the independent
+checks, and the division of contributions in detail; responsibility for all
+claims rests with the author.
+\end{otherlanguage}
