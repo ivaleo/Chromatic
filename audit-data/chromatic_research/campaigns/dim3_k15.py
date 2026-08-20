@@ -1,4 +1,4 @@
-"""Точный сертификат ширины k = 15 в R^3: конструкция Кулсона и её деформация.
+"""Точный сертификат ширины k = 15 в R^3: конструкции Кулсона и их деформация.
 
 Историческая 15-раскраска Кулсона --- ОЦК-решётка (A3*) с подрешёткой индекса
 15; здесь она реализована как альфа = 1/3 однопараметрического семейства
@@ -11,9 +11,16 @@
     D^2_{(3,2,2)} = (4a^2+3a+1)/(a+1),   D^2_{(2,1,-1)} = 2(5a^2-6a+2)/(1-a),
     diam^2 = 2 - a,
 
-откуда при a = 1/3 ширина равна ровно 1 (интервал вырожден --- случай
-Кулсона), а максимум семейства достигается в корне кубики
+откуда при a = 1/3 ширина равна ровно 1 (интервал вырожден --- основная
+конструкция Кулсона), а максимум семейства достигается в корне кубики
 14a^3 - 3a^2 - 10a + 3 = 0, a* = 0.313695331..., d* = 1.026598584...
+
+В конце работы Кулсона приведена УЛУЧШЕННАЯ 15-раскраска с исключённым
+интервалом (sqrt(22), sqrt(389/17)), то есть (1, sqrt(389/374)) после
+нормировки, sqrt(389/374) = 1.019856339...  Это в точности точка a = 4/13
+семейства: замкнутые формы дают diam^2 = 22/13 и D^2 = 389/221, что при
+масштабе 13 совпадает с кулсоновскими 22 и 389/17 дословно.  Точка
+сертифицируется здесь наравне с остальными.
 
 Сертифицируется рациональная точка a = 16/51 (целочисленный грамиан
 51*G = [[51,-16,-19],[-16,51,-16],[-19,-16,51]]): полный точный конвейер ---
@@ -159,10 +166,27 @@ def audit(alpha: Fraction, ell: Fraction | None) -> dict:
 
 def main() -> int:
     coulson = audit(Fraction(1, 3), None)
-    print(f"Кулсон (alpha=1/3): width^2 = {coulson['width_squared']} "
+    print(f"Кулсон, ОЦК (alpha=1/3): width^2 = {coulson['width_squared']} "
           f"(вырожденный интервал: {coulson['degenerate_interval']}), "
           f"векторов в окне: {coulson['vector_count']}", flush=True)
     assert coulson["width_squared"] == "1/1"
+
+    improved = audit(Fraction(4, 13), Fraction(1019, 1000))
+    assert improved["width_squared"] == "389/374"
+    # кулсоновские числа получаются масштабированием формы на 13
+    improved["coulson_scaling"] = {
+        "factor": 13,
+        "diameter_squared": "22",
+        "minimum_distance_squared": "389/17",
+        "published_interval": "(sqrt(22), sqrt(389/17))",
+        "normalised_interval": "(1, sqrt(389/374)) ~ (1, 1.019856339)",
+    }
+    assert Fraction(improved["diameter_squared"]) * 13 == 22
+    assert (Fraction(improved["minimum_distance_squared"]) * 13
+            == Fraction(389, 17))
+    print(f"Кулсон, улучшенная (alpha=4/13): width = {improved['width']:.9f} "
+          f"(width^2 = {improved['width_squared']}), масштаб 13 даёт "
+          f"diam^2 = 22 и D^2 = 389/17 --- числа статьи Кулсона", flush=True)
 
     optimal = audit(Fraction(16, 51), Fraction(513, 500))
     print(f"alpha=16/51: width = {optimal['width']:.9f} "
@@ -180,8 +204,11 @@ def main() -> int:
             "optimal_alpha_cubic": "14a^3 - 3a^2 - 10a + 3 = 0",
             "optimal_alpha_float": 0.3136953314651367,
             "optimal_width_float": 1.0265985837974336,
+            "coulson_bcc_alpha": "1/3",
+            "coulson_improved_alpha": "4/13",
         },
         "coulson_bcc": coulson,
+        "coulson_improved": improved,
         "certified_optimum": optimal,
         "certified_upper_bound": 15,
     }

@@ -50,8 +50,8 @@
 
 \title{\bfseries Новые верхние оценки хроматических чисел
 евклидовых пространств\\[2pt]
-\large $\chi(\R^4)\le45$,\; $\chi(\R^5)\le132$,\; $\chi(\R^7)\le1029$,\;
-$\chi(\R^9)\le7203$,\; $\chi(\R^{10})\le28812$\\[4pt]
+\large $\chi(\R^4)\le45$,\; $\chi(\R^5)\le132$,\; $\chi(\R^7)\le1323$,\;
+$\chi(\R^9)\le9604$,\; $\chi(\R^{10})\le45619$\\[4pt]
 \normalsize\mdseries решётки общего положения, ламинирование,
 продуктовое исчисление ширин%
 \thanks{Все вычислительные скрипты, точные сертификаты и промежуточные данные
@@ -75,11 +75,16 @@ $\chi\bigl(\R^n,[1,\ell]\bigr)$, а при $\ell=1$ --- это классиче�
 
 Работа понижает верхнюю оценку в пяти размерностях:
 \[
-\chi(\R^4)\le45,\quad \chi(\R^5)\le132,\quad \chi(\R^7)\le1029,\quad
-\chi(\R^9)\le7203,\quad \chi(\R^{10})\le28812,
+\chi(\R^4)\le45,\quad \chi(\R^5)\le132,\quad \chi(\R^7)\le1323,\quad
+\chi(\R^9)\le9604,\quad \chi(\R^{10})\le45619,
 \]
-против известных $49$, $140$, $1372$, $17253$ и $3^{10}=59049$; сводка с
-ширинами интервалов и статусами --- таблица~\ref{tab:new}. В частности,
+против известных $49$, $140$, $1372$, $17253$ и $3^{10}=59049$. Каждая из этих
+пяти оценок \emph{доказана}: теоремой либо точным рациональным сертификатом,
+без участия плавающей точки в проверке. Кусочный сертификат диаметра,
+проверенный в плавающей точке, даёт сверх того $\chi(\R^7)\le1029$,
+$\chi(\R^9)\le7203$ и $\chi(\R^{10})\le28812$ --- это результаты со статусом
+\stN{} (<<численный>>), и в заголовок они не вынесены. Сводка с ширинами
+интервалов и статусами --- таблица~\ref{tab:new}. В частности,
 опровергается ожидание Армана, Бондаренко, Прымака и Радченко, что $49$ и $140$
 --- минимумы среди всех решёточных раскрасок $\R^4$ и $\R^5$.
 
@@ -92,32 +97,35 @@ $A_4^*$, $A_5^*$, $E_7^*$ и дают $45$, $132$ и $1323$; ключевые н
 конечном общем измельчении двух сдвинутых разбиений Вороного максимум по высоте
 оказывается выпуклой квадратикой, и диаметр вычисляется по вершинам явных
 политопов. Отсюда цепочка $17253\to9604\to7203$ в $\R^9$ и шаг $1323\to1029$
-в $\R^7$. \emph{Планарная теорема}
+в $\R^7$ --- обе со статусом \stN. \emph{Планарная теорема}
 $D((3+\omega)\Lambda)\ge\sqrt{7/3}\,\lambda_1$ доказывает половину
 эйзенштейнова тождества и делает строгой ширину интервала для
 $\chi(\R^{24})\le7^{12}$. Наконец, \emph{продуктовое исчисление ширин}
 сворачивает условие допустимости ортогонального произведения в одно неравенство
 $\sum_i 1/d_i^2\le1$ по одним лишь ширинам: ширина оказывается не отчётом о
 качестве раскраски, а расходуемым ресурсом, блоки можно брать разного индекса, и
-$\chi(\R^{10})\le2401\cdot19=45619$; слоевое ламинирование --- те же два блока,
+$\chi(\R^{10})\le2401\cdot19=45619$ --- первая оценка в $\R^{10}$ ниже
+классической башни $3^n$, --- а в $\R^9$ тот же счёт даёт доказанное
+$\chi(\R^9)\le2401\cdot4=9604$. Слоевое ламинирование --- те же два блока,
 но со сдвигами слоёв внутри ячейки $E_8$ --- вместе с кусочным сертификатом
-диаметра в полосовой форме опускает оценку до $28812$.
+диаметра в полосовой форме опускает оценку до $28812$ (статус \stN).
 
 Границы возможного очерчены двумя строгими экранами индекса --- объёмным
 экраном Минковского и инрадиусным (второй не следует из первого); вместе
 они, например, запрещают плоский блок индекса $\le16$ рядом с $E_8/2401$.
 Отрицательные результаты (недостижимость $7^6$ в $\R^{12}$, отказ слоя ранга~2,
 локальная минимальность $\rho$ у~$E_8$) приведены наравне с положительными.
-Вычислительные результаты, стоящие поверх доказанных неравенств, помечены
-соответствующим статусом.
+Доказанное и вычисленное разделены явно: каждое утверждение несёт метку
+статуса, и ни одна из пяти оценок заголовка не опирается на результаты
+статуса \stN.
 \end{abstract}
 
 
 \begin{otherlanguage}{english}
 \begin{center}
 {\bfseries New upper bounds for the chromatic numbers of Euclidean spaces:\\
-$\chi(\R^4)\le45$, $\chi(\R^5)\le132$, $\chi(\R^7)\le1029$,
-$\chi(\R^9)\le7203$, $\chi(\R^{10})\le28812$}
+$\chi(\R^4)\le45$, $\chi(\R^5)\le132$, $\chi(\R^7)\le1323$,
+$\chi(\R^9)\le9604$, $\chi(\R^{10})\le45619$}
 \end{center}
 
 \noindent\textbf{Abstract.}
@@ -127,8 +135,13 @@ $[1,\ell]$; the minimum number of colors is denoted
 $\chi(\R^n,[1,\ell])$, and $\ell=1$ recovers the classical chromatic number
 $\chi(\R^n)$ of the Nelson--Hadwiger problem. We lower the known upper bounds
 in five dimensions: $\chi(\R^4)\le45$, $\chi(\R^5)\le132$,
-$\chi(\R^7)\le1029$, $\chi(\R^9)\le7203$, $\chi(\R^{10})\le28812$, against
-the previously known $49$, $140$, $1372$, $17253$, and $3^{10}=59049$. In
+$\chi(\R^7)\le1323$, $\chi(\R^9)\le9604$, $\chi(\R^{10})\le45619$, against
+the previously known $49$, $140$, $1372$, $17253$, and $3^{10}=59049$; each of
+the five is \emph{proven} --- by a theorem or by an exact rational certificate.
+A piecewise diameter certificate, verified in floating point, gives in addition
+$\chi(\R^7)\le1029$, $\chi(\R^9)\le7203$, and $\chi(\R^{10})\le28812$; these
+three carry the \emph{numerical} status \stN{} and are deliberately kept out of
+the title. In
 particular, this refutes the expectation of Arman, Bondarenko, Prymak, and
 Radchenko that $49$ and $140$ are optimal among lattice colorings of $\R^4$
 and $\R^5$. Four independent mechanisms drive the improvements:
@@ -137,15 +150,17 @@ itself, give $45$, $132$, and $1323$, with all key inequalities verified in
 exact rational arithmetic; (ii)~\emph{lamination} --- lifting a coloring of
 $\R^{n-1}$ in layers --- combined with a \emph{piecewise certificate} of the
 diameter yields the chains $17253\to9604\to7203$ in $\R^9$ and
-$1323\to1029$ in $\R^7$; (iii)~a \emph{planar theorem}
+$1323\to1029$ in $\R^7$, with status \stN; (iii)~a \emph{planar theorem}
 $D((3+\omega)\Lambda)\ge\sqrt{7/3}\,\lambda_1$ makes the interval width for
 $\chi(\R^{24})\le7^{12}$ rigorous; (iv)~a \emph{product calculus of widths}
 reduces admissibility of an orthogonal product to the single inequality
-$\sum_i 1/d_i^2\le1$, giving $\chi(\R^{10})\le2401\cdot19=45619$, improved
-to $28812$ by layered lamination. Two rigorous index screens
+$\sum_i 1/d_i^2\le1$, giving $\chi(\R^{10})\le2401\cdot19=45619$ and
+$\chi(\R^9)\le2401\cdot4=9604$, improved to $28812$ and $7203$ by layered
+lamination (status \stN). Two rigorous index screens
 (Minkowski-volume and inradius) trace the limits of the method; negative
 results are reported alongside positive ones. Every claim carries an
-explicit status label (theorem\,/\,exact rational certificate\,/\,numerical);
+explicit status label (theorem\,/\,exact rational certificate\,/\,numerical),
+and no bound in the title depends on a numerical one;
 all code, exact certificates, and data are open.
 
 \smallskip

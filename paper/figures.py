@@ -400,10 +400,12 @@ print("DONE")
 PRIOR = {2: 7, 3: 15, 4: 49, 5: 140, 6: 343, 7: 1372, 8: 2401, 9: 17253,
          10: 3 ** 10, 11: 3 ** 11, 12: 3 ** 12, 24: 7 ** 12,
          25: 3 ** 25, 26: 3 ** 26}
-# настоящая работа: доказанные и сертифицированные
-NEW = {4: 45, 5: 132, 7: 1029, 9: 7203, 10: 28812,
-       25: 4 * 7 ** 12, 26: 19 * 7 ** 12}
-CAND = {10: 21609}                      # кандидаты, статус «измерено»
+# настоящая работа: доказанные (теорема / точный сертификат) --- величины заголовка
+PROVEN = {4: 45, 5: 132, 7: 1323, 9: 2401 * 4, 10: 2401 * 19,
+          25: 4 * 7 ** 12, 26: 19 * 7 ** 12}
+# настоящая работа, статус [Ч]: сертификат диаметра в плавающей точке
+NUMER = {7: 1029, 9: 7203, 10: 28812}
+CAND = {10: 21609}                      # кандидат, статус [Ч]*
 
 fig, (axA, axB) = plt.subplots(1, 2, figsize=(11.0, 3.9))
 
@@ -416,41 +418,51 @@ axA.text(13.0, math.sqrt(7) - 0.13, r"$7^{n/2}$  (эйзенштейнов)", co
 pk = sorted(PRIOR)
 axA.plot(pk, [PRIOR[n] ** (1 / n) for n in pk], "o", color="0.45", ms=3.8,
          label="было")
-nk = sorted(NEW)
-axA.plot(nk, [NEW[n] ** (1 / n) for n in nk], "o", color=GREEN, ms=4.6,
-         label="наст. работа", zorder=5)
+nk = sorted(PROVEN)
+axA.plot(nk, [PROVEN[n] ** (1 / n) for n in nk], "o", color=GREEN, ms=4.6,
+         label="наст. работа: доказано", zorder=5)
+mk = sorted(NUMER)
+axA.plot(mk, [NUMER[n] ** (1 / n) for n in mk], "v", color=ORANGE, ms=5.0,
+         label="наст. работа: численно [Ч]", zorder=5)
 ck = sorted(CAND)
-axA.plot(ck, [CAND[n] ** (1 / n) for n in ck], "s", color=ORANGE, ms=4.0,
-         label="кандидат", zorder=5)
+axA.plot(ck, [CAND[n] ** (1 / n) for n in ck], "s", mfc="none", mec=ORANGE,
+         mew=1.2, ms=4.6, label="кандидат [Ч]*", zorder=5)
 for n in nk:
-    axA.annotate("", xy=(n, NEW[n] ** (1 / n)), xytext=(n, PRIOR[n] ** (1 / n)),
+    axA.annotate("", xy=(n, PROVEN[n] ** (1 / n)), xytext=(n, PRIOR[n] ** (1 / n)),
                  arrowprops=dict(arrowstyle="->", lw=0.8, color=GREEN, alpha=0.7,
                                  shrinkA=2.5, shrinkB=2.5))
+for n in mk:
+    axA.annotate("", xy=(n, NUMER[n] ** (1 / n)), xytext=(n, PROVEN[n] ** (1 / n)),
+                 arrowprops=dict(arrowstyle="->", lw=0.8, color=ORANGE, alpha=0.7,
+                                 linestyle=":", shrinkA=2.5, shrinkB=2.5))
 axA.set_xlabel("размерность $n$"); axA.set_ylabel(r"база $k^{1/n}$")
 axA.set_title(r"оценки в пересчёте на измерение", fontsize=10.5)
 axA.set_xticks([2, 4, 6, 8, 10, 12, 24, 26]); axA.set_ylim(2.2, 3.9)
-axA.legend(fontsize=9, loc="upper left", framealpha=0.9)
+axA.legend(fontsize=8.2, loc="upper left", framealpha=0.9)
 
-gain_n = sorted(set(NEW) | set(CAND))
-w = 0.36
+gain_n = sorted(set(PROVEN) | set(NUMER) | set(CAND))
+w = 0.27
+SERIES = ((PROVEN, GREEN, "доказано"), (NUMER, ORANGE, "численно [Ч]"),
+          (CAND, "#f0b860", "кандидат [Ч]*"))
 for i, n in enumerate(gain_n):
-    if n in NEW:
-        axB.bar(i - (w / 2 if n in CAND else 0), PRIOR[n] / NEW[n], width=w,
-                color=GREEN, edgecolor="white")
-        axB.text(i - (w / 2 if n in CAND else 0), PRIOR[n] / NEW[n] + 0.05,
-                 num(PRIOR[n] / NEW[n], 2), ha="center", fontsize=8.5, color=GREEN)
-    if n in CAND:
-        axB.bar(i + w / 2, PRIOR[n] / CAND[n], width=w, color=ORANGE,
-                edgecolor="white")
-        axB.text(i + w / 2, PRIOR[n] / CAND[n] + 0.05,
-                 num(PRIOR[n] / CAND[n], 2), ha="center", fontsize=8.5, color=ORANGE)
+    slots = [(d, c, lab) for d, c, lab in SERIES if n in d]
+    off = -w * (len(slots) - 1) / 2
+    for j, (d, c, lab) in enumerate(slots):
+        g = PRIOR[n] / d[n]
+        axB.bar(i + off + j * w, g, width=w, color=c, edgecolor="white",
+                label=lab if i == 0 or lab not in
+                [t.get_label() for t in axB.containers] else None)
+        axB.text(i + off + j * w, g + 0.05, num(g, 2), ha="center",
+                 fontsize=7.6, color=c)
 axB.axhline(1.0, color="0.4", lw=1.0)
 axB.set_xticks(range(len(gain_n)))
 axB.set_xticklabels([f"$n={n}$" for n in gain_n], fontsize=9)
 axB.set_ylabel("во сколько раз лучше прежней")
 axB.set_title("выигрыш к прежней оценке", fontsize=10.5)
-axB.set_ylim(0, max(max(PRIOR[n] / NEW[n] for n in NEW),
-                    max(PRIOR[n] / CAND[n] for n in CAND)) * 1.18)
+axB.set_ylim(0, max(PRIOR[n] / d[n] for d, _, _ in SERIES for n in d) * 1.18)
+handles = [plt.Rectangle((0, 0), 1, 1, color=c) for _, c, _ in SERIES]
+axB.legend(handles, [lab for _, _, lab in SERIES], fontsize=8.2,
+           loc="upper left", framealpha=0.9)
 fig.tight_layout()
 fig.savefig(f"{OUT}/fig_landscape.pdf")
 plt.close(fig)

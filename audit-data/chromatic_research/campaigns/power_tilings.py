@@ -94,9 +94,18 @@ PROBES = [
     {"case": "R^2 / 7", "dim": 2, "colours": 7, "parameters": 21,
      "champion": math.sqrt(7) / 2, "reached": math.sqrt(7) / 2,
      "source": "A2, Hermite [[1,5],[0,7]]"},
+    # посев --- чемпион семейства G(a) (dim3_k15), а не ОЦК: у ОЦК ширина
+    # ровно 1 и лучшей известной решёточной 15-раскраской он не является.
+    # sigma = 0.003 / 0.01 / 0.03, по 2500 вычислений; лучшее CMA --- 1.0157885,
+    # то есть посев не превзойдён (но и не удержан: проба слабее остальных).
     {"case": "R^3 / 15", "dim": 3, "colours": 15, "parameters": 62,
+     "champion": 1.0265576446233684, "reached": 1.0265576446233684,
+     "cma_best": 1.0157885482330826, "holds_seed": False,
+     "source": "G(16/51), Hermite [[1,0,11],[0,1,7],[0,0,15]]"},
+    {"case": "R^3 / 15 (ОЦК)", "dim": 3, "colours": 15, "parameters": 62,
      "champion": 1.0, "reached": 1.0,
-     "source": "A3*, Hermite [[1,0,4],[0,1,12],[0,0,15]] (Coulson optimum)"},
+     "source": "A3*, Hermite [[1,0,4],[0,1,12],[0,0,15]] "
+               "(основная конструкция Кулсона, ширина ровно 1)"},
     {"case": "R^4 / 45", "dim": 4, "colours": 45, "parameters": 230,
      "champion": 1.0163393, "reached": 1.0163393,
      "source": "results/n6_k45_rational.json (Q_fractions) + find_optimal(45)"},
@@ -115,12 +124,22 @@ CALIBRATION = {
 }
 
 
+def _g16_51() -> np.ndarray:
+    """Базис решётки G(16/51) --- чемпион семейства при k = 15 (dim3_k15)."""
+    gram = np.array([[51, -16, -19], [-16, 51, -16], [-19, -16, 51]],
+                    float) / 51.0
+    return np.linalg.cholesky(gram)
+
+
 def verify_champions() -> list[dict]:
-    """Re-derive the two cheap probe seeds through the power framework."""
+    """Re-derive the cheap probe seeds through the power framework."""
     out = []
     for name, build, H, want in [
         ("R^2 / 7", lambda: lat.A(2), [[1, 5], [0, 7]], math.sqrt(7) / 2),
-        ("R^3 / 15", lambda: lat.Astar(3), [[1, 0, 4], [0, 1, 12], [0, 0, 15]], 1.0),
+        ("R^3 / 15", _g16_51, [[1, 0, 11], [0, 1, 7], [0, 0, 15]],
+         1.0265576446233684),
+        ("R^3 / 15 (ОЦК)", lambda: lat.Astar(3),
+         [[1, 0, 4], [0, 1, 12], [0, 0, 15]], 1.0),
     ]:
         L = build()
         H = np.asarray(H, float)

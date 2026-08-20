@@ -64,10 +64,39 @@ def test_semilattice_certificates_are_reflected():
                 f"N={n}: ни {d6}, ни {d4} не найдено в документе")
 
 
-def test_intro_headline_matches_certificate():
-    # таблица известных оценок: n=10 должен вести на 28812, а не на 45619
-    assert r"\mathbf{28812}" in INTRO
-    assert r"\mathbf{45619}" not in INTRO
+def test_intro_headline_carries_only_proven_bounds():
+    """Заголовочные величины = лучшие ДОКАЗАННЫЕ оценки, а не численные.
+
+    Замечание рецензента к версии 6: заголовок подавал 1029/7203/28812 как
+    доказанные, тогда как шкала статусов объявляет [Ч] не имеющим
+    доказательной силы. Тест закрепляет новую границу: в таблице известных
+    оценок и в заголовке стоят 45/132/1323/9604/45619 (статусы [Т]/[С]), а
+    численные значения присутствуют только с явной меткой.
+    """
+    MAIN = (ROOT / "paper" / "chi4-45.tex").read_text()
+    proven = ("45", "132", "1323", "9604", "45619")
+    numeric = ("1029", "7203", "28812")
+    # таблица §1.2: полужирным — доказанные, численные без \mathbf
+    for k in proven:
+        assert rf"\mathbf{{{k}}}" in INTRO, f"{k} не выделено в таблице §1.2"
+    for k in numeric:
+        assert rf"\mathbf{{{k}}}" not in INTRO, (
+            f"{k} выделено как доказанная оценка — статус [Ч]")
+    # заголовок статьи: пять доказанных величин и ни одной численной
+    title = MAIN[MAIN.index(r"\title{"):MAIN.index(r"\author{")]
+    for k in proven:
+        assert rf"\le{k}$" in title, f"{k} отсутствует в заголовке"
+    for k in numeric:
+        assert rf"\le{k}$" not in title, f"{k} (статус [Ч]) стоит в заголовке"
+    # каждая численная оценка сопровождается меткой в тексте
+    assert r"\stN" in INTRO and "повышенной пробы" in INTRO
+
+
+def test_proven_r9_step_is_documented():
+    """χ(R^9) <= 9604 доказано продуктовым исчислением: 6/7 + 1/9 = 61/63."""
+    assert r"\label{cor:dim9}" in PRODUCT
+    assert "61/63" in PRODUCT and r"\sqrt{63/61}" in PRODUCT
+    assert "9604" in README and "9604" in RESULTS
 
 
 def test_interval_certificates_match_paper_claims():
@@ -109,6 +138,34 @@ def test_dim3_certificate_matches_paper():
                   "14\\alpha^3-3\\alpha^2-10\\alpha+3"):
         assert token in intervals, f"нет {token} в intervals.tex"
     assert "1586/1505" in RESULTS
+
+
+def test_coulson_improved_colouring_is_alpha_4_13():
+    """Улучшенная 15-раскраска Кулсона — точка α=4/13 семейства G(α).
+
+    Замечание к версии 6: статья утверждала, что у Кулсона запрещено лишь
+    единственное расстояние. На деле в конце его работы стоит интервал
+    (sqrt 22, sqrt(389/17)), то есть (1, sqrt(389/374)) ~ (1, 1.0198563).
+    Тест закрепляет: эта точка сертифицирована, её масштаб 13 воспроизводит
+    опубликованные числа, и документы больше не говорят «вместо
+    единственного расстояния».
+    """
+    from fractions import Fraction
+    cert = json.loads((RESULTS_DIR / "dim3_k15_certificate.json").read_text())
+    imp = cert["coulson_improved"]
+    assert imp["alpha"] == "4/13"
+    assert imp["width_squared"] == "389/374"
+    assert Fraction(imp["diameter_squared"]) * 13 == 22
+    assert Fraction(imp["minimum_distance_squared"]) * 13 == Fraction(389, 17)
+    assert imp["certified_interval"]["valid"]
+    # ширина Кулсона строго между вырожденной единицей и нашим сертификатом
+    assert (Fraction(1) < Fraction(imp["width_squared"])
+            < Fraction(cert["certified_optimum"]["width_squared"]))
+    intervals = (ROOT / "paper" / "sections" / "intervals.tex").read_text()
+    for token in ("4/13", "389/374", "389/17", r"\sqrt{22}"):
+        assert token in intervals, f"нет {token} в intervals.tex"
+    assert "вместо единственного" not in intervals
+    assert "4/13" in README and "4/13" in RESULTS
 
 
 def test_paper_artifact_paths_exist():
