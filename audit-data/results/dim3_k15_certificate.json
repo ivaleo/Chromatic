@@ -6,7 +6,9 @@
     "diam2": "2-a",
     "optimal_alpha_cubic": "14a^3 - 3a^2 - 10a + 3 = 0",
     "optimal_alpha_float": 0.3136953314651367,
-    "optimal_width_float": 1.0265985837974336
+    "optimal_width_float": 1.0265985837974336,
+    "coulson_bcc_alpha": "1/3",
+    "coulson_improved_alpha": "4/13"
   },
   "coulson_bcc": {
     "alpha": "1/3",
@@ -424,6 +426,299 @@
       }
     ],
     "degenerate_interval": true
+  },
+  "coulson_improved": {
+    "alpha": "4/13",
+    "integer_gram": [
+      [
+        13,
+        -4,
+        -5
+      ],
+      [
+        -4,
+        13,
+        -4
+      ],
+      [
+        -5,
+        -4,
+        13
+      ]
+    ],
+    "denominator": 13,
+    "transition_rows": [
+      [
+        1,
+        0,
+        11
+      ],
+      [
+        0,
+        1,
+        7
+      ],
+      [
+        0,
+        0,
+        15
+      ]
+    ],
+    "index": 15,
+    "facets": 14,
+    "vertices": 24,
+    "covering_radius_squared": "11/26",
+    "diameter_squared": "22/13",
+    "window_cutoff_squared": "44839971/6500000",
+    "coefficient_box": [
+      1,
+      1,
+      1
+    ],
+    "vector_count": 8,
+    "minimum_distance_squared": "389/221",
+    "width_squared": "389/374",
+    "width": 1.019856338839769,
+    "closed_forms_match": true,
+    "all_projection_certificates": [
+      {
+        "coordinate": [
+          -1,
+          -1,
+          -3
+        ],
+        "distance_squared": "389/221",
+        "distance_squared_float": 1.760180995475113,
+        "active_facets": [
+          [
+            0,
+            0,
+            -1
+          ],
+          [
+            -1,
+            -1,
+            -1
+          ]
+        ],
+        "multipliers": [
+          "21/34",
+          "2/17"
+        ],
+        "dykstra_distance": 1.3267181296283252,
+        "exact_distance": 1.3267181296247945,
+        "solver_difference": 3.530731262912923e-12
+      },
+      {
+        "coordinate": [
+          2,
+          -1,
+          0
+        ],
+        "distance_squared": "389/221",
+        "distance_squared_float": 1.760180995475113,
+        "active_facets": [
+          [
+            1,
+            0,
+            0
+          ],
+          [
+            0,
+            -1,
+            0
+          ]
+        ],
+        "multipliers": [
+          "21/34",
+          "2/17"
+        ],
+        "dykstra_distance": 1.3267181296283252,
+        "exact_distance": 1.3267181296247945,
+        "solver_difference": 3.530731262912923e-12
+      },
+      {
+        "coordinate": [
+          0,
+          2,
+          -1
+        ],
+        "distance_squared": "389/221",
+        "distance_squared_float": 1.760180995475113,
+        "active_facets": [
+          [
+            0,
+            1,
+            0
+          ],
+          [
+            0,
+            0,
+            -1
+          ]
+        ],
+        "multipliers": [
+          "21/34",
+          "2/17"
+        ],
+        "dykstra_distance": 1.3267181296283252,
+        "exact_distance": 1.3267181296247945,
+        "solver_difference": 3.530731262912923e-12
+      },
+      {
+        "coordinate": [
+          -3,
+          -2,
+          -2
+        ],
+        "distance_squared": "389/221",
+        "distance_squared_float": 1.760180995475113,
+        "active_facets": [
+          [
+            -1,
+            0,
+            0
+          ],
+          [
+            -1,
+            -1,
+            -1
+          ]
+        ],
+        "multipliers": [
+          "2/17",
+          "21/34"
+        ],
+        "dykstra_distance": 1.3267181296219146,
+        "exact_distance": 1.3267181296247945,
+        "solver_difference": -2.879918525877656e-12
+      },
+      {
+        "coordinate": [
+          3,
+          2,
+          2
+        ],
+        "distance_squared": "389/221",
+        "distance_squared_float": 1.760180995475113,
+        "active_facets": [
+          [
+            1,
+            0,
+            0
+          ],
+          [
+            1,
+            1,
+            1
+          ]
+        ],
+        "multipliers": [
+          "2/17",
+          "21/34"
+        ],
+        "dykstra_distance": 1.3267181296219146,
+        "exact_distance": 1.3267181296247945,
+        "solver_difference": -2.879918525877656e-12
+      },
+      {
+        "coordinate": [
+          0,
+          -2,
+          1
+        ],
+        "distance_squared": "389/221",
+        "distance_squared_float": 1.760180995475113,
+        "active_facets": [
+          [
+            0,
+            -1,
+            0
+          ],
+          [
+            0,
+            0,
+            1
+          ]
+        ],
+        "multipliers": [
+          "21/34",
+          "2/17"
+        ],
+        "dykstra_distance": 1.3267181296283252,
+        "exact_distance": 1.3267181296247945,
+        "solver_difference": 3.530731262912923e-12
+      },
+      {
+        "coordinate": [
+          -2,
+          1,
+          0
+        ],
+        "distance_squared": "389/221",
+        "distance_squared_float": 1.760180995475113,
+        "active_facets": [
+          [
+            -1,
+            0,
+            0
+          ],
+          [
+            0,
+            1,
+            0
+          ]
+        ],
+        "multipliers": [
+          "21/34",
+          "2/17"
+        ],
+        "dykstra_distance": 1.3267181296283252,
+        "exact_distance": 1.3267181296247945,
+        "solver_difference": 3.530731262912923e-12
+      },
+      {
+        "coordinate": [
+          1,
+          1,
+          3
+        ],
+        "distance_squared": "389/221",
+        "distance_squared_float": 1.760180995475113,
+        "active_facets": [
+          [
+            0,
+            0,
+            1
+          ],
+          [
+            1,
+            1,
+            1
+          ]
+        ],
+        "multipliers": [
+          "21/34",
+          "2/17"
+        ],
+        "dykstra_distance": 1.3267181296283252,
+        "exact_distance": 1.3267181296247945,
+        "solver_difference": 3.530731262912923e-12
+      }
+    ],
+    "certified_interval": {
+      "valid": true,
+      "upper_endpoint": "1019/1000",
+      "squared_margin": "326493/110500000",
+      "squared_margin_float": 0.00295468778280543
+    },
+    "coulson_scaling": {
+      "factor": 13,
+      "diameter_squared": "22",
+      "minimum_distance_squared": "389/17",
+      "published_interval": "(sqrt(22), sqrt(389/17))",
+      "normalised_interval": "(1, sqrt(389/374)) ~ (1, 1.019856339)"
+    }
   },
   "certified_optimum": {
     "alpha": "16/51",

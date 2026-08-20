@@ -33,12 +33,13 @@ $n$ & previous & new & $\ell$ & mechanism \\
 \midrule
 $4$  & $49$ & $\mathbf{45}$ & $1.015$ & general-position lattice \hfill\stC\\
 $5$  & $140$ & $\mathbf{132}$ & $1.010$ & general-position lattice \hfill\stC\\
-$7$  & $1372$ & $1323$ & $1.007$ & general-position lattice \hfill\stC\\
-$7$  & $1323$ & $\mathbf{1029}$ & $1.032$ & lamination of $E_6^*/343$ \hfill\stN\\
-$9$  & $17253$ & $9604$ & $1.058$ & lamination of $E_8/2401$ \hfill\stN\\
-$9$  & $9604$ & $\mathbf{7203}$ & $1.016$ & same + piecewise certificate \hfill\stN\\
-$10$ & $3^{10}$ & $45619$ & $\sqrt{217/214}$ & product calculus \hfill\stP\\
-$10$ & $45619$ & $\mathbf{28812}$ & $1.043$ & layered lamination + certificate \hfill\stN\\
+$7$  & $1372$ & $\mathbf{1323}$ & $1.007$ & general-position lattice \hfill\stC\\
+$7$  & $1323$ & $1029$ & $1.032$ & lamination of $E_6^*/343$ \hfill\stN\\
+$9$  & $17253$ & $\mathbf{9604}$ & $\sqrt{63/61}$ & product calculus \hfill\stP\\
+$9$  & --- & $9604$ & $1.058$ & lamination of $E_8/2401$ (wider) \hfill\stN\\
+$9$  & $9604$ & $7203$ & $1.016$ & same + piecewise certificate \hfill\stN\\
+$10$ & $3^{10}$ & $\mathbf{45619}$ & $\sqrt{217/214}$ & product calculus \hfill\stP\\
+$10$ & $45619$ & $28812$ & $1.043$ & layered lamination + certificate \hfill\stN\\
 $12$ & \multicolumn{2}{l}{$3^{12}$ (known bound~\cite{ABPR})} & $\sqrt{3/2}$ & new width: $d=2/\rho$ on $K_{12}$ \hfill\stP\\
 $24$ & \multicolumn{2}{l}{$7^{12}$ (known bound~\cite{ABPR})} & $<\sqrt{7/6}$ & new width: planar theorem \hfill\stP\\
 $25$ & $3^{25}$ & $4\cdot7^{12}$ & $1.016$ & product with $\Lambda_{24}$ \hfill\stP\\
@@ -50,7 +51,11 @@ $26$ & $3^{26}$ & $19\cdot7^{12}$ & $\sqrt{217/214}$ & product with $\Lambda_{24
 \noindent
 Here $\ell$ is the proven width of the forbidden segment $[1,\ell]$ (an
 entry $<x$ means the bound is proven for every $\ell<x$), and the trailing
-badge is the status label used throughout the paper (see below). In
+badge is the status label used throughout the paper (see below); boldface
+marks the best \emph{proven} bound in each dimension. The title
+carries only the five bounds with status \stP{} or \stC{} --- $45$, $132$,
+$1323$, $9604$, $45619$; the sharper $1029$, $7203$, and $28812$ have status
+\stN{} and are stated as such throughout. In
 particular, the expectation of Arman, Bondarenko, Prymak, and
 Radchenko~\cite{ABPR} that $49$ and $140$ are optimal among all lattice
 colorings of $\R^4$ and $\R^5$ is refuted.
@@ -88,7 +93,8 @@ Section~\ref{sec:dim912}) and the step $1323\to1029$ in $\R^7$ (lamination
 over $E_6^*/343$). These bounds carry status \stN: the floating-point
 computation is reduced to evaluating explicit quadratics at vertices of
 explicit polytopes, but the final rational write-up has not been carried
-out.
+out. Being unproven, they are deliberately kept out of the title; the
+rationalization is the immediate next task.
 
 \subsection*{Mechanism 3: the planar theorem and the Eisenstein identity}
 
@@ -111,6 +117,10 @@ factors may have different indices. The block $E_8/2401$ with width
 $\sqrt{7/6}$ leaves exactly enough budget for a planar block with $19$
 colors, giving $\chi(\R^{10})\le2401\cdot19=45619<3^{10}$ --- the first
 bound in $\R^{10}$ below the classical $3^n$ tower --- with status \stP.
+The same budget spent on a one-dimensional block of $4$ colors (width $3$,
+cost $1/9$) gives $\chi(\R^9,[1,\sqrt{63/61}])\le2401\cdot4=9604$, a
+$44\,\%$ improvement over $17253$ with no floating-point step at all
+(Corollary~\ref{cor:dim9}).
 \emph{Layered lamination} --- the same two blocks, but with layer shifts
 inside the $E_8$ cell, plus a strip certificate of the diameter --- lowers
 this to $\chi(\R^{10})\le2401\cdot12=28812$ (status \stN). The same
@@ -144,9 +154,13 @@ point may have guided the \emph{search}, never the verification); \stN{}
 proof strength; \stM{} --- a candidate whose diameter certificate is absent
 or at the edge of floating-point resolution;
 \textbf{\cyrbadge{[Э]}} --- a \emph{negative screen}: an exhaustive search that ended
-negatively on a fixed numerical form. The five bounds of the title split
-as: $45$ and $132$ (with the intermediate $1323$) have status \stC;
-$1029$, $7203$, and $28812$ have status \stN.
+negatively on a fixed numerical form. No bound in the title relies on
+\stN: $45$, $132$, and $1323$ have status \stC, while $9604$ and $45619$
+have status \stP. The stronger $1029$, $7203$, and $28812$ carry \stN{} of
+the stricter kind --- the proof is reduced to a finite list of explicitly
+written algebraic inequalities, only their verification is in floating
+point --- which is still not a proof, and they are therefore excluded from
+the title.
 
 \subsection*{Reproducibility, code, and the role of AI}
 
