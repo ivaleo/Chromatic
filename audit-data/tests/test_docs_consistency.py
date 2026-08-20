@@ -126,18 +126,46 @@ def test_interval_certificates_match_paper_claims():
 
 
 def test_dim3_certificate_matches_paper():
-    """ℝ³/15: точная ширина 1586/1505 при α=16/51 и вырожденный Кулсон."""
+    """ℝ³/15: сертификат ℓ ≤ 102659/100000 и вырожденный Кулсон при α=1/3."""
     cert = json.loads((RESULTS_DIR / "dim3_k15_certificate.json").read_text())
     assert cert["coulson_bcc"]["width_squared"] == "1/1"
     assert cert["coulson_bcc"]["degenerate_interval"]
     opt = cert["certified_optimum"]
-    assert opt["width_squared"] == "1586/1505"
-    assert opt["certified_interval"]["upper_endpoint"] == "513/500"
+    assert opt["alpha"] == "3137/10000"
+    assert opt["width_squared"] == "121967690/115730769"
+    assert opt["certified_interval"]["upper_endpoint"] == "102659/100000"
     intervals = (ROOT / "paper" / "sections" / "intervals.tex").read_text()
-    for token in ("1586/1505", "513/500", "16/51",
+    for token in ("121967690/115730769", "102659", "3137/10000",
                   "14\\alpha^3-3\\alpha^2-10\\alpha+3"):
         assert token in intervals, f"нет {token} в intervals.tex"
-    assert "1586/1505" in RESULTS
+    assert "102659" in RESULTS and "102659" in README
+    # прежняя точка 16/51 осталась в артефакте как история
+    assert cert["earlier_rational_point"]["width_squared"] == "1586/1505"
+
+
+def test_alpha_star_rational_bound_is_exact():
+    """d(α*) > 102659/100000 доказывается в чистых дробях, без float.
+
+    Замечание к версии 6: α* задан кубикой плюс рациональным изолирующим
+    окном, ширина в нём точна, а граница получается из монотонности
+    связывающей ветви и одного точного неравенства. Тест пересчитывает это
+    независимо от кода кампании.
+    """
+    from fractions import Fraction as F
+    star = json.loads(
+        (RESULTS_DIR / "dim3_k15_certificate.json").read_text())["alpha_star"]
+    lo, hi = (F(t) for t in star["isolating_interval"])
+    p_ = lambda x: 14 * x**3 - 3 * x**2 - 10 * x + 3
+    assert p_(lo) > 0 > p_(hi)                       # корень в окне есть
+    assert 84 * lo - 6 > 0                           # p'' > 0 на окне
+    assert 42 * hi**2 - 6 * hi - 10 < 0              # p' < 0 в правом конце
+    r_a = lambda x: (4 * x**2 + 3 * x + 1) / ((x + 1) * (2 - x))
+    ell = F(star["ell"])
+    margin = r_a(lo) - ell**2
+    assert margin > 0 and margin == F(star["rational_margin"])
+    # то же число приведено в записке рецензента
+    assert margin == F(38881620997802732729, 2215290558757910000000000)
+    assert ell == F(102659, 100000)
 
 
 def test_coulson_improved_colouring_is_alpha_4_13():

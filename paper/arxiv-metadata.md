@@ -69,12 +69,12 @@ one. All code, exact certificates, and data are open.
 ## Comments
 
 ```
-54 pages, 9 figures, in Russian with an extended English summary.
+55 pages, 9 figures, in Russian with an extended English summary.
 Code, exact certificates and data: https://github.com/ivaleo/Chromatic
 ```
 
-(54 страницы подтверждены сборкой от 20.08.2026 — версия с разделением
-заголовочных оценок по статусам)
+(55 страниц подтверждены сборкой от 20.08.2026 — версия с разделением
+заголовочных оценок по статусам и точным максимумом семейства G(α) в ℝ³)
 
 ## License
 
@@ -98,7 +98,7 @@ Code, exact certificates and data: https://github.com/ivaleo/Chromatic
 3. Репозиторий GitHub должен быть публичным ДО отправки (ссылка в статье).
 4. Тарболл собран: `chi4-45.tex`, `origin-and-ai.tex`, `sections/*.tex`
    (13 файлов), 9 × `fig_*.pdf`, без вспомогательных файлов; контрольная
-   сборка в чистом каталоге воспроизводит те же 54 страницы без предупреждений.
+   сборка в чистом каталоге воспроизводит те же 55 страниц без предупреждений.
 5. После загрузки сверить PDF, собранный arXiv, с локальным постранично.
 6. Не-английская статья может уйти на модерацию (1–3 дня) — это штатно.
 7. После анонса: вписать arXiv ID в README/RESULTS отдельным коммитом.
