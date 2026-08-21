@@ -41,7 +41,7 @@ $9$  & $9604$ & $7203$ & $1.016$ & same + piecewise certificate \hfill\stN\\
 $10$ & $3^{10}$ & $\mathbf{45619}$ & $\sqrt{217/214}$ & product calculus \hfill\stP\\
 $10$ & $45619$ & $28812$ & $1.043$ & layered lamination + certificate \hfill\stN\\
 $12$ & \multicolumn{2}{l}{$3^{12}$ (known bound~\cite{ABPR})} & $\sqrt{3/2}$ & new width: $d=2/\rho$ on $K_{12}$ \hfill\stP\\
-$24$ & \multicolumn{2}{l}{$7^{12}$ (known bound~\cite{ABPR})} & $<\sqrt{7/6}$ & new width: planar theorem \hfill\stP\\
+$24$ & \multicolumn{2}{l}{$7^{12}$ (known bound~\cite{ABPR})} & $\sqrt{7/6}$ (exact) & new width: Eisenstein identity \hfill\stP\\
 $25$ & $3^{25}$ & $4\cdot7^{12}$ & $1.016$ & product with $\Lambda_{24}$ \hfill\stP\\
 $26$ & $3^{26}$ & $19\cdot7^{12}$ & $\sqrt{217/214}$ & product with $\Lambda_{24}$ \hfill\stP\\
 \bottomrule
@@ -96,17 +96,26 @@ explicit polytopes, but the final rational write-up has not been carried
 out. Being unproven, they are deliberately kept out of the title; the
 rationalization is the immediate next task.
 
-\subsection*{Mechanism 3: the planar theorem and the Eisenstein identity}
+\subsection*{Mechanism 3: the Eisenstein identity}
 
 For lattices with a $\Z[\omega]$-structure ($\omega=e^{2\pi i/3}$) and the
 sublattice $\Gamma=(3+\omega)\Lambda$ (multiplication by $\alpha=3+\omega$,
-$|\alpha|^2=7$, index $7^{n/2}$), the exact identity
-$D((3+\omega)\Lambda)^2=\frac73\,\lambda_1(\Lambda)^2$ holds in all verified
-cases ($n=2,4,6,8$, i.e.\ for $A_2$, $D_4$, $E_6^*$, $E_8$; status \stC). The \emph{planar theorem} proves the
-lower bound $D((3+\omega)\Lambda)\ge\sqrt{7/3}\,\lambda_1(\Lambda)$ for all
-Eisenstein lattices (status \stP, Section~\ref{sec:extra}); combined with
-the covering radius of the Leech lattice it makes the bound
-$\chi(\R^{24},[1,\ell])\le7^{12}$ rigorous for every $\ell<\sqrt{7/6}$.
+$|\alpha|^2=7$, index $7^{n/2}$), the identity
+\[
+D\bigl((3+\omega)\Lambda\bigr)^2=\tfrac73\,\lambda_1(\Lambda)^2
+\]
+now holds for \emph{every} Eisenstein lattice (theorem~\ref{thm:eis}, status
+\stP, Section~\ref{sec:extra}). The lower bound is the \emph{planar theorem}:
+the six equal-norm vectors $\pm w,\pm\omega w,\pm(1+\omega)w$ confine the
+orthogonal projection of $V_0$ to the $A_2$ hexagon of $\Z[\omega]w$. The upper
+bound exhibits an explicit point of $V_0$: the hexagon vertex
+$q=\frac13(2w+\omega w)$ built from a minimal vector always lies in the
+Voronoi cell, whatever the lattice (proposition~\ref{prop:eisup}).
+Consequences: the width $\sqrt{7/6}$ of
+$\chi(\R^{24},[1,\ell])\le7^{12}$ is exact rather than a lower estimate; the
+$\alpha$-ladder over $\Z$, $\Z[i]$, $\Z[\omega]$ and the Hurwitz quaternions
+becomes an equality (corollary~\ref{cor:Uexact}); and the impossibility of
+$7^6$ in $\R^{12}$ no longer rests on an enumeration.
 
 \subsection*{Mechanism 4: the product calculus of widths}
 

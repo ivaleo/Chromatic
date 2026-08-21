@@ -196,6 +196,73 @@ def test_coulson_improved_colouring_is_alpha_4_13():
     assert "4/13" in README and "4/13" in RESULTS
 
 
+def test_eisenstein_identity_is_a_theorem():
+    """Тождество (10) доказано целиком: обе половины — теоремы, вопрос снят.
+
+    До версии 7 доказана была лишь нижняя половина (prop:planar), равенство
+    стояло в списке открытых вопросов. Верхнюю половину (prop:eisup, точка
+    q = (2w + omega w)/3 в ячейке) прислала Н. Глушкова при рецензировании
+    версии 6; вместе они дают thm:eis. Тест закрепляет, что все производные
+    места переписаны и что численный контроль сходится.
+
+    Атрибуция намеренно вынесена из текста статьи в журнал ревью до решения
+    вопроса о соавторстве (см. test_eisenstein_proof_attribution_is_recorded).
+    """
+    extra = SECTIONS["extra.tex"]
+    openq = SECTIONS["open.tex"]
+
+    for label in (r"\label{lem:cellpoint}", r"\label{prop:eisup}",
+                  r"\label{thm:eis}", r"\label{cor:hexcell}", r"\label{rem:a2tri}"):
+        assert label in extra, f"нет {label} в extra.tex"
+    assert r"\label{cor:Uexact}" in PRODUCT, "нет cor:Uexact в product.tex"
+
+    # старые формулировки «доказана только половина» должны исчезнуть
+    assert "во всех проверенных случаях" not in extra
+    assert "открытым остаётся только вопрос о равенстве" not in extra
+    assert "остаётся доказать\nравенство" not in openq
+    assert "половина тождества" not in INTRO
+
+    # численный контроль
+    data = json.loads((RESULTS_DIR / "eisenstein_identity_checks.json").read_text())
+    assert data["all_hold"] is True
+    assert len(data["identity"]) >= 8 and len(data["alpha_ladder"]) >= 8
+    assert any("random skew" in r["lattice"] for r in data["identity"]), \
+        "нужны случайные косые решётки вне списка n = 2,4,6,8"
+    for row in data["identity"]:
+        assert abs(row["relative_error"]) < 1e-7, row["lattice"]
+        assert row["dist_q_to_V0"] <= 1e-9, row["lattice"]
+    for row in data["alpha_ladder"]:
+        assert row["worst_gap"] <= 1e-7, row["lattice"]
+    for row in data["a2_triangle"]:
+        assert row["has_a2_triangle"] and row["holds"], row["lattice"]
+    assert data["hurwitz_24cell_vertices"]["holds"] is True
+
+
+def test_eisenstein_proof_attribution_is_recorded():
+    """Авторство prop:eisup не должно потеряться, пока его нет в статье.
+
+    По решению автора (21.08.2026) атрибуция Н. Глушковой временно убрана из
+    текста статьи — вопрос о соавторстве решается перед подачей на arXiv.
+    Значит, единственная запись живёт в журнале ревью и в хронике; тест
+    следит, чтобы её не вычистили заодно, и чтобы статья тем временем не
+    приписывала доказательство автору явным образом.
+    """
+    notes = (ROOT / "journal" / "REVIEW-notes-v6.md").read_text()
+    assert "Глушков" in notes and "prop:eisup" in notes, \
+        "запись об авторстве prop:eisup исчезла из journal/REVIEW-notes-v6.md"
+    assert "соавторств" in notes, "в журнале нет пометки о нерешённом соавторстве"
+    assert "Глушков" in RESULTS and "prop:eisup" in RESULTS, \
+        "запись об авторстве prop:eisup исчезла из RESULTS.md"
+
+    # в статье атрибуции нет — но и присвоения тоже
+    for name in ("extra.tex", "intro.tex", "summary-en.tex"):
+        text = SECTIONS[name]
+        assert "Глушков" not in text and "Glushkova" not in text, \
+            f"атрибуция вернулась в {name} — сверьтесь с решением по соавторству"
+    paper = (ROOT / "paper" / "chi4-45.tex").read_text()
+    assert r"\ref{prop:eisup}" not in paper, "атрибуция вернулась в благодарности"
+
+
 def test_paper_artifact_paths_exist():
     """Каждый путь audit-data/..., на который ссылается статья, существует.
 
