@@ -1,0 +1,634 @@
+{
+ "identity": [
+  {
+   "lattice": "A2",
+   "n": 2,
+   "lambda1": 0.9999999999999999,
+   "dist_q_to_V0": 0.0,
+   "inner_product_error": 5.551115123125783e-17,
+   "covering_radius_upper": 0.6614378277661477,
+   "window": 2.8504008881905936,
+   "vectors_enumerated": 6,
+   "D_min": 1.5275252316582981,
+   "sqrt73_lambda1": 1.5275252316519465,
+   "relative_error": 4.158089039885502e-12,
+   "holds": true
+  },
+  {
+   "lattice": "Z[omega]^2",
+   "n": 4,
+   "lambda1": 0.9999999999999999,
+   "dist_q_to_V0": 0.0,
+   "inner_product_error": 5.551115123125783e-17,
+   "covering_radius_upper": 0.9354143466934853,
+   "window": 3.398353926045269,
+   "vectors_enumerated": 12,
+   "D_min": 1.5275252316582981,
+   "sqrt73_lambda1": 1.5275252316519465,
+   "relative_error": 4.158089039885502e-12,
+   "holds": true
+  },
+  {
+   "lattice": "D4",
+   "n": 4,
+   "lambda1": 1.414213562373095,
+   "dist_q_to_V0": 0.0,
+   "inner_product_error": 0.0,
+   "covering_radius_upper": 1.2374368670764582,
+   "window": 4.635120634624922,
+   "vectors_enumerated": 30,
+   "D_min": 2.1602468994715327,
+   "sqrt73_lambda1": 2.1602468994692865,
+   "relative_error": 1.0397900462088141e-12,
+   "holds": true
+  },
+  {
+   "lattice": "E6*",
+   "n": 6,
+   "lambda1": 1.732050807568877,
+   "dist_q_to_V0": 0.0,
+   "inner_product_error": 2.220446049250313e-16,
+   "covering_radius_upper": 1.686342195404005,
+   "window": 6.018435702877091,
+   "vectors_enumerated": 72,
+   "D_min": 2.6457513110659225,
+   "sqrt73_lambda1": 2.6457513110645903,
+   "relative_error": 5.035498325101892e-13,
+   "holds": true
+  },
+  {
+   "lattice": "E8",
+   "n": 8,
+   "lambda1": 1.732050807568877,
+   "dist_q_to_V0": 0.0,
+   "inner_product_error": 0.0,
+   "covering_radius_upper": 1.816590212458495,
+   "window": 6.278931736982955,
+   "vectors_enumerated": 240,
+   "D_min": 2.6457513110657938,
+   "sqrt73_lambda1": 2.6457513110645903,
+   "relative_error": 4.548733487008709e-13,
+   "holds": true
+  },
+  {
+   "lattice": "A2 + 0.37 A2",
+   "n": 4,
+   "lambda1": 0.37,
+   "dist_q_to_V0": 0.0,
+   "inner_product_error": 0.0,
+   "covering_radius_upper": 0.7052614763334234,
+   "window": 1.975707289415665,
+   "vectors_enumerated": 18,
+   "D_min": 0.5651843357135705,
+   "sqrt73_lambda1": 0.5651843357112203,
+   "relative_error": 4.158344406115741e-12,
+   "holds": true
+  },
+  {
+   "lattice": "A2 + 4.1 A2",
+   "n": 4,
+   "lambda1": 0.9999999999999999,
+   "dist_q_to_V0": 0.0,
+   "inner_product_error": 5.551115123125783e-17,
+   "covering_radius_upper": 2.791393021414218,
+   "window": 7.110311275486735,
+   "vectors_enumerated": 30,
+   "D_min": 1.5275252316582981,
+   "sqrt73_lambda1": 1.5275252316519465,
+   "relative_error": 4.158089039885502e-12,
+   "holds": true
+  },
+  {
+   "lattice": "random skew C^2 #0",
+   "n": 4,
+   "lambda1": 2.7662606623099286,
+   "dist_q_to_V0": 0.0,
+   "inner_product_error": 0.0,
+   "covering_radius_upper": 2.7849194816207596,
+   "window": 9.795371923250555,
+   "vectors_enumerated": 18,
+   "D_min": 4.225532959009036,
+   "sqrt73_lambda1": 4.225532959004641,
+   "relative_error": 1.040036100371923e-12,
+   "holds": true
+  },
+  {
+   "lattice": "random skew C^2 #1",
+   "n": 4,
+   "lambda1": 1.3177541225932883,
+   "dist_q_to_V0": 0.0,
+   "inner_product_error": 0.0,
+   "covering_radius_upper": 1.3253739182546844,
+   "window": 4.663650508886082,
+   "vectors_enumerated": 18,
+   "D_min": 2.0129026713767133,
+   "sqrt73_lambda1": 2.0129026713746203,
+   "relative_error": 1.039788200287911e-12,
+   "holds": true
+  },
+  {
+   "lattice": "random skew C^3 #2",
+   "n": 6,
+   "lambda1": 1.0566996126785695,
+   "dist_q_to_V0": 0.0,
+   "inner_product_error": 1.1102230246251565e-16,
+   "covering_radius_upper": 1.2258066601141573,
+   "window": 4.0657486418733475,
+   "vectors_enumerated": 72,
+   "D_min": 1.6141353206450328,
+   "sqrt73_lambda1": 1.6141353206433542,
+   "relative_error": 1.0399730380499731e-12,
+   "holds": true
+  },
+  {
+   "lattice": "random skew C^3 #3",
+   "n": 6,
+   "lambda1": 1.7481339198192762,
+   "dist_q_to_V0": 0.0,
+   "inner_product_error": 2.220446049250313e-16,
+   "covering_radius_upper": 2.514043499521175,
+   "window": 7.698405670884018,
+   "vectors_enumerated": 42,
+   "D_min": 2.670318670833342,
+   "sqrt73_lambda1": 2.6703186708305657,
+   "relative_error": 1.0397432225267017e-12,
+   "holds": true
+  }
+ ],
+ "alpha_ladder": [
+  {
+   "lattice": "Z: A3",
+   "n": 3,
+   "lambda1": 1.414213562373095,
+   "cell_facets": 4,
+   "alphas": [
+    {
+     "alpha": "2",
+     "D": 1.4142135623730956,
+     "2*dist(alpha/2,U)": 1.4142135623730956
+    },
+    {
+     "alpha": "3",
+     "D": 2.828427124746191,
+     "2*dist(alpha/2,U)": 2.828427124746191
+    },
+    {
+     "alpha": "4",
+     "D": 4.2426406871192865,
+     "2*dist(alpha/2,U)": 4.2426406871192865
+    },
+    {
+     "alpha": "5",
+     "D": 5.656854249492382,
+     "2*dist(alpha/2,U)": 5.656854249492382
+    }
+   ],
+   "worst_gap": 0.0,
+   "holds": true
+  },
+  {
+   "lattice": "Z: D5",
+   "n": 5,
+   "lambda1": 1.4142135623730951,
+   "cell_facets": 4,
+   "alphas": [
+    {
+     "alpha": "2",
+     "D": 1.4142135623730954,
+     "2*dist(alpha/2,U)": 1.4142135623730954
+    },
+    {
+     "alpha": "3",
+     "D": 2.8284271247461907,
+     "2*dist(alpha/2,U)": 2.8284271247461907
+    },
+    {
+     "alpha": "4",
+     "D": 4.242640687119286,
+     "2*dist(alpha/2,U)": 4.242640687119286
+    },
+    {
+     "alpha": "5",
+     "D": 5.6568542494923815,
+     "2*dist(alpha/2,U)": 5.6568542494923815
+    }
+   ],
+   "worst_gap": 0.0,
+   "holds": true
+  },
+  {
+   "lattice": "Z: E8",
+   "n": 8,
+   "lambda1": 1.4142135623730951,
+   "cell_facets": 4,
+   "alphas": [
+    {
+     "alpha": "2",
+     "D": 1.4142135623730954,
+     "2*dist(alpha/2,U)": 1.4142135623730954
+    },
+    {
+     "alpha": "3",
+     "D": 2.8284271247461907,
+     "2*dist(alpha/2,U)": 2.8284271247461907
+    },
+    {
+     "alpha": "4",
+     "D": 4.242640687119286,
+     "2*dist(alpha/2,U)": 4.242640687119286
+    },
+    {
+     "alpha": "5",
+     "D": 5.6568542494923815,
+     "2*dist(alpha/2,U)": 5.6568542494923815
+    }
+   ],
+   "worst_gap": 0.0,
+   "holds": true
+  },
+  {
+   "lattice": "Z[i]: Z[i]^2",
+   "n": 4,
+   "lambda1": 1.0,
+   "cell_facets": 20,
+   "alphas": [
+    {
+     "alpha": "2",
+     "D": 1.0,
+     "2*dist(alpha/2,U)": 1.0
+    },
+    {
+     "alpha": "2+i",
+     "D": 1.0,
+     "2*dist(alpha/2,U)": 1.0
+    },
+    {
+     "alpha": "3",
+     "D": 2.0,
+     "2*dist(alpha/2,U)": 2.0
+    },
+    {
+     "alpha": "3+i",
+     "D": 2.0,
+     "2*dist(alpha/2,U)": 2.0
+    },
+    {
+     "alpha": "2+2i",
+     "D": 1.4142135623730951,
+     "2*dist(alpha/2,U)": 1.4142135623730951
+    },
+    {
+     "alpha": "4+i",
+     "D": 3.0,
+     "2*dist(alpha/2,U)": 3.0
+    }
+   ],
+   "worst_gap": 0.0,
+   "holds": true
+  },
+  {
+   "lattice": "Z[i]: random C^2",
+   "n": 4,
+   "lambda1": 0.9474483309199598,
+   "cell_facets": 20,
+   "alphas": [
+    {
+     "alpha": "2",
+     "D": 0.9474483309199601,
+     "2*dist(alpha/2,U)": 0.9474483309199601
+    },
+    {
+     "alpha": "2+i",
+     "D": 0.9474483309199601,
+     "2*dist(alpha/2,U)": 0.9474483309199601
+    },
+    {
+     "alpha": "3",
+     "D": 1.8948966618399203,
+     "2*dist(alpha/2,U)": 1.8948966618399203
+    },
+    {
+     "alpha": "3+i",
+     "D": 1.8948966618399203,
+     "2*dist(alpha/2,U)": 1.8948966618399203
+    },
+    {
+     "alpha": "2+2i",
+     "D": 1.3398942792347597,
+     "2*dist(alpha/2,U)": 1.33989427923476
+    },
+    {
+     "alpha": "4+i",
+     "D": 2.8423449927598807,
+     "2*dist(alpha/2,U)": 2.8423449927598807
+    }
+   ],
+   "worst_gap": 2.220446049250313e-16,
+   "holds": true
+  },
+  {
+   "lattice": "Z[i]: random C^3",
+   "n": 6,
+   "lambda1": 1.4222924189504234,
+   "cell_facets": 20,
+   "alphas": [
+    {
+     "alpha": "2",
+     "D": 1.4222924189504236,
+     "2*dist(alpha/2,U)": 1.4222924189504234
+    },
+    {
+     "alpha": "2+i",
+     "D": 1.4222924189504236,
+     "2*dist(alpha/2,U)": 1.4222924189504236
+    },
+    {
+     "alpha": "3",
+     "D": 2.8445848379008467,
+     "2*dist(alpha/2,U)": 2.8445848379008467
+    },
+    {
+     "alpha": "3+i",
+     "D": 2.8445848379008467,
+     "2*dist(alpha/2,U)": 2.8445848379008467
+    },
+    {
+     "alpha": "2+2i",
+     "D": 2.0114252285401255,
+     "2*dist(alpha/2,U)": 2.011425228540125
+    },
+    {
+     "alpha": "4+i",
+     "D": 4.26687725685127,
+     "2*dist(alpha/2,U)": 4.26687725685127
+    }
+   ],
+   "worst_gap": 4.440892098500626e-16,
+   "holds": true
+  },
+  {
+   "lattice": "Z[omega]: Z[omega]^2",
+   "n": 4,
+   "lambda1": 0.9999999999999999,
+   "cell_facets": 18,
+   "alphas": [
+    {
+     "alpha": "2",
+     "D": 1.0,
+     "2*dist(alpha/2,U)": 1.0
+    },
+    {
+     "alpha": "2+w",
+     "D": 0.5773502692064291,
+     "2*dist(alpha/2,U)": 0.5773502692064292
+    },
+    {
+     "alpha": "3",
+     "D": 2.0000000000000004,
+     "2*dist(alpha/2,U)": 2.0000000000000004
+    },
+    {
+     "alpha": "3+w",
+     "D": 1.5275252316582981,
+     "2*dist(alpha/2,U)": 1.5275252316773509
+    },
+    {
+     "alpha": "4+w",
+     "D": 2.51661147842527,
+     "2*dist(alpha/2,U)": 2.5166114783999722
+    },
+    {
+     "alpha": "5+2w",
+     "D": 3.2145502536696,
+     "2*dist(alpha/2,U)": 3.2145502536537562
+    }
+   ],
+   "worst_gap": 2.5297985928318667e-11,
+   "holds": true
+  },
+  {
+   "lattice": "Z[omega]: random C^3",
+   "n": 6,
+   "lambda1": 1.442447850838262,
+   "cell_facets": 18,
+   "alphas": [
+    {
+     "alpha": "2",
+     "D": 1.442447850838262,
+     "2*dist(alpha/2,U)": 1.442447850838262
+    },
+    {
+     "alpha": "2+w",
+     "D": 0.8327976549795276,
+     "2*dist(alpha/2,U)": 0.8327976549795275
+    },
+    {
+     "alpha": "3",
+     "D": 2.8848957016765246,
+     "2*dist(alpha/2,U)": 2.8848957016765246
+    },
+    {
+     "alpha": "3+w",
+     "D": 2.203375487499859,
+     "2*dist(alpha/2,U)": 2.2033754875067304
+    },
+    {
+     "alpha": "4+w",
+     "D": 3.6300808184494326,
+     "2*dist(alpha/2,U)": 3.630080818438486
+    },
+    {
+     "alpha": "5+2w",
+     "D": 4.636821104817305,
+     "2*dist(alpha/2,U)": 4.636821104794451
+    }
+   ],
+   "worst_gap": 2.2854607095723622e-11,
+   "holds": true
+  },
+  {
+   "lattice": "H: the order",
+   "n": 4,
+   "lambda1": 1.0,
+   "cell_facets": 408,
+   "alphas": [
+    {
+     "alpha": "2",
+     "D": 1.0,
+     "2*dist(alpha/2,U)": 1.0
+    },
+    {
+     "alpha": "2+i+j+k",
+     "D": 1.5275252316773504,
+     "2*dist(alpha/2,U)": 1.527525231667824
+    },
+    {
+     "alpha": "3",
+     "D": 2.0,
+     "2*dist(alpha/2,U)": 1.9999999999999998
+    },
+    {
+     "alpha": "2+i",
+     "D": 0.9999999999854481,
+     "2*dist(alpha/2,U)": 0.9999999999854481
+    },
+    {
+     "alpha": "1+i+j+k",
+     "D": 1.0,
+     "2*dist(alpha/2,U)": 1.0
+    },
+    {
+     "alpha": "2+2i",
+     "D": 1.4142135623576604,
+     "2*dist(alpha/2,U)": 1.41421356237824
+    }
+   ],
+   "worst_gap": 2.0579538073661752e-11,
+   "holds": true
+  },
+  {
+   "lattice": "H: H^2 orthogonal",
+   "n": 8,
+   "lambda1": 1.0,
+   "cell_facets": 408,
+   "alphas": [
+    {
+     "alpha": "2",
+     "D": 1.0,
+     "2*dist(alpha/2,U)": 1.0
+    },
+    {
+     "alpha": "2+i+j+k",
+     "D": 1.5275252316773504,
+     "2*dist(alpha/2,U)": 1.527525231667824
+    },
+    {
+     "alpha": "3",
+     "D": 2.0,
+     "2*dist(alpha/2,U)": 2.0
+    },
+    {
+     "alpha": "2+i",
+     "D": 0.9999999999854481,
+     "2*dist(alpha/2,U)": 0.9999999999854481
+    },
+    {
+     "alpha": "1+i+j+k",
+     "D": 1.0,
+     "2*dist(alpha/2,U)": 1.0
+    },
+    {
+     "alpha": "2+2i",
+     "D": 1.4142135623576604,
+     "2*dist(alpha/2,U)": 1.41421356237824
+    }
+   ],
+   "worst_gap": 2.0579538073661752e-11,
+   "holds": true
+  },
+  {
+   "lattice": "H: H^2 skew",
+   "n": 8,
+   "lambda1": 1.0,
+   "cell_facets": 408,
+   "alphas": [
+    {
+     "alpha": "2",
+     "D": 1.0,
+     "2*dist(alpha/2,U)": 1.0
+    },
+    {
+     "alpha": "2+i+j+k",
+     "D": 1.5275252316773504,
+     "2*dist(alpha/2,U)": 1.527525231667824
+    },
+    {
+     "alpha": "3",
+     "D": 2.0,
+     "2*dist(alpha/2,U)": 2.0
+    },
+    {
+     "alpha": "2+i",
+     "D": 0.9999999999854481,
+     "2*dist(alpha/2,U)": 0.9999999999854481
+    },
+    {
+     "alpha": "1+i+j+k",
+     "D": 1.0,
+     "2*dist(alpha/2,U)": 1.0
+    },
+    {
+     "alpha": "2+2i",
+     "D": 1.4142135623576604,
+     "2*dist(alpha/2,U)": 1.41421356237824
+    }
+   ],
+   "worst_gap": 2.0579538073661752e-11,
+   "holds": true
+  }
+ ],
+ "a2_triangle": [
+  {
+   "lattice": "A3",
+   "n": 3,
+   "lambda1": 1.414213562373095,
+   "has_a2_triangle": true,
+   "worst_hexagon_vertex_dist_to_V0": 0.0,
+   "norm_3w_plus_u_over_lambda1": 2.6457513110645903,
+   "D_3w_plus_u": 2.1602468994715327,
+   "sqrt73_lambda1": 2.1602468994692865,
+   "holds": true
+  },
+  {
+   "lattice": "A4",
+   "n": 4,
+   "lambda1": 1.414213562373095,
+   "has_a2_triangle": true,
+   "worst_hexagon_vertex_dist_to_V0": 0.0,
+   "norm_3w_plus_u_over_lambda1": 2.6457513110645907,
+   "D_3w_plus_u": 2.1602468994715327,
+   "sqrt73_lambda1": 2.1602468994692865,
+   "holds": true
+  },
+  {
+   "lattice": "A5",
+   "n": 5,
+   "lambda1": 1.414213562373095,
+   "has_a2_triangle": true,
+   "worst_hexagon_vertex_dist_to_V0": 0.0,
+   "norm_3w_plus_u_over_lambda1": 2.6457513110645907,
+   "D_3w_plus_u": 2.160246899471532,
+   "sqrt73_lambda1": 2.1602468994692865,
+   "holds": true
+  },
+  {
+   "lattice": "D5",
+   "n": 5,
+   "lambda1": 1.4142135623730951,
+   "has_a2_triangle": true,
+   "worst_hexagon_vertex_dist_to_V0": 0.0,
+   "norm_3w_plus_u_over_lambda1": 2.6457513110645903,
+   "D_3w_plus_u": 2.160246899476795,
+   "sqrt73_lambda1": 2.160246899469287,
+   "holds": true
+  },
+  {
+   "lattice": "E7",
+   "n": 7,
+   "lambda1": 1.4142135623730951,
+   "has_a2_triangle": true,
+   "worst_hexagon_vertex_dist_to_V0": 0.0,
+   "norm_3w_plus_u_over_lambda1": 2.645751311064598,
+   "D_3w_plus_u": 2.1602468994715402,
+   "sqrt73_lambda1": 2.160246899469287,
+   "holds": true
+  }
+ ],
+ "hurwitz_24cell_vertices": {
+  "units": 24,
+  "cell_vertices": 24,
+  "vertices_as_orthogonal_unit_midpoints": 24,
+  "holds": true
+ },
+ "all_hold": true
+}
