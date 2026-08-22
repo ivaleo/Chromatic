@@ -9,6 +9,7 @@
 
 import json
 import re
+from fractions import Fraction
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[2]
@@ -69,13 +70,14 @@ def test_intro_headline_carries_only_proven_bounds():
 
     Замечание рецензента к версии 6: заголовок подавал 1029/7203/28812 как
     доказанные, тогда как шкала статусов объявляет [Ч] не имеющим
-    доказательной силы. Тест закрепляет новую границу: в таблице известных
-    оценок и в заголовке стоят 45/132/1323/9604/45619 (статусы [Т]/[С]), а
-    численные значения присутствуют только с явной меткой.
+    доказательной силы. Тест закрепляет границу: в таблице известных оценок и
+    в заголовке стоят только величины со статусом [Т]/[С], численные — лишь с
+    явной меткой. С 22.08.2026 сюда входит 1029: его сертификат стал точным
+    (thm:r7ex), и он сменил 1323 в заголовке.
     """
     MAIN = (ROOT / "paper" / "chi4-45.tex").read_text()
-    proven = ("45", "132", "1323", "9604", "45619")
-    numeric = ("1029", "7203", "28812")
+    proven = ("45", "132", "1029", "9604", "45619")
+    numeric = ("7203", "28812")
     # таблица §1.2: полужирным — доказанные, численные без \mathbf
     for k in proven:
         assert rf"\mathbf{{{k}}}" in INTRO, f"{k} не выделено в таблице §1.2"
@@ -194,6 +196,46 @@ def test_coulson_improved_colouring_is_alpha_4_13():
         assert token in intervals, f"нет {token} в intervals.tex"
     assert "вместо единственного" not in intervals
     assert "4/13" in README and "4/13" in RESULTS
+
+
+def test_dim7_1029_exact_certificate():
+    """1029 в R^7 — точный рациональный сертификат, а не численный.
+
+    До 22.08.2026 оценка стояла как [Ч]: вершины кусочного сертификата
+    диаметра считались в плавающей точке. Теперь ячейка Вороного перечислена
+    точно (30 368 вершин, полнота — замыкание по 1-скелету, многогранник
+    непростой), поэтому d^2 и D_min^2 — дроби, а 1029 стоит в заголовке.
+    """
+    data = json.loads((RESULTS_DIR / "dim7_1029_exact.json").read_text())
+    assert data["index"] == 1029
+    assert data["interval_valid"] is True
+    assert data["edge_closure_exact"] is True
+    assert data["facets"] == 254, "254 = максимум фасет для R^7 (2*(2^7-1))"
+    assert data["vertices"] == 30368
+    assert data["active_size_histogram"]["9"] == 1600, (
+        "многогранник непростой — доказательство полноты обязано это учитывать")
+    assert data["minimum_distance_squared_exact"] == "7", (
+        "D_min = sqrt7 — пол теоремы об эйзенштейновых конструкциях")
+    assert len(data["minimizers"]) == 27
+    assert all(v[-1] == 0 for v in data["minimizers"]), (
+        "минимум обязан достигаться на горизонтальных векторах")
+
+    d2 = Fraction(data["normalized_distance_squared_exact"])
+    ell = Fraction(data["ell"])
+    diam2 = Fraction(data["diameter_squared_exact"])
+    dmin2 = Fraction(data["minimum_distance_squared_exact"])
+    assert d2 == dmin2 / diam2 and d2 > 1
+    assert Fraction(data["margin_exact"]) == dmin2 - ell * ell * diam2 > 0
+    assert ell == Fraction(103, 100)
+
+    # статья: заголовок, теорема, статус и точная дробь на месте
+    assert r"\label{thm:r7ex}" in SECTIONS["dim9-12.tex"]
+    assert str(d2.numerator) in SECTIONS["extra.tex"], (
+        "точная дробь d^2 должна стоять в таблице ширин")
+    main = (ROOT / "paper" / "chi4-45.tex").read_text()
+    assert r"\chi(\R^7)\le1029" in main, "1029 не попало в заголовок/аннотацию"
+    assert "1,032881" not in SECTIONS["dim9-12.tex"], (
+        "старое завышенное число ширины (по измеренному диаметру) вернулось")
 
 
 def test_eisenstein_identity_is_a_theorem():

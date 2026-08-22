@@ -33,8 +33,8 @@ $n$ & previous & new & $\ell$ & mechanism \\
 \midrule
 $4$  & $49$ & $\mathbf{45}$ & $1.015$ & general-position lattice \hfill\stC\\
 $5$  & $140$ & $\mathbf{132}$ & $1.010$ & general-position lattice \hfill\stC\\
-$7$  & $1372$ & $\mathbf{1323}$ & $1.007$ & general-position lattice \hfill\stC\\
-$7$  & $1323$ & $1029$ & $1.032$ & lamination of $E_6^*/343$ \hfill\stN\\
+$7$  & $1372$ & $1323$ & $1.007$ & general-position lattice \hfill\stC\\
+$7$  & $1323$ & $\mathbf{1029}$ & $1.032878$ & lamination of $E_6^*/343$ \hfill\stC\\
 $9$  & $17253$ & $\mathbf{9604}$ & $\sqrt{63/61}$ & product calculus \hfill\stP\\
 $9$  & --- & $9604$ & $1.058$ & lamination of $E_8/2401$ (wider) \hfill\stN\\
 $9$  & $9604$ & $7203$ & $1.016$ & same + piecewise certificate \hfill\stN\\
@@ -54,7 +54,7 @@ entry $<x$ means the bound is proven for every $\ell<x$), and the trailing
 badge is the status label used throughout the paper (see below); boldface
 marks the best \emph{proven} bound in each dimension. The title
 carries only the five bounds with status \stP{} or \stC{} --- $45$, $132$,
-$1323$, $9604$, $45619$; the sharper $1029$, $7203$, and $28812$ have status
+$1029$, $9604$, $45619$; the sharper $7203$ and $28812$ have status
 \stN{} and are stated as such throughout. In
 particular, the expectation of Arman, Bondarenko, Prymak, and
 Radchenko~\cite{ABPR} that $49$ and $140$ are optimal among all lattice
@@ -76,7 +76,10 @@ potentially dangerous vectors, and a KKT certificate of the projection for
 each of them. This gives $\chi(\R^4,[1,\ell])\le45$ for $\ell\le203/200$
 (Section~\ref{sec:main}), $\chi(\R^5,[1,\ell])\le132$ for $\ell\le101/100$,
 and $\chi(\R^7,[1,\ell])\le1323$ for $\ell\le1007/1000$
-(Section~\ref{sec:r57}), all with status \stC. A byproduct is a
+(Section~\ref{sec:r57}), all with status \stC. The same exact discipline,
+applied to the Voronoi cell of a laminated lattice, gives
+$\chi(\R^7,[1,\ell])\le1029$ for $\ell\le103/100$
+(Theorem~\ref{thm:r7ex}) --- the bound that goes into the title. A byproduct is a
 colors-versus-width trade-off in $\R^4$: $46$ colors for $\ell\le1.004$ and
 $48$ colors for $\ell\le1.0396$ (Section~\ref{sec:wide}).
 
@@ -90,11 +93,15 @@ Voronoi partitions the height maximum is a convex quadratic, so the diameter
 is computed at the vertices of explicit polytopes. This produces the chains
 $17253\to9604\to7203$ in $\R^9$ (lamination over $E_8/2401$,
 Section~\ref{sec:dim912}) and the step $1323\to1029$ in $\R^7$ (lamination
-over $E_6^*/343$). These bounds carry status \stN: the floating-point
-computation is reduced to evaluating explicit quadratics at vertices of
-explicit polytopes, but the final rational write-up has not been carried
-out. Being unproven, they are deliberately kept out of the title; the
-rationalization is the immediate next task.
+over $E_6^*/343$). In $\R^9$ these bounds carry status \stN: the
+floating-point computation is reduced to evaluating explicit quadratics at
+vertices of explicit polytopes, but the final rational write-up has not been
+carried out, so they are kept out of the title. In $\R^7$ that write-up
+\emph{has} been carried out (Theorem~\ref{thm:r7ex}): all $30\,368$ vertices
+of the cell are certified over $\Z$, with completeness proved by exact edge
+closure on the $1$-skeleton and without assuming the polytope is simple
+($1\,600$ vertices have nine active facets). Hence $1029$ has status \stC{}
+and enters the title.
 
 \subsection*{Mechanism 3: the Eisenstein identity}
 
@@ -164,8 +171,8 @@ proof strength; \stM{} --- a candidate whose diameter certificate is absent
 or at the edge of floating-point resolution;
 \textbf{\cyrbadge{[Э]}} --- a \emph{negative screen}: an exhaustive search that ended
 negatively on a fixed numerical form. No bound in the title relies on
-\stN: $45$, $132$, and $1323$ have status \stC, while $9604$ and $45619$
-have status \stP. The stronger $1029$, $7203$, and $28812$ carry \stN{} of
+\stN: $45$, $132$, and $1029$ have status \stC, while $9604$ and $45619$
+have status \stP. The stronger $7203$ and $28812$ carry \stN{} of
 the stricter kind --- the proof is reduced to a finite list of explicitly
 written algebraic inequalities, only their verification is in floating
 point --- which is still not a proof, and they are therefore excluded from
