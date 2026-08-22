@@ -925,20 +925,48 @@ def build_and_certify_all_vertices(
     # ----------------------------------------------------------------------
     print("      checking exact edge closure (non-simple safe)...", flush=True)
 
+    # Индекс S -> вершины строится не словарём, а упакованным массивом: при
+    # миллионе вершин словарь кортежей съедает единицы гигабайт, а массив
+    # uint16 -- сотни мегабайт. Упаковка точная (номер фасеты < 65536), так
+    # что группировка по S остаётся ТОЧНОЙ: никакого хеширования и, значит,
+    # никаких коллизий, способных спрятать одиночное ребро.
     active_size_hist: dict[int, int] = {}
-    subset_to_vertices: dict[tuple[int, ...], list[int]] = {}
     vertex_list = list(exact_vertices.values())
 
-    for vertex_id, certificate in enumerate(vertex_list):
-        active = certificate.active_facets
-        active_size_hist[len(active)] = active_size_hist.get(len(active), 0) + 1
-        for subset in itertools.combinations(active, N - 1):
-            subset_to_vertices.setdefault(tuple(subset), []).append(vertex_id)
+    total_subsets = 0
+    for certificate in vertex_list:
+        size = len(certificate.active_facets)
+        active_size_hist[size] = active_size_hist.get(size, 0) + 1
+        total_subsets += math.comb(size, N - 1)
 
+    if max(f for c in vertex_list for f in c.active_facets) >= 2**16:
+        raise RuntimeError("номер фасеты не влезает в uint16; упаковка неприменима")
+
+    keys = np.empty((total_subsets, N - 1), dtype=np.uint16)
+    owners = np.empty(total_subsets, dtype=np.int64)
+    position = 0
+    for vertex_id, certificate in enumerate(vertex_list):
+        for subset in itertools.combinations(certificate.active_facets, N - 1):
+            keys[position] = subset
+            owners[position] = vertex_id
+            position += 1
+    assert position == total_subsets
+
+    # группировка по строкам: сортируем лексикографически и режем на равные блоки
+    order = np.lexsort(keys.T[::-1])
+    keys, owners = keys[order], owners[order]
+    boundary = np.empty(len(keys), dtype=bool)
+    boundary[0] = True
+    if len(keys) > 1:
+        np.not_equal(keys[1:], keys[:-1]).any(axis=1, out=boundary[1:])
+    starts = np.flatnonzero(boundary)
+    counts = np.diff(np.append(starts, len(keys)))
+
+    n_subset_keys = len(starts)
+    singleton_positions = starts[counts == 1]
     singleton_subsets = [
-        (subset, ids[0])
-        for subset, ids in subset_to_vertices.items()
-        if len(ids) == 1
+        (tuple(int(x) for x in keys[position]), int(owners[position]))
+        for position in singleton_positions
     ]
 
     # Для простой вершины (ровно N активных независимых фасет) каждое
@@ -1003,13 +1031,12 @@ def build_and_certify_all_vertices(
     # при rank<N-1 такая пара может дать лишний кандидат, поэтому это число
     # называется edge_pair_candidates, а не exact edge count.
     edge_pair_candidates: set[tuple[int, int]] = set()
-    for ids in subset_to_vertices.values():
-        if len(ids) == 2:
-            a_id, b_id = sorted(ids)
-            edge_pair_candidates.add((a_id, b_id))
+    for start, count in zip(starts[counts == 2], counts[counts == 2]):
+        a_id, b_id = sorted(int(x) for x in owners[start:start + count])
+        edge_pair_candidates.add((a_id, b_id))
 
     print(
-        f"      edge closure exact: OK; subset keys={len(subset_to_vertices)}, "
+        f"      edge closure exact: OK; subset keys={n_subset_keys}, "
         f"singleton keys={len(singleton_subsets)}",
         flush=True,
     )
@@ -1331,7 +1358,8 @@ def verify(ell: Fr = DEFAULT_ELL, json_path: Path | None = None) -> dict:
         raise ValueError("ell must satisfy ell >= 1")
 
     print("=" * 78, flush=True)
-    print("EXACT VERIFIER: rational R^7 lattice, index 1029", flush=True)
+    print(f"EXACT VERIFIER: rational R^{N} lattice, index {EXPECTED_INDEX}",
+          flush=True)
     print("=" * 78, flush=True)
 
     # ----------------------------------------------------------------------
