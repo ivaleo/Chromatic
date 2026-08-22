@@ -116,9 +116,25 @@ SUBLATTICE_COLUMNS = [
 
 EXPECTED_INDEX = 1029
 
+# Необязательная АПРИОРНАЯ граница нормы Voronoi-relevant вектора, в единицах
+# INTEGER_GRAM (то есть Q-норма, умноженная на DENOMINATOR). Если она задана,
+# перебор идёт только до неё.
+#
+# Обоснование: у релевантного вектора середина v/2 лежит на границе ячейки,
+# поэтому |v/2| <= R и |v|^2 <= 4R^2. Любая строгая верхняя оценка R годится
+# (например, лемма P1 для ламинирования: diam^2 <= 4 R_base^2 + t^2). Класс
+# чётности, не встретившийся в этом окне, релевантного вектора не даёт: его
+# кратчайший представитель длиннее 4R^2, а релевантный обязан быть кратчайшим
+# в своём классе.
+#
+# Без неё используется граница max_{s in {0,1}^n} Q(s,s), полная, но у
+# неприведённого базиса катастрофически завышенная: в R^9 она давала бы
+# ~1.2e10 векторов вместо нескольких тысяч.
+RELEVANT_NORM_BOUND: int | None = None
+
 
 def configure(*, n: int, denominator: int, integer_gram, sublattice_columns,
-              expected_index: int) -> None:
+              expected_index: int, relevant_norm_bound: int | None = None) -> None:
     """Перенастроить верификатор на другую рациональную решётку.
 
     Все процедуры читают данные из глобалей модуля в момент вызова, поэтому
@@ -135,6 +151,9 @@ def configure(*, n: int, denominator: int, integer_gram, sublattice_columns,
     INTEGER_GRAM = [[int(x) for x in row] for row in integer_gram]
     SUBLATTICE_COLUMNS = [[int(x) for x in col] for col in sublattice_columns]
     EXPECTED_INDEX = int(expected_index)
+    global RELEVANT_NORM_BOUND
+    RELEVANT_NORM_BOUND = (None if relevant_norm_bound is None
+                           else int(relevant_norm_bound))
 
 # По умолчанию проверяем закрытый интервал [1, 1.03].
 # Само d^2 вычисляется независимо от этого ell.
@@ -495,11 +514,12 @@ def exact_relevant_vectors() -> tuple[list[tuple[int, ...]], dict]:
     для 1323 здесь это не считается ошибкой.
     """
     parity_seeds = list(itertools.product((0, 1), repeat=N))
-    global_upper = max(
+    seed_upper = max(
         qdot_int(seed, seed)
         for seed in parity_seeds
         if any(seed)
     )
+    global_upper = seed_upper if RELEVANT_NORM_BOUND is None else RELEVANT_NORM_BOUND
 
     vectors = enumerate_quadratic_form_exact(INTEGER_GRAM, global_upper)
 
@@ -519,10 +539,15 @@ def exact_relevant_vectors() -> tuple[list[tuple[int, ...]], dict]:
             minimizers[parity].append(vector)
 
     expected_classes = 2**N - 1
-    if len(best_norm) != expected_classes:
-        raise RuntimeError(
-            f"parity coverage failed: {len(best_norm)} of {expected_classes}"
-        )
+    if RELEVANT_NORM_BOUND is None:
+        # граница по {0,1}-представителям накрывает КАЖДЫЙ класс, поэтому
+        # непокрытый класс здесь означал бы ошибку перебора
+        if len(best_norm) != expected_classes:
+            raise RuntimeError(
+                f"parity coverage failed: {len(best_norm)} of {expected_classes}"
+            )
+    elif len(best_norm) > expected_classes:
+        raise RuntimeError("parity classes overflow")
 
     relevant: list[tuple[int, ...]] = []
     non_relevant_classes: list[dict] = []
@@ -543,8 +568,11 @@ def exact_relevant_vectors() -> tuple[list[tuple[int, ...]], dict]:
 
     stats = {
         "global_upper_integer": global_upper,
+        "seed_upper_integer": seed_upper,
+        "a_priori_norm_bound": RELEVANT_NORM_BOUND,
         "parent_vectors_enumerated": len(vectors),
         "parity_classes": len(best_norm),
+        "parity_classes_absent": expected_classes - len(best_norm),
         "non_relevant_parity_classes": non_relevant_classes,
     }
     return sorted(set(relevant)), stats
