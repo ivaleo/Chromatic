@@ -6,14 +6,20 @@
 
 ```
 New upper bounds for the chromatic numbers of Euclidean spaces:
-chi(R^4) <= 45, chi(R^5) <= 132, chi(R^7) <= 1323, chi(R^9) <= 9604, chi(R^10) <= 45619
+chi(R^4) <= 45, chi(R^5) <= 132, chi(R^7) <= 1029, chi(R^9) <= 9604, chi(R^10) <= 45619
 ```
 
 ## Authors
 
 ```
-Leonid L. Ivanov
+Leonid L. Ivanov, Nadezhda Glushkova
 ```
+
+Порядок — по вкладу (решение от 22.08.2026), не алфавитный; см.
+`CONTRIBUTIONS.md`.
+
+**Не заполнено:** e-mail и аффилиация второго автора — нужны для формы подачи
+(в `chi4-45.tex` на месте сноски стоит TODO).
 
 ## Abstract
 
@@ -26,21 +32,21 @@ A coloring of Euclidean space is proper for the forbidden distance segment
 minimum number of colors is denoted chi(R^n,[1,l]), and l=1 recovers the
 classical chromatic number chi(R^n) of the Nelson--Hadwiger problem. We lower
 the known upper bounds in five dimensions: chi(R^4) <= 45, chi(R^5) <= 132,
-chi(R^7) <= 1323, chi(R^9) <= 9604, chi(R^10) <= 45619, against the previously
+chi(R^7) <= 1029, chi(R^9) <= 9604, chi(R^10) <= 45619, against the previously
 known 49, 140, 1372, 17253, and 3^10 = 59049; each of the five is proven, by a
 theorem or by an exact rational certificate. A piecewise diameter certificate
-verified in floating point gives in addition chi(R^7) <= 1029,
-chi(R^9) <= 7203 and chi(R^10) <= 28812; these three are numerical, not
-proven, and stay out of the title. In particular, this refutes the expectation
+verified in floating point gives in addition chi(R^9) <= 7203 and
+chi(R^10) <= 28812; these two are numerical, not proven, and stay out of the
+title. In particular, this refutes the expectation
 of Arman, Bondarenko, Prymak, and Radchenko that 49 and 140 are optimal among
 lattice colorings of R^4 and R^5. Four independent mechanisms drive the
 improvements: (i) lattices in general position, found by optimizing the metric
 itself, give 45, 132, and 1323, all verified in exact rational arithmetic;
 (ii) lamination --- lifting a coloring of R^{n-1} in layers --- with a
 piecewise certificate of the diameter yields the chains 17253 -> 9604 -> 7203
-in R^9 and 1372 -> 1323 -> 1029 in R^7; (iii) a planar theorem
-D((3+w)L) >= sqrt(7/3) lambda_1 makes the width for chi(R^24) <= 7^12
-rigorous; (iv) a product calculus of widths reduces admissibility of an
+in R^9 and 1372 -> 1323 -> 1029 in R^7, the last step certified exactly;
+(iii) the Eisenstein identity D((3+w)L) = sqrt(7/3) lambda_1, proved here for
+every Eisenstein lattice, gives the exact width for chi(R^24) <= 7^12; (iv) a product calculus of widths reduces admissibility of an
 orthogonal product to the single inequality sum_i 1/d_i^2 <= 1, giving
 chi(R^10) <= 2401*19 = 45619 and chi(R^9) <= 2401*4 = 9604. Two rigorous index
 screens (Minkowski-volume and inradius) trace the limits of the method;
@@ -69,12 +75,12 @@ one. All code, exact certificates, and data are open.
 ## Comments
 
 ```
-55 pages, 9 figures, in Russian with an extended English summary.
+58 pages, 9 figures, in Russian with an extended English summary.
 Code, exact certificates and data: https://github.com/ivaleo/Chromatic
 ```
 
-(55 страниц подтверждены сборкой от 20.08.2026 — версия с разделением
-заголовочных оценок по статусам и точным максимумом семейства G(α) в ℝ³)
+(58 страниц подтверждены сборкой от 22.08.2026 — версия с доказанным
+тождеством (10) и точным сертификатом chi(R^7) <= 1029)
 
 ## License
 
@@ -84,6 +90,9 @@ Code, exact certificates and data: https://github.com/ivaleo/Chromatic
 
 ## Чек-лист подачи
 
+0. **Второй автор.** Получить e-mail и аффилиацию Н. Глушковой, вписать в
+   `\author{}` статьи и в поле Authors формы. Подающий автор — Л.Л. Иванов;
+   второму автору arXiv пришлёт уведомление об авторстве на указанный адрес.
 1. Аккаунт arXiv: leo.ivanov@gmail.com (зарегистрирован 17.08.2026,
    Unaffiliated, group math).
    Default category аккаунта — math.CO; для подачи с primary math.MG менять

@@ -280,29 +280,38 @@ def test_eisenstein_identity_is_a_theorem():
     assert data["hurwitz_24cell_vertices"]["holds"] is True
 
 
-def test_eisenstein_proof_attribution_is_recorded():
-    """Авторство prop:eisup не должно потеряться, пока его нет в статье.
+def test_coauthor_contributions_are_recorded():
+    """Вклад Н. Глушковой учтён и в статье, и в отдельном журнале.
 
-    По решению автора (21.08.2026) атрибуция Н. Глушковой временно убрана из
-    текста статьи — вопрос о соавторстве решается перед подачей на arXiv.
-    Значит, единственная запись живёт в журнале ревью и в хронике; тест
-    следит, чтобы её не вычистили заодно, и чтобы статья тем временем не
-    приписывала доказательство автору явным образом.
+    22.08.2026 она перешла из внешних рецензентов в соавторы, поэтому
+    внутритекстовые атрибуции убраны (соавторам результаты поимённо не
+    приписывают), а их место занял раздел «Вклад авторов» плюс постатейный
+    CONTRIBUTIONS.md. Тест следит, чтобы ни один из двух не потерялся и чтобы
+    в них были перечислены все четыре её вклада.
     """
-    notes = (ROOT / "journal" / "REVIEW-notes-v6.md").read_text()
-    assert "Глушков" in notes and "prop:eisup" in notes, \
-        "запись об авторстве prop:eisup исчезла из journal/REVIEW-notes-v6.md"
-    assert "соавторств" in notes, "в журнале нет пометки о нерешённом соавторстве"
-    assert "Глушков" in RESULTS and "prop:eisup" in RESULTS, \
-        "запись об авторстве prop:eisup исчезла из RESULTS.md"
+    main = (ROOT / "paper" / "chi4-45.tex").read_text()
+    origin = (ROOT / "paper" / "origin-and-ai.tex").read_text()
+    ledger = (ROOT / "CONTRIBUTIONS.md").read_text()
 
-    # в статье атрибуции нет — но и присвоения тоже
-    for name in ("extra.tex", "intro.tex", "summary-en.tex"):
-        text = SECTIONS[name]
-        assert "Глушков" not in text and "Glushkova" not in text, \
-            f"атрибуция вернулась в {name} — сверьтесь с решением по соавторству"
-    paper = (ROOT / "paper" / "chi4-45.tex").read_text()
-    assert r"\ref{prop:eisup}" not in paper, "атрибуция вернулась в благодарности"
+    # титул: оба автора, порядок по вкладу
+    assert r"\author{" in main and "Глушкова" in main, "второй автор пропал с титула"
+    assert main.index("Иванов") < main.index("Глушкова"), (
+        "порядок авторов — по вкладу (Иванов, Глушкова)")
+
+    # раздел «Вклад авторов» и его содержимое
+    assert r"\label{ssec:contrib}" in origin, "нет раздела «Вклад авторов»"
+    for anchor in (r"\ref{prop:eisup}", r"\ref{thm:r7ex}", "alpha^*"):
+        assert anchor in origin, f"вклад {anchor} не назван в разделе о вкладе"
+    assert "CONTRIBUTIONS.md" in origin, "статья не ссылается на журнал вкладов"
+
+    # журнал вкладов: четыре строки с датами, коммитами и проверкой
+    for commit in ("8e8bec8", "3dc50c4", "07c6bca", "0db81e7"):
+        assert commit in ledger, f"вклад с коммитом {commit} не занесён"
+    assert "Проверка" in ledger, "в журнале нет колонки проверки"
+
+    # благодарностей за то, что теперь авторство, быть не должно
+    assert "Автор благодарит Надежду Глушкову" not in main, (
+        "она соавтор — благодарность за собственный вклад некорректна")
 
 
 def test_paper_artifact_paths_exist():
