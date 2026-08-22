@@ -116,6 +116,26 @@ SUBLATTICE_COLUMNS = [
 
 EXPECTED_INDEX = 1029
 
+
+def configure(*, n: int, denominator: int, integer_gram, sublattice_columns,
+              expected_index: int) -> None:
+    """Перенастроить верификатор на другую рациональную решётку.
+
+    Все процедуры читают данные из глобалей модуля в момент вызова, поэтому
+    достаточно их переприсвоить. Нужно, чтобы тот же самый -- уже проверенный --
+    код можно было натравить на другую размерность, не копируя его.
+    """
+    global N, DENOMINATOR, INTEGER_GRAM, SUBLATTICE_COLUMNS, EXPECTED_INDEX
+    if len(integer_gram) != n or any(len(row) != n for row in integer_gram):
+        raise ValueError("матрица Грама не согласована с размерностью")
+    if len(sublattice_columns) != n or any(len(col) != n for col in sublattice_columns):
+        raise ValueError("матрица подрешётки не согласована с размерностью")
+    N = int(n)
+    DENOMINATOR = int(denominator)
+    INTEGER_GRAM = [[int(x) for x in row] for row in integer_gram]
+    SUBLATTICE_COLUMNS = [[int(x) for x in col] for col in sublattice_columns]
+    EXPECTED_INDEX = int(expected_index)
+
 # По умолчанию проверяем закрытый интервал [1, 1.03].
 # Само d^2 вычисляется независимо от этого ell.
 DEFAULT_ELL = Fr(103, 100)

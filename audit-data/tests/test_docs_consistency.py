@@ -12,6 +12,8 @@ import re
 from fractions import Fraction
 from pathlib import Path
 
+import numpy as np
+
 ROOT = Path(__file__).resolve().parents[2]
 RESULTS_DIR = Path(__file__).resolve().parents[1] / "results"
 
@@ -196,6 +198,39 @@ def test_coulson_improved_colouring_is_alpha_4_13():
         assert token in intervals, f"нет {token} в intervals.tex"
     assert "вместо единственного" not in intervals
     assert "4/13" in README and "4/13" in RESULTS
+
+
+def test_dim9_7203_exact_data_is_consistent():
+    """Данные заготовки для R^9: подрешётка индекса 7203, Грам мелкий и PD.
+
+    Кампания результата ещё не заявляет (7203 остаётся [Ч]) — тест следит за
+    входными данными, чтобы заготовка не протухла: индекс, положительная
+    определённость и, главное, малость целых. Малость не косметика: именно она
+    делает арифметическую часть в R^9 дешевле, чем в R^7, и от неё зависит
+    осмысленность всей затеи.
+    """
+    from chromatic_research.campaigns import dim9_7203_exact as C
+
+    assert C.N == 9 and C.EXPECTED_INDEX == 7203
+    gram = np.array(C.INTEGER_GRAM, dtype=float)
+    assert np.allclose(gram, gram.T), "матрица Грама несимметрична"
+    assert np.linalg.eigvalsh(gram).min() > 0, "матрица Грама не положительно определена"
+    columns = np.array(C.SUBLATTICE_COLUMNS, dtype=float)
+    assert round(abs(float(np.linalg.det(columns)))) == 7203, "индекс подрешётки не 7203"
+
+    biggest = max(abs(x) for row in C.INTEGER_GRAM for x in row)
+    assert C.DENOMINATOR <= 100 and biggest <= 1000, (
+        "рационализация огрубляется в координатах базы; крупные целые здесь "
+        "означают, что кто-то вернулся к округлению декартова сдвига")
+
+    # заявки о результате быть не должно, пока перечисление не доведено:
+    # 7203 остаётся [Ч], в заголовке его нет
+    main = (ROOT / "paper" / "chi4-45.tex").read_text()
+    title = main[main.index(r"\title{"):main.index(r"\author{")]
+    assert "7203" not in title, "7203 попало в заголовок раньше времени"
+    assert r"\stN" in SECTIONS["summary-en.tex"] and "7203" in SECTIONS["summary-en.tex"]
+    assert "dim9_7203_exact.json" not in {p.name for p in RESULTS_DIR.iterdir()}, (
+        "появился артефакт сертификата — значит пора менять статус 7203")
 
 
 def test_dim7_1029_exact_certificate():
