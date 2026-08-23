@@ -8,7 +8,7 @@ help:
 	@echo "test     — все тесты монорепо (ожидается 199 passed)"
 	@echo "lint     — ruff по коду"
 	@echo "figures  — пересобрать рисунки статьи из данных"
-	@echo "paper    — собрать paper/chi4-45.pdf"
+	@echo "paper    — собрать paper/chi4-43.pdf"
 	@echo "clean    — убрать артефакты сборки (кроме .venv)"
 
 install:
@@ -28,9 +28,9 @@ figures:
 	$(PY) paper/figures.py
 
 paper:
-	cd paper && latexmk -pdf chi4-45.tex
+	cd paper && latexmk -pdf chi4-43.tex
 
 clean:
 	find . -name __pycache__ -type d -prune -exec rm -rf {} +
 	rm -rf .pytest_cache */.pytest_cache combigeo/build
-	cd paper && latexmk -c chi4-45.tex || true
+	cd paper && latexmk -c chi4-43.tex || true

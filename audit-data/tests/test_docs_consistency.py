@@ -77,8 +77,8 @@ def test_intro_headline_carries_only_proven_bounds():
     явной меткой. С 22.08.2026 сюда входит 1029: его сертификат стал точным
     (thm:r7ex), и он сменил 1323 в заголовке.
     """
-    MAIN = (ROOT / "paper" / "chi4-45.tex").read_text()
-    proven = ("45", "132", "1029", "9604", "45619")
+    MAIN = (ROOT / "paper" / "chi4-43.tex").read_text()
+    proven = ("43", "132", "1029", "9604", "45619")
     numeric = ("7203", "28812")
     # таблица §1.2: полужирным — доказанные, численные без \mathbf
     for k in proven:
@@ -225,7 +225,7 @@ def test_dim9_7203_exact_data_is_consistent():
 
     # заявки о результате быть не должно, пока перечисление не доведено:
     # 7203 остаётся [Ч], в заголовке его нет
-    main = (ROOT / "paper" / "chi4-45.tex").read_text()
+    main = (ROOT / "paper" / "chi4-43.tex").read_text()
     title = main[main.index(r"\title{"):main.index(r"\author{")]
     assert "7203" not in title, "7203 попало в заголовок раньше времени"
     assert r"\stN" in SECTIONS["summary-en.tex"] and "7203" in SECTIONS["summary-en.tex"]
@@ -267,7 +267,7 @@ def test_dim7_1029_exact_certificate():
     assert r"\label{thm:r7ex}" in SECTIONS["dim9-12.tex"]
     assert str(d2.numerator) in SECTIONS["extra.tex"], (
         "точная дробь d^2 должна стоять в таблице ширин")
-    main = (ROOT / "paper" / "chi4-45.tex").read_text()
+    main = (ROOT / "paper" / "chi4-43.tex").read_text()
     assert r"\chi(\R^7)\le1029" in main, "1029 не попало в заголовок/аннотацию"
     assert "1,032881" not in SECTIONS["dim9-12.tex"], (
         "старое завышенное число ширины (по измеренному диаметру) вернулось")
@@ -324,7 +324,7 @@ def test_coauthor_contributions_are_recorded():
     CONTRIBUTIONS.md. Тест следит, чтобы ни один из двух не потерялся и чтобы
     в них были перечислены все четыре её вклада.
     """
-    main = (ROOT / "paper" / "chi4-45.tex").read_text()
+    main = (ROOT / "paper" / "chi4-43.tex").read_text()
     origin = (ROOT / "paper" / "origin-and-ai.tex").read_text()
     ledger = (ROOT / "CONTRIBUTIONS.md").read_text()
 
@@ -368,3 +368,51 @@ def test_paper_artifact_paths_exist():
             if not (ROOT / "audit-data" / rel).exists():
                 missing.append(f"{name}: audit-data/{rel}")
     assert not missing, "битые ссылки на артефакты:\n  " + "\n  ".join(missing)
+
+
+def test_dim4_43_record_is_consistent():
+    """χ(R^4) <= 43: сертификат, независимая перепроверка и документы согласованы.
+
+    23.08.2026 рекорд в R^4 опустился с 45 до 43 на эйзенштейновой решётке.
+    Тест закрепляет три вещи: (1) точный сертификат и независимый пересчёт
+    дают одну и ту же ширину; (2) заголовочное число доказано, а не численно;
+    (3) вывод прежней кампании «45 — предел метода» из документов убран.
+    """
+    ver = json.loads((RESULTS_DIR / "dim4_k43_verify.json").read_text())
+    cert = json.loads((RESULTS_DIR / "cert43_eisenstein.json").read_text())
+
+    assert ver["index"] == 43 and ver["n_vertices"] == 120
+    assert ver["n_relevant_pairs"] == 15, "ячейка обязана иметь 30 фасет"
+    assert ver["volume_ok"], "объём ячейки не совпал с det(Lambda)"
+    d2 = Fraction(ver["d2"])
+    assert d2 > 1, "раскраска не пригодна"
+    # сертификат опорным методом не сильнее точного пересчёта и не слабее порога
+    l0 = Fraction(cert["l0"])
+    assert cert["ok"] and l0 == Fraction(100411, 100000)
+    assert Fraction(cert["Ddown2"]) <= Fraction(ver["D2"]), (
+        "опорная оценка снизу оказалась больше точного значения")
+    assert Fraction(cert["diamup2"]) == Fraction(ver["diam2"])
+    assert d2 >= l0 * l0, "заявленная ширина не подтверждается точной дробью"
+
+    # ширина в документах
+    d5 = f"{float(d2) ** 0.5:.5f}"          # 1.00411
+    assert "43" in README and d5 in README
+    assert d5.replace(".", "{,}") in SECTIONS["main.tex"]
+    assert r"\label{thm:main43}" in SECTIONS["main.tex"]
+
+    # прежние формулировки «спуск ниже 45 не пробит» должны исчезнуть
+    assert "минимальности~$45$" not in SECTIONS["main.tex"]
+    assert "спуск ниже\n$45$ не удался" not in SECTIONS["open.tex"]
+    assert "«ниже 45»" not in README and "ниже 45" not in RESULTS
+
+
+def test_symmetry_screens_below_43_are_recorded():
+    """Экраны при k <= 42: симметричные семейства с исчерпывающим перебором."""
+    screen = json.loads((RESULTS_DIR / "dim4_below43_screen.json").read_text())
+    for family, rows in screen["families"].items():
+        for k, row in rows.items():
+            if int(k) <= 42:
+                assert not row["admissible"], (
+                    f"{family}: k={k} внезапно пригоден — заголовок устарел")
+    # 43 = N(7+w) — норма только в Z[w]; в гауссовом семействе такого индекса нет
+    assert screen["families"]["eisenstein"]["43"]["d"] >= 1.0

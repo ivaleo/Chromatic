@@ -6,7 +6,7 @@
 
 ```
 New upper bounds for the chromatic numbers of Euclidean spaces:
-chi(R^4) <= 45, chi(R^5) <= 132, chi(R^7) <= 1029, chi(R^9) <= 9604, chi(R^10) <= 45619
+chi(R^4) <= 43, chi(R^5) <= 132, chi(R^7) <= 1029, chi(R^9) <= 9604, chi(R^10) <= 45619
 ```
 
 ## Authors
@@ -19,7 +19,7 @@ Leonid L. Ivanov, Nadezhda Glushkova
 `CONTRIBUTIONS.md`.
 
 **Не заполнено:** e-mail и аффилиация второго автора — нужны для формы подачи
-(в `chi4-45.tex` на месте сноски стоит TODO).
+(в `chi4-43.tex` на месте сноски стоит TODO).
 
 ## Abstract
 
@@ -31,7 +31,7 @@ A coloring of Euclidean space is proper for the forbidden distance segment
 [1,l] if no two points of the same color realize a distance in [1,l]; the
 minimum number of colors is denoted chi(R^n,[1,l]), and l=1 recovers the
 classical chromatic number chi(R^n) of the Nelson--Hadwiger problem. We lower
-the known upper bounds in five dimensions: chi(R^4) <= 45, chi(R^5) <= 132,
+the known upper bounds in five dimensions: chi(R^4) <= 43, chi(R^5) <= 132,
 chi(R^7) <= 1029, chi(R^9) <= 9604, chi(R^10) <= 45619, against the previously
 known 49, 140, 1372, 17253, and 3^10 = 59049; each of the five is proven, by a
 theorem or by an exact rational certificate. A piecewise diameter certificate
@@ -42,6 +42,9 @@ of Arman, Bondarenko, Prymak, and Radchenko that 49 and 140 are optimal among
 lattice colorings of R^4 and R^5. Four independent mechanisms drive the
 improvements: (i) lattices in general position, found by optimizing the metric
 itself, give 45, 132, and 1323, all verified in exact rational arithmetic;
+symmetry-restricted search over lattices with a prescribed finite automorphism
+cuts the space of quaternary forms to three parameters and yields the record 43
+colors on an Eisenstein lattice;
 (ii) lamination --- lifting a coloring of R^{n-1} in layers --- with a
 piecewise certificate of the diameter yields the chains 17253 -> 9604 -> 7203
 in R^9 and 1372 -> 1323 -> 1029 in R^7, the last step certified exactly;
@@ -75,11 +78,11 @@ one. All code, exact certificates, and data are open.
 ## Comments
 
 ```
-58 pages, 9 figures, in Russian with an extended English summary.
+63 pages, 9 figures, in Russian with an extended English summary.
 Code, exact certificates and data: https://github.com/ivaleo/Chromatic
 ```
 
-(58 страниц подтверждены сборкой от 22.08.2026 — версия с доказанным
+(63 страницы подтверждены сборкой от 23.08.2026 — версия с доказанным
 тождеством (10) и точным сертификатом chi(R^7) <= 1029)
 
 ## License
@@ -105,9 +108,9 @@ Code, exact certificates and data: https://github.com/ivaleo/Chromatic
    первой публикации их можно связать с профилем только через arXiv Author ID
    (ORCID), если статьи там появятся.
 3. Репозиторий GitHub должен быть публичным ДО отправки (ссылка в статье).
-4. Тарболл собран: `chi4-45.tex`, `origin-and-ai.tex`, `sections/*.tex`
+4. Тарболл собран: `chi4-43.tex`, `origin-and-ai.tex`, `sections/*.tex`
    (13 файлов), 9 × `fig_*.pdf`, без вспомогательных файлов; контрольная
-   сборка в чистом каталоге воспроизводит те же 55 страниц без предупреждений.
+   сборка в чистом каталоге воспроизводит те же 63 страницы без предупреждений.
 5. После загрузки сверить PDF, собранный arXiv, с локальным постранично.
 6. Не-английская статья может уйти на модерацию (1–3 дня) — это штатно.
 7. После анонса: вписать arXiv ID в README/RESULTS отдельным коммитом.
