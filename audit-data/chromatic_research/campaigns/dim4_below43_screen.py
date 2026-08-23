@@ -36,6 +36,9 @@ FAMILIES = {
     "gauss": (gauss_gram, math.sqrt(2.0), 0.5, math.pi / 2),
 }
 A_MIN = 0.40
+COND_MAX = 60.0     # отсечка вырожденных форм: на них GJK внутри find_optimal
+                    # бросает исключение из рабочего потока C++, а такое
+                    # исключение убивает процесс целиком, а не ловится питоном
 
 
 def lattice(family, a, rho, th):
@@ -47,9 +50,19 @@ def lattice(family, a, rho, th):
     if b < a - 1e-12:
         return None
     try:
-        return np.linalg.cholesky(gram(a, b, c))
+        B = np.linalg.cholesky(gram(a, b, c))
     except np.linalg.LinAlgError:
         return None
+    ev = np.linalg.eigvalsh(B @ B.T)
+    if ev.min() <= 1e-9 or ev.max() / ev.min() > COND_MAX:
+        return None
+    try:                                   # ячейка строится в главном потоке
+        cell = combigeo.voronoi_cell(B.tolist())
+    except RuntimeError:
+        return None
+    if len(cell.facets) < 8 or not np.isfinite(cell.diameter) or cell.diameter <= 0:
+        return None
+    return B
 
 
 def d_range(B, lo, hi):
