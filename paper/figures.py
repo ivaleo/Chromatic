@@ -97,6 +97,11 @@ for extra in ("n7_push44.json", "n10_push44.json"):
 cma_at = dict(best_at)                       # кампания 2026-07 по общим формам
 # кампания 23.08.2026: симметрийное сужение (эйзенштейново и гауссово семейства,
 # исчерпывающий перебор подрешёток) — рекорд k=43 и экраны при k<=42
+try:                                  # поиск по всем формам с посевом (23.08)
+    for k, row in json.load(open(f"{DATA}/dim4_below43_general.json"))["results"].items():
+        best_at[int(k)] = max(best_at.get(int(k), 0.0), row["d"])
+except FileNotFoundError:
+    pass
 for src, key in (("dim4_below43_screen.json", "families"),
                  ("dim4_symmetry_atlas.json", "atlas")):
     try:
