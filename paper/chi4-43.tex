@@ -51,10 +51,10 @@
 
 \title{\bfseries Новые верхние оценки хроматических чисел
 евклидовых пространств\\[2pt]
-\large $\chi(\R^4)\le45$,\; $\chi(\R^5)\le132$,\; $\chi(\R^7)\le1029$,\;
+\large $\chi(\R^4)\le43$,\; $\chi(\R^5)\le132$,\; $\chi(\R^7)\le1029$,\;
 $\chi(\R^9)\le9604$,\; $\chi(\R^{10})\le45619$\\[4pt]
-\normalsize\mdseries решётки общего положения, ламинирование,
-продуктовое исчисление ширин%
+\normalsize\mdseries эйзенштейновы и общего положения решётки,
+ламинирование, продуктовое исчисление ширин%
 \thanks{Все вычислительные скрипты, точные сертификаты и промежуточные данные
 открыты в репозитории проекта \url{https://github.com/ivaleo/Chromatic}
 (лицензия MIT; пакеты \texttt{voronoi4d} и \texttt{combigeo}, каталог
@@ -79,7 +79,7 @@ $\chi\bigl(\R^n,[1,\ell]\bigr)$, а при $\ell=1$ --- это классиче�
 
 Работа понижает верхнюю оценку в пяти размерностях:
 \[
-\chi(\R^4)\le45,\quad \chi(\R^5)\le132,\quad \chi(\R^7)\le1029,\quad
+\chi(\R^4)\le43,\quad \chi(\R^5)\le132,\quad \chi(\R^7)\le1029,\quad
 \chi(\R^9)\le9604,\quad \chi(\R^{10})\le45619,
 \]
 против известных $49$, $140$, $1372$, $17253$ и $3^{10}=59049$. Каждая из этих
@@ -92,10 +92,15 @@ $\chi(\R^{10})\le28812$ --- это результаты со статусом \s
 опровергается ожидание Армана, Бондаренко, Прымака и Радченко, что $49$ и $140$
 --- минимумы среди всех решёточных раскрасок $\R^4$ и $\R^5$.
 
-Улучшения дают четыре независимых механизма. \emph{Решётки общего положения},
+Улучшения дают пять независимых механизмов. \emph{Решётки общего положения},
 найденные оптимизацией самой метрики, выводят за пределы классических $D_4$,
 $A_4^*$, $A_5^*$, $E_7^*$ и дают $45$, $132$ и $1323$; ключевые неравенства
-доказаны в точной рациональной арифметике. \emph{Ламинирование} --- подъём
+доказаны в точной рациональной арифметике. \emph{Симметрийное сужение поиска}
+--- ограничение на решётки с заданным конечным автоморфизмом --- сокращает
+пространство форм в $\R^4$ с девяти существенных параметров до трёх и
+даёт рекордные $43$ цвета на \emph{эйзенштейновой} решётке
+($\Z[\omega]$-модуль ранга~2, $\mathrm{Aut}\supseteq\Z/6$), где прежний
+десятипараметрический поиск CMA-ES останавливался на $d=0{,}971$. \emph{Ламинирование} --- подъём
 раскраски $\R^{n-1}$ слоями --- опирается на два однострочных неравенства, а его
 слабое звено, верхнюю границу диаметра, закрывает \emph{кусочный сертификат}: на
 конечном общем измельчении двух сдвинутых разбиений Вороного максимум по высоте
@@ -128,7 +133,7 @@ $\chi(\R^9)\le2401\cdot4=9604$. Слоевое ламинирование --- т
 \begin{otherlanguage}{english}
 \begin{center}
 {\bfseries New upper bounds for the chromatic numbers of Euclidean spaces:\\
-$\chi(\R^4)\le45$, $\chi(\R^5)\le132$, $\chi(\R^7)\le1029$,
+$\chi(\R^4)\le43$, $\chi(\R^5)\le132$, $\chi(\R^7)\le1029$,
 $\chi(\R^9)\le9604$, $\chi(\R^{10})\le45619$}
 \end{center}
 
@@ -138,7 +143,7 @@ $[1,\ell]$ if no two points of the same color realize a distance in
 $[1,\ell]$; the minimum number of colors is denoted
 $\chi(\R^n,[1,\ell])$, and $\ell=1$ recovers the classical chromatic number
 $\chi(\R^n)$ of the Nelson--Hadwiger problem. We lower the known upper bounds
-in five dimensions: $\chi(\R^4)\le45$, $\chi(\R^5)\le132$,
+in five dimensions: $\chi(\R^4)\le43$, $\chi(\R^5)\le132$,
 $\chi(\R^7)\le1029$, $\chi(\R^9)\le9604$, $\chi(\R^{10})\le45619$, against
 the previously known $49$, $140$, $1372$, $17253$, and $3^{10}=59049$; each of
 the five is \emph{proven} --- by a theorem or by an exact rational certificate.
@@ -147,10 +152,15 @@ $\chi(\R^9)\le7203$ and $\chi(\R^{10})\le28812$; these two carry the
 \emph{numerical} status \stN{} and are deliberately kept out of the title. In
 particular, this refutes the expectation of Arman, Bondarenko, Prymak, and
 Radchenko that $49$ and $140$ are optimal among lattice colorings of $\R^4$
-and $\R^5$. Four independent mechanisms drive the improvements:
+and $\R^5$. Five independent mechanisms drive the improvements:
 (i)~\emph{lattices in general position}, found by optimizing the metric
 itself, give $45$, $132$, and $1323$, with all key inequalities verified in
-exact rational arithmetic; (ii)~\emph{lamination} --- lifting a coloring of
+exact rational arithmetic; (i$'$)~\emph{symmetry-restricted search} ---
+optimizing only over lattices admitting a prescribed finite automorphism ---
+cuts the space of quaternary forms from nine essential parameters to three and
+yields the record $43$ colors on an \emph{Eisenstein} lattice (a rank-2
+$\Z[\omega]$-module with $\mathrm{Aut}\supseteq\Z/6$), where the earlier
+ten-parameter CMA-ES search had stalled at $d=0.971$; (ii)~\emph{lamination} --- lifting a coloring of
 $\R^{n-1}$ in layers --- combined with a \emph{piecewise certificate} of the
 diameter yields the chains $17253\to9604\to7203$ in $\R^9$ and
 $1323\to1029$ in $\R^7$, the latter recomputed in exact arithmetic and hence

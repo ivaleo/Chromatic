@@ -94,6 +94,27 @@ for extra in ("n7_push44.json", "n10_push44.json"):
         best_at[44] = max(best_at[44], j.get("k44", j).get("d", 0.0))
     except Exception:
         pass
+cma_at = dict(best_at)                       # кампания 2026-07 по общим формам
+# кампания 23.08.2026: симметрийное сужение (эйзенштейново и гауссово семейства,
+# исчерпывающий перебор подрешёток) — рекорд k=43 и экраны при k<=42
+for src, key in (("dim4_below43_screen.json", "families"),
+                 ("dim4_symmetry_atlas.json", "atlas")):
+    try:
+        blob = json.load(open(f"{DATA}/{src}"))[key]
+    except FileNotFoundError:
+        continue
+    for fam in blob.values():
+        rows = fam.get("best", fam) if isinstance(fam, dict) else {}
+        for k, row in rows.items():
+            if not (isinstance(row, dict) and "d" in row):
+                continue
+            best_at[int(k)] = max(best_at.get(int(k), 0.0), row["d"])
+try:                                  # точный оптимум семейства, если посчитан
+    best_at[43] = max(best_at.get(43, 0.0),
+                      float(json.load(open(f"{DATA}/dim4_k43_optimum.json"))["d"]))
+except FileNotFoundError:
+    pass
+d43 = best_at[43]
 ks = sorted(best_at)
 ds = [best_at[k] for k in ks]
 fig, ax = plt.subplots(figsize=(7.2, 4.3))
@@ -107,24 +128,31 @@ for k, d in zip(ks, ds):
     col = GREEN if d >= 1.0 else RED
     ax.plot([k], [d], "o", color=col, ms=3.6, zorder=5)
 ax.plot(ks, ds, "-", color="gray", lw=0.8, alpha=0.6, zorder=1)
-ax.annotate(r"$k=45$: $d=$" + num(d45) + " (рекорд, сертификат)", (45, d45),
-            (45.4, 1.15), fontsize=9, color=GREEN,
+cks = sorted(cma_at)
+ax.plot(cks, [cma_at[k] for k in cks], ":", color="gray", lw=1.0, alpha=0.9,
+        zorder=1, label="поиск по всем формам (2026-07)")
+ax.annotate(r"$k=43$: $d=$" + num(d43) + " (рекорд, сертификат)", (43, d43),
+            (33.0, 1.15), fontsize=9, color=GREEN,
             arrowprops=dict(arrowstyle="->", color=GREEN))
-ax.annotate(r"$k=48$: $d=$" + num(1.0433), (48, best_at[48]), (49.5, 1.17), fontsize=9, color=GREEN,
+ax.annotate(r"$k=45$: $d=$" + num(d45), (45, d45),
+            (46.0, 1.14), fontsize=9, color=GREEN,
+            arrowprops=dict(arrowstyle="->", color=GREEN))
+ax.annotate(r"$k=48$: $d=$" + num(1.0433), (48, best_at[48]), (49.5, 1.18), fontsize=9, color=GREEN,
             arrowprops=dict(arrowstyle="->", color=GREEN))
 ax.annotate(r"$k=47$: $d=$" + num(best_at[47]) + r"$\,<1$", (47, best_at[47]), (47, 0.93),
             fontsize=9, color=RED, ha="center",
             arrowprops=dict(arrowstyle="->", color=RED))
-ax.annotate(r"$k=44$: $d=$" + num(best_at[44]) + r"$\,<1$", (44, best_at[44]), (37.5, 1.04),
+ax.annotate(r"$k=44$: $d=$" + num(best_at[44]) + r"$\,<1$", (44, best_at[44]), (36.0, 1.05),
             fontsize=9, color=RED,
             arrowprops=dict(arrowstyle="->", color=RED))
+ax.legend(loc="lower right", fontsize=8)
 ax.text(53.3, 1.02, "область пригодных\nраскрасок ($d\\geq1$)", fontsize=8.5, color=GREEN)
 ax.set_xlabel(r"число цветов $k$ (точный индекс подрешётки)")
 ax.set_ylabel(r"наилучшая найденная ширина $d(k)$")
 ax.set_xlim(30.2, 56.5); ax.set_ylim(0.78, 1.22)
 fig.savefig(f"{OUT}/fig_descent.pdf")
 plt.close(fig)
-print("fig_descent.pdf, d(45) =", d45)
+print("fig_descent.pdf, d(43) =", d43, " d(45) =", d45)
 
 # --- Fig 5: закон (3+w): d vs отношение покрытие/упаковка ---
 fig, ax = plt.subplots(figsize=(6.6, 4.2))

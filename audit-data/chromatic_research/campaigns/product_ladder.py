@@ -70,7 +70,9 @@ EISENSTEIN_DIMS = (2, 4, 6, 8, 12, 24)
 
 # results this project has certified; see RESULTS.md
 CERTIFIED = [
-    Entry(4, 45, 1.0, "chi(R^4) <= 45, generic lattice"),
+    Entry(4, 43, 1.004110598, "chi(R^4) <= 43, Eisenstein lattice"),
+    Entry(4, 45, 1.015, "chi(R^4) <= 45, generic lattice (wider)"),
+    Entry(4, 48, 1.0396, "chi(R^4) <= 48, generic lattice (widest)"),
     Entry(5, 132, 1.010897714, "chi(R^5) <= 132"),
     Entry(5, 140, 1.055597, "A5*/140 = sqrt(39/35)"),
     Entry(5, 196, 1.183216, "A5*/196 = sqrt(7/5)"),
