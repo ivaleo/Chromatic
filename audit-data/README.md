@@ -71,7 +71,11 @@ python -m chromatic_research.campaigns.<имя> [аргументы]
   подрешёток), `campaigns/dim4_below43_general.py` (поиск по всем формам с
   посевом из симметричной области), `campaigns/dim4_symmetry_atlas.py`
   (12 классов ℤ[S]-модулей ранга 4), `campaigns/dim4_k43_optimum.py`
-  (алгебраическая модель оптимума: четыре орбиты в связке → три уравнения).
+  (алгебраическая модель оптимума: четыре орбиты в связке → три уравнения),
+  `campaigns/dim4_tiling_below43.py` (мозаичная атака на k = 42: постадийная
+  полировка решёточной точки — веса, затем узлы; улучшения ноль),
+  `campaigns/dim4_glued_focus.py` (прицельный плотный скан одного класса
+  симметрии по одному индексу).
 
 - **Верификация констант ABPR/Иванова:** `verify_a5s.py`, `verify_e6s.py`,
   `verify_e8.py`, `verify2.py` (+ `verify2_results.json`), `sweep.py`
