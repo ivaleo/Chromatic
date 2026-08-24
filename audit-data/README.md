@@ -53,6 +53,11 @@ python -m chromatic_research.campaigns.<имя> [аргументы]
 | `results/dim4_k43_optimum.json` | Оптимум семейства: четыре орбиты в связке, система трёх многочленов, 80 знаков. |
 | `cert48.py` | Генератор `cert48.json`. |
 | `results/metric_deform_e7_1323_certificate.json` | Рациональный сертификат **χ(ℝ⁷) ≤ 1323**; генератор-проверщик — `chromatic_research/campaigns/verify_metric_candidate.py`. |
+| `results/dim7_1029_layer_cert.json` | **Независимая перепроверка χ(ℝ⁷) ≤ 1029** точным слоёным сертификатом: работает в шестимерной базе, семимерную ячейку не строит. 167 кусков (103 доказано пустыми), max φ = 103310189182571717/59047277850000000 < 7/4. Генератор — `campaigns/dim7_1029_layer_cert.py`. |
+| `results/shell_floor.json` | **Оболочечные полы** для A₃*, E₆*, E₈, K₁₂, Λ₂₄: на A₃* и E₈ пол совпал с рекордом (15 и 2401 неулучшаемы). Генератор — `campaigns/shell_floor.py`. |
+| `results/dim6_e6star_floor.json` | Тот же пол для E₆* с **повекторными** свидетелями: 936 точных рациональных точек `x ∈ V₀`, закрывающих оболочку \|v\|² = 8 (запасной, более грубый путь к тому же 305). |
+| `results/dim6_eisenstein_337_screen.json`, `results/dim6_eisenstein_337_calibration.json` | Исчерпывающий перебор всех 227 814 ℤ[ω]-подмодулей индекса 337 в ℝ⁶ и калибровка экрана по простым индексам (порог берётся лишь при 541 против 343 у подобной подрешётки). |
+| `results/dim6_cyclotomic7_337.json` | Закрытое циклотомическое семейство ℤ[ζ₇] при k = 337: max d = 0.8278 по всему двупараметрическому семейству. |
 
 **Зависимости рисунков статьи** (`../paper/figures.py` читает их напрямую):
 `campaign_a.json`, `campaign_c.json`, `n2_4d_frontier.json`, `n5_cascade.json`,
@@ -76,6 +81,21 @@ python -m chromatic_research.campaigns.<имя> [аргументы]
   полировка решёточной точки — веса, затем узлы; улучшения ноль),
   `campaigns/dim4_glued_focus.py` (прицельный плотный скан одного класса
   симметрии по одному индексу).
+
+- **Оболочечный пол и точный слоёный сертификат (24.08.2026):**
+  `core/exact_dd.py` (точное перечисление вершин рационального многогранника,
+  алгоритм двойного описания в дробях), `core/exact_layer_cert.py` (точная
+  верхняя оценка радиуса покрытия ламинированной решётки: мажоранта φ, куски
+  общего измельчения, CEGAR по неравенствам),
+  `campaigns/dim7_1029_layer_cert.py` (независимая перепроверка 1029),
+  `campaigns/shell_floor.py` (полы для пяти классических родителей),
+  `campaigns/dim6_e6star_floor.py` (тот же пол для E₆* повекторными
+  свидетелями), `campaigns/dim6_eisenstein_337.py` и
+  `campaigns/dim6_eisenstein_calibrate.py` (исчерпывающий экран подмодулей и
+  его калибровка), `campaigns/dim6_cyclotomic7_337.py` (циклотомическая ветвь).
+  Тесты: `tests/test_exact_dd.py`, `tests/test_exact_layer_cert.py`,
+  `tests/test_shell_floor.py`, `tests/test_dim6_e6star_floor.py`,
+  `tests/test_dim6_eisenstein_337.py`, `tests/test_dim6_cyclotomic7.py`.
 
 - **Верификация констант ABPR/Иванова:** `verify_a5s.py`, `verify_e6s.py`,
   `verify_e8.py`, `verify2.py` (+ `verify2_results.json`), `sweep.py`
