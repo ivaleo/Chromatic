@@ -1,0 +1,132 @@
+"""Контроли оболочечного пола.
+
+Главное утверждение, которое здесь проверяется: на родителе E₈ пол совпадает с
+рекордом, то есть 2401 оптимален. Доказательство короткое (Коши–Шварц плюс
+целочисленность плюс постоянная Эрмита), поэтому тесты проверяют каждое звено
+отдельно, а не только итоговое число.
+"""
+
+import math
+from fractions import Fraction as Fr
+
+import pytest
+
+from chromatic_research.campaigns.shell_floor import (
+    E8_GRAM,
+    analyse,
+    dot,
+    e6_star_parent,
+    e8_parent,
+    max_inner_product,
+    radial_witness,
+    shells_up_to,
+)
+
+
+@pytest.fixture(scope="module")
+def e8():
+    return e8_parent()
+
+
+def test_e8_gram_is_even_unimodular(e8):
+    """E₈: чётная, det 1, минимум 2."""
+    import numpy as np
+
+    matrix = np.array(E8_GRAM, dtype=float)
+    assert round(np.linalg.det(matrix)) == 1
+    assert all(E8_GRAM[i][i] % 2 == 0 for i in range(8))
+    shells = shells_up_to(e8, Fr(4))
+    assert min(shells) == Fr(2)
+    assert shells[Fr(2)] == 240          # корни E₈
+    assert shells[Fr(4)] == 2160
+    assert all(value.denominator == 1 and value.numerator % 2 == 0
+               for value in shells)
+
+
+def test_e8_window_shells(e8):
+    """Окно [(2R+λ₁)², (2·diam)²] = [11.657, 16]: оболочки 12, 14, 16."""
+    low = (2 * math.sqrt(float(e8.covering_sq))
+           + math.sqrt(float(e8.lambda1_sq))) ** 2
+    assert low == pytest.approx((2 + math.sqrt(2)) ** 2)
+    shells = shells_up_to(e8, 4 * e8.diam_sq)
+    window = [k for k in shells if float(k) >= low - 1e-12]
+    assert window == [Fr(12), Fr(14), Fr(16)]
+    assert shells[Fr(12)] == 60480
+    assert shells[Fr(14)] == 82560
+
+
+def test_cauchy_schwarz_integrality_bound():
+    """⟨v,u⟩ ≤ ⌊√(N·M)⌋ при целых скалярных произведениях."""
+    assert max_inner_product(Fr(12), Fr(2), 1) == Fr(4)     # √24 = 4.899
+    assert max_inner_product(Fr(12), Fr(4), 1) == Fr(6)     # √48 = 6.928
+    # знаменатель 3 (E₆*): √(8·4/3) = 3.266 ⇒ 3
+    assert max_inner_product(Fr(8), Fr(4, 3), 3) == Fr(3)
+
+
+def test_e8_shell_12_witness_is_quarter(e8):
+    """Свидетель для оболочки 12 — ровно v/4, и он даёт D² ≤ 3."""
+    shells = shells_up_to(e8, 4 * e8.diam_sq)
+    witness = radial_witness(e8, Fr(12), shells)
+    assert witness is not None
+    scale, distance_sq, _ = witness
+    assert distance_sq == Fr(3)
+    assert distance_sq < e8.diam_sq
+    # оценка D² = 4(1/2 − s)²·12 при s = 1/4 равна ровно 3
+    assert 4 * (Fr(1, 2) - Fr(1, 4)) ** 2 * 12 == Fr(3)
+    assert scale <= Fr(1, 4)
+
+
+def test_e8_shell_12_witness_verified_directly(e8):
+    """Прямая проверка v/4 ∈ V₀ на выборке векторов оболочки 12."""
+    from chromatic_research.core.exact_layer_cert import enumerate_shifted
+
+    zero = [Fr(0)] * 8
+    small = [u for u in enumerate_shifted(e8.gram, zero, Fr(4)) if any(u)]
+    shell = [v for v in enumerate_shifted(e8.gram, zero, Fr(12))
+             if dot(e8.gram, v, v) == Fr(12)]
+    assert len(shell) == 60480
+    for vector in shell[:60]:
+        quarter = [Fr(c, 4) for c in vector]
+        for u in small:
+            assert dot(e8.gram, quarter, u) <= dot(e8.gram, u, u) / 2
+
+
+def test_e8_shell_14_is_not_forbidden(e8):
+    """Оболочка 14 запрещаться не должна — на ней стоит сам рекорд."""
+    shells = shells_up_to(e8, 4 * e8.diam_sq)
+    assert radial_witness(e8, Fr(14), shells) is None
+
+
+def test_e8_floor_equals_the_record(e8):
+    """Пол 14⁴/16 = 2401 совпадает с рекордом (3+ω)E₈."""
+    assert Fr(14) ** 4 / Fr(16) == Fr(2401)
+    report = analyse(e8)
+    assert report["first_allowed_shell"] == "14"
+    assert report["index_floor"] == 2401
+    assert report["record_is_optimal"] is True
+
+
+def test_champion_attains_the_bound():
+    """(3+ω)E₈: индекс N(3+ω)⁴ = 7⁴ и λ₁² = 7·2 = 14 — равенство в Эрмите."""
+    assert 7 ** 4 == 2401
+    assert 7 * 2 == 14
+    # равенство возможно лишь потому, что Γ подобна E₈, а E₈ достигает γ₈ = 2
+    assert Fr(14) ** 4 / Fr(16) == 7 ** 4
+
+
+def test_e6_star_floor_is_305():
+    report = analyse(e6_star_parent())
+    assert report["first_allowed_shell"] == "28/3"
+    assert report["index_floor"] == 305
+    assert report["record_is_optimal"] is False
+    assert report["record_index"] == 343
+
+
+def test_forbidden_shell_bounds_are_strict(e8):
+    """Оценка D² свидетеля обязана быть СТРОГО ниже diam²."""
+    for parent in (e8, e6_star_parent()):
+        report = analyse(parent)
+        for entry in report["forbidden_shells"]:
+            numerator, _, denominator = entry["d2_bound"].partition("/")
+            value = Fr(int(numerator), int(denominator) if denominator else 1)
+            assert value < parent.diam_sq
