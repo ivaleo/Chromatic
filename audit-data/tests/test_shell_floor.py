@@ -15,6 +15,7 @@ from chromatic_research.campaigns.shell_floor import (
     E8_GRAM,
     analyse,
     dot,
+    a3_star_parent,
     e6_star_parent,
     e8_parent,
     max_inner_product,
@@ -114,6 +115,34 @@ def test_champion_attains_the_bound():
     assert Fr(14) ** 4 / Fr(16) == 7 ** 4
 
 
+def test_a3_star_invariants():
+    """ОЦК: λ₁² = 3/4, R² = 5/16 (вершина усечённого октаэдра), det = 1/2."""
+    import numpy as np
+
+    parent = a3_star_parent()
+    matrix = np.array([[float(x) for x in row] for row in parent.gram])
+    assert round(np.linalg.det(matrix), 12) == 0.25          # (det Λ)² = 1/4
+    shells = shells_up_to(parent, Fr(5))
+    assert min(shells) == Fr(3, 4)
+    assert shells[Fr(3, 4)] == 8                              # (±½,±½,±½)
+    assert shells[Fr(1)] == 6
+    # окно: оболочки 4, 19/4, 5 — суммы трёх нечётных квадратов дают 19/4
+    window = [k for k in shells if float(k) >= 3.9364]
+    assert window == [Fr(4), Fr(19, 4), Fr(5)]
+    assert shells[Fr(4)] == 6 and shells[Fr(19, 4)] == 24
+
+
+def test_a3_star_floor_equals_the_record():
+    """Пол на ОЦК равен 15 — то есть рекорд Кулсона неулучшаем на этом родителе."""
+    report = analyse(a3_star_parent())
+    assert report["first_allowed_shell"] == "19/4"
+    assert report["index_floor"] == 15
+    assert report["record_is_optimal"] is True
+    # k² ≥ (19/4)³/(1/2) = 6859/32 = 214.34…, √ = 14.64… ⇒ 15
+    assert Fr(19, 4) ** 3 / Fr(1, 2) == Fr(6859, 32)
+    assert math.ceil(math.sqrt(6859 / 32)) == 15
+
+
 def test_e6_star_floor_is_305():
     report = analyse(e6_star_parent())
     assert report["first_allowed_shell"] == "28/3"
@@ -124,7 +153,7 @@ def test_e6_star_floor_is_305():
 
 def test_forbidden_shell_bounds_are_strict(e8):
     """Оценка D² свидетеля обязана быть СТРОГО ниже diam²."""
-    for parent in (e8, e6_star_parent()):
+    for parent in (e8, e6_star_parent(), a3_star_parent()):
         report = analyse(parent)
         for entry in report["forbidden_shells"]:
             numerator, _, denominator = entry["d2_bound"].partition("/")
