@@ -1,0 +1,27 @@
+{
+ "parent": "E6*",
+ "lambda1_sq": "4/3",
+ "covering_sq": "2/3",
+ "diam_sq": "8/3",
+ "det": "3^(-1/2)",
+ "window_low": 7.771236166328253,
+ "shells_in_window": {
+  "8": 936,
+  "28/3": 2700,
+  "10": 2160
+ },
+ "forbidden_shell": "8",
+ "forbidden_shell_size": 936,
+ "witnesses_built": 936,
+ "witness_failures": [],
+ "worst_witness_d2": "141733/66150",
+ "first_allowed_shell": "28/3",
+ "hermite_bound": "2744/9",
+ "index_floor": 305,
+ "champion_index": 343,
+ "open_window": [
+  305,
+  342
+ ],
+ "proved": true
+}
