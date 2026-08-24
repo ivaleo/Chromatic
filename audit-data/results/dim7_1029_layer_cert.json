@@ -1,0 +1,15 @@
+{
+ "target_r2": "7/4",
+ "certified": true,
+ "max_phi": "103310189182571717/59047277850000000",
+ "max_phi_float": 1.749618152508477,
+ "diam2_upper": "103310189182571717/14761819462500000",
+ "known_r2_from_vertex_enumeration": "96858928789031597/59047277850000000",
+ "known_r2_float": 1.6403623048480904,
+ "pieces": 167,
+ "empty_pieces": 103,
+ "max_constraints": 154,
+ "max_vertices": 3059,
+ "seconds": 382.6,
+ "exact_max_mode": false
+}
