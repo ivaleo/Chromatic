@@ -70,7 +70,7 @@ class Parent:
     lambda1_sq: Fr
     covering_sq: Fr                  # R²
     ip_denominator: int              # ⟨Λ,Λ⟩ ⊆ (1/e)ℤ
-    hermite_power: Fr                # γ_n^{n/2} · det Λ, если рационально
+    hermite_power: Fr                # γ_n^n · (det Λ)² — всегда рационально
     hermite_note: str
     record_index: int
     record_name: str
@@ -183,16 +183,15 @@ def analyse(parent: Parent) -> dict:
         first_allowed = ceiling
     print(f"    ⇒ λ₁(Γ)² ≥ {first_allowed} = {float(first_allowed):.6f}")
 
-    # Эрмит: k ≥ (λ₁²)^{n/2} / (γ_n^{n/2} · det Λ)
-    power = Fr(parent.dim, 2)
-    numerator = first_allowed ** int(power) if power.denominator == 1 else None
-    if numerator is None:
-        raise NotImplementedError("нечётная размерность требует отдельной ветви")
-    bound = numerator / parent.hermite_power
-    floor_index = math.ceil(float(bound))
+    # Эрмит: λ₁² ≤ γ_n (det Γ)^{2/n}, det Γ = k·det Λ.  Возведение в степень n
+    # убирает корни: k² ≥ (λ₁²)^n / (γ_n^n · (det Λ)²) — всё рационально при
+    # любой чётности размерности.
+    squared = first_allowed ** parent.dim / parent.hermite_power
+    bound = math.sqrt(float(squared))
+    floor_index = math.ceil(bound - 1e-12)
     print(f"    Эрмит ({parent.hermite_note}): "
-          f"k ≥ ({first_allowed})^{int(power)} / {parent.hermite_power} "
-          f"= {bound} = {float(bound):.4f}  ⇒  k ≥ {floor_index}")
+          f"k² ≥ ({first_allowed})^{parent.dim} / {parent.hermite_power} "
+          f"= {squared} ⇒ k ≥ {bound:.4f}  ⇒  k ≥ {floor_index}")
     print(f"    рекорд: {parent.record_index} ({parent.record_name})")
     if floor_index >= parent.record_index:
         print(f"    *** ПОЛ СОВПАЛ С РЕКОРДОМ: {parent.record_index} ОПТИМАЛЕН "
@@ -210,6 +209,7 @@ def analyse(parent: Parent) -> dict:
         "shells_in_window": {str(k): v for k, v in window.items()},
         "forbidden_shells": forbidden,
         "first_allowed_shell": str(first_allowed),
+        "hermite_squared_bound": str(squared),
         "hermite_denominator": str(parent.hermite_power),
         "hermite_note": parent.hermite_note,
         "index_floor": floor_index,
@@ -222,16 +222,29 @@ def e6_star_parent() -> Parent:
     from chromatic_research.campaigns.dim6_e6star_floor import dual_gram
 
     gram = tuple(tuple(row) for row in dual_gram())
-    # γ₆^3 · det Λ = (8/√3)·3^{-1/2} = 8/3 — рационально
-    return Parent("E6*", gram, Fr(4, 3), Fr(2, 3), 3, Fr(8, 3),
-                  "γ₆³·detΛ = (8/√3)·3^{-1/2} = 8/3", 343, "(3+ω)E₆*")
+    # γ₆⁶ = 64/3, (det Λ)² = 1/3  ⇒  произведение 64/9
+    return Parent("E6*", gram, Fr(4, 3), Fr(2, 3), 3, Fr(64, 9),
+                  "γ₆⁶·(detΛ)² = (64/3)·(1/3) = 64/9", 343, "(3+ω)E₆*")
 
 
 def e8_parent() -> Parent:
     gram = tuple(tuple(Fr(x) for x in row) for row in E8_GRAM)
-    # γ₈^4 · det Λ = 2^4 · 1 = 16 — рационально
-    return Parent("E8", gram, Fr(2), Fr(1), 1, Fr(16),
-                  "γ₈⁴·detΛ = 2⁴·1 = 16", 2401, "(3+ω)E₈")
+    # γ₈⁸ = 2⁸ = 256, (det Λ)² = 1
+    return Parent("E8", gram, Fr(2), Fr(1), 1, Fr(256),
+                  "γ₈⁸·(detΛ)² = 2⁸·1 = 256", 2401, "(3+ω)E₈")
+
+
+def a3_star_parent() -> Parent:
+    """A₃* = ОЦК: базис (±½,±½,±½)-типа, λ₁² = 3/4, R² = 5/16, det = 1/2."""
+    # Базис ОЦК: e₁ = (1,0,0), e₂ = (0,1,0), e₃ = (½,½,½).
+    gram = (
+        (Fr(1), Fr(0), Fr(1, 2)),
+        (Fr(0), Fr(1), Fr(1, 2)),
+        (Fr(1, 2), Fr(1, 2), Fr(3, 4)),
+    )
+    # γ₃³ = 2, (det Λ)² = 1/4  ⇒  произведение 1/2
+    return Parent("A3* (ОЦК)", gram, Fr(3, 4), Fr(5, 16), 4, Fr(1, 2),
+                  "γ₃³·(detΛ)² = 2·(1/4) = 1/2", 15, "решётчатая раскраска Кулсона")
 
 
 def main(argv=None) -> int:
@@ -239,7 +252,8 @@ def main(argv=None) -> int:
     parser.add_argument("--output", type=Path, default=None)
     args = parser.parse_args(argv)
 
-    reports = [analyse(e8_parent()), analyse(e6_star_parent())]
+    reports = [analyse(e8_parent()), analyse(e6_star_parent()),
+               analyse(a3_star_parent())]
 
     out = args.output or results_path("shell_floor.json")
     out.write_text(json.dumps({"parents": reports}, indent=1,
