@@ -1,0 +1,58 @@
+{
+ "parents": [
+  {
+   "parent": "E8",
+   "dim": 8,
+   "lambda1_sq": "2",
+   "covering_sq": "1",
+   "inradius_bound": 11.65685424949238,
+   "shells_in_window": {
+    "12": 60480,
+    "14": 82560,
+    "16": 140400
+   },
+   "forbidden_shells": [
+    {
+     "shell": "12",
+     "s": "1/4",
+     "d2_bound": "3",
+     "d2_bound_float": 3.0,
+     "cauchy_schwarz_covers_from": "3"
+    }
+   ],
+   "first_allowed_shell": "14",
+   "hermite_denominator": "16",
+   "hermite_note": "γ₈⁴·detΛ = 2⁴·1 = 16",
+   "index_floor": 2401,
+   "record_index": 2401,
+   "record_is_optimal": true
+  },
+  {
+   "parent": "E6*",
+   "dim": 6,
+   "lambda1_sq": "4/3",
+   "covering_sq": "2/3",
+   "inradius_bound": 7.771236166328253,
+   "shells_in_window": {
+    "8": 936,
+    "28/3": 2700,
+    "10": 2160
+   },
+   "forbidden_shells": [
+    {
+     "shell": "8",
+     "s": "2/9",
+     "d2_bound": "200/81",
+     "d2_bound_float": 2.4691358024691357,
+     "cauchy_schwarz_covers_from": "128/81"
+    }
+   ],
+   "first_allowed_shell": "28/3",
+   "hermite_denominator": "8/3",
+   "hermite_note": "γ₆³·detΛ = (8/√3)·3^{-1/2} = 8/3",
+   "index_floor": 305,
+   "record_index": 343,
+   "record_is_optimal": false
+  }
+ ]
+}
