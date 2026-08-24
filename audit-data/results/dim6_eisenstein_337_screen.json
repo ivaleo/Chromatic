@@ -1,0 +1,361 @@
+{
+ "index": 337,
+ "ell": 1.0,
+ "forms_tested": 25,
+ "submodules_per_form": 227814,
+ "invariant_form_dimension": 9,
+ "found": null,
+ "verdict": "на всех 25 инвариантных формах ни один из 227814 подмодулей не проходит порог d >= 1.0",
+ "records": [
+  {
+   "trial": 0,
+   "radius": 0.8947763054439941,
+   "diameter": 1.7895526108879882,
+   "checked": 2567,
+   "total_window": 5211,
+   "forbidden": 2567,
+   "survivors": [
+    0,
+    0
+   ],
+   "any_survivor": false,
+   "seconds": 3.4
+  },
+  {
+   "trial": 1,
+   "radius": 0.8946470950129295,
+   "diameter": 1.789294190025859,
+   "checked": 2626,
+   "total_window": 5385,
+   "forbidden": 2626,
+   "survivors": [
+    0,
+    0
+   ],
+   "any_survivor": false,
+   "seconds": 3.7
+  },
+  {
+   "trial": 2,
+   "radius": 0.8983924843357507,
+   "diameter": 1.7967849686715014,
+   "checked": 2791,
+   "total_window": 5487,
+   "forbidden": 2785,
+   "survivors": [
+    0,
+    0
+   ],
+   "any_survivor": false,
+   "seconds": 4.0
+  },
+  {
+   "trial": 3,
+   "radius": 0.8856599242828165,
+   "diameter": 1.771319848565633,
+   "checked": 2755,
+   "total_window": 5358,
+   "forbidden": 2755,
+   "survivors": [
+    0,
+    0
+   ],
+   "any_survivor": false,
+   "seconds": 3.6
+  },
+  {
+   "trial": 4,
+   "radius": 0.8929341850531074,
+   "diameter": 1.7858683701062148,
+   "checked": 2668,
+   "total_window": 5367,
+   "forbidden": 2668,
+   "survivors": [
+    0,
+    0
+   ],
+   "any_survivor": false,
+   "seconds": 4.0
+  },
+  {
+   "trial": 5,
+   "radius": 0.8941671369192513,
+   "diameter": 1.7883342738385026,
+   "checked": 2662,
+   "total_window": 5379,
+   "forbidden": 2662,
+   "survivors": [
+    0,
+    0
+   ],
+   "any_survivor": false,
+   "seconds": 4.2
+  },
+  {
+   "trial": 6,
+   "radius": 0.884544710053795,
+   "diameter": 1.76908942010759,
+   "checked": 2776,
+   "total_window": 5493,
+   "forbidden": 2767,
+   "survivors": [
+    0,
+    0
+   ],
+   "any_survivor": false,
+   "seconds": 3.8
+  },
+  {
+   "trial": 7,
+   "radius": 0.8922361205708939,
+   "diameter": 1.7844722411417877,
+   "checked": 2779,
+   "total_window": 5712,
+   "forbidden": 2776,
+   "survivors": [
+    0,
+    0
+   ],
+   "any_survivor": false,
+   "seconds": 4.0
+  },
+  {
+   "trial": 8,
+   "radius": 0.9036203750019443,
+   "diameter": 1.8072407500038885,
+   "checked": 2755,
+   "total_window": 5622,
+   "forbidden": 2755,
+   "survivors": [
+    0,
+    0
+   ],
+   "any_survivor": false,
+   "seconds": 4.0
+  },
+  {
+   "trial": 9,
+   "radius": 0.9246393780115437,
+   "diameter": 1.8492787560230874,
+   "checked": 2716,
+   "total_window": 5685,
+   "forbidden": 2716,
+   "survivors": [
+    0,
+    0
+   ],
+   "any_survivor": false,
+   "seconds": 2.5
+  },
+  {
+   "trial": 10,
+   "radius": 0.8737425236080721,
+   "diameter": 1.7474850472161443,
+   "checked": 2647,
+   "total_window": 5361,
+   "forbidden": 2647,
+   "survivors": [
+    0,
+    0
+   ],
+   "any_survivor": false,
+   "seconds": 2.4
+  },
+  {
+   "trial": 11,
+   "radius": 0.8884576804175337,
+   "diameter": 1.7769153608350674,
+   "checked": 2632,
+   "total_window": 5457,
+   "forbidden": 2632,
+   "survivors": [
+    0,
+    0
+   ],
+   "any_survivor": false,
+   "seconds": 2.3
+  },
+  {
+   "trial": 12,
+   "radius": 0.9078475484780744,
+   "diameter": 1.8156950969561487,
+   "checked": 2644,
+   "total_window": 5415,
+   "forbidden": 2644,
+   "survivors": [
+    0,
+    0
+   ],
+   "any_survivor": false,
+   "seconds": 2.3
+  },
+  {
+   "trial": 13,
+   "radius": 0.8762769397515394,
+   "diameter": 1.7525538795030788,
+   "checked": 2710,
+   "total_window": 5640,
+   "forbidden": 2704,
+   "survivors": [
+    0,
+    0
+   ],
+   "any_survivor": false,
+   "seconds": 2.4
+  },
+  {
+   "trial": 14,
+   "radius": 0.8971064840147274,
+   "diameter": 1.7942129680294547,
+   "checked": 2662,
+   "total_window": 5373,
+   "forbidden": 2662,
+   "survivors": [
+    0,
+    0
+   ],
+   "any_survivor": false,
+   "seconds": 2.3
+  },
+  {
+   "trial": 15,
+   "radius": 0.908479721029367,
+   "diameter": 1.816959442058734,
+   "checked": 2719,
+   "total_window": 5424,
+   "forbidden": 2719,
+   "survivors": [
+    0,
+    0
+   ],
+   "any_survivor": false,
+   "seconds": 2.3
+  },
+  {
+   "trial": 16,
+   "radius": 0.889700031570639,
+   "diameter": 1.779400063141278,
+   "checked": 2719,
+   "total_window": 5688,
+   "forbidden": 2716,
+   "survivors": [
+    0,
+    0
+   ],
+   "any_survivor": false,
+   "seconds": 2.5
+  },
+  {
+   "trial": 17,
+   "radius": 0.909141045155555,
+   "diameter": 1.81828209031111,
+   "checked": 2683,
+   "total_window": 5157,
+   "forbidden": 2683,
+   "survivors": [
+    0,
+    0
+   ],
+   "any_survivor": false,
+   "seconds": 2.5
+  },
+  {
+   "trial": 18,
+   "radius": 0.9185609632185852,
+   "diameter": 1.8371219264371703,
+   "checked": 2644,
+   "total_window": 5460,
+   "forbidden": 2644,
+   "survivors": [
+    0,
+    0
+   ],
+   "any_survivor": false,
+   "seconds": 2.8
+  },
+  {
+   "trial": 19,
+   "radius": 0.8741432218195385,
+   "diameter": 1.748286443639077,
+   "checked": 2806,
+   "total_window": 5631,
+   "forbidden": 2797,
+   "survivors": [
+    0,
+    0
+   ],
+   "any_survivor": false,
+   "seconds": 3.7
+  },
+  {
+   "trial": 20,
+   "radius": 0.8592263995795768,
+   "diameter": 1.7184527991591536,
+   "checked": 2806,
+   "total_window": 5538,
+   "forbidden": 2794,
+   "survivors": [
+    0,
+    0
+   ],
+   "any_survivor": false,
+   "seconds": 3.9
+  },
+  {
+   "trial": 21,
+   "radius": 0.9163609748580546,
+   "diameter": 1.8327219497161091,
+   "checked": 2650,
+   "total_window": 5250,
+   "forbidden": 2650,
+   "survivors": [
+    0,
+    0
+   ],
+   "any_survivor": false,
+   "seconds": 3.5
+  },
+  {
+   "trial": 22,
+   "radius": 0.8721166020772001,
+   "diameter": 1.7442332041544002,
+   "checked": 2695,
+   "total_window": 5628,
+   "forbidden": 2695,
+   "survivors": [
+    0,
+    0
+   ],
+   "any_survivor": false,
+   "seconds": 3.8
+  },
+  {
+   "trial": 23,
+   "radius": 0.8949292390428386,
+   "diameter": 1.7898584780856772,
+   "checked": 2656,
+   "total_window": 5241,
+   "forbidden": 2656,
+   "survivors": [
+    0,
+    0
+   ],
+   "any_survivor": false,
+   "seconds": 3.3
+  },
+  {
+   "trial": 24,
+   "radius": 0.8650660089236367,
+   "diameter": 1.7301320178472734,
+   "checked": 2704,
+   "total_window": 5628,
+   "forbidden": 2698,
+   "survivors": [
+    0,
+    0
+   ],
+   "any_survivor": false,
+   "seconds": 2.4
+  }
+ ]
+}
