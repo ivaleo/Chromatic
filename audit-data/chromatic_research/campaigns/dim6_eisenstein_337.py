@@ -271,8 +271,8 @@ def screen(basis: np.ndarray, automorphism: np.ndarray, *, ell: float = 1.0,
         records.append((float(vector @ vector), coords, vector))
     records.sort(key=lambda item: item[0])
 
-    roots = cube_roots_of_unity()
-    eigen = [eigenspace(automorphism, root) for root in roots]
+    roots = cube_roots_of_unity(INDEX)
+    eigen = [eigenspace(automorphism, root, INDEX) for root in roots]
     for space in eigen:
         if len(space) != RANK:
             return {"ok": False, "reason": f"собственное подпространство "
@@ -297,7 +297,7 @@ def screen(basis: np.ndarray, automorphism: np.ndarray, *, ell: float = 1.0,
             if all(v == 0 for v in image):
                 killed[which] = None      # вектор лежит во ВСЕХ подмодулях
                 continue
-            killed[which].update(hyperplane_points(image))
+            killed[which].update(hyperplane_points(image, INDEX))
         if all(k is None or len(k) >= total for k in killed):
             break
         if verbose and forbidden % 500 == 0:
