@@ -151,6 +151,50 @@ def test_e6_star_floor_is_305():
     assert report["record_index"] == 343
 
 
+def test_k12_floor_is_conditional_and_improves():
+    """K₁₂: пол поднят до 177979, но результат условен по γ₁₂."""
+    from chromatic_research.campaigns.shell_floor import k12_parent
+
+    report = analyse(k12_parent())
+    assert report["first_allowed_shell"] == "30"
+    assert report["index_floor"] == 177_979
+    assert report["record_index"] == 3 ** 12
+    assert report["conditional"]                      # непустая пометка
+    assert not report["record_is_optimal"]
+    # k ≥ (30/4)⁶ = 7.5⁶ = 177978.515625
+    assert math.ceil((Fr(30) / 4) ** 6) == 177_979
+
+
+def test_leech_floor_is_unconditional():
+    """Λ₂₄: γ₂₄ = 4 доказана (Кон–Кумар), поэтому пол безусловен."""
+    from chromatic_research.campaigns.shell_floor import leech_parent
+
+    report = analyse(leech_parent())
+    assert report["first_allowed_shell"] == "26"
+    assert report["record_index"] == 7 ** 12
+    assert report["conditional"] == ""
+    # k ≥ (26/4)^12 = 6.5^12 = 5688009063.1…
+    assert report["index_floor"] == math.ceil(float((Fr(26) / 4) ** 12))
+    assert report["index_floor"] < 7 ** 12
+
+
+def test_leech_shell_26_is_not_closed():
+    """Оболочка 26 у Лича НЕ закрывается — и это узкое место, а не недосмотр.
+
+    Свидетель ``s = 2/9`` даёт ``D² ≤ 4(1/2−2/9)²·26 = 2600/324 = 8.0247``,
+    что чуть БОЛЬШЕ ``diam² = 8``; а больший ``s`` запрещён минимальными
+    векторами (``⟨v,u⟩ ≤ ⌊√104⌋ = 10``, откуда ``s ≤ 1/5``… с уточнением до 9
+    получается ``s ≤ 2/9``).  Разрыв 0.3 %.
+    """
+    from chromatic_research.campaigns.shell_floor import leech_parent
+
+    parent = leech_parent()
+    assert 4 * (Fr(1, 2) - Fr(2, 9)) ** 2 * 26 == Fr(2600, 324)
+    assert Fr(2600, 324) > parent.diam_sq
+    shells = shells_up_to(parent, 4 * parent.diam_sq)
+    assert radial_witness(parent, Fr(26), shells) is None
+
+
 def test_forbidden_shell_bounds_are_strict(e8):
     """Оценка D² свидетеля обязана быть СТРОГО ниже diam²."""
     for parent in (e8, e6_star_parent(), a3_star_parent()):
