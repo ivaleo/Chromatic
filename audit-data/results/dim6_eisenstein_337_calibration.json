@@ -1,0 +1,34 @@
+{
+ "seed_lattice": "E6*",
+ "table": [
+  {
+   "index": 331,
+   "max_d": 0.758984,
+   "submodules": 219786
+  },
+  {
+   "index": 337,
+   "max_d": 0.891797,
+   "submodules": 227814
+  },
+  {
+   "index": 487,
+   "max_d": 0.931641,
+   "submodules": 475314
+  },
+  {
+   "index": 541,
+   "max_d": 1.037891,
+   "submodules": 586446
+  }
+ ],
+ "first_index_reaching_one": 541,
+ "similar_sublattice_ladder": [
+  1,
+  27,
+  64,
+  343,
+  729
+ ],
+ "seconds": 154.9
+}
