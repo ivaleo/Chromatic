@@ -169,12 +169,30 @@ $\R^{26}$.
 
 \subsection*{Limits of the method and negative results}
 
-Two rigorous index screens --- the Minkowski volume screen and the inradius
-screen, neither implied by the other --- bound what any construction of
-this type can achieve; for instance, they forbid a flat block of index
-$\le16$ next to $E_8/2401$. Negative results are reported alongside
+Three rigorous index screens --- the Minkowski volume screen, the inradius
+screen (neither implied by the other) and the \emph{shell screen} --- bound
+what any construction of this type can achieve; the first two, for instance,
+forbid a flat block of index $\le16$ next to $E_8/2401$.
+
+The shell screen (Proposition~\ref{prop:shellfloor}) strengthens the inradius
+one by observing that the norm of a lattice vector ranges over shells rather
+than a continuum, so that whenever the first shell above the inradius threshold
+is forbidden \emph{in its entirety}, $\lambda_1(\Gamma)^2$ jumps to the next
+one. Forbiddenness is certified by a one-line radial witness
+(Lemma~\ref{lem:radial}: Cauchy--Schwarz together with integrality of inner
+products), so the proofs are checkable by hand, with no vector enumeration at
+all. On two classical parents the resulting floor \emph{coincides with the
+record}: every admissible sublattice of $E_8$ has index at least $2401$
+(Theorem~\ref{thm:e8opt}) and every admissible sublattice of the bcc lattice
+has index at least $15$ (Theorem~\ref{thm:a3opt}) --- both known constructions
+are therefore unimprovable on those parents. For $E_6^*$ the floor is $305$
+against the record $343$, for $K_{12}$ it is $177\,979$, and for the Leech
+lattice $5\,688\,009\,064$ against the record $7^{12}$.
+
+Negative results are reported alongside
 positive ones: unattainability of $7^6$ in $\R^{12}$, failure of rank-$2$
-layers, local minimality of $\rho$ at $E_8$, and exhaustive negative
+layers, local minimality of $\rho$ at $E_8$, both arithmetic families of index
+$337$ in $\R^6$ closed exhaustively, and negative
 screens in dimensions $5$--$9$ (Appendix~\ref{app:screens}). Beyond
 lattices, the paper studies power (Laguerre) tilings: it proves a floor
 theorem $k\ge2^n$ for tiling colorings (Section~\ref{sec:tilings}) and gives
