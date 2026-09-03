@@ -1,0 +1,188 @@
+\pdfoutput=1
+\documentclass[11pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T2A]{fontenc}
+\usepackage[english,russian]{babel}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage[a4paper,left=24mm,right=20mm,top=22mm,bottom=24mm]{geometry}
+\usepackage{graphicx}
+\graphicspath{{../}}
+\usepackage{array}
+\usepackage{booktabs}
+\usepackage{enumitem}
+\usepackage[dvipsnames,table]{xcolor}
+\usepackage{mdframed}
+\usepackage[colorlinks=true,linkcolor=NavyBlue,citecolor=BrickRed,urlcolor=NavyBlue]{hyperref}
+
+\newtheorem{theorem}{Теорема}
+\newtheorem{lemma}{Лемма}
+\newtheorem{proposition}{Предложение}
+\newtheorem{corollary}{Следствие}
+\theoremstyle{definition}
+\newtheorem{definition}{Определение}
+\theoremstyle{remark}
+\newtheorem{remark}{Замечание}
+
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\E}{\mathbb{E}}
+\newcommand{\diam}{\operatorname{diam}}
+\newcommand{\dist}{\operatorname{dist}}
+\newcommand{\vol}{\operatorname{vol}}
+
+% рамка для ключевых утверждений
+\newmdenv[linecolor=NavyBlue!60,linewidth=0.8pt,backgroundcolor=NavyBlue!4,
+  roundcorner=4pt,skipabove=8pt,skipbelow=8pt,innertopmargin=6pt,
+  innerbottommargin=6pt]{keybox}
+
+% Статья 2 из комплекта (см. ../../journal/PLAN-2026-09-03-paper-split.md):
+% ширина как ресурс и границы метода. Метки только в таблицах:
+\newcommand{\cyrbadge}[1]{{\fontencoding{T2A}\selectfont #1}}
+\newcommand{\stP}{\textcolor{ForestGreen}{\textbf{\cyrbadge{[Т]}}}}   % теорема
+\newcommand{\stC}{\textcolor{RoyalBlue}{\textbf{\cyrbadge{[С]}}}}     % точный сертификат
+\newcommand{\stN}{\textcolor{BurntOrange}{\textbf{\cyrbadge{[Ч]}}}}   % численный кандидат
+
+\title{\bfseries Ширина запрещённого интервала как ресурс:\\
+эйзенштейново тождество, ламинирование,\\
+экраны индекса и мозаичные раскраски евклидовых пространств%
+\thanks{Код, точные сертификаты и данные открыты:
+\url{https://github.com/ivaleo/Chromatic} (лицензия MIT).
+Полная версия с поисковыми алгоритмами, полными лестницами и
+отрицательными экранами --- электронное дополнение \cite{Full}; пять
+доказанных оценок $43$, $132$, $1029$, $9604$, $45619$ --- в
+статье~\cite{Bounds}.}}
+\author{Л.\,Л.~Иванов\thanks{E-mail: \texttt{leo.ivanov@gmail.com}.}
+  \and Н.~Глушкова}
+\date{3 сентября 2026 г.}
+
+\setlength{\emergencystretch}{2em}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+\noindent
+Раскраска $\R^n$ правильна для запрещённого отрезка расстояний $[1,\ell]$, если
+никакие две одноцветные точки не находятся на расстоянии из $[1,\ell]$;
+наименьшее число цветов --- $\chi(\R^n,[1,\ell])$, при $\ell=1$ это
+классическое $\chi(\R^n)$. Для периодической раскраски по ячейкам Вороного
+решётки $\Lambda$ классами подрешётки $\Gamma$ \emph{ширина} $d$ --- отношение
+минимального расстояния между одноцветными ячейками к диаметру ячейки; раскраска
+правильна при всех $\ell<d$. Работа изучает ширину как расходуемый ресурс: она
+складывается по правилу $\sum_i1/d_i^2\le1$ при ортогональном произведении и
+тратится на подъём размерности при ламинировании. Доказано тождество
+$D((3+\omega)\Lambda)=\sqrt{7/3}\,\lambda_1$ для всех эйзенштейновых решёток,
+откуда точные ширины всех конструкций $7^{n/2}$ (в частности $\sqrt{7/6}$ для
+$\chi(\R^{24})\le7^{12}$) и $\alpha$-лестница в форме равенства для четырёх
+порядков. Построены точные лестницы ширин в $\R^2$--$\R^6$: семейство
+$G(\alpha)$ в $\R^3$, содержащее обе $15$-раскраски Кулсона, с сертификатом
+$\ell\le102659/100000$, и раскраски $\R^4$ в $45$, $46$, $48$ цветов с более
+широкими интервалами. Три строгих экрана индекса --- объёмный, инрадиусный и
+оболочечный --- дают нижние границы индекса на фиксированном родителе; на $E_8$
+и на ОЦК пол совпадает с рекордом: $2401$ и $15$ неулучшаемы. Для раскрасок
+периодическими степенными мозаиками доказан пол $2^n$ и предъявлены первые
+точно сертифицированные нерешёточные мозаичные ступени в плоскости. Численные
+кандидаты (индексы $7203$ в $\R^9$ и $28812$ в $\R^{10}$) отделены от
+доказанных утверждений явно.
+\end{abstract}
+
+\begin{otherlanguage}{english}
+\begin{center}
+{\bfseries The width of the forbidden interval as a resource:\\
+the Eisenstein identity, lamination, index screens and tiling colorings of
+Euclidean spaces}
+\end{center}
+
+\noindent\textbf{Abstract.}
+A coloring of $\R^n$ is proper for the forbidden distance segment $[1,\ell]$ if
+no two points of the same color realize a distance in $[1,\ell]$; the minimum
+number of colors is $\chi(\R^n,[1,\ell])$, and $\ell=1$ recovers the classical
+$\chi(\R^n)$. For a periodic coloring of the Voronoi cells of a lattice
+$\Lambda$ by the cosets of a sublattice $\Gamma$, the \emph{width} $d$ is the
+ratio of the minimal same-color inter-cell distance to the cell diameter, and
+the coloring is proper for every $\ell<d$. We study the width as an expendable
+resource: it adds up according to $\sum_i1/d_i^2\le1$ under orthogonal
+products and is spent on raising the dimension under lamination. We prove the
+identity $D((3+\omega)\Lambda)=\sqrt{7/3}\,\lambda_1$ for every Eisenstein
+lattice, which gives the exact widths of all $7^{n/2}$ constructions (in
+particular $\sqrt{7/6}$ for $\chi(\R^{24})\le7^{12}$) and turns the
+$\alpha$-ladder over four orders into an equality. Exact width ladders in
+$\R^2$--$\R^6$ are built: the family $G(\alpha)$ in $\R^3$, which contains both
+of Coulson's $15$-colorings, with a certificate $\ell\le102659/100000$, and
+colorings of $\R^4$ with $45$, $46$, $48$ colors and wider intervals. Three
+rigorous index screens --- volume, inradius and shell --- bound the index from
+below on a fixed parent lattice; on $E_8$ and on the bcc lattice the floor meets
+the record, so $2401$ and $15$ are unimprovable there. For colorings by periodic
+power tilings we prove the floor $2^n$ and give the first exactly certified
+non-lattice tiling steps in the plane. Numerical candidates (indices $7203$ in
+$\R^9$ and $28812$ in $\R^{10}$) are kept explicitly apart from proven claims.
+\end{otherlanguage}
+
+\input{sections/intro}
+\input{sections/identity}
+\input{sections/ladders}
+\input{sections/lamination}
+\input{sections/floors}
+\input{sections/tilings}
+\input{sections/discussion}
+
+\begin{thebibliography}{99}\small
+
+\bibitem{Bounds} Л.~Л.~Иванов, Н.~Глушкова,
+\emph{Новые верхние оценки хроматических чисел евклидовых пространств:
+$\chi(\R^4)\le43$, $\chi(\R^5)\le132$, $\chi(\R^7)\le1029$,
+$\chi(\R^9)\le9604$, $\chi(\R^{10})\le45619$}, 2026 (статья~1 комплекта).
+
+\bibitem{Full} Л.~Л.~Иванов, Н.~Глушкова,
+\emph{Новые верхние оценки хроматических чисел евклидовых пространств:
+полная версия} (электронное дополнение), 2026,
+\url{https://github.com/ivaleo/Chromatic/tree/main/paper}.
+
+\bibitem{ABPR} A.~Arman, A.~Bondarenko, A.~Prymak, D.~Radchenko,
+\emph{Upper bounds on chromatic number of $\E^n$ in low dimensions},
+Electron. J. Combin. \textbf{31} ($2024$), no.~2, \#P2.35; arXiv:$2112$.$13\,438$.
+
+\bibitem{ChJW} J.~Chybowska-Sok\'o\l{}, K.~Junosza-Szaniawski, K.~W\c{e}sek,
+\emph{Coloring distance graphs on the plane},
+Discrete Math. \textbf{346} ($2023$), no.~7, 113441;
+arXiv:$2201$.$04\,499$.
+
+\bibitem{Coulson} D.~Coulson,
+\emph{A 15-colouring of 3-space omitting distance one},
+Discrete Math. \textbf{256} ($2002$), 83--90.
+
+\bibitem{Coulson2004} D.~Coulson,
+\emph{On the chromatic number of plane tilings},
+J. Aust. Math. Soc. \textbf{77} ($2004$), no.~2, 191--196.
+
+\bibitem{deGrey} A.~D.~N.~J.~de~Grey,
+\emph{The chromatic number of the plane is at least 5},
+Geombinatorics \textbf{28} ($2018$), no.~1, 18--31.
+
+\bibitem{deGreyParts} A.~D.~N.~J.~de~Grey, J.~Parts,
+\emph{Tiling the plane with hexagons: improved separations for
+$k$-colourings},
+Geombinatorics \textbf{32} ($2022$), no.~2, 57--71.
+
+\bibitem{Exoo2005} G.~Exoo,
+\emph{$\varepsilon$-unit distance graphs},
+Discrete Comput. Geom. \textbf{33} ($2005$), 117--123.
+
+\bibitem{Ivanov2011} Л.~Л.~Иванов,
+\emph{О хроматических числах $\R^2$ и $\R^3$ с интервалами запрещённых
+расстояний}, Вестник РУДН, сер. Матем. Информ. Физ. ($2011$), №~1, 14--29.
+
+\bibitem{Parts2023} J.~Parts,
+\emph{More certainty in coloring the plane with a forbidden distance
+interval},
+Geombinatorics \textbf{32} ($2023$), no.~4, 159--185; arXiv:$2303$.$14\,722$.
+
+\bibitem{Soifer} A.~Soifer,
+\emph{The Mathematical Coloring Book}, Springer, New York, $2009$.
+
+\bibitem{Voronoi} Г.~Ф.~Вороной,
+\emph{Собрание сочинений}, т.~2, Изд-во АН УССР, Киев, $1952$.
+
+\end{thebibliography}
+\end{document}
