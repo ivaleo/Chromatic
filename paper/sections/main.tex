@@ -14,11 +14,14 @@
 $\Lambda$ --- решётка с $S\Lambda=\Lambda$, то есть $SQS^{\mathsf T}=Q$ для
 её формы Грама. Характеристический многочлен $S$ определяет структуру модуля:
 \[
-\chi_S=\Phi_3^2\ \text{или}\ \Phi_6^2\ \Rightarrow\ \Z[\omega]\text{-модуль ранга }2,
-\qquad
-\chi_S=\Phi_4^2\ \Rightarrow\ \Z[i]\text{-модуль ранга }2,
-\qquad
-\chi_S=\Phi_m,\ \varphi(m)=4\ \Rightarrow\ \Z[\zeta_m]\text{-модуль ранга }1 .
+\begin{aligned}
+\chi_S=\Phi_3^2\ \text{или}\ \Phi_6^2
+  &\ \Rightarrow\ \Z[\omega]\text{-модуль ранга }2,\\
+\chi_S=\Phi_4^2
+  &\ \Rightarrow\ \Z[i]\text{-модуль ранга }2,\\
+\chi_S=\Phi_m,\quad \varphi(m)=4
+  &\ \Rightarrow\ \Z[\zeta_m]\text{-модуль ранга }1 .
+\end{aligned}
 \]
 Пространство $S$-инвариантных форм в первых двух случаях \emph{четырёхмерно}
 (три параметра с точностью до масштаба), в третьем --- двумерно (один
@@ -48,7 +51,10 @@ u & -\tfrac u2+s & b & -\tfrac b2\\[2pt]
 Подрешётка тоже сужается. Если требовать $S\Gamma=\Gamma$, то $\Gamma$ ---
 это $\Z[\omega]$-подмодуль, а значит его индекс есть норма идеала:
 в диапазоне $7\le k\le43$ допустимы лишь
-$k\in\{7,9,12,13,16,19,21,25,27,28,31,36,37,39,43\}$. Для простого
+\[
+k\in\{7,9,12,13,16,19,21,25,27,28,31,36,37,39,43\}.
+\]
+Для простого
 $p\equiv1\pmod3$ фактор $\Lambda/\Gamma\cong\Z[\omega]/\pi$ с $N(\pi)=p$,
 поэтому $\Gamma\supseteq\pi\Lambda$ и подмодули отвечают $\mathbb F_p$-прямым
 в $\Lambda/\pi\Lambda\cong\mathbb F_p^2$: их ровно $2(p+1)$. При $p=43$ это
@@ -87,9 +93,13 @@ T=\begin{pmatrix}1&0&0&41\\0&1&0&14\\0&0&1&37\\0&0&0&43\end{pmatrix},
 \end{equation}
 Инварианты (все рациональны, так как рациональна $Q$):
 \[
-\lambda_1(\Lambda_\star)^2=1,\qquad
-\diam^2V_0=\frac{5374343884337}{2019775849050}=2{,}660861544\ldots,\qquad
-D(\Gamma_\star)^2=\frac{7396075258066147}{2756867811550000}=2{,}682781969\ldots,
+\begin{aligned}
+\lambda_1(\Lambda_\star)^2&=1,\\
+\diam^2V_0&=\frac{5374343884337}{2019775849050}
+  =2{,}660861544\ldots,\\
+D(\Gamma_\star)^2&=\frac{7396075258066147}{2756867811550000}
+  =2{,}682781969\ldots.
+\end{aligned}
 \]
 \[
 d(\Lambda_\star,\Gamma_\star)^2
@@ -156,7 +166,7 @@ d=1{,}00411205721243329800\ldots
 семейства с $200\,Q\in\mathrm{Mat}_4(\Z)$, переходом
 $T=\bigl(\begin{smallmatrix}1&0&0&39\\0&1&0&13\\0&0&1&19\\0&0&0&43\end{smallmatrix}\bigr)$
 и $d^2=\tfrac{14984024}{14873313}$, $d=1{,}0037149\ldots$ (сертификат
-$\ell_0=1{,}003714$, файл \texttt{results/cert43.json}). Она даёт ту же оценку
+$\ell_0=1{,}003714$, файл \path{audit-data/results/cert43.json}). Она даёт ту же оценку
 $\chi(\R^4)\le43$ с чуть более узким интервалом; в \S\ref{ssec:symred}
 именно её симметрия и подсказала всё построение.
 \end{remark}
@@ -196,7 +206,8 @@ $\chi\bigl(\R^4,[1,\ell]\bigr)\le48$ при всех $1\le\ell\le1{,}0396$.
 \end{keybox}
 \begin{proof}
 Как и выше: точные сертификаты неравенств $d>\ell_0$ для обеих форм ---
-файлы \texttt{results/cert45.json} и \texttt{results/cert48.json}; схема
+файлы \path{audit-data/results/cert45.json} и
+\path{audit-data/results/cert48.json}; схема
 проверки описана в~\S\ref{sec:comp}.
 \end{proof}
 

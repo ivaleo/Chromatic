@@ -23,8 +23,8 @@ Leonid L. Ivanov, Nadezhda Glushkova
 
 ## Abstract
 
-(английский абстракт PDF, слегка сжатый под лимит arXiv в 1920 знаков;
-фактическая длина — 1917)
+(английский абстракт PDF; текущая фактическая длина — 2178 знаков, то есть
+перед подачей его необходимо сократить до лимита arXiv в 1920 знаков)
 
 ```
 A coloring of Euclidean space is proper for the forbidden distance segment
@@ -51,8 +51,8 @@ in R^9 and 1372 -> 1323 -> 1029 in R^7, the last step certified exactly;
 (iii) the Eisenstein identity D((3+w)L) = sqrt(7/3) lambda_1, proved here for
 every Eisenstein lattice, gives the exact width for chi(R^24) <= 7^12; (iv) a product calculus of widths reduces admissibility of an
 orthogonal product to the single inequality sum_i 1/d_i^2 <= 1, giving
-chi(R^10) <= 2401*19 = 45619 and chi(R^9) <= 2401*4 = 9604. Two rigorous index
-screens (Minkowski-volume and inradius) trace the limits of the method;
+chi(R^10) <= 2401*19 = 45619 and chi(R^9) <= 2401*4 = 9604. Three rigorous index
+screens (Minkowski-volume, inradius, and shell) trace the limits of the method;
 negative results are reported too. Every claim carries a status label (theorem
 / exact certificate / numerical); no bound in the title depends on a numerical
 one. All code, exact certificates, and data are open.
@@ -78,11 +78,11 @@ one. All code, exact certificates, and data are open.
 ## Comments
 
 ```
-63 pages, 9 figures, in Russian with an extended English summary.
+68 pages, 9 figures, in Russian with an extended English summary.
 Code, exact certificates and data: https://github.com/ivaleo/Chromatic
 ```
 
-(63 страницы подтверждены сборкой от 23.08.2026 — версия с доказанным
+(68 страниц подтверждены сборкой от 24.08.2026 — версия с доказанным
 тождеством (10) и точным сертификатом chi(R^7) <= 1029)
 
 ## License
@@ -109,8 +109,9 @@ Code, exact certificates and data: https://github.com/ivaleo/Chromatic
    (ORCID), если статьи там появятся.
 3. Репозиторий GitHub должен быть публичным ДО отправки (ссылка в статье).
 4. Тарболл собран: `chi4-43.tex`, `origin-and-ai.tex`, `sections/*.tex`
-   (13 файлов), 9 × `fig_*.pdf`, без вспомогательных файлов; контрольная
-   сборка в чистом каталоге воспроизводит те же 63 страницы без предупреждений.
+   (13 файлов в `sections/`, всего 15 файлов `.tex`), 9 × `fig_*.pdf`, без
+   вспомогательных файлов; контрольная сборка в чистом каталоге воспроизводит
+   те же 68 страниц без ошибок и неопределённых ссылок.
 5. После загрузки сверить PDF, собранный arXiv, с локальным постранично.
 6. Не-английская статья может уйти на модерацию (1–3 дня) — это штатно.
 7. После анонса: вписать arXiv ID в README/RESULTS отдельным коммитом.
