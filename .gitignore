@@ -30,6 +30,14 @@ paper/*.log
 paper/*.out
 paper/*.synctex.gz
 paper/*.toc
+paper/*/*.aux
+paper/*/*.fdb_latexmk
+paper/*/*.fls
+paper/*/*.log
+paper/*/*.out
+paper/*/*.synctex.gz
+paper/*/*.toc
+paper/*/pg-*.png
 
 # результаты локальных прогонов voronoi4d
 results.txt

@@ -1,0 +1,325 @@
+# План (выполнен 03.09.2026, кроме коммита): из рукописи `chi4-43` — статья 1, статья 2, заметка УМН, дополнение
+
+> **For agentic workers:** REQUIRED SUB-SKILL: use superpowers:subagent-driven-development
+> or superpowers:executing-plans to implement this plan task-by-task.
+> Steps use checkbox (`- [ ]`) syntax for tracking.
+
+**Goal:** Получить три самостоятельных LaTeX-документа (статья 1 ≈ 16–20 стр.,
+статья 2 ≈ 26–32 стр., заметка УМН ≤ 2 журнальных страниц), собирающихся
+pdflatex без ошибок, при неизменной полной рукописи `paper/chi4-43.tex`,
+которая становится электронным дополнением.
+
+**Architecture:** Полная рукопись остаётся в `paper/` без содержательных
+правок (только предисловие о роли). Три новых документа — в подкаталогах
+`paper/article1/`, `paper/article2/`, `paper/note-umn/`, каждый со своим
+главным файлом, `sections/` и README; рисунки берутся из `paper/` через
+`\graphicspath{{../}}`. Текст новых документов — отредактированные
+фрагменты рукописи (сокращения, а не пересказ), чтобы числа и дроби
+оставались посимвольно теми же, что проверены тестами.
+
+**Tech Stack:** pdflatex (TeX Live 2023), babel russian/english, amsmath,
+booktabs; шаблон УМН `umnbib.sty`; pytest (`make test` из `audit-data/`).
+
+**Spec:** `journal/REVIEW-split-proposals-2026-09-03.md` (поправки П1–П17)
+поверх `/tmp/chromatic_article_shortening_proposals.md`.
+
+## Global Constraints
+
+- `paper/chi4-43.tex`, `paper/sections/*.tex`, `paper/origin-and-ai.tex` —
+  содержательно не менять (тесты `test_docs_consistency.py` читают их).
+  Разрешено: добавить `\input{split-preface}` после английского abstract.
+- Ни одно число не «пересчитывается» при переносе: копировать дроби и
+  десятичные значения из рукописи буквально.
+- Статья 1: в исходниках отсутствуют строки `7203`, `28812`, `21609`,
+  `1323`, `\stN`, `\stM`, `[Э]`, `CMA`, `min-conflicts`, `Radon`.
+- Статья 2: числа 7203/28812/21609 — только со словом «кандидат»/«численно»,
+  никогда как `\chi(\R^n)\le` без оговорки; запись `\chi(\R^9)\le7203` запрещена.
+- Заметка: одна теорема, одна лемма (продуктовая), одно предложение
+  (планарная граница); никаких таблиц, рисунков, статусов; ≤ 2 страниц в
+  шаблоне УМН (`\mag1200`); библиография ≤ 6 позиций.
+- Все три документа собираются командой `latexmk -pdf <main>.tex` в своём
+  каталоге без ошибок и неопределённых ссылок.
+- Авторы: статьи 1 и 2 — Иванов, Глушкова; заметка — Иванов (TODO-пометка).
+
+---
+
+### Task 1: Каркасы трёх документов
+
+**Files:**
+- Create: `paper/article1/bounds.tex`, `paper/article1/sections/.keep`
+- Create: `paper/article2/widths.tex`, `paper/article2/sections/.keep`
+- Create: `paper/note-umn/note.tex`, `paper/note-umn/umnbib.sty` (из шаблона, CRLF→LF)
+- Create: `paper/article1/README.md`, `paper/article2/README.md`, `paper/note-umn/README.md`
+
+**Interfaces:**
+- Produces: единые макросы `\R \Z \Q \diam \dist \vol`, окружения
+  `theorem/lemma/proposition/corollary/definition/remark` (русские названия),
+  `keybox` (mdframed) — те же имена, что в рукописи, чтобы фрагменты
+  переносились без правки.
+
+- [x] Шаг 1: скопировать преамбулу `paper/chi4-43.tex` (строки 1–46) в
+  `bounds.tex` и `widths.tex`, убрав макросы статусов `\stP…\statuslegend`
+  (статья 1) / оставив только `\stP \stC \stN` (статья 2); добавить
+  `\graphicspath{{../}}`.
+- [x] Шаг 2: `note.tex` — из `000.tex` шаблона: `inputenc[utf8]`,
+  `babel[russian]`, `amsmath[tbtags]`, `umnbib`, `\mag1200`, `\textheight 230mm
+  \textwidth 140mm` (как в шаблоне).
+- [x] Шаг 3: собрать все три пустыми (`latexmk -pdf`), убедиться в 1 странице.
+
+### Task 2: Статья 1 — введение и единственная таблица
+
+**Files:** Create `paper/article1/sections/intro.tex`
+
+Источник: `paper/sections/intro.tex` §1.1 (постановка, (eq:mono)), §1.2
+(только абзац об истории ℝ⁴ и цитата АБПР), таблица — новая, 5 строк:
+
+| n | было | доказано | ℓ | тип доказательства | где проверять |
+| 4 | 49 | 43 | 1,00411 | точный сертификат (теорема 3) | `dim4_k43_verify.json` |
+| 5 | 140 | 132 | 101/100 | точный сертификат (теорема 4) | `metric_deform_a5_132_refined_certificate.json` |
+| 7 | 1372 | 1029 | 103/100 | точный сертификат (теорема 5) | `dim7_1029_exact.json` |
+| 9 | 17253 | 9604 | √(63/61) | теорема (следствие 8) | 6/7+1/9=61/63 |
+| 10 | 59049 | 45619 | √(217/214) | теорема (теорема 7) | 6/7+4/31=214/217 |
+
+- [x] Шаг 1: постановка (≤ 20 строк), таблица, два абзаца о двух механизмах,
+  карта разделов (5 строк), фраза «дополнительные результаты — в [статья 2]
+  и полной версии [дополнение]».
+- [x] Шаг 2: `grep -c` запрещённых строк = 0; собрать.
+
+### Task 3: Статья 1 — критерий и протокол точной проверки
+
+**Files:** Create `paper/article1/sections/criterion.tex`
+
+Источник: `paper/sections/method.tex` целиком (сжать вводные определения
+вдвое; оставить prop:crit с доказательством, lem:sym, lem:mid с идеей,
+окно (eq:window), rem:halfopen); из `algo.tex` — только абзац (2) о
+теореме Вороного для релевантных векторов и тождество (eq:vertsum) как
+контроль; новое предложение `prop:protocol` (шесть пунктов П4 ревью) с
+доказательством корректности в 8 строк (каждый пункт → почему достаточно).
+
+- [x] Шаг 1: написать; метки сохранить: `prop:crit`, `lem:sym`, `lem:mid`,
+  `eq:mid`, `eq:window`, `fig:method` (рисунок `fig_method.pdf`).
+- [x] Шаг 2: собрать; проверить, что `\ref` не битые.
+
+### Task 4: Статья 1 — три точные конструкции
+
+**Files:** Create `paper/article1/sections/constructions.tex`
+
+Источник: `main.tex` (форма (eq:eisform), фраза о норменных индексах,
+конструкция (eq:gram43), (eq:hnf43), инварианты, thm:main43, §4.4 «способ 2»
+как основной, «способ 1» одним абзацем, финальная фраза о переборе 81 400);
+`dim57.tex` — только thm:r5 с доказательством (без спуска 140→…→132 и
+барьера E₇*); `dim9-12.tex` — thm:r7ex с доказательством + явные `G`, `C`
+из `dim7_1029_exact.json` + конструктивное описание (ламинирование
+E₆*/343, m=3) в 5 строк + rem:r7second в 4 строки.
+
+- [x] Шаг 1: единый формат трёх теорем: «Конструкция / Индекс / Ячейка /
+  Полнота / Разделение / Запас» со ссылкой на prop:protocol.
+- [x] Шаг 2: выписать `G` (7×7, `\frac1{10^4}`) и `C` из JSON — скопировать
+  числа скриптом, не вручную: `python3 -c "import json;..."`.
+- [x] Шаг 3: собрать; `grep -E '1323|7203|28812|CMA|Radon'` = 0.
+
+### Task 5: Статья 1 — планарная граница и продуктовое исчисление
+
+**Files:** Create `paper/article1/sections/product.tex`
+
+Источник: `extra.tex` — prop:planar с доказательством (и только оно;
+без lem:cellpoint/prop:eisup/thm:eis); `product.tex` — prop:product с
+доказательством, thm:dim10, cor:dim9 с доказательствами, абзац «три цвета
+не проходят», замечание о том, что диаметр ячейки E₈ равен 2 при
+минимуме 2 (Конвей–Слоэн) и что в нормировке λ₁²=3 получается diam²=6.
+
+- [x] Шаг 1: написать; порядок: планарная граница → ширина блока E₈/2401
+  (d²≥7/6) → продуктовое правило → теорема 45619 → следствие 9604.
+- [x] Шаг 2: убрать fig_budget (остаётся в статье 2); собрать.
+
+### Task 6: Статья 1 — воспроизводимость, заключение, аннотации, библиография
+
+**Files:** Create `paper/article1/sections/repro.tex`,
+`paper/article1/sections/conclusion.tex`; edit `bounds.tex` (title,
+abstracts RU/EN 130–200 слов, bibliography 12 позиций).
+
+Manifest (таблица «утверждение → вход → верификатор → ожидаемый вывод →
+уровень независимости»): строки из П13 ревью. Раздел «Вклад авторов и ИИ»
+— 12 строк из `origin-and-ai.tex` (§12.2 сжато, §12.5 два предложения).
+
+- [x] Шаг 1: написать repro.tex (≤ 1 стр.) и conclusion.tex (5 строк, пять чисел).
+- [x] Шаг 2: аннотации: RU ≤ 180 слов, EN ≤ 200 слов; без 45/1323/7203/28812.
+- [x] Шаг 3: библиография: ABPR, Coulson, CoulsonPayne2007, ConwaySloane,
+  deGrey, ExooIsmailescu, Ivanov2006, Ivanov2011, RadoicicToth, Soifer,
+  Voronoi, FinckePohst, CKR (при необходимости).
+- [x] Шаг 4: `latexmk -pdf bounds.tex`; страниц ≤ 22; лог без `undefined`.
+
+### Task 7: Заметка УМН
+
+**Files:** Create `paper/note-umn/note.tex` (содержимое), `paper/note-umn/README.md`
+
+Макет (ревью + предложения): УДК; заголовок «О двух верхних оценках
+хроматических чисел евклидовых пространств»; 5 строк постановки; Теорема
+(две интервальные оценки); Лемма 1 (продуктовая, 10 строк док-ва);
+Предложение 2 (планарная граница, док-во 8 строк); три блока (E₈/2401,
+Z/4Z, (5+2ω)A₂); две строки вывода; библиография: ABPR, ConwaySloane,
+Ivanov2006, Soifer, Ivanov2011 (интервальная постановка).
+
+- [x] Шаг 1: написать текст (900–1300 слов).
+- [x] Шаг 2: собрать шаблоном; `grep 'Output written' note.log` → `(2 pages`
+  или меньше; иначе резать библиографию/постановку, не доказательство.
+- [x] Шаг 3: английские метаданные (45–70 слов) — в README.md рядом.
+
+### Task 8: Статья 2 — введение, тождество и α-лестница
+
+**Files:** Create `paper/article2/sections/intro.tex`, `paper/article2/sections/identity.tex`
+
+Источник: `product.tex` §9 вводный абзац («ширина как ресурс») + короткая
+ссылка на критерий и продуктовое правило статьи 1 (формулировки повторить
+без доказательств); `extra.tex` целиком: таблица ширин АБПР (без строк
+1323 и ламинирования 9604 [Ч]; строку 1323 оставить как «(статья 1, дополнение)»),
+prop:planar, lem:cellpoint, prop:eisup, thm:eis, cor:hexcell, rem:a2tri,
+абзацы о Λ₂₄ и K₁₂, fig_eisenstein; `product.tex` §9.2 (prop:alphaladder,
+cor:Uexact); `dim9-12.tex` prop:mult, lem:inradius, cor:no-subgroup, абзац о
+K₁₂ и ширине √(3/2).
+
+- [x] Шаг 1: intro.tex ≤ 2 стр. с одной таблицей «точные ширины этой статьи».
+- [x] Шаг 2: identity.tex; собрать.
+
+### Task 9: Статья 2 — точные лестницы ширин в ℝ²–ℝ⁶
+
+**Files:** Create `paper/article2/sections/ladders.tex`
+
+Источник: `intervals.tex` целиком, сжатый: §6.1 (48), tab:r4 (45/46/48 без
+строки 43? — строку 43 оставить со ссылкой на статью 1), §6.3 ℝ³ (семейство
+G(α), α=1/3, 4/13, α*, кубика, рациональная граница, сертификат 3137/10⁴),
+tab:r3 (численные — пометить), tab:stair56, fig_staircase; `main.tex` §4.3
+(конструкция 45: (eq:gram), (eq:hnf), thm:main для 45/48; без fig_descent
+и без «почему прежний поиск не находил 43»).
+
+- [x] Шаг 1: написать; сохранить дроби `121967690/115730769`, `102659/100000`,
+  `3137/10000`, кубику — они проверяются тестами по рукописи, здесь для согласованности.
+- [x] Шаг 2: собрать.
+
+### Task 10: Статья 2 — ламинирование и численные кандидаты
+
+**Files:** Create `paper/article2/sections/lamination.tex`
+
+Источник: `dim9-12.tex` §8.2 (lem:P1, lem:P2 с доказательствами), §8.4
+(кусочный сертификат — идея, три наблюдения), §8.3/§8.5 как «кандидатные
+конструкции»: формулировки вида «конфигурация индекса 7203 имеет
+вычисленную ширину 1,016591; сертификат диаметра выполнен в плавающей
+точке, точного сертификата нет» (без `\chi\le`), §8.7 лестница ℝ⁹ (только
+недоминируемые строки), §8.8 башня (prop:mult уже в identity — сослаться;
+keybox [Ч] башни как «численные ширины»), `product.tex` §9.8 бюджет слоя
+(prop:layerbudget), §9.10 (28812 — кандидат, редукция TwoLayer, таблица
+статусов соседних индексов сокращённая), rem:r7second (как второй путь к
+1029 — со ссылкой на статью 1).
+
+- [x] Шаг 1: написать (≤ 6 стр.).
+- [x] Шаг 2: `grep -nE '\\chi\(\\R\^(9|10)\)\\le(7203|28812|21609)'` = 0; собрать.
+
+### Task 11: Статья 2 — строгие полы и экраны
+
+**Files:** Create `paper/article2/sections/floors.tex`
+
+Источник: `dim9-12.tex` §8.1 (prop:mink с таблицей), `product.tex` §9.5
+(prop:inrfloor, fig_spacer), §9.6 целиком (prop:shellfloor, lem:radial,
+thm:e8opt, thm:a3opt, таблица родителей, rem:shellsilent), §9.7 (динамика по
+разбиениям — 1 абзац), §9.9 (7⁶ в ℝ¹² недостижимо — теорема; слой ранга 2 —
+численно, fig_shells; E₈ локальный минимум ρ — численно, 5 строк).
+
+- [x] Шаг 1: написать (≤ 5 стр.); численные утверждения — вне окружений теорем.
+- [x] Шаг 2: собрать.
+
+### Task 12: Статья 2 — мозаики, обсуждение, аннотации, библиография
+
+**Files:** Create `paper/article2/sections/tilings.tex`,
+`paper/article2/sections/discussion.tex`; edit `widths.tex` (title,
+abstracts 170–220 слов, bibliography ≈ 22, раздел «Вклад авторов и ИИ» 12 строк).
+
+Источник: `tilings.tex` без §10.6 «куда целиться» (переходит в discussion
+2 абзацами) и с сокращённой таблицей ландшафта; `open.tex` — четыре
+вопроса: (1) ниже 43 в ℝ⁴ решёточно? (2) точная сертификация 7203/28812 —
+где именно встало (2 абзаца из п. «Рационализация»); (3) следующие блоки
+для продуктового правила (разрыв 2401–6561, K₁₂ окно [177 979, 3¹²],
+Лич оболочка 26); (4) индексы 17, 18 в плоскости. Всё остальное — фраза
+«численные фронтиры и журналы кампаний — в дополнении, §11 и прил. A».
+
+- [x] Шаг 1: написать tilings.tex (≤ 5 стр.), discussion.tex (≤ 1,5 стр.).
+- [x] Шаг 2: аннотации, библиография, вклад; `latexmk -pdf widths.tex`;
+  страниц ≤ 32.
+
+### Task 13: Полная рукопись как дополнение; указатели
+
+**Files:** Create `paper/split-preface.tex`; edit `paper/chi4-43.tex` (одна
+строка `\input{split-preface}` перед `\tableofcontents`); edit
+`paper/README.md`, корневой `README.md` (раздел «Статья и результаты»),
+`paper/arxiv-metadata.md` (абзац о трёх документах).
+
+- [x] Шаг 1: предисловие RU+EN (≤ 0,7 стр.): роль документа, таблица
+  «раздел → статья 1 / статья 2 / только здесь».
+- [x] Шаг 2: пересобрать `chi4-43.tex`; страниц 68–69; `make test` зелёный.
+- [x] Шаг 3: README-указатели.
+
+### Task 14: Тест инвариантов разделения
+
+**Files:** Create `audit-data/tests/test_paper_split.py`
+
+```python
+"""Инварианты разделения рукописи на статью 1, статью 2 и заметку УМН."""
+import re
+from pathlib import Path
+
+ROOT = Path(__file__).resolve().parents[2]
+A1 = ROOT / "paper" / "article1"
+A2 = ROOT / "paper" / "article2"
+NOTE = ROOT / "paper" / "note-umn" / "note.tex"
+
+
+def _texts(d):
+    return {p.relative_to(ROOT).as_posix(): p.read_text() for p in d.rglob("*.tex")}
+
+
+def test_article1_contains_only_proven_bounds():
+    banned = ("7203", "28812", "21609", "1323", r"\stN", r"\stM", "[Э]",
+              "CMA", "min-conflicts", "Radon")
+    hits = [f"{n}: {b}" for n, t in _texts(A1).items() for b in banned if b in t]
+    assert not hits, "в статье 1 численные/поисковые следы:\n  " + "\n  ".join(hits)
+    main = (A1 / "bounds.tex").read_text()
+    title = main[main.index(r"\title{"):main.index(r"\author{")]
+    for k in ("43", "132", "1029", "9604", "45619"):
+        assert rf"\le{k}$" in title, f"{k} нет в заголовке статьи 1"
+
+
+def test_article2_never_states_candidates_as_bounds():
+    pat = re.compile(r"\\chi\\?\(\\R\^\{?(9|10)\}?\)\s*\\le\s*(7203|28812|21609)")
+    hits = [n for n, t in _texts(A2).items() if pat.search(t)]
+    assert not hits, f"кандидат записан как оценка χ≤: {hits}"
+
+
+def test_note_is_minimal():
+    t = NOTE.read_text()
+    assert t.count(r"\begin{theorem}") == 1
+    for banned in ("7203", "28812", "tabular", "includegraphics", r"\stN"):
+        assert banned not in t, f"в заметке лишнее: {banned}"
+    assert "9604" in t and "45619" in t
+```
+
+- [x] Шаг 1: написать тест, запустить (`cd audit-data && make test` или
+  `../.venv/bin/python -m pytest tests/test_paper_split.py -q`), убедиться, что проходит.
+
+### Task 15 (после текстов): единый запуск `verify-main-results`
+
+**Files:** Create `audit-data/chromatic_research/campaigns/verify_main_results.py`
+
+Перепроверка пяти утверждений из опубликованных дробей (уровень 1 по
+шкале П13: пересчёт итоговых неравенств; полные верификаторы вызываются
+по флагу `--full`): 43 — `Ddown2 > l0²·diamup2` и `d2 ≥ l0²`;
+132 — `margin > 0` из `separation`; 1029 — `margin_exact = 7 − ℓ²·diam² > 0`;
+9604 — `6/7+1/9 < 1`; 45619 — `6/7+4/31 < 1`. Вывод: пять строк OK/FAIL.
+
+- [x] Шаг 1: тест `tests/test_verify_main_results.py` (вызывает `main()` и
+  ждёт пять OK); Шаг 2: реализация; Шаг 3: сослаться из repro.tex статьи 1.
+
+### Task 16: Финальная сборка и отчёт
+
+- [x] Собрать все четыре PDF; записать число страниц каждого в README каталогов.
+- [x] `make test` в `audit-data/` — зелёный.
+- [ ] (ждёт автора) Не коммитить без указания автора; предложить два коммита: (а) формальная
+  вычитка (уже в рабочем дереве), (б) разделение.

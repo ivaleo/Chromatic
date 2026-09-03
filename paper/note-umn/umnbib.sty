@@ -1,0 +1,74 @@
+%           ‘вЁ«Ґў®© д ©« UMNSH.STY - бвЁ«м "б®®ЎйҐ­Ёп ЊЊЋ"
+%                 ¦га­ «  “бЇҐеЁ ¬ вҐ¬ вЁзҐбЄЁе ­ гЄ
+%
+%                   ¤«п LaTeX2e Ї®¤ MikTeX
+%
+%            Џ®б«Ґ¤­ҐҐ ЁбЇа ў«Ґ­ЁҐ 23 ®ЄвпЎап 2007
+%
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\newif\if@multiple
+\@multiplefalse
+
+\newread\@@Read
+\newread\@@Short@Read
+\newwrite\@@Write
+\newwrite\@@Short@Write
+
+
+\textheight 204mm
+\textwidth 127mm
+\normalbaselineskip=12.5pt %4.39mm
+
+%   Њ Єа®бл ¤«п ®д®а¬«Ґ­Ёп бЇЁбЄ  «ЁвҐа вгал:
+
+
+\newif\if@item@
+\@item@false
+
+\let\@save@item=\item
+\let\@@@par=\@@par
+
+\renewenvironment{thebibliography}[1]
+     {\footnotesize
+%\if@dataonly\small\fi
+      \section*{\small\centerline{\refname}}%
+            \small
+%			\footnotesize
+      \list{\@biblabel{\@arabic\c@enumiv}}%
+           {\settowidth\labelwidth{\@biblabel{#1}}%
+            \leftmargin\labelwidth
+            \advance\leftmargin\labelsep
+            \@openbib@code
+            \usecounter{enumiv}%
+            \let\p@enumiv\@empty
+            \renewcommand\theenumiv{\@arabic\c@enumiv}}%
+      \sloppy
+      \clubpenalty4000
+      \@clubpenalty \clubpenalty
+      \widowpenalty4000%
+%			 \baselineskip3.6mm %’ Є, Ї®е®¦Ґ, Ўл«® ў бв а®¬ бвЁ«Ґ
+			 \baselineskip3.8mm
+			 \parindent12pt
+       \global\@newlistfalse
+			 \def\@biblabel##1{##1}
+			 \def\makelabel##1{\hfil ##1}%
+%			 \if@dataonly
+%			 \def\@biblabel##1{[##1]}
+%			 \raggedright
+%       \else
+			 \let\@@@par=\@@par
+			 \let\@@par=\relax
+       \parshape 0 \@totalleftmargin \linewidth %!!!!!
+			 \def\@item[##1]{\if@item@\allowbreak\hskip1em plus 0.5em minus 0.5em\else\fi
+       \refstepcounter\@listctr\@item@true
+       {\selectlanguage{russian}[{\bfseries ##1}]}~\kern0.001mm\ignorespaces
+       }%
+%       \fi
+      \sfcode`\.\@m}
+%     {\nobreak\@@@par\def\@noitemerr{}\global\advance\@listdepth\m@ne\nobreak\@No@Color\endRefs}
+
+\endinput
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

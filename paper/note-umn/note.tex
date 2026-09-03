@@ -1,0 +1,202 @@
+% Краткое сообщение для УМН. Оформление --- официальный шаблон
+% (mathnet.ru/rus/rm/authornotes, umn_shap.zip: 000.tex + umnbib.sty),
+% перекодированный в UTF-8. Предел жанра --- две журнальные страницы.
+\documentclass{article}
+\usepackage[T2A]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[russian]{babel}
+\usepackage[tbtags]{amsmath}
+\usepackage{amsfonts,amssymb,mathrsfs,amscd,comment}
+\usepackage{umnbib} % оформление списка литературы
+
+\overfullrule10pt
+
+\voffset-30mm\hoffset-15mm\mag1200
+\textheight 230mm\textwidth 140mm\normalbaselineskip=12.5pt %4.39mm
+
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\CC}{\mathbb{C}}
+\newcommand{\diam}{\operatorname{diam}}
+\newcommand{\dist}{\operatorname{dist}}
+\newtheorem{theorem}{Теорема}
+\newtheorem{lemma}{Лемма}
+\newtheorem{proposition}{Предложение}
+
+\begin{document}
+
+% TODO: сверить УДК с редакцией
+\title{\makebox[\textwidth][l]{\normalfont\normalsize УДК 514.174.5+519.174}\\[8pt]
+\bf\large\MakeUppercase{%
+О двух верхних оценках хроматических чисел евклидовых пространств
+}}
+
+% TODO (решение авторов): по журналу вкладов CONTRIBUTIONS.md содержание
+% заметки (продуктовое правило, планарная граница, оценки 9604 и 45619)
+% принадлежит Л.\,Л.~Иванову; при ином решении добавить второго автора.
+\author{Л.\,Л.~Иванов}
+\date{}
+
+\maketitle
+
+\makeatletter
+\renewcommand{\@makefnmark}{}
+\makeatother
+
+\textbf{1. Постановка и результат.}
+Через $\chi(\R^n,[1,\ell])$, $\ell\ge1$, обозначим наименьшее число цветов
+раскраски пространства $\R^n$, при которой никакие две одноцветные точки не
+находятся на расстоянии из отрезка $[1,\ell]$; при $\ell=1$ это классическое
+хроматическое число $\chi(\R^n)$ (проблема Нельсона--Хадвигера, см.~\cite{Soifer}),
+интервальная постановка изучалась в~\cite{Ivanov2011}. Очевидно,
+$\chi(\R^n)\le\chi(\R^n,[1,\ell])$.
+
+Все известные верхние оценки в малых размерностях получены раскрасками по
+разбиению Вороного решётки (см.~\cite{ABPR}). Пусть $\Lambda\subset\R^n$ ---
+решётка, $\Gamma\subset\Lambda$ --- подрешётка индекса $k$, $V_0$ --- ячейка
+Вороного нуля (выпуклый центрально-симметричный многогранник); ячейку $a+V_0$,
+$a\in\Lambda$, окрасим цветом класса $a+\Gamma$. Положим
+\[
+D(v)=2\dist\bigl(v/2,\,V_0\bigr),\qquad
+D(\Gamma)=\min_{v\in\Gamma\setminus\{0\}}D(v),\qquad
+d(\Lambda,\Gamma)=\frac{D(\Gamma)}{\diam V_0}.
+\]
+Если $x\in V_0$, $y\in v+V_0$, то $x'=v-y\in V_0$ и
+$x-y=2\bigl(\tfrac{x+x'}2-\tfrac v2\bigr)$, откуда по выпуклости
+$|x-y|\ge D(v)$ (на самом деле равенство, \cite[лемма~2]{Ivanov2011}). Значит, две одноцветные точки либо лежат в одной ячейке
+(расстояние $\le\diam V_0$), либо удалены не менее чем на $D(\Gamma)$. Если
+$d=d(\Lambda,\Gamma)>1$, то при масштабе $s$ с $s\diam V_0<1$, $sD(\Gamma)>\ell$
+(такой $s$ есть в точности при $\ell<d$) отрезок $[1,\ell]$ свободен от
+одноцветных расстояний, то есть $\chi(\R^n,[1,\ell])\le[\Lambda:\Gamma]$ при
+всех $\ell<d(\Lambda,\Gamma)$. Величину $d$ будем называть \emph{шириной}
+раскраски.
+
+\begin{theorem}
+При $\ell<\sqrt{63/61}$ выполнено $\chi(\R^9,[1,\ell])\le9604$, а при
+$\ell<\sqrt{217/214}$ --- $\chi(\R^{10},[1,\ell])\le45619$. В~частности,
+$\chi(\R^9)\le9604$ и $\chi(\R^{10})\le45619$.
+\end{theorem}
+
+Прежние оценки --- $\chi(\R^9)\le17253$ и $\chi(\R^{10})\le3^{10}=59049$
+\cite{ABPR}; оценка $45619$ --- первая в $\R^{10}$ ниже классической
+величины $3^n$.
+
+\textbf{2. Продуктовое правило.}
+
+\begin{lemma}
+Пусть $\Lambda=\bigoplus_{i=1}^{s}\Lambda_i$ --- ортогональная прямая сумма
+решёток $\Lambda_i\subset\R^{n_i}$, $\Gamma=\bigoplus_i\Gamma_i$,
+$\Gamma_i\subseteq\Lambda_i$, $k_i=[\Lambda_i:\Gamma_i]$, и пусть
+$d(\Lambda_i,\Gamma_i)\ge d_i>0$. Тогда при подходящем выборе масштабов
+блоков $d(\Lambda,\Gamma)\ge\bigl(\sum_{i}d_i^{-2}\bigr)^{-1/2}$, и потому
+$\chi(\R^{n},[1,\ell])\le\prod_i k_i$ при
+$\ell<\bigl(\sum_{i}d_i^{-2}\bigr)^{-1/2}$, где $n=\sum_i n_i$.
+\end{lemma}
+
+\textbf{Доказательство.}
+Масштабирование блока $\Lambda_i$ не меняет $d(\Lambda_i,\Gamma_i)$, так что
+величины $s_i=\diam^2V_0(\Lambda_i)$ можно задавать произвольно. Ячейка
+Вороного прямой суммы есть произведение ячеек, поэтому
+$\diam^2V_0(\Lambda)=\sum_i s_i$, а для $v=(v_1,\dots,v_s)$
+$\dist^2(v/2,V_0)=\sum_i\dist^2\bigl(v_i/2,V_0(\Lambda_i)\bigr)$, то есть
+$D(v)^2=\sum_iD_i(v_i)^2$. Так как $D_i(0)=0$, минимум по
+$\Gamma\setminus\{0\}$ достигается на векторе с единственной ненулевой
+компонентой: $D(\Gamma)^2=\min_iD(\Gamma_i)^2\ge\min_i d_i^2s_i$. Положив
+$s_i=S/d_i^2$, получаем $D(\Gamma)^2\ge S$ и
+$\diam^2V_0(\Lambda)=S\sum_id_i^{-2}$, откуда
+$d(\Lambda,\Gamma)^2\ge\bigl(\sum_id_i^{-2}\bigr)^{-1}$. Индекс $\Gamma$ в
+$\Lambda$ равен $\prod_ik_i$; остаётся применить критерий п.~1. $\square$
+
+Правая часть монотонна по $d_i$, поэтому достаточно оценок ширин блоков
+\emph{снизу}; величину $d_i^{-2}$ назовём \emph{ценой} блока.
+
+\textbf{3. Эйзенштейновы блоки.}
+Решётку $\Lambda$ назовём \emph{эйзенштейновой}, если она снабжена
+структурой модуля над $\Z[\omega]$, $\omega=e^{2\pi i/3}$, причём умножение
+на $\omega$ --- изометрия. Пусть $H_1\subset\CC$ --- ячейка Вороного решётки
+$\Z[\omega]\subset\CC=\R^2$: правильный шестиугольник с фасетами на расстоянии
+$1/2$ от нуля и вершинами на расстоянии $1/\sqrt3$. Через $\lambda_1(\Lambda)$
+обозначим длину кратчайшего ненулевого вектора.
+
+\begin{proposition}
+Пусть $\Lambda$ эйзенштейнова и $\alpha\in\Z[\omega]\setminus\{0\}$. Тогда
+$D(\alpha\Lambda)\ge2\,\lambda_1(\Lambda)\cdot\dist(\alpha/2,\,H_1)$.
+\end{proposition}
+
+\textbf{Доказательство.}
+Всякий ненулевой вектор $\alpha\Lambda$ имеет вид $\alpha w$, $w\in\Lambda
+\setminus\{0\}$. Векторы $\pm w$, $\pm\omega w$, $\pm(1+\omega)w=\mp\omega^2w$
+лежат в $\Lambda$ и имеют длину $|w|$. Шесть полупространств
+$\{x:\langle x,u\rangle\le|u|^2/2\}$ по этим $u$ содержат $V_0$, а их нормали
+лежат в плоскости $P=\operatorname{span}(w,\omega w)$; поэтому ортогональная
+проекция $V_0$ на $P$ содержится в шестиугольнике $H$, высекаемом в $P$ теми
+же неравенствами, --- ячейке Вороного плоской решётки $\Z[\omega]w\subset P$,
+изометричной $|w|\,H_1$. Точка $\alpha w/2$ лежит в $P$, и проекция не
+увеличивает расстояний, значит,
+$\dist(\alpha w/2,V_0)\ge\dist_P(\alpha w/2,H)=|w|\dist(\alpha/2,H_1)$. Так как
+$|w|\ge\lambda_1(\Lambda)$, получаем требуемое. $\square$
+
+Нужны два значения. Ближайшая к точке $(3+\omega)/2=(5/4,\sqrt3/4)$ точка
+$H_1$ --- вершина $(1/2,\,1/(2\sqrt3))$, квадрат расстояния равен
+$9/16+1/48=7/12$. Для точки $(5+2\omega)/2=(2,\sqrt3/2)$ ближайшей служит
+та же вершина, квадрат расстояния равен $9/4+1/3=31/12$.
+
+\emph{Блок $E_8$.} Решётка $E_8$ эйзенштейнова (см.~\cite{ABPR},
+\cite{ConwaySloane}), $\lambda_1(E_8)^2=2$, её радиус покрытия равен~$1$
+\cite[гл.~4]{ConwaySloane}, так что $\diam V_0(E_8)=2$. Подрешётка
+$\Gamma_1=(3+\omega)E_8$ имеет индекс $N(3+\omega)^4=7^4=2401$
+(конструкция из~\cite{ABPR}), и по предложению
+$D(\Gamma_1)\ge2\sqrt2\cdot\sqrt{7/12}=\sqrt{14/3}$. Отсюда
+$d(E_8,\Gamma_1)\ge\sqrt{14/3}\big/2=\sqrt{7/6}$, то есть цена блока не превосходит
+$6/7$.
+
+\emph{Одномерный блок.} Пусть $\Lambda_2=\Z$ и $\Gamma_2=4\Z$ (четыре
+цвета). Здесь $V_0=[-1/2,1/2]$, $\diam V_0=1$ и $D(4)=2\dist(2,V_0)=3$, так
+что $d_2=3$ и цена равна $1/9$.
+
+\emph{Плоский блок.} $\Lambda_3=\Z[\omega]\subset\CC$ (шестиугольная решётка,
+$\lambda_1=1$, $\diam V_0=2/\sqrt3$), $\Gamma_3=(5+2\omega)\Z[\omega]$, индекс
+$N(5+2\omega)=19$. По предложению $D(\Gamma_3)\ge2\sqrt{31/12}$, поэтому
+$d_3\ge\sqrt{31/12}\cdot\sqrt3=\sqrt{31/4}$ и цена не превосходит $4/31$.
+
+\textbf{4. Доказательство теоремы.}
+По лемме для $E_8\oplus t\Z$ с $\Gamma_1\oplus4t\Z$ и для
+$E_8\oplus a\Z[\omega]$ с $\Gamma_1\oplus(5+2\omega)a\Z[\omega]$ при
+подходящих $t,a>0$:
+\[
+\begin{aligned}
+\frac67+\frac19&=\frac{61}{63}<1\ \Longrightarrow\
+\chi(\R^9,[1,\ell])\le2401\cdot4=9604\quad\bigl(\ell<\sqrt{63/61}\,\bigr),\\
+\frac67+\frac4{31}&=\frac{214}{217}<1\ \Longrightarrow\
+\chi(\R^{10},[1,\ell])\le2401\cdot19=45619\quad\bigl(\ell<\sqrt{217/214}\,\bigr).
+\qquad\square
+\end{aligned}
+\]
+
+Оценки $\chi(\R^4)\le43$, $\chi(\R^5)\le132$, $\chi(\R^7)\le1029$ того же
+метода с точными рациональными сертификатами изложены в~\cite{Full}.
+
+\begin{thebibliography}{9}
+\bibitem{Soifer} A.~Soifer, \emph{The Mathematical Coloring Book}, Springer,
+New York, 2009.
+\bibitem{Ivanov2011} Л.~Л.~Иванов, \emph{О хроматических числах $\R^2$ и $\R^3$
+с интервалами запрещённых расстояний}, Вестник РУДН, сер. Матем. Информ. Физ.,
+2011, №~1, 14--29.
+\bibitem{ABPR} A.~Arman, A.~Bondarenko, A.~Prymak, D.~Radchenko, \emph{Upper
+bounds on chromatic number of $\mathbb E^n$ in low dimensions}, Electron. J.
+Combin., \textbf{31}:2 (2024), P2.35.
+\bibitem{ConwaySloane} J.~H.~Conway, N.~J.~A.~Sloane, \emph{Sphere packings,
+lattices and groups}, 3rd ed., Springer, New York, 1999.
+\bibitem{Full} Л.~Л.~Иванов, Н.~Глушкова, \emph{Новые верхние оценки
+хроматических чисел евклидовых пространств}, 2026, препринт,
+\texttt{https://github.com/ivaleo/Chromatic}.
+\end{thebibliography}
+
+{\bf Л.\,Л.~Иванов (L.\,L.~Ivanov)}
+
+% TODO: место работы / город для служебной строки УМН
+Москва
+
+{\it E-mail}: leo.ivanov@gmail.com
+
+\end{document}

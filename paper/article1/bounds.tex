@@ -1,0 +1,199 @@
+\pdfoutput=1
+\documentclass[11pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T2A]{fontenc}
+\usepackage[english,russian]{babel}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage[a4paper,left=24mm,right=20mm,top=22mm,bottom=24mm]{geometry}
+\usepackage{graphicx}
+\graphicspath{{../}}
+\usepackage{array}
+\usepackage{booktabs}
+\usepackage{enumitem}
+\usepackage[dvipsnames,table]{xcolor}
+\usepackage{mdframed}
+\usepackage[colorlinks=true,linkcolor=NavyBlue,citecolor=BrickRed,urlcolor=NavyBlue]{hyperref}
+
+\newtheorem{theorem}{Теорема}
+\newtheorem{lemma}{Лемма}
+\newtheorem{proposition}{Предложение}
+\newtheorem{corollary}{Следствие}
+\theoremstyle{definition}
+\newtheorem{definition}{Определение}
+\theoremstyle{remark}
+\newtheorem{remark}{Замечание}
+
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\E}{\mathbb{E}}
+\newcommand{\diam}{\operatorname{diam}}
+\newcommand{\dist}{\operatorname{dist}}
+\newcommand{\vol}{\operatorname{vol}}
+
+% мягкая вёрстка: разрешить растяжку строк вместо выхода за поле
+\setlength{\emergencystretch}{1.5em}
+
+% рамка для ключевых утверждений
+\newmdenv[linecolor=NavyBlue!60,linewidth=0.8pt,backgroundcolor=NavyBlue!4,
+  roundcorner=4pt,skipabove=8pt,skipbelow=8pt,innertopmargin=6pt,
+  innerbottommargin=6pt]{keybox}
+
+% Статья 1 из комплекта (см. ../../journal/PLAN-2026-09-03-paper-split.md):
+% только пять доказанных оценок. Статусные метки численных результатов и экранов здесь не вводятся.
+
+\title{\bfseries Новые верхние оценки хроматических чисел
+евклидовых пространств\\[2pt]
+\large $\chi(\R^4)\le43$,\; $\chi(\R^5)\le132$,\; $\chi(\R^7)\le1029$,\;
+$\chi(\R^9)\le9604$,\; $\chi(\R^{10})\le45619$%
+\thanks{Код, точные сертификаты и данные открыты:
+\url{https://github.com/ivaleo/Chromatic} (лицензия MIT).
+Полная версия работы с поисковыми алгоритмами, лестницами ширин и
+отрицательными экранами --- электронное дополнение \cite{Full}.}}
+% Порядок авторов --- по вкладу (решение от 22.08.2026), не алфавитный.
+\author{Л.\,Л.~Иванов\thanks{E-mail: \texttt{leo.ivanov@gmail.com}.}
+  \and Н.~Глушкова}
+\date{3 сентября 2026 г.}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+\noindent
+Раскраска евклидова пространства называется \emph{правильной для запрещённого
+отрезка расстояний} $[1,\ell]$, если никакие две одноцветные точки не находятся
+на расстоянии из $[1,\ell]$; наименьшее необходимое число цветов обозначается
+$\chi\bigl(\R^n,[1,\ell]\bigr)$, а при $\ell=1$ это классическое хроматическое
+число $\chi(\R^n)$ (проблема Нельсона--Хадвигера). Доказаны новые верхние
+оценки
+\[
+\chi(\R^4)\le43,\quad \chi(\R^5)\le132,\quad \chi(\R^7)\le1029,\quad
+\chi(\R^9)\le9604,\quad \chi(\R^{10})\le45619
+\]
+против известных $49$, $140$, $1372$, $17253$ и $3^{10}$; в частности,
+опровергается ожидание Армана, Бондаренко, Прымака и Радченко, что $49$ и
+$140$ минимальны среди всех решёточных раскрасок $\R^4$ и $\R^5$. Первые три
+оценки даются явными рациональными решётками --- эйзенштейновой в $\R^4$,
+общего положения в $\R^5$ и ламинированием $E_6^*/343$ в $\R^7$, --- а
+ключевое неравенство по единому протоколу сведено к конечному списку
+неравенств между рациональными числами, проверенных в точной арифметике.
+Последние две выводятся аналитически из продуктового правила для ширин
+$\sum_i1/d_i^2\le1$ и планарной нижней границы
+$D((3+\omega)\Lambda)\ge\sqrt{7/3}\,\lambda_1$ для блока $E_8/2401$;
+$45619$ --- первая оценка в $\R^{10}$ ниже классической башни $3^n$.
+Код, точные сертификаты и данные открыты.
+\end{abstract}
+
+\begin{otherlanguage}{english}
+\begin{center}
+{\bfseries New upper bounds for the chromatic numbers of Euclidean spaces:\\
+$\chi(\R^4)\le43$, $\chi(\R^5)\le132$, $\chi(\R^7)\le1029$,
+$\chi(\R^9)\le9604$, $\chi(\R^{10})\le45619$}
+\end{center}
+
+\noindent\textbf{Abstract.}
+A coloring of Euclidean space is proper for the forbidden distance segment
+$[1,\ell]$ if no two points of the same color realize a distance in
+$[1,\ell]$; the minimum number of colors is denoted $\chi(\R^n,[1,\ell])$,
+and $\ell=1$ recovers the classical chromatic number $\chi(\R^n)$ of the
+Nelson--Hadwiger problem. We prove the new upper bounds
+$\chi(\R^4)\le43$, $\chi(\R^5)\le132$, $\chi(\R^7)\le1029$,
+$\chi(\R^9)\le9604$, and $\chi(\R^{10})\le45619$, against the previously
+known $49$, $140$, $1372$, $17253$, and $3^{10}$; in particular, this refutes
+the expectation of Arman, Bondarenko, Prymak, and Radchenko that $49$ and
+$140$ are optimal among all lattice colorings of $\R^4$ and $\R^5$. The
+first three bounds come from explicit rational lattices --- an Eisenstein
+lattice in $\R^4$, a lattice in general position in $\R^5$, and a lamination
+of $E_6^*/343$ in $\R^7$ --- whose key inequality is reduced, by a single
+verification protocol, to a finite list of inequalities between rational
+numbers checked in exact arithmetic. The last two follow analytically from a
+product rule for widths, $\sum_i1/d_i^2\le1$, and the planar lower bound
+$D((3+\omega)\Lambda)\ge\sqrt{7/3}\,\lambda_1$ for the block $E_8/2401$;
+$45619$ is the first bound in $\R^{10}$ below the classical $3^n$ tower.
+All code, exact certificates, and data are open.
+
+\smallskip
+\noindent\emph{The paper is in Russian.}
+\end{otherlanguage}
+
+\input{sections/intro}
+\input{sections/criterion}
+\input{sections/constructions}
+\input{sections/product}
+\input{sections/repro}
+\input{sections/conclusion}
+
+\begin{thebibliography}{99}\small
+
+\bibitem{ABPR} A.~Arman, A.~Bondarenko, A.~Prymak, D.~Radchenko,
+\emph{Upper bounds on chromatic number of $\E^n$ in low dimensions},
+Electron. J. Combin. \textbf{31} ($2024$), no.~2, \#P2.35; arXiv:$2112$.$13\,438$.
+
+\bibitem{ChJW} J.~Chybowska-Sok\'o\l{}, K.~Junosza-Szaniawski, K.~W\c{e}sek,
+\emph{Coloring distance graphs on the plane},
+Discrete Math. \textbf{346} ($2023$), no.~7, 113441;
+arXiv:$2201$.$04\,499$.
+
+\bibitem{ConwaySloane} J.~H.~Conway, N.~J.~A.~Sloane,
+\emph{Sphere Packings, Lattices and Groups}, 3rd ed., Springer, $1999$.
+
+\bibitem{CoulsonPayne2007} D.~Coulson, M.~S.~Payne,
+\emph{A dense distance 1 excluding set in $\R^3$},
+Austral. Math. Soc. Gaz. \textbf{34} ($2007$), no.~2, 97--102.
+
+\bibitem{deGrey} A.~D.~N.~J.~de~Grey,
+\emph{The chromatic number of the plane is at least 5},
+Geombinatorics \textbf{28} ($2018$), no.~1, 18--31.
+
+\bibitem{Exoo2005} G.~Exoo,
+\emph{$\varepsilon$-unit distance graphs},
+Discrete Comput. Geom. \textbf{33} ($2005$), 117--123.
+
+\bibitem{ExooIsmailescu} G.~Exoo, D.~Ismailescu, M.~Lim,
+\emph{On the chromatic number of $\R^4$},
+Discrete Comput. Geom. \textbf{52} ($2014$), no.~2, 416--423.
+
+\bibitem{FinckePohst} U.~Fincke, M.~Pohst,
+\emph{Improved methods for calculating vectors of short length in a lattice},
+Math. Comp. \textbf{44} ($1985$), 463--471.
+
+\bibitem{Ivanov2006} Л.~Л.~Иванов,
+\emph{Оценка хроматического числа пространства $\R^4$},
+УМН \textbf{61} ($2006$), №~5, 181--182.
+
+\bibitem{Ivanov2011} Л.~Л.~Иванов,
+\emph{О хроматических числах $\R^2$ и $\R^3$ с интервалами запрещённых
+расстояний}, Вестник РУДН, сер. Матем. Информ. Физ. ($2011$), №~1, 14--29.
+
+\bibitem{Full} Л.~Л.~Иванов, Н.~Глушкова,
+\emph{Новые верхние оценки хроматических чисел евклидовых пространств:
+полная версия} (электронное дополнение к настоящей статье и к~\cite{Widths}),
+$2026$, \url{https://github.com/ivaleo/Chromatic/tree/main/paper}.
+
+\bibitem{Widths} Л.~Л.~Иванов, Н.~Глушкова,
+\emph{Ширина запрещённого интервала как ресурс: эйзенштейново тождество,
+ламинирование, экраны индекса и мозаичные раскраски евклидовых пространств},
+$2026$ (сопутствующая статья).
+
+\bibitem{LLL} A.~K.~Lenstra, H.~W.~Lenstra, L.~Lov\'asz,
+\emph{Factoring polynomials with rational coefficients},
+Math. Ann. \textbf{261} ($1982$), 515--534.
+
+\bibitem{Parts2023} J.~Parts,
+\emph{More certainty in coloring the plane with a forbidden distance
+interval},
+Geombinatorics \textbf{32} ($2023$), no.~4, 159--185; arXiv:$2303$.$14\,722$.
+
+\bibitem{RadoicicToth} R.~Radoi\v{c}i\'c, G.~T\'oth,
+\emph{Note on the chromatic number of the space},
+in: Discrete and Computational Geometry, Algorithms Combin. \textbf{25},
+Springer, $2003$, 695--698.
+
+\bibitem{Soifer} A.~Soifer,
+\emph{The Mathematical Coloring Book}, Springer, New York, $2009$.
+
+\bibitem{Voronoi} Г.~Ф.~Вороной,
+\emph{Собрание сочинений}, т.~2, Изд-во АН УССР, Киев, $1952$.
+
+\end{thebibliography}
+\end{document}
