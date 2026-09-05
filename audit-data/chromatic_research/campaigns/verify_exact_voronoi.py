@@ -340,19 +340,29 @@ def enumerate_short_kernel_vectors(
     denominator: int,
     covering_radius_squared: Rational,
     reduced_rows: Matrix,
+    upper_endpoint: Rational = Rational(1),
 ) -> tuple[list[tuple[int, ...]], list[Rational]]:
+    """Enumerate every kernel vector inside the provably complete window.
+
+    A vector ``v`` can violate ``D(v) >= ell * diam V_0 = 2 ell R`` only if
+    ``|v| < 2 (1 + ell) R`` (because ``D(v) >= |v| - 2R``), so the window is
+    ``|v|^2 < 4 (1 + ell)^2 R^2``; for ``ell = 1`` this is the classical
+    ``4R`` window.  The coefficient box follows from the diagonal of the
+    inverse Gram matrix: ``c_i^2 <= |v|^2 (G^{-1})_{ii}``.
+    """
     reduced_gram = reduced_rows * gram * reduced_rows.T
     inverse_physical = reduced_gram.inv() * denominator
-    norm_bound = 16 * covering_radius_squared
+    norm_bound = 4 * (1 + Rational(upper_endpoint)) ** 2 * covering_radius_squared
     coefficient_bounds = [
         Rational(norm_bound * inverse_physical[index, index])
         for index in range(reduced_rows.rows)
     ]
-    if any(value >= 4 for value in coefficient_bounds):
-        raise AssertionError("the exact [-1,1]^n coefficient bound failed")
+    box = [rational_floor_sqrt(value) for value in coefficient_bounds]
 
     vectors: list[tuple[int, ...]] = []
-    for coefficient in itertools.product((-1, 0, 1), repeat=reduced_rows.rows):
+    for coefficient in itertools.product(
+        *(range(-limit, limit + 1) for limit in box)
+    ):
         if not any(coefficient):
             continue
         coordinate = Matrix([coefficient]) * reduced_rows
@@ -533,12 +543,16 @@ def main(argv: Sequence[str] | None = None) -> int:
             if dot % int(modulus):
                 raise AssertionError("LLL row is not in the modular kernel")
 
-    short_vectors, coefficient_bounds = enumerate_short_kernel_vectors(
-        gram, denominator, radius_squared, reduced_rows
+    upper_endpoint = Rational(
+        certificate.get("certified_interval", {}).get("upper_endpoint", 1)
     )
+    short_vectors, coefficient_bounds = enumerate_short_kernel_vectors(
+        gram, denominator, radius_squared, reduced_rows, upper_endpoint
+    )
+    box = [rational_floor_sqrt(value) for value in coefficient_bounds]
     print(
-        f"exact kernel audit: short-vectors={len(short_vectors)} "
-        f"coefficient-box=[-1,1]^{n}",
+        f"exact kernel audit: window |v|^2 < 4(1+ell)^2 R^2, ell={upper_endpoint}, "
+        f"short-vectors={len(short_vectors)} coefficient-box={box}",
         flush=True,
     )
     if len(short_vectors) != certificate["short_vector_certificate"][
