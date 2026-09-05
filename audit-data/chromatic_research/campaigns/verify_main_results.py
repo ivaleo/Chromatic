@@ -196,20 +196,12 @@ def full_commands(tmp: Path) -> list[list[str]]:
     ]
 
 
-# Аудит 132 без Qhull (verify_exact_voronoi) написан под прежнее окно |v| < 4R
-# (36 векторов) и сверяет своё число коротких векторов с сертификатом; после
-# перегенерации сертификата с окном 2(1+ell)R (38 векторов, замечание №3 к
-# версии 5) он на нём останавливается с «short-vector count differs». Его
-# протокол results/metric_deform_a5_132_refined_independent_exact_audit.json
-# получен на прежней версии сертификата (source_certificate: hd-2026-07/...,
-# certificate_count 36) и по R^2, D_min^2 и запасу интервала совпадает с
-# текущей. Команда печатается, но автоматически не запускается.
-AUDIT_132_NOTE = (
-    "не запускается автоматически: скрипт сверяет число коротких векторов в окне 4R "
-    "(36) с сертификатом, а перегенерированный сертификат хранит окно 2(1+ell)R (38); "
-    "протокол results/metric_deform_a5_132_refined_independent_exact_audit.json получен "
-    "на прежней версии сертификата и совпадает с текущей по R^2, D_min^2 и запасу"
-)
+# Аудит 132 без Qhull (verify_exact_voronoi) перечисляет короткие векторы в том же
+# доказуемо полном окне |v| < 2(1+ell)R, что и сертификат (ell берётся из поля
+# certified_interval.upper_endpoint; при ell = 1 это классическое окно 4R), и
+# сверяет их число и KKT-свидетели с сертификатом. Его протокол —
+# results/metric_deform_a5_132_refined_independent_exact_audit.json
+# (certificate_count 38).
 
 
 def audit_132_command(tmp: Path) -> list[str]:
@@ -222,13 +214,11 @@ def run_full() -> bool:
     ok = True
     with tempfile.TemporaryDirectory() as tmpdir:
         tmp = Path(tmpdir)
-        for cmd in full_commands(tmp):
+        for cmd in full_commands(tmp) + [audit_132_command(tmp)]:
             print(">>", " ".join(cmd[1:]))
             code = subprocess.call(cmd)
             print("   код возврата", code)
             ok &= code == 0
-        print(">> (вручную)", " ".join(audit_132_command(tmp)[1:]))
-        print("   " + AUDIT_132_NOTE)
     return ok
 
 
