@@ -6,21 +6,22 @@
 Пять строк вывода отвечают пяти доказанным оценкам
 
     chi(R^4) <= 43,  chi(R^5) <= 132,  chi(R^7) <= 1029,
-    chi(R^9) <= 9604,  chi(R^10) <= 45619.
+    chi(R^9) <= 7203,  chi(R^10) <= 45619.
 
 Уровень независимости (шкала П13 ревью
 ``journal/REVIEW-split-proposals-2026-09-03.md``):
 
 * без флагов — **уровень 1**: итоговые неравенства пересчитываются из
   опубликованных дробей сертификатов ``audit-data/results/*.json`` на
-  ``fractions.Fraction`` (без numpy и без кода конвейера); для 9604 и 45619
+  ``fractions.Fraction`` (без numpy и без кода конвейера); для 45619
   пересчитываются сами аналитические суммы 6/7+1/9 и 6/7+4/31 и ширины
   блоков. Это проверяет арифметику *утверждения*, а не полноту списков
   вершин и опасных векторов — та проверяется полными верификаторами;
 * ``--full`` — **уровни 2/3**: дополнительно запускаются полные точные
   верификаторы, заново строящие ячейку Вороного и все KKT-сертификаты:
   ``dim4_k43_verify`` (независимый пересчёт 43 без voronoi4d/combigeo),
-  ``dim7_1029_exact`` (1029, полнота вершин по 1-скелету) и
+  ``dim7_1029_exact`` (1029, полнота вершин по 1-скелету),
+  ``dim9_7203_exact`` (7203, то же в девяти измерениях: ~1,5 ч) и
   ``verify_exact_voronoi`` (аудит 132 без Qhull). Их вывод пишется во
   временный каталог; опубликованные артефакты не перезаписываются.
 """
@@ -38,7 +39,7 @@ from pathlib import Path
 
 from chromatic_research.paths import results_path
 
-CLAIMS = ("R4_43", "R5_132", "R7_1029", "R9_9604", "R10_45619")
+CLAIMS = ("R4_43", "R5_132", "R7_1029", "R9_7203", "R10_45619")
 
 
 @dataclass
@@ -149,17 +150,33 @@ def planar_block_width_squared() -> F:
     return dmin2 / diam2                     # 31/4
 
 
-def check_r9_9604() -> Check:
-    cost = 1 / e8_block_width_squared() + 1 / F(3) ** 2   # 6/7 + 1/9
+def check_r9_7203() -> Check:
+    """Точный сертификат ламинирования E8/2401 (m=3); вытеснил 9604."""
+    d = _load("dim9_7203_exact.json")
+    ell = F(d["ell"])
+    dmin2, diam2, r2 = (F(d["minimum_distance_squared_exact"]),
+                        F(d["diameter_squared_exact"]), F(d["radius_squared_exact"]))
+    d2, margin = F(d["normalized_distance_squared_exact"]), F(d["margin_exact"])
+    # прежняя аналитическая ступень: 6/7 + 1/9 = 61/63 < 1 даёт 9604
+    superseded = 1 / e8_block_width_squared() + 1 / F(3) ** 2
     conds = {
-        "6/7 + 1/9 = 61/63": cost == F(61, 63),
-        "сумма < 1": cost < 1,
-        "2401*4 = 9604": 2401 * 4 == 9604,
-        "d_1^2 = 7/6": e8_block_width_squared() == F(7, 6),
+        "индекс 7203": d["index"] == 7203,
+        "interval_valid": d["interval_valid"] is True,
+        "D_min^2 = 7": dmin2 == 7,
+        "d^2 = 7/diam^2": d2 == dmin2 / diam2,
+        "d^2 > 1": d2 > 1,
+        "R^2 < 7/4": r2 < F(7, 4),
+        "diam^2 = 4 R^2": diam2 == 4 * r2,
+        "запас = 7 - ell^2 diam^2": margin == dmin2 - ell * ell * diam2,
+        "запас > 0": margin > 0,
+        "шире вытесненной 9604": d2 > 1 / superseded,
+        "цветов меньше 9604": 7203 < 2401 * 4,
     }
     bad = [k for k, v in conds.items() if not v]
-    detail = f"6/7 + 1/9 = {cost} < 1, ell = sqrt(63/61) = {float(1 / cost) ** 0.5:.6f}"
-    return Check("R9_9604", not bad, detail if not bad else "нарушено: " + ", ".join(bad))
+    detail = (f"d^2 = {d2}, d = {float(d2) ** 0.5:.9f} против "
+              f"sqrt(63/61) = {float(1 / superseded) ** 0.5:.9f}, "
+              f"запас {float(margin):.3e} > 0")
+    return Check("R9_7203", not bad, detail if not bad else "нарушено: " + ", ".join(bad))
 
 
 def check_r10_45619() -> Check:
@@ -175,7 +192,7 @@ def check_r10_45619() -> Check:
     return Check("R10_45619", not bad, detail if not bad else "нарушено: " + ", ".join(bad))
 
 
-CHECKS = (check_r4_43, check_r5_132, check_r7_1029, check_r9_9604, check_r10_45619)
+CHECKS = (check_r4_43, check_r5_132, check_r7_1029, check_r9_7203, check_r10_45619)
 
 
 def run_all() -> list[Check]:
@@ -193,6 +210,10 @@ def full_commands(tmp: Path) -> list[list[str]]:
          str(results_path("r4_k43_eisenstein_rational.json")), str(tmp / "dim4_k43_verify.json")],
         [py, "-m", "chromatic_research.campaigns.dim7_1029_exact",
          "--output", str(tmp / "dim7_1029_exact.json")],
+        # ~1,5 ч: перечисление 1 654 230 вершин девятимерной ячейки и
+        # замыкание по 1-скелету на 17,7 млн рёберных подмножеств
+        [py, "-m", "chromatic_research.campaigns.dim9_7203_exact",
+         "--output", str(tmp / "dim9_7203_exact.json")],
     ]
 
 

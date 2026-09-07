@@ -13,13 +13,13 @@ from chromatic_research.campaigns import verify_main_results as V
 def test_each_claim_passes():
     results = V.run_all()
     ids = [r.claim for r in results]
-    assert ids == ["R4_43", "R5_132", "R7_1029", "R9_9604", "R10_45619"]
+    assert ids == ["R4_43", "R5_132", "R7_1029", "R9_7203", "R10_45619"]
     failed = [f"{r.claim}: {r.detail}" for r in results if not r.ok]
     assert not failed, "не прошли:\n  " + "\n  ".join(failed)
 
 
 def test_analytic_sums_are_exact():
-    assert V.check_r9_9604().ok
+    assert V.check_r9_7203().ok
     assert V.check_r10_45619().ok
     assert V.planar_block_width_squared() == Fraction(31, 4)
     assert V.e8_block_width_squared() == Fraction(7, 6)
