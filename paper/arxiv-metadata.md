@@ -1,13 +1,13 @@
 # Метаданные подачи на arXiv
 
 > **Примечание 03.09.2026.** Ниже — метаданные для подачи **полной версии**
-> (`chi4-43.tex`, 68 страниц), которая с этой даты играет роль электронного
-> дополнения. Для трёх выделенных документов (`article1/bounds.tex`,
-> `article2/widths.tex`, `note-umn/note.tex`) метаданные готовятся отдельно
+> (`chi4-43.tex`, 69 страниц), которая с этой даты играет роль электронного
+> дополнения. Для четырёх выделенных документов (`article1/bounds.tex`,
+> `article2/widths.tex`, `note-umn/note.tex`, `note-umn/note-2p.tex`) метаданные готовятся отдельно
 > после решения авторов о целевых журналах; аннотации каждого документа уже
 > лежат в его каркасе (статьи) и в `note-umn/README.md` (заметка). Если на
-> arXiv выкладывается только статья 1, её заголовок совпадает с заголовком
-> ниже без третьей строки, а abstract берётся из `article1/bounds.tex`
+> arXiv выкладывается только статья 1, её заголовок --- поле Title ниже
+> (подзаголовок полной версии о механизмах в него не входит), а abstract берётся из `article1/bounds.tex`
 > (он короче лимита 1920 знаков).
 
 
@@ -23,18 +23,18 @@ chi(R^4) <= 43, chi(R^5) <= 132, chi(R^7) <= 1029, chi(R^9) <= 7203, chi(R^10) <
 ## Authors
 
 ```
-Leonid L. Ivanov, Nadezhda Glushkova
+Leonid L. Ivanov, Nadezhda V. Glushkova
 ```
 
 Порядок — по вкладу (решение от 22.08.2026), не алфавитный; см.
 `CONTRIBUTIONS.md`.
 
-**Не заполнено:** e-mail и аффилиация второго автора — нужны для формы подачи
-(в `chi4-43.tex` на месте сноски стоит TODO).
+**Не заполнено:** аффилиация второго автора — нужна для формы подачи
+(в `chi4-43.tex` перед `\author` стоит TODO; e-mail вписан 05.09.2026).
 
 ## Abstract
 
-(английский абстракт PDF; текущая фактическая длина — 2178 знаков, то есть
+(английский абстракт PDF; текущая фактическая длина — 2254 знака, то есть
 перед подачей его необходимо сократить до лимита arXiv в 1920 знаков)
 
 ```
@@ -55,7 +55,7 @@ itself, give 45, 132, and 1323, all verified in exact rational arithmetic;
 symmetry-restricted search over lattices with a prescribed finite automorphism
 cuts the space of quaternary forms to three parameters and yields the record 43
 colors on an Eisenstein lattice;
-(ii) lamination --- lifting a coloring of R^{n-1} in layers --- with a
+(ii) lamination --- lifting a coloring of R^{n-1} in layers --- with an
 exact enumeration of the 1654230 vertices of the nine-dimensional Voronoi cell
 yields the chains 17253 -> 9604 -> 7203 in R^9 and 1372 -> 1323 -> 1029 in R^7,
 the last step of each certified exactly;
@@ -90,12 +90,12 @@ one. All code, exact certificates, and data are open.
 ## Comments
 
 ```
-68 pages, 9 figures, in Russian with an extended English summary.
+69 pages, 9 figures, in Russian with an extended English summary.
 Code, exact certificates and data: https://github.com/ivaleo/Chromatic
 ```
 
-(68 страниц подтверждены сборкой от 24.08.2026 — версия с доказанным
-тождеством (10) и точным сертификатом chi(R^7) <= 1029)
+(69 страниц подтверждены сборкой от 10.09.2026 — версия с точным
+сертификатом chi(R^9) <= 7203 и предисловием о роли полной версии)
 
 ## License
 
@@ -121,10 +121,10 @@ Code, exact certificates and data: https://github.com/ivaleo/Chromatic
    первой публикации их можно связать с профилем только через arXiv Author ID
    (ORCID), если статьи там появятся.
 3. Репозиторий GitHub должен быть публичным ДО отправки (ссылка в статье).
-4. Тарболл собран: `chi4-43.tex`, `origin-and-ai.tex`, `sections/*.tex`
-   (13 файлов в `sections/`, всего 15 файлов `.tex`), 9 × `fig_*.pdf`, без
-   вспомогательных файлов; контрольная сборка в чистом каталоге воспроизводит
-   те же 68 страниц без ошибок и неопределённых ссылок.
+4. Тарболл собран: `chi4-43.tex`, `origin-and-ai.tex`, `split-preface.tex`,
+   `sections/*.tex` (13 файлов в `sections/`, всего 16 файлов `.tex`),
+   9 × `fig_*.pdf`, без вспомогательных файлов; контрольная сборка в чистом
+   каталоге воспроизводит те же 69 страниц без ошибок и неопределённых ссылок.
 5. После загрузки сверить PDF, собранный arXiv, с локальным постранично.
 6. Не-английская статья может уйти на модерацию (1–3 дня) — это штатно.
 7. После анонса: вписать arXiv ID в README/RESULTS отдельным коммитом.

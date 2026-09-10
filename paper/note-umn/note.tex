@@ -1,8 +1,8 @@
 % Краткое сообщение для УМН. Оформление --- официальный шаблон
 % (mathnet.ru/rus/rm/authornotes, umn_shap.zip: 000.tex + umnbib.sty),
 % перекодированный в UTF-8. Формальный предел жанра --- две журнальные
-% страницы; эта редакция объявляет все пять оценок и потому длиннее
-% (см. README.md: что сокращать, если редакция потребует ровно две).
+% страницы; эта редакция объявляет все пять оценок и потому длиннее.
+% Двухстраничный вариант без результата в R^10 --- note-2p.tex (см. README.md).
 \documentclass{article}
 \usepackage[T2A]{fontenc}
 \usepackage[utf8]{inputenc}
@@ -35,7 +35,7 @@
 }}
 
 % Порядок авторов --- по вкладу (решение от 22.08.2026): в заметку входят
-% решётка индекса 43 и точный верификатор 1029 (Н.\,В.~Глушкова).
+% решётка индекса 43 и точные верификаторы 1029 и 7203 (Н.\,В.~Глушкова).
 \author{Л.\,Л.~Иванов, Н.\,В.~Глушкова}
 \date{}
 
@@ -92,7 +92,7 @@ $\ell<d$) отрезок $[1,\ell]$ свободен от одноцветных
 \end{equation}
 Величину $d$ будем называть \emph{шириной} раскраски.
 
-\textbf{3. Три явные конструкции.}
+\textbf{3. Четыре явные конструкции.}
 Пусть $Q$ --- рациональная положительно определённая матрица, $\Lambda=\Z^n$
 со скалярным произведением $\langle x,y\rangle=x^{\mathsf T}Qy$ и
 $\Gamma\subset\Lambda$ --- целочисленная подрешётка. Тогда неравенство
@@ -195,7 +195,7 @@ D(\Gamma)^2=7,\qquad d=1{,}0166127\ldots>1 .
 трёх проверка независимо повторена второй программой без общих геометрических
 процедур.
 
-\textbf{4. Продуктовое правило и размерности $9$, $10$.}
+\textbf{4. Продуктовое правило и размерность $10$.}
 
 \begin{lemma}
 Пусть $\Lambda=\bigoplus_{i=1}^{s}\Lambda_i$ --- ортогональная прямая сумма
@@ -263,10 +263,10 @@ $D(\Gamma_1)\ge2\sqrt2\cdot\sqrt{7/12}=\sqrt{14/3}$. Отсюда
 $d(E_8,\Gamma_1)\ge\sqrt{14/3}\big/2=\sqrt{7/6}$, то есть цена блока не
 превосходит $6/7$.
 
-\emph{Плоский блок.} $\Lambda_3=\Z[\omega]\subset\CC$ (шестиугольная решётка,
-$\lambda_1=1$, $\diam V_0=2/\sqrt3$), $\Gamma_3=(5+2\omega)\Z[\omega]$, индекс
-$N(5+2\omega)=19$. По предложению~1 $D(\Gamma_3)\ge2\sqrt{31/12}$, поэтому
-$d_3\ge\sqrt{31/12}\cdot\sqrt3=\sqrt{31/4}$ и цена не превосходит $4/31$.
+\emph{Плоский блок.} $\Lambda_2=\Z[\omega]\subset\CC$ (шестиугольная решётка,
+$\lambda_1=1$, $\diam V_0=2/\sqrt3$), $\Gamma_2=(5+2\omega)\Z[\omega]$, индекс
+$N(5+2\omega)=19$. По предложению~1 $D(\Gamma_2)\ge2\sqrt{31/12}$, поэтому
+$d_2\ge\sqrt{31/12}\cdot\sqrt3=\sqrt{31/4}$ и цена не превосходит $4/31$.
 
 Применим лемму к $E_8\oplus a\Z[\omega]$ с
 $\Gamma_1\oplus(5+2\omega)a\Z[\omega]$ при подходящем $a>0$: так как
@@ -283,11 +283,11 @@ New York, 2009.
 \bibitem{ABPR} A.~Arman, A.~Bondarenko, A.~Prymak, D.~Radchenko, \emph{Upper
 bounds on chromatic number of $\mathbb E^n$ in low dimensions}, Electron. J.
 Combin., \textbf{31}:2 (2024), P2.35.
-\bibitem{ConwaySloane} J.~H.~Conway, N.~J.~A.~Sloane, \emph{Sphere packings,
-lattices and groups}, 3rd ed., Springer, New York, 1999.
+\bibitem{ConwaySloane} J.~H.~Conway, N.~J.~A.~Sloane, \emph{Sphere Packings,
+Lattices and Groups}, 3rd ed., Springer, 1999.
 \bibitem{Full} Л.~Л.~Иванов, Н.~В.~Глушкова, \emph{Новые верхние оценки
-хроматических чисел евклидовых пространств}, 2026, препринт,
-\texttt{https://github.com/ivaleo/Chromatic}.
+хроматических чисел евклидовых пространств: полная версия} (электронное
+дополнение), 2026, \texttt{https://github.com/ivaleo/Chromatic/tree/main/paper}.
 \end{thebibliography}
 
 % TODO: место работы обоих авторов (для второго автора --- вместо <<---->>)

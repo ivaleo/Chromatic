@@ -55,8 +55,8 @@ entry $<x$ means the bound is proven for every $\ell<x$), and the trailing
 badge is the status label used throughout the paper (see below); boldface
 marks the best \emph{proven} bound in each dimension. The title
 carries only the five bounds with status \stP{} or \stC{} --- $43$, $132$,
-$1029$, $9604$, $45619$; the sharper $7203$ and $28812$ have status
-\stN{} and are stated as such throughout. In
+$1029$, $7203$, $45619$; the sharper $28812$ has status
+\stN{} and is stated as such throughout. In
 particular, the expectation of Arman, Bondarenko, Prymak, and
 Radchenko~\cite{ABPR} that $49$ and $140$ are optimal among all lattice
 colorings of $\R^4$ and $\R^5$ is refuted.
@@ -117,15 +117,17 @@ Voronoi partitions the height maximum is a convex quadratic, so the diameter
 is computed at the vertices of explicit polytopes. This produces the chains
 $17253\to9604\to7203$ in $\R^9$ (lamination over $E_8/2401$,
 Section~\ref{sec:dim912}) and the step $1323\to1029$ in $\R^7$ (lamination
-over $E_6^*/343$). In $\R^9$ these bounds carry status \stN: the
-floating-point computation is reduced to evaluating explicit quadratics at
-vertices of explicit polytopes, but the final rational write-up has not been
-carried out, so they are kept out of the title. In $\R^7$ that write-up
-\emph{has} been carried out (Theorem~\ref{thm:r7ex}): all $30\,368$ vertices
+over $E_6^*/343$). The final rung of each chain has since been recomputed in
+exact arithmetic. In $\R^7$ (Theorem~\ref{thm:r7ex}) all $30\,368$ vertices
 of the cell are certified over $\Z$, with completeness proved by exact edge
 closure on the $1$-skeleton and without assuming the polytope is simple
-($1\,600$ vertices have nine active facets). Hence $1029$ has status \stC{}
-and enters the title.
+($1\,600$ vertices have nine active facets). In $\R^9$
+(Section~\ref{ssec:7203}) the same protocol, made feasible by an exact
+unimodular change of basis, enumerates all $1\,654\,230$ vertices of the cell
+with $752$ facets ($4\,590$ of them non-simple) and gives
+$\diam^2V_0=1119552292542693/165294140000000<7=D_{\min}^2$. Hence both $1029$
+and $7203$ have status \stC{} and enter the title; the intermediate rung
+$9604$ of width $1.058$ (lamination with $m=4$) remains numerical.
 
 \subsection*{Mechanism 3: the Eisenstein identity}
 
@@ -217,7 +219,7 @@ negatively on a fixed numerical form. No bound in the title relies on
 has status \stP. The stronger $28812$ carries \stN{} of
 the stricter kind --- the proof is reduced to a finite list of explicitly
 written algebraic inequalities, only their verification is in floating
-point --- which is still not a proof, and they are therefore excluded from
+point --- which is still not a proof, and it is therefore excluded from
 the title.
 
 \subsection*{Reproducibility, code, and the role of AI}
