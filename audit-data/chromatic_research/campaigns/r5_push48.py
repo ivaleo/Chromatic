@@ -11,10 +11,10 @@ import numpy as np
 from fractions import Fraction
 from scipy.optimize import minimize
 import combigeo
-from chromatic_research.paths import results_path
+from chromatic_research.paths import load_json, results_path
 from chromatic_research.forms import pack, unpack
 
-cand = json.load(open(results_path("r2_k48_candidate.json")))
+cand = load_json("r2_k48_candidate.json")
 Q0 = np.array(cand["Q"])
 Q0 /= abs(np.linalg.det(Q0)) ** 0.25          # нормировка масштаба
 

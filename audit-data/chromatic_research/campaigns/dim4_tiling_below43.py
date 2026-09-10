@@ -31,7 +31,7 @@ import combigeo
 
 from chromatic_research.campaigns import power_search as ps
 from chromatic_research.core import power_coloring as pc
-from chromatic_research.paths import results_path
+from chromatic_research.paths import load_json, results_path
 
 N = 4
 DROPS = 0           # сколько узлов выбрасывать из 43-раскраски (посев «б»);
@@ -50,7 +50,7 @@ SIGMA_SCALE = 0.16
 def headline_lattice():
     """Базис заголовочной решётки R^4/43 (эйзенштейнов оптимум)."""
     from fractions import Fraction as F
-    src = json.load(open(results_path("r4_k43_eisenstein_rational.json")))
+    src = load_json("r4_k43_eisenstein_rational.json")
     Q = np.array([[float(F(x)) for x in row] for row in src["Q_fractions"]])
     return np.linalg.cholesky(Q), np.array(src["transition"], float)
 
@@ -69,7 +69,7 @@ def screen_champion(k):
     from chromatic_research.campaigns.dim4_below43_screen import FAMILIES, lattice
     best = (0.0, None)
     try:
-        screen = json.load(open(results_path("dim4_below43_screen.json")))["families"]
+        screen = load_json("dim4_below43_screen.json")["families"]
     except FileNotFoundError:
         screen = {}
     for fam, rows in screen.items():
@@ -80,7 +80,7 @@ def screen_champion(k):
                 best = (row["d"], B)
     # атлас: там же лежит рекорд k=42 (склеенный модуль Z[C3] (+) Z)
     try:
-        atlas = json.load(open(results_path("dim4_symmetry_atlas.json")))["atlas"]
+        atlas = load_json("dim4_symmetry_atlas.json")["atlas"]
     except FileNotFoundError:
         atlas = {}
     from chromatic_research.campaigns.dim4_symmetry_atlas import (CANDIDATES,

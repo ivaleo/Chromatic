@@ -1,37 +1,47 @@
 """Standard lattices as row-basis matrices (each row = a basis vector).
 Normalized to det=1 (unit covolume) so results are scale-free.
 Covering radius R and diam=2R validated against combigeo.voronoi_cell where feasible."""
-import numpy as np, math
+import numpy as np
 
 def _norm(B):
     B = np.asarray(B, float)
     n = B.shape[0]
     return B / abs(np.linalg.det(B))**(1.0/n)
 
+def _basis_of(Gram):
+    """Row basis of det=1 realizing the Gram matrix (Cholesky, then normalize)."""
+    return _norm(np.linalg.cholesky(Gram))
+
+def _A_gram(n):
+    """Gram of A_n from the rows e_i - e_{i+1} living in R^{n+1}."""
+    M = np.zeros((n, n+1))
+    for i in range(n):
+        M[i, i] = 1; M[i, i+1] = -1
+    return M @ M.T
+
+def _root_gram(rank, edges):
+    """Gram of a simply-laced root lattice: 2 on the diagonal, -1 on Dynkin edges."""
+    Gram = 2*np.eye(rank)
+    for a, b in edges:
+        Gram[a, b] = Gram[b, a] = -1
+    return Gram
+
+# 0-based Dynkin edges; in both diagrams node 2 (idx 1) hangs off node 4 (idx 3)
+_E6_EDGES = [(0,2),(2,3),(3,4),(4,5),(1,3)]
+_E7_EDGES = [(0,2),(2,3),(3,4),(4,5),(5,6),(1,3)]
+
 def Z(n):
     return _norm(np.eye(n))
 
 def A(n):
-    # A_n in R^n via Gram: (n+1)x(n+1) minus, project. Use standard A_n basis rows e_i-e_{i+1} in R^{n+1}, then Gram-embed.
-    M = np.zeros((n, n+1))
-    for i in range(n):
-        M[i, i] = 1; M[i, i+1] = -1
-    G = M @ M.T
-    B = np.linalg.cholesky(G)
-    return _norm(B)
+    return _basis_of(_A_gram(n))
 
 def Astar(n):
     # dual of A_n: basis = inverse-transpose of A_n basis (in the n-dim Gram embedding)
-    M = np.zeros((n, n+1))
-    for i in range(n):
-        M[i, i] = 1; M[i, i+1] = -1
-    G = M @ M.T
-    Ginv = np.linalg.inv(G)
-    B = np.linalg.cholesky(Ginv)
-    return _norm(B)
+    return _basis_of(np.linalg.inv(_A_gram(n)))
 
 def D(n):
-    # D_n = {x in Z^n : sum even}. basis rows: e_i - e_{i+1} (i<n-1)?  use: {e1+e2}∪{e_{i+1}-e_i}
+    # D_n = {x in Z^n : sum even}. basis rows: {e1+e2} ∪ {e_i - e_{i-1}}
     B = np.zeros((n, n))
     B[0,0] = 1; B[0,1] = 1
     for i in range(1, n):
@@ -59,44 +69,16 @@ def E8():
     return _norm(B)
 
 def E7():
-    # E7 as sublattice of E8 (7-dim): take E8 Gram, restrict to first 7 simple roots
-    # Simple roots of E7 (Bourbaki) in R^8, sum-zero style; use Gram directly.
-    # Cartan/Gram of E7 root lattice:
-    from numpy import array
-    # E7 simple-root Gram (A-D-E): 7x7 with 2 on diag, -1 on E7 Dynkin edges
-    # Dynkin E7: chain 1-3-4-5-6-7 with 2 attached to 4
-    Gram = 2*np.eye(7)
-    edges = [(0,2),(2,3),(3,4),(4,5),(5,6),(1,3)]  # 0-based, node2 (idx1) attaches to node4 (idx3)
-    for a,b in edges:
-        Gram[a,b] = Gram[b,a] = -1
-    B = np.linalg.cholesky(Gram)
-    return _norm(B)
+    return _basis_of(_root_gram(7, _E7_EDGES))
 
 def E7star():
-    Gram = 2*np.eye(7)
-    edges = [(0,2),(2,3),(3,4),(4,5),(5,6),(1,3)]
-    for a,b in edges:
-        Gram[a,b] = Gram[b,a] = -1
-    Ginv = np.linalg.inv(Gram)
-    B = np.linalg.cholesky(Ginv)
-    return _norm(B)
+    return _basis_of(np.linalg.inv(_root_gram(7, _E7_EDGES)))
 
 def E6():
-    Gram = 2*np.eye(6)
-    edges = [(0,2),(2,3),(3,4),(4,5),(1,3)]  # E6 Dynkin
-    for a,b in edges:
-        Gram[a,b] = Gram[b,a] = -1
-    B = np.linalg.cholesky(Gram)
-    return _norm(B)
+    return _basis_of(_root_gram(6, _E6_EDGES))
 
 def E6star():
-    Gram = 2*np.eye(6)
-    edges = [(0,2),(2,3),(3,4),(4,5),(1,3)]
-    for a,b in edges:
-        Gram[a,b] = Gram[b,a] = -1
-    Ginv = np.linalg.inv(Gram)
-    B = np.linalg.cholesky(Ginv)
-    return _norm(B)
+    return _basis_of(np.linalg.inv(_root_gram(6, _E6_EDGES)))
 
 CATALOG = {
     'A5*': lambda: Astar(5), 'D5': lambda: D(5), 'D5*': lambda: Dstar(5),

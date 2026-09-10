@@ -21,6 +21,13 @@ using combigeo::VoronoiCell;
 
 namespace {
 
+// Есть ли в ячейке вершина -v (проверка центральной симметрии)?
+bool has_antipode(const VoronoiCell& cell, const Vec& v) {
+    const Vec neg = combigeo::scaled(v, -1.0);
+    return std::any_of(cell.vertices.begin(), cell.vertices.end(),
+                       [&neg](const Vec& w) { return combigeo::dist2(neg, w) < 1e-12; });
+}
+
 // Структурная проверка ячейки: f-вектор, согласованность списков, единичные
 // нормали, принадлежность вершин, центральная симметрия множества вершин.
 void check_cell(const VoronoiCell& cell, const std::vector<long>& f_expected,
@@ -49,15 +56,7 @@ void check_cell(const VoronoiCell& cell, const std::vector<long>& f_expected,
     }
 
     // центральная симметрия: для каждой вершины v есть вершина -v
-    for (const Vec& v : cell.vertices) {
-        bool found = false;
-        for (const Vec& w : cell.vertices)
-            if (combigeo::dist2(combigeo::scaled(v, -1.0), w) < 1e-12) {
-                found = true;
-                break;
-            }
-        CHECK(found);
-    }
+    for (const Vec& v : cell.vertices) CHECK(has_antipode(cell, v));
 }
 
 }  // namespace
@@ -150,15 +149,7 @@ TEST(d4_vertex_symmetry) {
                                                          {1.0, 0.0, 1.0, 0.0},
                                                          {1.0, 0.0, 0.0, 1.0}}));
     CHECK(cell.vertices.size() == 24);
-    for (const Vec& v : cell.vertices) {
-        bool found = false;
-        for (const Vec& w : cell.vertices)
-            if (combigeo::dist2(combigeo::scaled(v, -1.0), w) < 1e-12) {
-                found = true;
-                break;
-            }
-        CHECK(found);
-    }
+    for (const Vec& v : cell.vertices) CHECK(has_antipode(cell, v));
 }
 
 TEST(extreme_scale_hexagonal) {

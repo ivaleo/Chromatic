@@ -40,12 +40,10 @@ if __name__ == "__main__":
     M = np.ones((n + 1, n))
     for j in range(n):
         M[j, j] = -n
-    A5 = norm_gram(np.linalg.cholesky(M.T @ M) @ np.linalg.cholesky(M.T @ M).T * 0 +
-                  (np.linalg.cholesky(M.T @ M)), n) if False else \
-         (lambda L: norm_gram(L))(np.linalg.cholesky(M.T @ M))
+    A5 = norm_gram(np.linalg.cholesky(M.T @ M))
     # базовые решётки
     D5 = norm_gram(np.array([[1,1,0,0,0],[1,-1,0,0,0],[0,1,-1,0,0],[0,0,1,-1,0],
-                             [0,0,0,1,-1]], float), n)
+                             [0,0,0,1,-1]], float))
     rng = np.random.default_rng(7)
     forms = [("A5*", A5), ("D5", D5)]
     for i in range(nforms - 2):

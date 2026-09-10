@@ -2,9 +2,9 @@
 
 #include <cassert>
 #include <cmath>
-#include <cstdlib>
 #include <stdexcept>
 #include <string>
+#include <utility>
 
 namespace combigeo {
 
@@ -147,21 +147,26 @@ bool solve_linear(Mat a, Vec b, Vec& x) {
     return true;
 }
 
-Vec combination(const std::vector<long>& c, const Mat& basis) {
+namespace {
+
+// Общая реализация combination для целых и вещественных коэффициентов:
+// линейная комбинация строк basis, нулевые коэффициенты пропускаются.
+template <typename Coeff>
+Vec combination_impl(const std::vector<Coeff>& c, const Mat& basis) {
     assert(c.size() == basis.size());
     Vec r = zeros(basis.empty() ? 0 : basis[0].size());
     for (std::size_t i = 0; i < c.size(); ++i)
-        if (c[i] != 0) axpy_inplace(r, static_cast<double>(c[i]), basis[i]);
+        if (c[i] != Coeff{0}) axpy_inplace(r, static_cast<double>(c[i]), basis[i]);
     return r;
 }
 
-Vec combination(const Vec& c, const Mat& basis) {
-    assert(c.size() == basis.size());
-    Vec r = zeros(basis.empty() ? 0 : basis[0].size());
-    for (std::size_t i = 0; i < c.size(); ++i)
-        if (c[i] != 0.0) axpy_inplace(r, c[i], basis[i]);
-    return r;
+}  // namespace
+
+Vec combination(const std::vector<long>& c, const Mat& basis) {
+    return combination_impl(c, basis);
 }
+
+Vec combination(const Vec& c, const Mat& basis) { return combination_impl(c, basis); }
 
 void gram_schmidt(const Mat& basis, Mat& b_star, Mat& mu) {
     const std::size_t n = basis.size();

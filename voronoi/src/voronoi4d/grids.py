@@ -11,12 +11,18 @@ import random
 
 import numpy as np
 from itertools import product, combinations
+from math import comb
 
 from .lll import lll_reduce
 
 DEFAULT_PRECISION = 3  # точность округления элементов матрицы
 
 # --------------------------------------------------------------------------------
+
+
+def _first_nonzero(values):
+    """Первый ненулевой элемент последовательности (0, если все нулевые)."""
+    return next((val for val in values if val != 0), 0)
 
 
 def normalize_rows(matrix):
@@ -26,12 +32,9 @@ def normalize_rows(matrix):
     :return: новая матрица.
     """
     matrix = matrix.copy()
-    for i in range(matrix.shape[0]):
-        for val in matrix[i]:
-            if val != 0:
-                if val < 0:
-                    matrix[i] *= -1
-                break  # выходим после первого ненулевого
+    for row in matrix:  # строки — представления, знак меняется прямо в копии
+        if _first_nonzero(row) < 0:
+            row *= -1
     return matrix
 
 
@@ -82,23 +85,23 @@ def check_grid(grid, norm_factor=2.0, cos_limit=0.5):
     не более norm_factor, |косинус| угла между векторами не более cos_limit.
 
     :param grid: базис решётки (numpy.ndarray).
+    :param norm_factor: максимальное отношение длин векторов базиса.
+    :param cos_limit: максимальный |косинус| угла между векторами.
     :return: True, если базис проходит все проверки.
     """
-    for i in range(len(grid) - 1):
-        vi = grid[i]
-        ni = np.linalg.norm(vi)
-        for j in range(i + 1, len(grid)):
-            vj = grid[j]
-            nj = np.linalg.norm(vj)
+    norms = [np.linalg.norm(vec) for vec in grid]
 
-            if ni < 1 or nj < 1:
-                return False
-            if ni / nj > norm_factor or nj / ni > norm_factor:
-                return False
+    for i, j in combinations(range(len(grid)), 2):
+        ni, nj = norms[i], norms[j]
 
-            cos = vi @ vj / (ni * nj)
-            if abs(cos) > cos_limit:
-                return False
+        if ni < 1 or nj < 1:
+            return False
+        if ni / nj > norm_factor or nj / ni > norm_factor:
+            return False
+
+        cos = grid[i] @ grid[j] / (ni * nj)
+        if abs(cos) > cos_limit:
+            return False
 
     return True
 
@@ -147,27 +150,22 @@ def generate_integer_grids(coeff_range=(-1, 2), show_progress=True):
     :return: список уникальных невырожденных базисов в каноническом виде.
     """
     # все векторы-кандидаты
-    list_coords = [var for var in product(range(*coeff_range), repeat=4)]
+    list_coords = list(product(range(*coeff_range), repeat=4))
     list_coords.remove((1, 0, 0, 0))  # первая строка фиксирована
 
     # оставляем только канонические векторы (первый ненулевой элемент положителен)
-    candidates = []
-    for vec in list_coords:
-        first_non_zero = next((x for x in vec if x != 0), None)
-        if first_non_zero is not None and first_non_zero > 0:
-            candidates.append(vec)
+    candidates = [vec for vec in list_coords if _first_nonzero(vec) > 0]
 
     all_combinations = combinations(candidates, 3)
 
     if show_progress:
         try:
-            from math import comb
             from tqdm import tqdm
-
-            total = comb(len(candidates), 3)
-            all_combinations = tqdm(all_combinations, total=total, desc="Обработка комбинаций")
         except ImportError:
             pass  # tqdm не установлен — работаем без прогресс-бара
+        else:
+            all_combinations = tqdm(all_combinations, total=comb(len(candidates), 3),
+                                    desc="Обработка комбинаций")
 
     list_grids = []
 

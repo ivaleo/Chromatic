@@ -7,7 +7,7 @@
 import json
 import numpy as np
 from multiprocessing import Pool
-from chromatic_research.paths import results_path
+from chromatic_research.paths import load_json, results_path
 from chromatic_research.forms import norm_gram, pack, unpack
 
 def one_start(args):
@@ -26,8 +26,8 @@ def one_start(args):
     return (-r.fun, r.x.tolist())
 
 if __name__ == "__main__":
-    W45 = np.array(json.load(open(results_path("n5_cascade.json")))["k45"]["Q"])
-    W46 = np.array(json.load(open(results_path("n4_push46.json")))["Q"])
+    W45 = np.array(load_json("n5_cascade.json")["k45"]["Q"])
+    W46 = np.array(load_json("n4_push46.json")["Q"])
     D4 = norm_gram(np.array([[2,0,0,0],[1,1,0,0],[1,0,1,0],[1,0,0,1]], float))
     A4G = np.array([[2,-1,0,0],[-1,2,-1,0],[0,-1,2,-1],[0,0,-1,2]], float)
     A4S = norm_gram(np.linalg.inv(np.linalg.cholesky(A4G)).T)
@@ -52,8 +52,8 @@ if __name__ == "__main__":
     over = sum(1 for d, _ in results if d >= 1.0)
     print(f"k=45: max d = {best_d:.7f}  {'>=1 ПРОБОЙ!' if best_d >= 1 else '< 1'}  "
           f"(пробили {over}/{len(jobs)})", flush=True)
-    json.dump({"d": best_d, "Q": None if unpack(np.asarray(best_x)) is None
-               else unpack(np.asarray(best_x)).tolist()},
+    json.dump({"d": best_d, "Q": None if unpack(np.asarray(best_x), 4) is None
+               else unpack(np.asarray(best_x), 4).tolist()},
               open(results_path("n6_push45.json"), "w"),
               indent=1)
     print("DONE", flush=True)

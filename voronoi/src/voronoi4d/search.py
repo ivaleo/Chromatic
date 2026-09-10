@@ -29,9 +29,9 @@ from .lll import lll_reduce
 class _Candidate:
     """Подрешётка-кандидат: матрица перехода, минимальное d и точка минимума."""
 
-    matrix: "np.ndarray"
+    matrix: np.ndarray
     distance: float
-    center: "np.ndarray"
+    center: np.ndarray
 
 
 # --------------------------------------------------------------------------------
@@ -84,30 +84,31 @@ def find_optimal(det_range, grid, vor4, max_len, *, precision=12, threshold=1.0,
         report(f"det: {det}")
 
         # все варианты диагоналей матрицы перехода с данным определителем
-        list_diag_el = compute_factorizations(det)
+        diagonals = compute_factorizations(det)
 
         # среди расстояний ищем максимальное по всем матрицам mat
         candidates = []
 
-        for diag_el in list_diag_el:
-            mat = np.diag(np.array(diag_el, dtype=float))
-            max_num_col1, max_num_col2, max_num_col3 = diag_el[1], diag_el[2], diag_el[3]
+        for diagonal in diagonals:
+            mat = np.diag(np.array(diagonal, dtype=float))
+            max_num_col1, max_num_col2, max_num_col3 = diagonal[1], diagonal[2], diagonal[3]
 
             num_iterations = max_num_col1 * max_num_col2 ** 2 * max_num_col3 ** 3
             iteration = 0
 
-            report(f"диагональ {diag_el}: {num_iterations} итераций")
+            report(f"диагональ {diagonal}: {num_iterations} итераций")
 
             # перебираем наддиагональные элементы (эрмитова нормальная форма)
-            for indices in product(range(max_num_col3), range(max_num_col3), range(max_num_col2),
-                                   range(max_num_col3), range(max_num_col2), range(max_num_col1)):
+            for a23, a13, a12, a03, a02, a01 in product(
+                    range(max_num_col3), range(max_num_col3), range(max_num_col2),
+                    range(max_num_col3), range(max_num_col2), range(max_num_col1)):
 
-                mat[2][3] = indices[0]
-                mat[1][3] = indices[1]
-                mat[1][2] = indices[2]
-                mat[0][3] = indices[3]
-                mat[0][2] = indices[4]
-                mat[0][1] = indices[5]
+                mat[2, 3] = a23
+                mat[1, 3] = a13
+                mat[1, 2] = a12
+                mat[0, 3] = a03
+                mat[0, 2] = a02
+                mat[0, 1] = a01
 
                 iteration += 1
                 if iteration % 500 == 0:

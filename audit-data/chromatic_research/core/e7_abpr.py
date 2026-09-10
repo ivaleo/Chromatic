@@ -5,15 +5,14 @@ Lambda = M Z^7 in R^8 (M = 8x7).  Sublattice Lambda' = M C_7 Z^7, index |det C_7
 In M-basis coords (a point M c has coords c), the forbidden set F = {v!=0: D(v)<2R}
 matches ABPR's F exactly (D(v)=dist(V,v+V)). A sublattice with integer basis matrix
 C (columns) is VALID iff no f in F lies in C Z^7, i.e. C^{-1} f not in Z^7 for all f."""
-import numpy as np, sys
-from fractions import Fraction
+import numpy as np
 import combigeo
 from chromatic_research.core.covrad import covering_radius
-from chromatic_research.paths import results_path
 
 def M_E7():
+    """8x7 generator of E7* (columns = basis vectors), per ABPR Sec 3."""
     q = 0.25
-    M = np.array([
+    return np.array([
         [-1, 0, 0, 0, 0, 0, -3*q],
         [ 1,-1, 0, 0, 0, 0, -3*q],
         [ 0, 1,-1, 0, 0, 0,    q],
@@ -22,8 +21,7 @@ def M_E7():
         [ 0, 0, 0, 0, 1,-1,    q],
         [ 0, 0, 0, 0, 0, 1,    q],
         [ 0, 0, 0, 0, 0, 0,    q],
-    ], dtype=float)          # 8 x 7 ; columns = basis vectors
-    return M
+    ], dtype=float)
 
 C7 = np.array([
     [ 0,-4, -5,-3,-4,-4,-1],

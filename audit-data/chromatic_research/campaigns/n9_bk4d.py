@@ -13,7 +13,7 @@ import json
 import time
 import numpy as np
 from multiprocessing import Pool
-from chromatic_research.paths import results_path
+from chromatic_research.paths import load_json, results_path
 from chromatic_research.forms import norm_gram, unpack
 
 
@@ -39,10 +39,10 @@ def work(args):
 
 
 if __name__ == "__main__":
-    W45 = np.array(json.load(open(results_path("n6_push45.json")))["Q"])
-    W46 = np.array(json.load(open(results_path("n4_push46.json")))["Q"])
-    X44 = json.load(open(results_path("n7_push44.json")))["k44"]["x"]
-    Q44 = unpack(np.asarray(X44))
+    W45 = np.array(load_json("n6_push45.json")["Q"])
+    W46 = np.array(load_json("n4_push46.json")["Q"])
+    X44 = load_json("n7_push44.json")["k44"]["x"]
+    Q44 = unpack(np.asarray(X44), 4)
     D4 = norm_gram(np.array([[2,0,0,0],[1,1,0,0],[1,0,1,0],[1,0,0,1]], float))
     A4G = np.array([[2,-1,0,0],[-1,2,-1,0],[0,-1,2,-1],[0,0,-1,2]], float)
     A4S = norm_gram(np.linalg.inv(np.linalg.cholesky(A4G)).T)

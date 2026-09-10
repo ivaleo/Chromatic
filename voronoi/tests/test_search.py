@@ -72,8 +72,7 @@ def test_find_optimal_smoke_d4(vor_d4, tmp_path):
     assert np.isclose(np.linalg.det(mat), 16.0)
 
     # результат записан в файл
-    content = open(output_file).read()
-    assert "Determinant: 16" in content
+    assert "Determinant: 16" in (tmp_path / "results.txt").read_text()
 
     # 2*D4 — оптимальная подрешётка индекса 16: точное значение d = sqrt(1/2)
     assert np.isclose(det_dist[16], np.sqrt(0.5), atol=1e-9)

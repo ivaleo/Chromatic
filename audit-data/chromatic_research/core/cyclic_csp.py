@@ -31,6 +31,17 @@ def forbidden_coords(B, cell, ell, dim):
     return F, diam
 
 
+def _candidates(rng, k, length, ntry):
+    """Пробы для вектора коэффициентов: сначала структурные (1, t, t², …) mod k,
+    затем случайные.  Ленивый генератор: при раннем успехе лишние пробы (их до
+    ntry штук) не материализуются, а последовательность остаётся той же."""
+    structured = min(k, 400) - 1
+    for t in range(1, min(k, 400)):
+        yield np.array([pow(t, i + 1, k) for i in range(length)], np.int64)
+    for _ in range(ntry - structured):
+        yield rng.integers(0, k, size=length).astype(np.int64)
+
+
 def find_cyclic(F, k, dim, ntry=200000, seed=0):
     """Ищет c∈(Z/k)^{n-1} с Σc_i f_i ≢ f_n (mod k) для всех f∈F. None если не найдено."""
     if not F:
@@ -39,13 +50,7 @@ def find_cyclic(F, k, dim, ntry=200000, seed=0):
     fhead = Farr[:, :dim - 1] % k            # коэффициенты при c
     ftail = Farr[:, dim - 1] % k
     rng = np.random.default_rng(seed)
-    # сначала пробуем структурировано: c = (1, t, t^2, ...) mod k при разных t
-    trials = [np.array([pow(t, i + 1, k) for i in range(dim - 1)], np.int64)
-              for t in range(1, min(k, 400))]
-    # затем случайные
-    for _ in range(ntry - len(trials)):
-        trials.append(rng.integers(0, k, size=dim - 1).astype(np.int64))
-    for c in trials:
+    for c in _candidates(rng, k, dim - 1, ntry):
         resid = (fhead @ c - ftail) % k       # для каждого f: Σc_i f_i - f_n mod k
         if np.all(resid != 0):
             return [int(x) for x in c]
@@ -55,12 +60,8 @@ def find_cyclic(F, k, dim, ntry=200000, seed=0):
 def best_cyclic_csp(B, cell, k, dim, ell_lo=1.0, ell_hi=None, steps=18, ntry=60000):
     """Максимизирует ℓ: бинарный поиск наибольшего ℓ, при котором ∃ циклическая Γ_c
     индекса k с d≥ℓ. Возвращает (best_ell, best_c)."""
-    diam = cell.diameter
-    if ell_hi is None:
-        # верхняя оценка ширины: λ1(подрешётки) не больше ~ ... берём щедро
-        ell_hi = 3.0
-    best_ell, best_c = 0.0, None
-    lo, hi = ell_lo, ell_hi
+    lo = ell_lo
+    hi = 3.0 if ell_hi is None else ell_hi   # щедрая верхняя оценка ширины
     # сначала проверим осуществимость при ell_lo
     F, _ = forbidden_coords(B, cell, lo, dim)
     c = find_cyclic(F, k, dim, ntry=ntry)

@@ -23,7 +23,6 @@ from __future__ import annotations
 import argparse
 import json
 import math
-import sys
 import time
 from pathlib import Path
 from typing import Sequence
@@ -54,13 +53,9 @@ def parent_geometry(
     name: str,
 ) -> tuple[np.ndarray, float, list[tuple[list[float], float]]]:
     if name not in EXACT_DIAMETER_RATIOS:
-        raise ValueError(
-            f"no exact covering-radius ratio registered for {name!r}"
-        )
+        raise ValueError(f"no exact covering-radius ratio registered for {name!r}")
     basis = np.asarray(CATALOG[name](), dtype=np.float64)
-    shortest = float(
-        np.linalg.norm(combigeo.shortest_vector(basis.tolist()))
-    )
+    shortest = float(np.linalg.norm(combigeo.shortest_vector(basis.tolist())))
     diameter = EXACT_DIAMETER_RATIOS[name] * shortest
     facets = combigeo.relevant_facets(basis.tolist())
     return basis, diameter, facets
@@ -140,9 +135,7 @@ def separate_kernel(
         if norm < 1e-10:
             continue
         checked += 1
-        distance = 2.0 * combigeo.dist_to_halfspaces(
-            (0.5 * vector).tolist(), facets
-        )
+        distance = 2.0 * combigeo.dist_to_halfspaces((0.5 * vector).tolist(), facets)
         ratio = distance / diameter
         minimum_ratio = min(minimum_ratio, ratio)
         if distance < diameter - 1e-8:
@@ -154,17 +147,15 @@ def separate_kernel(
                     "norm_squared": float(vector @ vector),
                 }
             )
-    conflict_coordinates = canonical_rows(
-        np.asarray(
-            [item["coordinate"] for item in conflicts],
-            dtype=np.int64,
-        )
+    conflict_rows = (
+        np.asarray([item["coordinate"] for item in conflicts], dtype=np.int64)
         if conflicts
         else np.empty((0, n), dtype=np.int64)
     )
+    conflict_coordinates = canonical_rows(conflict_rows)
     conflicts.sort(key=lambda item: item["distance_ratio"])
     return {
-        "valid": not len(conflicts),
+        "valid": not conflicts,
         "checked_kernel_vectors": checked,
         "enumerated_including_zero": len(physical),
         "minimum_distance_ratio": (
@@ -243,9 +234,7 @@ def run_structure(
             raise AssertionError(
                 f"kernel determinant {determinant} != image {exact_image}"
             )
-        separation = separate_kernel(
-            basis, diameter, facets, kernel
-        )
+        separation = separate_kernel(basis, diameter, facets, kernel)
         ratio = float(separation["minimum_distance_ratio"])
         round_payload.update(
             {

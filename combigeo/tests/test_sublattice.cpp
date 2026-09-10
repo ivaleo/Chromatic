@@ -19,9 +19,9 @@ namespace {
 
 // единичный базис размерности n
 Mat identity(int n) {
-    Mat e(static_cast<std::size_t>(n), Vec(static_cast<std::size_t>(n), 0.0));
-    for (int i = 0; i < n; ++i)
-        e[static_cast<std::size_t>(i)][static_cast<std::size_t>(i)] = 1.0;
+    const auto size = static_cast<std::size_t>(n);
+    Mat e(size, Vec(size, 0.0));
+    for (std::size_t i = 0; i < size; ++i) e[i][i] = 1.0;
     return e;
 }
 
@@ -79,27 +79,20 @@ TEST(iterator_matches_count) {
 TEST(iterator_matrices_valid) {
     for (auto [dim, index] : kCases) {
         const Mat e = identity(dim);
+        const auto size = static_cast<std::size_t>(dim);
         for (const HnfMatrix& h : collect(dim, index)) {
-            CHECK(static_cast<int>(h.size()) == dim);
-            for (int i = 0; i < dim; ++i) {
-                const auto& row = h[static_cast<std::size_t>(i)];
-                CHECK(static_cast<int>(row.size()) == dim);
-                // диагональ положительна
-                CHECK(row[static_cast<std::size_t>(i)] >= 1);
-                for (int j = 0; j < dim; ++j) {
-                    const long v = row[static_cast<std::size_t>(j)];
-                    // ниже диагонали нули
-                    if (j < i) CHECK(v == 0);
-                    // наддиагональ столбца j в [0, d_j)
-                    if (j > i) {
-                        CHECK(v >= 0);
-                        CHECK(v < h[static_cast<std::size_t>(j)][static_cast<std::size_t>(j)]);
-                    }
-                }
+            CHECK(h.size() == size);
+            for (std::size_t i = 0; i < size; ++i) {
+                const std::vector<long>& row = h[i];
+                CHECK(row.size() == size);
+                CHECK(row[i] >= 1);  // диагональ положительна
+                for (std::size_t j = 0; j < i; ++j) CHECK(row[j] == 0);  // ниже диагонали нули
+                // наддиагональ столбца j в [0, d_j)
+                for (std::size_t j = i + 1; j < size; ++j)
+                    CHECK(row[j] >= 0 && row[j] < h[j][j]);
             }
             // det(h * E) == index
-            const Mat m = combigeo::apply_hnf(h, e);
-            CHECK_NEAR(combigeo::det(m), static_cast<double>(index), 1e-9);
+            CHECK_NEAR(combigeo::det(combigeo::apply_hnf(h, e)), static_cast<double>(index), 1e-9);
         }
     }
 }
@@ -140,7 +133,6 @@ TEST(count_overflow_throws) {
     // вернуть мусор. Большое простое p даёт всего dim разложений (p в одной
     // позиции, единицы в остальных), но prod d_j^j = p^(dim-1) переполняет long:
     // 10007^5 ≈ 1.0e20 > LONG_MAX ≈ 9.2e18. Перечисление при этом тривиально.
-    using combigeo::SublatticeIterator;
     bool threw = false;
     try {
         SublatticeIterator::count(6, 10007);

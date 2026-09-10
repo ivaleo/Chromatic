@@ -23,11 +23,11 @@ def gram_schmidt(basis):
     :param basis: список векторов базиса.
     :return: кортеж (b_star, mu), где b_star — ортогонализованные векторы,
              mu — строго нижнетреугольная матрица коэффициентов (диагональ
-             нулевая и не используется; квадраты норм |b*_i|^2 lll_reduce_python
-             считает отдельно в beta).
+             нулевая и не используется; квадраты норм |b*_i|^2 считаются
+             отдельно — см. _mu_and_beta).
     """
     n = len(basis)
-    b_star = [np.array(basis[i], dtype=float) for i in range(n)]
+    b_star = [np.array(vec, dtype=float) for vec in basis]
     mu = np.zeros((n, n))
 
     for i in range(n):
@@ -36,6 +36,12 @@ def gram_schmidt(basis):
             b_star[i] -= mu[i, j] * b_star[j]
 
     return b_star, mu
+
+
+def _mu_and_beta(basis):
+    """Данные ортогонализации, нужные циклу LLL: mu и квадраты норм beta_i = |b*_i|^2."""
+    b_star, mu = gram_schmidt(basis)
+    return mu, [np.dot(vec, vec) for vec in b_star]
 
 
 def lll_reduce_python(basis, delta=0.75):
@@ -47,8 +53,7 @@ def lll_reduce_python(basis, delta=0.75):
     """
     n = len(basis)
     basis = [np.array(vec, dtype=float) for vec in basis]
-    b_star, mu = gram_schmidt(basis)
-    beta = [np.dot(b_star[i], b_star[i]) for i in range(n)]
+    mu, beta = _mu_and_beta(basis)
 
     k = 1
     while k < n:
@@ -58,15 +63,13 @@ def lll_reduce_python(basis, delta=0.75):
                 q = round(mu[k, j])
                 basis[k] -= q * basis[j]
                 # пересчитываем Грама-Шмидта после изменения базиса
-                b_star, mu = gram_schmidt(basis)
-                beta = [np.dot(b_star[i], b_star[i]) for i in range(n)]
+                mu, beta = _mu_and_beta(basis)
 
         # проверка условия Ловаса
         if beta[k] < (delta - mu[k, k - 1] ** 2) * beta[k - 1]:
             # Interchange: меняем векторы местами и пересчитываем всё
-            basis[k], basis[k - 1] = basis[k - 1].copy(), basis[k].copy()
-            b_star, mu = gram_schmidt(basis)
-            beta = [np.dot(b_star[i], b_star[i]) for i in range(n)]
+            basis[k], basis[k - 1] = basis[k - 1], basis[k]
+            mu, beta = _mu_and_beta(basis)
             k = max(1, k - 1)
         else:
             k += 1
@@ -96,9 +99,9 @@ def lll_reduce_fpylll(basis, delta=0.75, precision=12):
     if not np.allclose(scaled / scale, arr, rtol=0.0, atol=tol) or np.abs(scaled).max() > 2 ** 53:
         return None
 
-    reduced = _FpylllLLL.reduction(
-        IntegerMatrix.from_matrix([[int(v) for v in row] for row in scaled.tolist()]),
-        delta=delta)
+    integer_rows = [[int(v) for v in row] for row in scaled.tolist()]
+    reduced = _FpylllLLL.reduction(IntegerMatrix.from_matrix(integer_rows), delta=delta)
+
     rows, cols = reduced.nrows, reduced.ncols
     return np.array([[reduced[i, j] for j in range(cols)] for i in range(rows)],
                     dtype=float) / scale

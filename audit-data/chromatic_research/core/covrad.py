@@ -8,26 +8,33 @@ Converges from BELOW; use many directions + local polish for accuracy."""
 import numpy as np
 from scipy.optimize import linprog
 import combigeo
-from chromatic_research.paths import results_path
 
 def covering_radius(B, n_dirs=4000, seed=0, polish=True):
+    """(R_cov, witness) of the lattice with row basis B; underestimates R_cov.
+
+    `polish` is accepted for call compatibility and currently unused: the
+    ascent is done by :func:`chromatic_research.core.lamination.deep_hole`.
+    """
     facets = combigeo.relevant_facets(B.tolist())   # list of (lattice_vector v, offset=|v|/2)
     n = len(B)
-    A = np.array([f[0] for f in facets], float)      # rows: lattice vectors v (normal dir)
-    nrm = np.linalg.norm(A, axis=1, keepdims=True)
-    A_unit = A / nrm                                  # unit normals
-    b = np.array([f[1] for f in facets], float)       # offsets |v|/2 (already for unit normal)
+    normals = np.array([f[0] for f in facets], float)   # rows: lattice vectors v (normal dir)
+    unit_normals = normals / np.linalg.norm(normals, axis=1, keepdims=True)
+    offsets = np.array([f[1] for f in facets], float)   # offsets |v|/2 (already for unit normal)
     rng = np.random.default_rng(seed)
-    best = 0.0; best_x = None
+    best = 0.0
+    best_x = None
     # seed directions: facet normals themselves + random
-    seeds = list(A_unit) + [rng.standard_normal(n) for _ in range(n_dirs)]
+    seeds = list(unit_normals) + [rng.standard_normal(n) for _ in range(n_dirs)]
     for u in seeds:
         u = u / (np.linalg.norm(u) + 1e-15)
-        # maximize u.x  <=> minimize -u.x  s.t. A_unit x <= b
-        res = linprog(-u, A_ub=A_unit, b_ub=b, bounds=[(None, None)]*n, method='highs')
+        # maximize u.x  <=> minimize -u.x  s.t. unit_normals x <= offsets
+        res = linprog(-u, A_ub=unit_normals, b_ub=offsets,
+                      bounds=[(None, None)]*n, method='highs')
         if res.success:
-            x = res.x; r = np.linalg.norm(x)
-            if r > best: best = r; best_x = x
+            r = np.linalg.norm(res.x)
+            if r > best:
+                best = r
+                best_x = res.x
     return best, best_x
 
 if __name__ == "__main__":

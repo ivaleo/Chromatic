@@ -133,7 +133,7 @@ def _chebyshev_center(A: np.ndarray, b: np.ndarray):
     c[-1] = -1.0
     A_ub = np.hstack([A, norms.reshape(-1, 1)])
     res = linprog(c, A_ub=A_ub, b_ub=b,
-                  bounds=[(None, None)] * n + [(None, None)], method="highs")
+                  bounds=[(None, None)] * (n + 1), method="highs")
     if not res.success:
         return None, -1.0
     return res.x[:n], float(res.x[-1])
@@ -141,7 +141,7 @@ def _chebyshev_center(A: np.ndarray, b: np.ndarray):
 
 def neighbourhood(sites: np.ndarray, weights: np.ndarray, shifts: np.ndarray):
     """All translated sites ``t_j + g`` with their weights, as flat arrays."""
-    k, n = sites.shape
+    n = sites.shape[1]
     S = (sites[:, None, :] + shifts[None, :, :]).reshape(-1, n)
     W = np.repeat(weights, shifts.shape[0])
     return S, W, (S * S).sum(axis=1)

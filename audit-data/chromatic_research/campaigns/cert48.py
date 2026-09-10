@@ -20,7 +20,7 @@ import json, math, itertools
 from fractions import Fraction as F
 import numpy as np
 import combigeo
-from chromatic_research.paths import results_path
+from chromatic_research.paths import load_json, results_path
 
 # ---------- точная линейная алгебра на Fraction ----------
 
@@ -48,7 +48,7 @@ def main():
 
     # ---------- данные ----------
 
-    r = json.load(open(results_path("r5_k48_rational.json")))
+    r = load_json("r5_k48_rational.json")
     Q = [[F(s) for s in row] for row in r["Q_fractions"]]
     Qf = np.array([[float(x) for x in row] for row in Q])
     B = np.linalg.cholesky(Qf)

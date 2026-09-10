@@ -3,7 +3,7 @@ import json
 import numpy as np
 from scipy.optimize import minimize
 import combigeo
-from chromatic_research.paths import results_path
+from chromatic_research.paths import load_json, results_path
 from chromatic_research.forms import pack, unpack
 
 def d_of(Q, k):
@@ -14,7 +14,7 @@ def d_of(Q, k):
     except Exception:
         return 0.0
 
-W46 = np.array(json.load(open(results_path("n4_push46.json")))["Q"])
+W46 = np.array(load_json("n4_push46.json")["Q"])
 x46 = pack(W46)
 rng = np.random.default_rng(45)
 out = {}

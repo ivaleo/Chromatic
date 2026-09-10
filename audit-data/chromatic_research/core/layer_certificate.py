@@ -133,7 +133,11 @@ def certify_two_layer_window(base: np.ndarray, offset: np.ndarray, height: float
         if np.linalg.norm(point + offset) <= reach:
             candidates.append(point)
 
-    worst, failures, pieces, inflated, boxed = 0.0, [], 0, [], []
+    worst = 0.0
+    pieces = 0
+    failures: list[dict] = []
+    inflated: list[dict] = []
+    boxed: list[dict] = []
     for m in candidates:
         shift = offset + m
         s2 = float(shift @ shift)
@@ -157,7 +161,7 @@ def certify_two_layer_window(base: np.ndarray, offset: np.ndarray, height: float
             centre, radius = _chebyshev_center(A_r, b_r)
             if radius < 1e-9:
                 continue
-            verts, used = None, 0.0
+            verts, used, last = None, 0.0, ""
             for inflate in (0.0, 1e-9, 1e-7, 1e-5, 1e-3):
                 # inflating the region OUTWARD can only raise the maximum, so the
                 # bound stays valid; it also removes the degeneracy that makes
@@ -212,7 +216,8 @@ def certify_two_layer_window(base: np.ndarray, offset: np.ndarray, height: float
             else:                                   # z* below the window
                 values = A1 + (lo - t) ** 2
             worst = max(worst, float(np.max(values)))
-        pieces += touched
+        if touched:
+            pieces += 1
     return dict(certified_r2_upper=worst + slack, pieces=pieces,
                 qhull_failures=failures, inflated=inflated, boxed=boxed,
                 sound=not failures)
@@ -234,7 +239,11 @@ def certify_hex_layer_strips(base: np.ndarray, offset: np.ndarray, scale: float,
     geometry = hexagonal_layer_geometry(scale)
     side, r_l = geometry["side"], geometry["circumradius"]
     edges = np.linspace(0.0, r_l / 2.0, strips + 1)
-    worst, sound, detail, inflations, boxed_total = 0.0, True, [], 0, 0
+    worst = 0.0
+    sound = True
+    inflations = 0
+    boxed_total = 0
+    detail: list[dict] = []
     for i in range(strips):
         h_lo, h_hi = float(edges[i]), float(edges[i + 1])
         window = (side / 2.0) * (1.0 - 2.0 * h_lo / r_l)

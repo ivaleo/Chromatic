@@ -7,52 +7,76 @@
 import json
 import math
 from pathlib import Path
+
 import numpy as np
 import matplotlib
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
+from matplotlib.collections import PatchCollection
+from matplotlib.patches import Polygon as MplPoly
+from scipy.spatial import Voronoi
 
 plt.rcParams.update({
     "font.size": 11, "axes.grid": True, "grid.alpha": 0.3,
     "figure.dpi": 140, "savefig.bbox": "tight", "axes.axisbelow": True,
 })
 _HERE = Path(__file__).resolve().parent
-DATA = str(_HERE.parent / "audit-data" / "results")   # ../audit-data/results
-OUT = str(_HERE)                          # каталог этого файла (paper/)
+DATA = _HERE.parent / "audit-data" / "results"   # ../audit-data/results
+OUT = _HERE                                      # каталог этого файла (paper/)
 BLUE, RED, GREEN, ORANGE, PURPLE = "#2456a6", "#c0392b", "#1e8449", "#e08a00", "#7d3c98"
+
+
+def load_json(name):
+    """JSON-артефакт кампании из каталога результатов аудита."""
+    return json.loads((DATA / name).read_text())
+
+
+def load_json_opt(name):
+    """То же, что load_json, но None, если артефакта нет (он не обязателен)."""
+    try:
+        return load_json(name)
+    except FileNotFoundError:
+        return None
 
 
 def num(x, nd=4):
     """Число как формула с русской десятичной запятой: 1.6073 -> $1{,}6073$."""
     return "$" + f"{x:.{nd}f}".replace(".", "{,}") + "$"
 
+
 def running_max(rows):
+    """Бегущий максимум d по возрастанию k: (список k, список максимумов)."""
     ks, ds, best = [], [], 0.0
     for r in sorted(rows, key=lambda r: r["k"]):
         best = max(best, r["d"])
-        ks.append(r["k"]); ds.append(best)
+        ks.append(r["k"])
+        ds.append(best)
     return ks, ds
 
 
 # --- Fig 3: лестницы d(k) для R^2, R^3, R^4 ---
-ca = json.load(open(f"{DATA}/campaign_a.json"))
-cc = json.load(open(f"{DATA}/campaign_c.json"))
+ca = load_json("campaign_a.json")
+cc = load_json("campaign_c.json")
 
-def merged_rows(dicts):
-    """бегущий максимум d по нескольким решёткам одной размерности."""
-    bykey = {}
-    for d in dicts:
-        for r in d:
-            bykey[r["k"]] = max(bykey.get(r["k"], 0.0), r["d"])
-    return [{"k": k, "d": v} for k, v in bykey.items()]
+
+def merged_rows(tables):
+    """Максимум d по каждому k среди нескольких решёток одной размерности."""
+    best = {}
+    for table in tables:
+        for r in table:
+            best[r["k"]] = max(best.get(r["k"], 0.0), r["d"])
+    return [{"k": k, "d": d} for k, d in best.items()]
 
 fig, ax = plt.subplots(figsize=(7.2, 4.3))
-r2 = running_max(merged_rows([ca["Z2"], ca["A2"]]))
-r3 = running_max(merged_rows([ca["Z3"], ca["FCC"], ca["BCC"]]))
-r4 = running_max(merged_rows([cc["D4"], cc["A4s"], cc["K3,3"], cc["111-"]]))
-ax.step(r2[0], r2[1], where="post", color=BLUE, lw=1.4, label=r"$\mathbb{R}^2$  ($\mathbb{Z}^2,A_2$)")
-ax.step(r3[0], r3[1], where="post", color=GREEN, lw=1.4, label=r"$\mathbb{R}^3$  ($\mathbb{Z}^3,\mathrm{FCC},\mathrm{BCC}$)")
-ax.step(r4[0], r4[1], where="post", color=RED, lw=1.4, label=r"$\mathbb{R}^4$  ($D_4,A_4^*,K_{3,3},111^-$)")
+for tables, colour, label in [
+        ([ca["Z2"], ca["A2"]], BLUE,
+         r"$\mathbb{R}^2$  ($\mathbb{Z}^2,A_2$)"),
+        ([ca["Z3"], ca["FCC"], ca["BCC"]], GREEN,
+         r"$\mathbb{R}^3$  ($\mathbb{Z}^3,\mathrm{FCC},\mathrm{BCC}$)"),
+        ([cc["D4"], cc["A4s"], cc["K3,3"], cc["111-"]], RED,
+         r"$\mathbb{R}^4$  ($D_4,A_4^*,K_{3,3},111^-$)")]:
+    ks, ds = running_max(merged_rows(tables))
+    ax.step(ks, ds, where="post", color=colour, lw=1.4, label=label)
 ax.axhline(1.0, color="k", ls="--", lw=1, alpha=0.7)
 ax.text(2, 1.02, r"порог $d=1$ (пригодная раскраска)", fontsize=9)
 ax.set_xlabel(r"число цветов $k$"); ax.set_ylabel(r"максимальная ширина $d=D/\mathrm{diam}\,V_0$")
@@ -63,67 +87,61 @@ ax.annotate(r"$k=15$", (15, 1.0), (20, 0.55), fontsize=9, color=GREEN,
             arrowprops=dict(arrowstyle="->", color=GREEN))
 ax.annotate(r"$k=49$ ($D_4$)", (49, 1.08), (52, 0.5), fontsize=9, color=RED,
             arrowprops=dict(arrowstyle="->", color=RED))
-fig.savefig(f"{OUT}/fig_staircase.pdf")
+fig.savefig(OUT / "fig_staircase.pdf")
 plt.close(fig)
 print("fig_staircase.pdf")
 
 # --- Fig 4: спуск к порогу в R^4 (max d при точном индексе k) ---
-n2 = json.load(open(f"{DATA}/n2_4d_frontier.json"))
+n2 = load_json("n2_4d_frontier.json")
+n5 = load_json("n5_cascade.json")
 try:
-    n6 = json.load(open(f"{DATA}/n6_push45.json"))
-    d45 = n6["d"]
+    d45 = load_json("n6_push45.json")["d"]
 except Exception:
-    d45 = json.load(open(f"{DATA}/n5_cascade.json"))["k45"]["d"]
+    d45 = n5["k45"]["d"]
 # лучшее найденное d при точном индексе k из всех кампаний (только реальные данные)
-n5 = json.load(open(f"{DATA}/n5_cascade.json"))
 best_at = {
     45: d45,
-    46: json.load(open(f"{DATA}/n4_push46.json"))["d"],
+    46: load_json("n4_push46.json")["d"],
     47: max(n2["k47"]["d"], n5.get("k47", {}).get("d", 0.0)),
-    48: json.load(open(f"{DATA}/r5_push48.json"))["k48"]["d"],
+    48: load_json("r5_push48.json")["k48"]["d"],
 }
 for k in range(49, 57):
     best_at[k] = n2[f"width{k}"]["d"]
 # кампания «ниже 45» (n8: CMA-ES по формам, лестница 31..44; n7/n10: NM-дожимы 44)
-n8 = json.load(open(f"{DATA}/n8_cma44_ladder.json"))
+n8 = load_json("n8_cma44_ladder.json")
 for k in range(31, 45):
     best_at[k] = n8[f"k{k}"]["d"]
 for extra in ("n7_push44.json", "n10_push44.json"):
     try:
-        j = json.load(open(f"{DATA}/{extra}"))
+        j = load_json(extra)
         best_at[44] = max(best_at[44], j.get("k44", j).get("d", 0.0))
     except Exception:
         pass
 cma_at = dict(best_at)                       # кампания 2026-07 по общим формам
 # кампания 23.08.2026: симметрийное сужение (эйзенштейново и гауссово семейства,
 # исчерпывающий перебор подрешёток) — рекорд k=43 и экраны при k<=42
-try:                                  # поиск по всем формам с посевом (23.08)
-    for k, row in json.load(open(f"{DATA}/dim4_below43_general.json"))["results"].items():
+general = load_json_opt("dim4_below43_general.json")   # поиск по всем формам с посевом (23.08)
+if general is not None:
+    for k, row in general["results"].items():
         best_at[int(k)] = max(best_at.get(int(k), 0.0), row["d"])
-except FileNotFoundError:
-    pass
 for src, key in (("dim4_below43_screen.json", "families"),
                  ("dim4_symmetry_atlas.json", "atlas")):
-    try:
-        blob = json.load(open(f"{DATA}/{src}"))[key]
-    except FileNotFoundError:
+    blob = load_json_opt(src)
+    if blob is None:
         continue
-    for fam in blob.values():
+    for fam in blob[key].values():
         rows = fam.get("best", fam) if isinstance(fam, dict) else {}
         for k, row in rows.items():
             if not (isinstance(row, dict) and "d" in row):
                 continue
             best_at[int(k)] = max(best_at.get(int(k), 0.0), row["d"])
-try:                                  # точный оптимум семейства, если посчитан
-    best_at[43] = max(best_at.get(43, 0.0),
-                      float(json.load(open(f"{DATA}/dim4_k43_optimum.json"))["d"]))
-except FileNotFoundError:
-    pass
+optimum43 = load_json_opt("dim4_k43_optimum.json")     # точный оптимум семейства, если посчитан
+if optimum43 is not None:
+    best_at[43] = max(best_at.get(43, 0.0), float(optimum43["d"]))
 d43 = best_at[43]
 ks = sorted(best_at)
 ds = [best_at[k] for k in ks]
 fig, ax = plt.subplots(figsize=(7.2, 4.3))
-above = [k >= 1.0 for k in ds]
 ax.axhline(1.0, color="k", ls="--", lw=1.2)
 ax.axhspan(1.0, 1.25, color=GREEN, alpha=0.06)
 ax.axhspan(0.78, 1.0, color=RED, alpha=0.06)
@@ -155,7 +173,7 @@ ax.text(53.3, 1.02, "область пригодных\nраскрасок ($d\\
 ax.set_xlabel(r"число цветов $k$ (точный индекс подрешётки)")
 ax.set_ylabel(r"наилучшая найденная ширина $d(k)$")
 ax.set_xlim(30.2, 56.5); ax.set_ylim(0.78, 1.22)
-fig.savefig(f"{OUT}/fig_descent.pdf")
+fig.savefig(OUT / "fig_descent.pdf")
 plt.close(fig)
 print("fig_descent.pdf, d(43) =", d43, " d(45) =", d45)
 
@@ -164,10 +182,10 @@ fig, ax = plt.subplots(figsize=(6.6, 4.2))
 x = np.linspace(1.1, 1.75, 200)
 ax.plot(x, math.sqrt(7/3) / x, color=PURPLE, lw=1.5,
         label=r"$d=\sqrt{7/3}\,/\,(2R/\lambda_1)$")
-pts = [(2/math.sqrt(3), math.sqrt(7)/2, r"$A_2$"),
-       (math.sqrt(2), math.sqrt(7/6), r"$D_4,E_6^*,E_8,\Lambda_{24}$"),
-       (math.sqrt(8/3), math.sqrt(7/3)/math.sqrt(8/3), r"$K_{12}$")]
-for rr, dd, lab in pts:
+lattice_marks = [(2/math.sqrt(3), math.sqrt(7)/2, r"$A_2$"),
+                 (math.sqrt(2), math.sqrt(7/6), r"$D_4,E_6^*,E_8,\Lambda_{24}$"),
+                 (math.sqrt(8/3), math.sqrt(7/3)/math.sqrt(8/3), r"$K_{12}$")]
+for rr, dd, lab in lattice_marks:
     col = GREEN if dd >= 1 else RED
     ax.plot([rr], [dd], "o", color=col, ms=3.6, zorder=5)
     ax.annotate(lab, (rr, dd), (rr - 0.02, dd + 0.06), fontsize=9,
@@ -177,34 +195,25 @@ ax.text(1.5, 1.02, r"порог $d=1$", fontsize=9)
 ax.set_xlabel(r"отношение покрытие/упаковка $2R/\lambda_1$")
 ax.set_ylabel(r"ширина запрещённого интервала $d$")
 ax.set_xlim(1.1, 1.72); ax.set_ylim(0.8, 1.5); ax.legend(loc="upper right")
-fig.savefig(f"{OUT}/fig_eisenstein.pdf")
+fig.savefig(OUT / "fig_eisenstein.pdf")
 plt.close(fig)
 print("fig_eisenstein.pdf")
 
 # --- Fig 1: схема метода — 7-раскраска шестиугольной решётки A2 ---
-from scipy.spatial import Voronoi
-from matplotlib.patches import Polygon as MplPoly
-from matplotlib.collections import PatchCollection
-
 v1 = np.array([1.0, 0.0]); v2 = np.array([0.5, math.sqrt(3) / 2])
-pts, coords = [], []
-for a in range(-6, 7):
-    for b in range(-6, 7):
-        pts.append(a * v1 + b * v2); coords.append((a, b))
-pts = np.array(pts)
+coords = [(a, b) for a in range(-6, 7) for b in range(-6, 7)]
+pts = np.array([a * v1 + b * v2 for a, b in coords])
 vor = Voronoi(pts)
 # палитра 7 цветов (мягкая)
 pal = ["#e8eef7", "#f5d9d0", "#d6ead9", "#f7f0cf", "#ddd5ea", "#d0e3ea", "#f2dbe8"]
 fig, ax = plt.subplots(figsize=(6.6, 5.4))
 patches, colors = [], []
-for (a, b), pr in zip(coords, vor.point_region):
-    reg = vor.regions[pr]
+for (a, b), region_idx in zip(coords, vor.point_region):
+    reg = vor.regions[region_idx]
     if not reg or -1 in reg:
         continue
-    poly = vor.vertices[reg]
-    c = (a + 3 * b) % 7                       # классическая 7-раскраска (Исбелл)
-    patches.append(MplPoly(poly, closed=True))
-    colors.append(pal[c])
+    patches.append(MplPoly(vor.vertices[reg], closed=True))
+    colors.append(pal[(a + 3 * b) % 7])       # классическая 7-раскраска (Исбелл)
 pc = PatchCollection(patches, facecolor=colors, edgecolor="#888", lw=0.6)
 ax.add_collection(pc)
 # выделяем центральную ячейку (цвет 0) и ближайшую одноцветную
@@ -213,8 +222,8 @@ same = [p for p, (a, b) in zip(pts, coords) if (a + 3 * b) % 7 == 0 and np.linal
 c1 = min(same, key=np.linalg.norm)
 ax.plot(*c0, "o", color="#c0392b", ms=3.4, zorder=6)
 ax.plot(*c1, "o", color="#c0392b", ms=3.4, zorder=6)
-# отрезок D между ближайшими точками ячеек (вдоль линии центров, минус по «радиусу» ячейки)
-inr = math.sqrt(3) / 2 * (1 / math.sqrt(3))   # инрадиус ячейки = 1/2
+# отрезок D между ближайшими точками ячеек: вдоль линии центров, укороченный
+# с обоих концов на инрадиус ячейки (он равен 1/2)
 u = (c1 - c0) / np.linalg.norm(c1 - c0)
 ax.annotate("", (c1 - u * 0.5), (c0 + u * 0.5),
             arrowprops=dict(arrowstyle="<->", color="#c0392b", lw=1.8))
@@ -230,7 +239,7 @@ ax.set_xlim(-3.4, 3.4); ax.set_ylim(-3.0, 3.0); ax.set_aspect("equal")
 ax.axis("off")
 ax.set_title(r"7-раскраска $\mathbb{R}^2$ решёткой $A_2$: одноцветные ячейки на расстоянии $D(\Gamma)$",
              fontsize=10.5)
-fig.savefig(f"{OUT}/fig_method.pdf")
+fig.savefig(OUT / "fig_method.pdf")
 plt.close(fig)
 print("fig_method.pdf")
 
@@ -258,7 +267,7 @@ ax.text((diam + D) / 2, 0.55, "не реализуется\n(свободно)",
 ax.set_xlim(-0.25, 3.05); ax.set_ylim(-0.9, 0.9); ax.axis("off")
 ax.set_title(r"Расстояния между одноцветными точками: пригодность при $d=D/\mathrm{diam}\,V_0>1$",
              fontsize=10.5)
-fig.savefig(f"{OUT}/fig_interval.pdf")
+fig.savefig(OUT / "fig_interval.pdf")
 plt.close(fig)
 print("fig_interval.pdf")
 
@@ -266,16 +275,16 @@ print("fig_interval.pdf")
 # --------------------------------------------------------------------------
 # fig_budget: продуктовое исчисление -- ширина как расходуемый ресурс
 # --------------------------------------------------------------------------
-lad2 = json.loads(Path(DATA, "ladder2d.json").read_text())
+lad2 = load_json("ladder2d.json")
 fig, (axL, axR) = plt.subplots(1, 2, figsize=(10.6, 3.4))
 
 left = 0.0
-for label, cost, colour in [("$E_8/2401$", 6 / 7, BLUE), ("", 4 / 31, GREEN)]:
-    axL.barh(0, cost, left=left, height=0.40, color=colour, edgecolor="white")
+for label, block_cost, colour in [("$E_8/2401$", 6 / 7, BLUE), ("", 4 / 31, GREEN)]:
+    axL.barh(0, block_cost, left=left, height=0.40, color=colour, edgecolor="white")
     if label:
-        axL.text(left + cost / 2, 0, label, ha="center", va="center",
+        axL.text(left + block_cost / 2, 0, label, ha="center", va="center",
                  color="white", fontsize=10.5)
-    left += cost
+    left += block_cost
 axL.annotate(r"$aA_2/19$:  $4/31$", xy=(6 / 7 + 2 / 31, 0.20), xytext=(0.46, 0.62),
              fontsize=9.5, color=GREEN,
              arrowprops=dict(arrowstyle="->", lw=0.9, color=GREEN))
@@ -295,26 +304,26 @@ axL.set_title(r"$\sum_i 1/d_i^2 \leq 1$:  "
               r"$\chi(\mathbb{R}^{10}) \leq 2401\cdot 19 = 45619$", fontsize=10.5)
 axL.grid(axis="x", alpha=0.3)
 
-ks = [r["index"] for r in lad2["records"]]
-cost = [1.0 / r["d"] ** 2 for r in lad2["records"]]
+flat_k = [r["index"] for r in lad2["records"]]
+flat_cost = [1.0 / r["d"] ** 2 for r in lad2["records"]]
 axR.axvspan(2, 16.5, color="0.86", alpha=0.7, zorder=0)
-axR.plot(ks, cost, "o-", color=BLUE, ms=2.8, lw=1.0, zorder=3)
+axR.plot(flat_k, flat_cost, "o-", color=BLUE, ms=2.8, lw=1.0, zorder=3)
 axR.axhline(1 / 7, color=RED, lw=1.3, ls="--", zorder=2)
 axR.text(2.6, 1 / 7 * 1.07, r"остаток бюджета $1/7$,  т.е. $d\geq\sqrt{7}$",
          color=RED, fontsize=9, va="bottom")
 axR.text(8.6, 1.9, "запрещено экранами\nМинковского:  $k\\leq 16$",
          ha="center", fontsize=9, color="0.25")
 for k in (16, 17, 18):
-    axR.plot([k], [cost[ks.index(k)]], "o", color=ORANGE, ms=4.2, zorder=5)
-axR.plot([19], [cost[ks.index(19)]], "*", color=GREEN, ms=9.5, zorder=6)
-axR.annotate(r"$k=19$", xy=(19, cost[ks.index(19)]), xytext=(19.6, 0.34),
+    axR.plot([k], [flat_cost[flat_k.index(k)]], "o", color=ORANGE, ms=4.2, zorder=5)
+axR.plot([19], [flat_cost[flat_k.index(19)]], "*", color=GREEN, ms=9.5, zorder=6)
+axR.annotate(r"$k=19$", xy=(19, flat_cost[flat_k.index(19)]), xytext=(19.6, 0.34),
              fontsize=10.5, color=GREEN,
              arrowprops=dict(arrowstyle="->", lw=0.9, color=GREEN))
 axR.set_yscale("log"); axR.set_xlim(2, 23)
 axR.set_xlabel("индекс плоского блока $k$"); axR.set_ylabel(r"цена $1/d^2$")
 axR.set_title("плоская лестница: где она пробивает остаток", fontsize=10.5)
 fig.tight_layout()
-fig.savefig(f"{OUT}/fig_budget.pdf")
+fig.savefig(OUT / "fig_budget.pdf")
 plt.close(fig)
 print("fig_budget.pdf")
 
@@ -335,15 +344,15 @@ def hex_nearest(p):
     p = np.asarray(p, float)
     if np.all(HEXN @ p <= 0.5 + 1e-12):
         return p, 0.0
-    best, bestd = None, math.inf
+    best_q, best_d = None, math.inf
     for k in range(6):
         a, b = HEXV[k], HEXV[(k + 1) % 6]
         t = np.clip(np.dot(p - a, b - a) / np.dot(b - a, b - a), 0.0, 1.0)
-        q = a + t * (b - a)
+        q = a + t * (b - a)                   # ближайшая точка k-го ребра
         d = float(np.linalg.norm(p - q))
-        if d < bestd:
-            best, bestd = q, d
-    return best, bestd
+        if d < best_d:
+            best_q, best_d = q, d
+    return best_q, best_d
 
 
 THR = math.sqrt(7 / 3)
@@ -377,7 +386,7 @@ ax.set_title(r"порог $\mathrm{dist}(\alpha/2,\,V_0)\geq\sqrt{7/3}=1{,}5275$
              "\nрозовое запрещено; $k=16$ не дотягивает $1{,}8\\%$", fontsize=10.5)
 ax.grid(alpha=0.25)
 fig.tight_layout()
-fig.savefig(f"{OUT}/fig_spacer.pdf")
+fig.savefig(OUT / "fig_spacer.pdf")
 plt.close(fig)
 print("fig_spacer.pdf")
 
@@ -385,8 +394,8 @@ print("fig_spacer.pdf")
 # --------------------------------------------------------------------------
 # fig_shells: почему слой ранга 2 не проходит
 # --------------------------------------------------------------------------
-sh = json.loads(Path(DATA, "layer_shells.json").read_text())
-lo = min(min(x for x, _ in sh[k]["shells"]) for k in ("rank1", "rank2")) - 0.25
+sh = load_json("layer_shells.json")
+lo = min(x for key in ("rank1", "rank2") for x, _ in sh[key]["shells"]) - 0.25
 hi = 6.35
 fig, axes = plt.subplots(2, 1, figsize=(8.2, 4.4), sharex=True)
 for ax, key, colour, title in [
@@ -420,7 +429,7 @@ for ax, key, colour, title in [
 axes[1].set_xlabel(r"длина слоевого вектора $|c|$")
 fig.suptitle("поправки обязаны вытолкнуть за диаметр каждый класс из окна", fontsize=10.5)
 fig.tight_layout()
-fig.savefig(f"{OUT}/fig_shells.pdf")
+fig.savefig(OUT / "fig_shells.pdf")
 plt.close(fig)
 print("fig_shells.pdf")
 print("DONE")
@@ -478,13 +487,12 @@ w = 0.27
 SERIES = ((PROVEN, GREEN, "доказано"), (NUMER, ORANGE, "численно [Ч]"),
           (CAND, "#f0b860", "кандидат [Ч]*"))
 for i, n in enumerate(gain_n):
-    slots = [(d, c, lab) for d, c, lab in SERIES if n in d]
+    # легенда собирается вручную ниже, поэтому столбикам label не нужен
+    slots = [(table, c) for table, c, _ in SERIES if n in table]
     off = -w * (len(slots) - 1) / 2
-    for j, (d, c, lab) in enumerate(slots):
-        g = PRIOR[n] / d[n]
-        axB.bar(i + off + j * w, g, width=w, color=c, edgecolor="white",
-                label=lab if i == 0 or lab not in
-                [t.get_label() for t in axB.containers] else None)
+    for j, (table, c) in enumerate(slots):
+        g = PRIOR[n] / table[n]
+        axB.bar(i + off + j * w, g, width=w, color=c, edgecolor="white")
         axB.text(i + off + j * w, g + 0.05, num(g, 2), ha="center",
                  fontsize=7.6, color=c)
 axB.axhline(1.0, color="0.4", lw=1.0)
@@ -492,11 +500,11 @@ axB.set_xticks(range(len(gain_n)))
 axB.set_xticklabels([f"$n={n}$" for n in gain_n], fontsize=9)
 axB.set_ylabel("во сколько раз лучше прежней")
 axB.set_title("выигрыш к прежней оценке", fontsize=10.5)
-axB.set_ylim(0, max(PRIOR[n] / d[n] for d, _, _ in SERIES for n in d) * 1.18)
+axB.set_ylim(0, max(PRIOR[n] / table[n] for table, _, _ in SERIES for n in table) * 1.18)
 handles = [plt.Rectangle((0, 0), 1, 1, color=c) for _, c, _ in SERIES]
 axB.legend(handles, [lab for _, _, lab in SERIES], fontsize=8.2,
            loc="upper left", framealpha=0.9)
 fig.tight_layout()
-fig.savefig(f"{OUT}/fig_landscape.pdf")
+fig.savefig(OUT / "fig_landscape.pdf")
 plt.close(fig)
 print("fig_landscape.pdf")

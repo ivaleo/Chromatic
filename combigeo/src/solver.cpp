@@ -32,15 +32,17 @@ std::vector<long> cache_key(const Vec& v) {
 // а не тихо неточное значение (все погрешности смещают d вверх, к ложной пригодности).
 double cell_distance(const VoronoiCell& cell, const Vec& v,
                      std::map<std::vector<long>, double>* cache) {
+    std::vector<long> key;
     if (cache) {
-        auto it = cache->find(cache_key(v));
+        key = cache_key(v);
+        const auto it = cache->find(key);
         if (it != cache->end()) return it->second;
     }
     const GjkResult r = distance_to_polytope(scaled(v, 0.5), cell.vertices);
     if (r.error > 1e-6 * std::max(1.0, r.distance))
         throw std::runtime_error("cell_distance: GJK не достиг сертификата оптимальности");
     const double d = 2.0 * r.distance;
-    if (cache) (*cache)[cache_key(v)] = d;
+    if (cache) (*cache)[std::move(key)] = d;
     return d;
 }
 
@@ -90,12 +92,13 @@ SolveResult solve_one(const Prepared& prep, long index, const SolveOptions& opts
     const int dim = prep.lat.dim();
     const long total = SublatticeIterator::count(dim, index);
 
-    int T = opts.threads;
-    if (T <= 0) {
+    // 0 = авто (число ядер минус два); больше потоков, чем подрешёток, не нужно
+    int nthreads = opts.threads;
+    if (nthreads <= 0) {
         const unsigned hw = std::thread::hardware_concurrency();
-        T = hw > 2 ? static_cast<int>(hw) - 2 : 1;
+        nthreads = hw > 2 ? static_cast<int>(hw) - 2 : 1;
     }
-    if (static_cast<long>(T) > total) T = static_cast<int>(total > 0 ? total : 1);
+    if (static_cast<long>(nthreads) > total) nthreads = static_cast<int>(total > 0 ? total : 1);
 
     std::atomic<long> examined{0};
     std::atomic<double> best_shared{-1.0};
@@ -112,8 +115,7 @@ SolveResult solve_one(const Prepared& prep, long index, const SolveOptions& opts
         HnfMatrix h;
         long ordinal = 0;
         while (it.next(h)) {
-            const long my = ordinal++;
-            if (my % T != tid) continue;
+            if (ordinal++ % nthreads != tid) continue;  // страйд по номеру HNF-матрицы
 
             const long done = examined.fetch_add(1, std::memory_order_relaxed) + 1;
             const Mat sub_basis = apply_hnf(h, prep.lat.basis());
@@ -143,12 +145,12 @@ SolveResult solve_one(const Prepared& prep, long index, const SolveOptions& opts
         }
     };
 
-    if (T == 1) {
+    if (nthreads == 1) {
         worker(0);
     } else {
         std::vector<std::thread> pool;
-        pool.reserve(static_cast<std::size_t>(T));
-        for (int t = 0; t < T; ++t) pool.emplace_back(worker, t);
+        pool.reserve(static_cast<std::size_t>(nthreads));
+        for (int t = 0; t < nthreads; ++t) pool.emplace_back(worker, t);
         for (std::thread& th : pool) th.join();
     }
     result.examined = examined.load();

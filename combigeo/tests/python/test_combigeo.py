@@ -1,6 +1,6 @@
 """Тесты python-модуля combigeo + сверка с эталонной python-реализацией voronoi4d.
 
-Запуск: .venv-test/bin/python -m pytest tests/python/ -v
+Запуск: .venv/bin/python -m pytest combigeo/tests/python -v
 """
 
 import math

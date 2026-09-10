@@ -62,6 +62,7 @@ class LayeredCertifier:
     point_radius: float = 4.2          # base points kept for nearest-point queries
     tree: cKDTree = field(init=False)
     points: np.ndarray = field(init=False)
+    babai_basis: np.ndarray = field(init=False)
     base_inv: np.ndarray = field(init=False)
 
     def __post_init__(self) -> None:
@@ -146,10 +147,10 @@ class LayeredCertifier:
         start = time.time()
         dim = self.points.shape[1]
         if initial_radius is None:
-            # circumradius of the base cell: any box covering V0(base) works,
-            # and V0 sits inside the ball of the covering radius.  Estimate it
-            # from the shortest stored point pair structure is unreliable --
-            # callers should pass the exact value; the fallback is generous.
+            # Any box covering V0(base) works, and V0 sits inside the ball of the
+            # covering radius.  Deriving that radius from the stored points is
+            # unreliable, so callers should pass the exact value; this fallback
+            # (the base lattice's shortest vector) is only a generous default.
             initial_radius = float(np.min(np.linalg.norm(self.points[1:], axis=1)))
         lo = np.full((1, dim), -initial_radius)
         hi = np.full((1, dim), +initial_radius)
@@ -182,14 +183,14 @@ class LayeredCertifier:
                         "seconds": round(time.time() - start, 1)}
             split_lo, split_hi = batch_lo[alive], batch_hi[alive]
             if len(split_lo):
-                widths = split_hi - split_lo
-                axis = np.argmax(widths, axis=1)
-                mid = (split_lo[np.arange(len(split_lo)), axis]
-                       + split_hi[np.arange(len(split_hi)), axis]) / 2
+                # halve every surviving box along its widest axis
+                rows = np.arange(len(split_lo))
+                axis = np.argmax(split_hi - split_lo, axis=1)
+                mid = (split_lo[rows, axis] + split_hi[rows, axis]) / 2
                 left_hi = split_hi.copy()
-                left_hi[np.arange(len(split_lo)), axis] = mid
+                left_hi[rows, axis] = mid
                 right_lo = split_lo.copy()
-                right_lo[np.arange(len(split_lo)), axis] = mid
+                right_lo[rows, axis] = mid
                 new_lo = np.vstack([split_lo, right_lo])
                 new_hi = np.vstack([left_hi, split_hi])
             else:

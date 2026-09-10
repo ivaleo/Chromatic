@@ -240,7 +240,7 @@ def lift_character(
     rows[:count, :n] = base_rows
     rows[:count, n] = np.asarray(glue, dtype=np.int64)
     rows[count, n] = 1
-    return [row for row in rows], list(base_moduli) + [int(modulus)]
+    return list(rows), list(base_moduli) + [int(modulus)]
 
 
 def kernel_rows(base_rows, base_moduli, glue, modulus) -> np.ndarray:

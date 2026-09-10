@@ -8,9 +8,19 @@
 using namespace combigeo;
 
 namespace {
+
 const Mat kZ2{{1, 0}, {0, 1}};
 const Mat kZ3{{1, 0, 0}, {0, 1, 0}, {0, 0, 1}};
 const Mat kD4{{2, 0, 0, 0}, {1, 1, 0, 0}, {1, 0, 1, 0}, {1, 0, 0, 1}};
+
+// |det| матрицы перехода — он же индекс подрешётки (число цветов)
+double transition_det(const HnfMatrix& transition) {
+    Mat m;
+    m.reserve(transition.size());
+    for (const std::vector<long>& row : transition) m.emplace_back(row.begin(), row.end());
+    return std::abs(det(m));
+}
+
 }  // namespace
 
 TEST(min_color_distance_z3_doubled) {
@@ -56,13 +66,7 @@ TEST(find_optimal_z3_index8) {
     CHECK_NEAR(r.diameter, std::sqrt(3.0), 1e-9);
     // нормировка согласована
     CHECK_NEAR(r.normalized, r.best.min_distance / r.diameter, 1e-12);
-    // матрица перехода верхнетреугольная с det = 8
-    Mat t;
-    for (const auto& row : r.best.transition) {
-        Vec v(row.begin(), row.end());
-        t.push_back(v);
-    }
-    CHECK_NEAR(std::abs(det(t)), 8.0, 1e-9);
+    CHECK_NEAR(transition_det(r.best.transition), 8.0, 1e-9);
 }
 
 TEST(cache_consistency) {
@@ -92,13 +96,7 @@ TEST(find_optimal_d4_index49_valid_coloring) {
     CHECK(r.normalized >= 1.0);                     // раскраска пригодна
     CHECK_NEAR(r.normalized, 1.080123, 1e-4);
     CHECK_NEAR(r.diameter, 2.0, 1e-9);             // 24-ячейка D4
-    // матрица перехода верхнетреугольная с det = 49
-    Mat t;
-    for (const auto& row : r.best.transition) {
-        Vec v(row.begin(), row.end());
-        t.push_back(v);
-    }
-    CHECK_NEAR(std::abs(det(t)), 49.0, 1e-9);
+    CHECK_NEAR(transition_det(r.best.transition), 49.0, 1e-9);
 }
 
 namespace {

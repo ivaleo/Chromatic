@@ -12,6 +12,7 @@ from fractions import Fraction
 
 import combigeo
 import numpy as np
+from chromatic_research.paths import results_path
 
 
 def main():
@@ -56,7 +57,7 @@ def main():
         print(f"  [{name}: {time.time()-t0:.1f}s]", flush=True)
         out[name] = {"f_vector": list(cell.f_vector), "diameter": cell.diameter, "rows": rows}
 
-    with open("/private/tmp/claude-501/-Users-mac-Documents--My-code-Chromatic/a660b7db-31c5-4e8c-a567-e60eed295063/scratchpad/sweep_results.json", "w") as fh:
+    with open(results_path("sweep_results.json"), "w") as fh:
         json.dump(out, fh, indent=1)
     print("DONE")
 

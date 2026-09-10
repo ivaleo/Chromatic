@@ -13,6 +13,7 @@ import time
 from fractions import Fraction
 
 import numpy as np
+from chromatic_research.paths import results_path
 import combigeo
 
 OUT = {}
@@ -147,7 +148,7 @@ def main():
                       "rows": rows}
     OUT["scan4d"] = scan
 
-    with open("/private/tmp/claude-501/-Users-mac-Documents--My-code-Chromatic/a660b7db-31c5-4e8c-a567-e60eed295063/scratchpad/verify2_results.json", "w") as fh:
+    with open(results_path("verify2_results.json"), "w") as fh:
         json.dump(OUT, fh, indent=1)
     print("DONE", flush=True)
 

@@ -36,18 +36,10 @@ class DDLimit(Exception):
 def _simplex_start(dim: int, bound: Fr):
     """Вершины и активные маски симплекса ``x_i >= -M``, ``sum x_i <= n*M``.
 
-    Неравенства нумеруются 0..dim-1 (``-x_i <= M``) и dim (``sum x <= n*M``).
+    Его ``dim + 1`` неравенств нумеруются 0..dim-1 (``-x_i <= M``) и dim
+    (``sum x <= n*M``); сами строки нигде дальше не нужны — вершины симплекса
+    известны в замкнутом виде, а неравенства задачи получают номера от dim+1.
     """
-    rows: list[tuple[Fr, ...]] = []
-    rhs: list[Fr] = []
-    for i in range(dim):
-        row = [Fr(0)] * dim
-        row[i] = Fr(-1)
-        rows.append(tuple(row))
-        rhs.append(bound)
-    rows.append(tuple(Fr(1) for _ in range(dim)))
-    rhs.append(bound * dim)
-
     verts: list[tuple[Fr, ...]] = []
     masks: list[int] = []
     # все нижние границы активны, сумма — нет
@@ -59,7 +51,7 @@ def _simplex_start(dim: int, bound: Fr):
         point[i] = bound * dim + bound * (dim - 1)
         verts.append(tuple(point))
         masks.append((((1 << dim) - 1) ^ (1 << i)) | (1 << dim))
-    return rows, rhs, verts, masks
+    return verts, masks
 
 
 def dd_vertices(
@@ -76,8 +68,8 @@ def dd_vertices(
     (корректность результата опирается на это включение).  Пустой список
     означает, что многогранник пуст.
     """
-    srows, srhs, verts, masks = _simplex_start(dim, Fr(bound))
-    offset = len(srows)
+    verts, masks = _simplex_start(dim, Fr(bound))
+    offset = dim + 1                      # номера битов симплекса: 0..dim
 
     for index, (row, value) in enumerate(zip(rows, rhs)):
         row = tuple(Fr(c) for c in row)

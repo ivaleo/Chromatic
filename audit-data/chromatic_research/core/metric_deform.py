@@ -429,27 +429,26 @@ def select_record(
 def span_stretch_seed(
     basis0: np.ndarray, record: dict, amount: float
 ) -> np.ndarray:
-    conflict_records = record.get("conflicts", [])
+    n = basis0.shape[0]
+    no_stretch = np.zeros(n * (n + 1) // 2 - 1, dtype=np.float64)
     # A weighted modular screen can leave several geometrically distinct
     # shells.  Stretching the span of *all* of them is often a no-op because
     # their union has full rank.  The max-min objective is controlled locally
     # by the deepest active shell, so use only conflicts tied with its minimum.
     # The full exhaustive evaluator below still guards against a different
     # shell becoming active after the step.
-    finite_ratios = [
-        float(item["distance_ratio"])
+    conflict_records = record.get("conflicts", [])
+    rated = [
+        (item, float(item["distance_ratio"]))
         for item in conflict_records
         if item.get("distance_ratio") is not None
-        and math.isfinite(float(item["distance_ratio"]))
+    ]
+    finite_ratios = [
+        ratio for _, ratio in rated if math.isfinite(ratio)
     ]
     if finite_ratios:
-        minimum_ratio = min(finite_ratios)
-        active_records = [
-            item
-            for item in conflict_records
-            if item.get("distance_ratio") is not None
-            and float(item["distance_ratio"]) <= minimum_ratio + 1e-7
-        ]
+        cutoff = min(finite_ratios) + 1e-7
+        active_records = [item for item, ratio in rated if ratio <= cutoff]
     else:
         active_records = conflict_records
     conflicts = np.asarray(
@@ -457,22 +456,15 @@ def span_stretch_seed(
         dtype=np.float64,
     )
     if not len(conflicts) or amount == 0:
-        n = basis0.shape[0]
-        return np.zeros(n * (n + 1) // 2 - 1, dtype=np.float64)
+        return no_stretch
     physical = conflicts @ basis0
     _, _, right = np.linalg.svd(physical, full_matrices=True)
     rank = int(np.linalg.matrix_rank(physical))
-    if rank == 0 or rank == basis0.shape[0]:
-        return np.zeros(
-            basis0.shape[0] * (basis0.shape[0] + 1) // 2 - 1,
-            dtype=np.float64,
-        )
+    if rank == 0 or rank == n:
+        return no_stretch
     projector = right[:rank].T @ right[:rank]
-    complement = np.eye(basis0.shape[0]) - projector
-    generator = (
-        amount / rank * projector
-        - amount / (basis0.shape[0] - rank) * complement
-    )
+    complement = np.eye(n) - projector
+    generator = amount / rank * projector - amount / (n - rank) * complement
     return matrix_parameters(generator)
 
 
@@ -750,6 +742,23 @@ def main(argv: Sequence[str] | None = None) -> int:
         "max_h_norm": args.max_h_norm,
     }
 
+    def write_checkpoint(
+        evaluation: MetricEvaluation, generation: int, **extra: float
+    ) -> None:
+        """Persist a complete checkpoint for the given evaluation."""
+        payload = checkpoint_payload(
+            args.campaign,
+            record,
+            kernel,
+            evaluation,
+            generation=generation,
+            evaluations=total_evaluations,
+            elapsed=time.perf_counter() - start,
+            optimizer=optimizer_info,
+        )
+        payload.update(extra)
+        args.output.write_text(json.dumps(payload, indent=2) + "\n")
+
     import multiprocessing as mp
 
     with mp.Pool(
@@ -783,17 +792,7 @@ def main(argv: Sequence[str] | None = None) -> int:
                 best = evaluator.evaluate(
                     summaries[ratio_index]["parameters"], with_witnesses=True
                 )
-                payload = checkpoint_payload(
-                    args.campaign,
-                    record,
-                    kernel,
-                    best,
-                    generation=generation,
-                    evaluations=total_evaluations,
-                    elapsed=time.perf_counter() - start,
-                    optimizer=optimizer_info,
-                )
-                args.output.write_text(json.dumps(payload, indent=2) + "\n")
+                write_checkpoint(best, generation)
                 print(
                     f"  new hard best gen={generation}: "
                     f"min={best.min_ratio:.9f} soft={best.soft_min:.9f} "
@@ -815,18 +814,9 @@ def main(argv: Sequence[str] | None = None) -> int:
 
     # Always leave a complete final checkpoint, even if the initial point won.
     final = evaluator.evaluate(best.parameters, with_witnesses=True)
-    payload = checkpoint_payload(
-        args.campaign,
-        record,
-        kernel,
-        final,
-        generation=generation,
-        evaluations=total_evaluations,
-        elapsed=time.perf_counter() - start,
-        optimizer=optimizer_info,
+    write_checkpoint(
+        final, generation, best_soft_min_seen=best_soft.soft_min
     )
-    payload["best_soft_min_seen"] = best_soft.soft_min
-    args.output.write_text(json.dumps(payload, indent=2) + "\n")
     print(
         f"FINAL min={final.min_ratio:.12f} D={final.min_distance:.12f} "
         f"diam={final.diameter:.12f} valid={final.min_ratio >= 1.0} "

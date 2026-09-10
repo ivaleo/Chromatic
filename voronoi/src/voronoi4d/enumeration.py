@@ -10,19 +10,9 @@ import math
 
 import numpy as np
 
+from .lll import gram_schmidt
+
 # --------------------------------------------------------------------------------
-
-
-def _gram_schmidt(basis):
-    n = len(basis)
-    b_star = basis.astype(float).copy()
-    mu = np.zeros((n, n))
-    for i in range(n):
-        for j in range(i):
-            denom = b_star[j] @ b_star[j]
-            mu[i, j] = (basis[i] @ b_star[j]) / denom
-            b_star[i] = b_star[i] - mu[i, j] * b_star[j]
-    return b_star, mu
 
 
 def lattice_points_within(basis, bound):
@@ -35,7 +25,7 @@ def lattice_points_within(basis, bound):
     """
     basis = np.asarray(basis, dtype=float)
     n = len(basis)
-    b_star, mu = _gram_schmidt(basis)
+    b_star, mu = gram_schmidt(basis)
     bn2 = np.array([b @ b for b in b_star])
     bound2 = bound * bound
     out = []
@@ -45,12 +35,12 @@ def lattice_points_within(basis, bound):
         if level == 0:
             # канонический представитель пары (v, -v): первый ненулевой
             # коэффициент положителен; нулевой вектор исключается
+            first_nonzero = 0
             for c in coeffs:
-                if c > 0:
+                if c != 0:
+                    first_nonzero = c
                     break
-                if c < 0:
-                    return
-            else:
+            if first_nonzero <= 0:
                 return
             v = np.array(coeffs, dtype=float) @ basis
             if v @ v <= bound2 + 1e-9:

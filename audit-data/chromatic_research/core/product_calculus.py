@@ -75,11 +75,19 @@ def gaussian_distance(alpha: complex) -> float:
     return float(np.linalg.norm(np.clip(np.abs(p) - 0.5, 0.0, None)))
 
 
+# Facet normals of the two non-trivial unit cells; constants of the order, so
+# they are built once instead of on every distance evaluation.
+_HEXAGON_NORMALS = [np.array([math.cos(k * math.pi / 3), math.sin(k * math.pi / 3)])
+                    for k in range(6)]
+_HURWITZ_NORMALS = ([np.eye(4)[i] * s for i in range(4) for s in (1, -1)]
+                    + [np.array(s) / 2.0
+                       for s in itertools.product((1, -1), repeat=4)])
+
+
 def eisenstein_distance(alpha: complex) -> float:
     """dist(alpha/2, hexagon) -- the cell of ``Z[omega] w``, ``|w| = 1``."""
-    normals = [np.array([math.cos(k * math.pi / 3), math.sin(k * math.pi / 3)])
-               for k in range(6)]
-    return _dist_to_cell(np.array([alpha.real, alpha.imag]) / 2.0, normals, 0.5)
+    point = np.array([alpha.real, alpha.imag]) / 2.0
+    return _dist_to_cell(point, _HEXAGON_NORMALS, 0.5)
 
 
 def hurwitz_distance(alpha) -> float:
@@ -87,9 +95,7 @@ def hurwitz_distance(alpha) -> float:
 
     ``alpha`` is a real 4-vector ``(a, b, c, d)`` meaning ``a + bi + cj + dk``.
     """
-    units = [np.eye(4)[i] * s for i in range(4) for s in (1, -1)]
-    units += [np.array(s) / 2.0 for s in itertools.product((1, -1), repeat=4)]
-    return _dist_to_cell(np.asarray(alpha, float) / 2.0, units, 0.5)
+    return _dist_to_cell(np.asarray(alpha, float) / 2.0, _HURWITZ_NORMALS, 0.5)
 
 
 def _dist_to_cell(point, normals, offset) -> float:

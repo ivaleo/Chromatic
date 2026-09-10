@@ -1,31 +1,23 @@
 """Новая сигнатура find_optimal: без limits, с callback вместо print."""
 
-import numpy as np
+from voronoi4d import find_optimal
 
-from voronoi4d import VoronoiPolyhedra, find_optimal
+# решётка Z^4 берётся из общей фикстуры vor (conftest.py)
 
 
-def test_find_optimal_accepts_keyword_only_options(tmp_path):
-    grid = np.eye(4)
-    vor = VoronoiPolyhedra(grid)
-    vor.build(verbose=False)
-
+def test_find_optimal_accepts_keyword_only_options(vor, tmp_path):
     det_dist, _, _ = find_optimal(
-        range(2, 3), grid, vor, vor.max_len,
+        range(2, 3), vor.grid, vor, vor.max_len,
         threshold=0.0, output_file=str(tmp_path / "r.txt"),
     )
 
     assert 2 in det_dist
 
 
-def test_progress_callback_receives_lines(tmp_path):
-    grid = np.eye(4)
-    vor = VoronoiPolyhedra(grid)
-    vor.build(verbose=False)
-
+def test_progress_callback_receives_lines(vor, tmp_path):
     lines = []
     find_optimal(
-        range(2, 3), grid, vor, vor.max_len,
+        range(2, 3), vor.grid, vor, vor.max_len,
         threshold=0.0, output_file=str(tmp_path / "r.txt"),
         progress=lines.append,
     )
@@ -34,13 +26,9 @@ def test_progress_callback_receives_lines(tmp_path):
     assert any("det" in line for line in lines)
 
 
-def test_no_progress_means_silence(tmp_path, capsys):
-    grid = np.eye(4)
-    vor = VoronoiPolyhedra(grid)
-    vor.build(verbose=False)
-
+def test_no_progress_means_silence(vor, tmp_path, capsys):
     find_optimal(
-        range(2, 3), grid, vor, vor.max_len,
+        range(2, 3), vor.grid, vor, vor.max_len,
         threshold=0.0, output_file=str(tmp_path / "r.txt"),
     )
 

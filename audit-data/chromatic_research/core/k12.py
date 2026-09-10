@@ -45,20 +45,22 @@ def _f4_mul(a, b):
     return ((x1 * x2 + y1 * y2) % 2, (x1 * y2 + y1 * x2 + y1 * y2) % 2)
 
 
+_F4_ELEMENTS = [(0, 0), (1, 0), (0, 1), (1, 1)]
+_EVALUATION_POINTS = [(1, 0), (0, 1), (1, 1)]   # 1, omega, omega^2
+
+
+def _hexacode_word(a, b, c) -> list[tuple[int, int]]:
+    """``(a, b, c, f(1), f(omega), f(omega^2))`` for ``f(x) = a x^2 + b x + c``."""
+    return [a, b, c] + [
+        _f4_add(_f4_add(_f4_mul(a, _f4_mul(x, x)), _f4_mul(b, x)), c)
+        for x in _EVALUATION_POINTS
+    ]
+
+
 def hexacode() -> list[list[tuple[int, int]]]:
     """All 64 codewords of the hexacode ``[6,3,4]_4``."""
-    elements = [(0, 0), (1, 0), (0, 1), (1, 1)]
-    points = [(1, 0), (0, 1), (1, 1)]           # 1, omega, omega^2
-
-    def f(a, b, c, x):
-        return _f4_add(_f4_add(_f4_mul(a, _f4_mul(x, x)), _f4_mul(b, x)), c)
-
-    words = []
-    for a in elements:
-        for b in elements:
-            for c in elements:
-                words.append([a, b, c] + [f(a, b, c, x) for x in points])
-    return words
+    return [_hexacode_word(a, b, c)
+            for a in _F4_ELEMENTS for b in _F4_ELEMENTS for c in _F4_ELEMENTS]
 
 
 def _weight(word) -> int:
@@ -100,12 +102,9 @@ def build_k12() -> tuple[np.ndarray, np.ndarray]:
         row[j] = 2
         generators.append(row)
     omega = omega_action()
-    for abc in (((1, 0), (0, 0), (0, 0)), ((0, 0), (1, 0), (0, 0)), ((0, 0), (0, 0), (1, 0))):
-        a, b, c = abc
-        points = [(1, 0), (0, 1), (1, 1)]
-        word = [a, b, c] + [
-            _f4_add(_f4_add(_f4_mul(a, _f4_mul(x, x)), _f4_mul(b, x)), c) for x in points
-        ]
+    for a, b, c in (((1, 0), (0, 0), (0, 0)), ((0, 0), (1, 0), (0, 0)),
+                    ((0, 0), (0, 0), (1, 0))):
+        word = _hexacode_word(a, b, c)
         lift = [int(s[k]) for s in word for k in range(2)]
         generators.append(lift)
         generators.append((np.asarray(lift, dtype=np.int64) @ omega).tolist())
@@ -122,39 +121,40 @@ def build_k12() -> tuple[np.ndarray, np.ndarray]:
     return coeff, basis
 
 
+def _integer_double_gram() -> np.ndarray:
+    """``2 * Gram`` of :func:`real_embedding`; integral, so sections stay exact."""
+    T = real_embedding()
+    return np.rint(2 * (T @ T.T)).astype(np.int64)
+
+
+def _integer_nullspace(equations: list[list[int]]) -> list[list[int]]:
+    """Nullspace of an integer system, each vector cleared of denominators."""
+    rows = []
+    for vec in Matrix(equations).nullspace():
+        scale = int(np.lcm.reduce([int(term.q) for term in vec]))
+        rows.append([int(term * scale) for term in vec])
+    return rows
+
+
 def complex_section(coeff: np.ndarray, direction: np.ndarray) -> np.ndarray:
     """Rank-5 Eisenstein section: coefficient rows of ``{x in K12 : x perp_C v}``.
 
     ``direction`` is a coefficient row of ``v``; orthogonality to the complex
     line means real orthogonality to both ``v`` and ``omega v``.
     """
-    T = real_embedding()
-    gram2 = np.rint(2 * (T @ T.T)).astype(np.int64)        # integer 2*Gram
-    omega = omega_action()
-    eq1 = coeff @ gram2 @ np.asarray(direction, dtype=np.int64)
-    eq2 = coeff @ gram2 @ (np.asarray(direction, dtype=np.int64) @ omega)
-    system = Matrix([eq1.tolist(), eq2.tolist()])
-    null = system.nullspace()
-    rows = []
-    for vec in null:
-        denominators = [term.q for term in vec]
-        scale = int(np.lcm.reduce([int(q) for q in denominators]))
-        rows.append([int(term * scale) for term in vec])
+    gram2 = _integer_double_gram()
+    direction = np.asarray(direction, dtype=np.int64)
+    eq1 = coeff @ gram2 @ direction
+    eq2 = coeff @ gram2 @ (direction @ omega_action())
+    rows = _integer_nullspace([eq1.tolist(), eq2.tolist()])
     assert len(rows) == 10, f"complex section must have rank 10, got {len(rows)}"
     return np.asarray(rows, dtype=np.int64) @ coeff
 
 
 def real_section(coeff: np.ndarray, direction: np.ndarray) -> np.ndarray:
     """Rank-11 real hyperplane section ``{x in K12 : <x, v> = 0}``."""
-    T = real_embedding()
-    gram2 = np.rint(2 * (T @ T.T)).astype(np.int64)
-    eq = coeff @ gram2 @ np.asarray(direction, dtype=np.int64)
-    null = Matrix([eq.tolist()]).nullspace()
-    rows = []
-    for vec in null:
-        denominators = [term.q for term in vec]
-        scale = int(np.lcm.reduce([int(q) for q in denominators]))
-        rows.append([int(term * scale) for term in vec])
+    eq = coeff @ _integer_double_gram() @ np.asarray(direction, dtype=np.int64)
+    rows = _integer_nullspace([eq.tolist()])
     assert len(rows) == 11, f"real section must have rank 11, got {len(rows)}"
     return np.asarray(rows, dtype=np.int64) @ coeff
 

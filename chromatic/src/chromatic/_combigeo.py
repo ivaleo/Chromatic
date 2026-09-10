@@ -27,7 +27,7 @@ class CombigeoBackend(Backend):
         import combigeo
 
         self.check_dim(len(basis))
-        raw = combigeo.voronoi_cell(_to_lists(basis))
+        raw = combigeo.voronoi_cell(as_matrix(basis))
         facets = [Facet(list(map(float, h.normal)), float(h.offset)) for h in raw.facets]
         return Cell(
             dim=int(raw.dim),
@@ -50,17 +50,16 @@ class CombigeoBackend(Backend):
                            sub_basis: Sequence[Sequence[float]]) -> float:
         import combigeo
 
-        return float(combigeo.min_color_distance(_to_lists(basis), _to_lists(sub_basis)))
+        return float(combigeo.min_color_distance(as_matrix(basis), as_matrix(sub_basis)))
 
     def find_optimal(self, basis: Sequence[Sequence[float]], index: int) -> OptimalResult:
         import combigeo
 
         self.check_dim(len(basis))
-        r = combigeo.find_optimal(_to_lists(basis), int(index))
-        return _to_result(r, self.name)
+        return _to_result(combigeo.find_optimal(as_matrix(basis), int(index)), self.name)
 
     def find_optimal_range(self, basis: Sequence[Sequence[float]],
-                           indices: Iterable[int]) -> "dict[int, OptimalResult]":
+                           indices: Iterable[int]) -> dict[int, OptimalResult]:
         import combigeo
 
         idx = sorted({int(k) for k in indices})
@@ -69,7 +68,7 @@ class CombigeoBackend(Backend):
         self.check_dim(len(basis))
         # для непрерывного диапазона используем нативную функцию
         if idx == list(range(idx[0], idx[-1] + 1)):
-            native = combigeo.find_optimal_range(_to_lists(basis), idx[0], idx[-1])
+            native = combigeo.find_optimal_range(as_matrix(basis), idx[0], idx[-1])
             return {int(k): _to_result(v, self.name) for k, v in native.items()}
         return {k: self.find_optimal(basis, k) for k in idx}
 
@@ -77,12 +76,12 @@ class CombigeoBackend(Backend):
                    delta: float = 0.75) -> List[List[float]]:
         import combigeo
 
-        return as_matrix(combigeo.lll_reduce(_to_lists(basis), delta))
+        return as_matrix(combigeo.lll_reduce(as_matrix(basis), delta))
 
     def shortest_vector(self, basis: Sequence[Sequence[float]]) -> List[float]:
         import combigeo
 
-        return [float(x) for x in combigeo.shortest_vector(_to_lists(basis))]
+        return [float(x) for x in combigeo.shortest_vector(as_matrix(basis))]
 
     # --- дополнительно: перебор подрешёток (есть только у combigeo) ------------
 
@@ -92,19 +91,17 @@ class CombigeoBackend(Backend):
         return int(combigeo.count_sublattices(dim, index))
 
 
-def _to_lists(matrix: Sequence[Sequence[float]]) -> List[List[float]]:
-    return [[float(x) for x in row] for row in matrix]
-
-
-def _to_result(r, backend: str) -> OptimalResult:
+def _to_result(raw, backend: str) -> OptimalResult:
+    """Переводит combigeo.SolveResult в модель фасада."""
+    best = raw.best
     return OptimalResult(
-        num_colors=int(r.index),
-        diameter=float(r.diameter),
-        min_distance=float(r.best.min_distance),
-        normalized=float(r.normalized),
-        transition=[[int(x) for x in row] for row in r.best.transition] if r.best.transition else None,
-        sub_basis=as_matrix(r.best.sub_basis) if r.best.sub_basis else None,
-        witness=[float(x) for x in r.best.witness] if r.best.witness else None,
-        examined=int(r.examined),
+        num_colors=int(raw.index),
+        diameter=float(raw.diameter),
+        min_distance=float(best.min_distance),
+        normalized=float(raw.normalized),
+        transition=[[int(x) for x in row] for row in best.transition] if best.transition else None,
+        sub_basis=as_matrix(best.sub_basis) if best.sub_basis else None,
+        witness=[float(x) for x in best.witness] if best.witness else None,
+        examined=int(raw.examined),
         backend=backend,
     )

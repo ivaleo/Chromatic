@@ -59,7 +59,7 @@ from chromatic_research.core.prime_radon import smith_diagonal
 
 def canonical_projective_rows(rows: Iterable[Sequence[int]]) -> np.ndarray:
     """Deduplicate nonzero integer rows modulo multiplication by ``-1``."""
-    unique: dict[tuple[int, ...], tuple[int, ...]] = {}
+    unique: set[tuple[int, ...]] = set()
     width = 0
     for raw in rows:
         row = tuple(int(value) for value in raw)
@@ -67,8 +67,7 @@ def canonical_projective_rows(rows: Iterable[Sequence[int]]) -> np.ndarray:
         if not any(row):
             continue
         negative = tuple(-value for value in row)
-        key = min(row, negative)
-        unique.setdefault(key, key)
+        unique.add(min(row, negative))
     if not unique:
         return np.empty((0, width), dtype=np.int64)
     return np.asarray(sorted(unique), dtype=np.int64)
@@ -126,6 +125,15 @@ def circumradius_squared(gram: np.ndarray, rows: np.ndarray) -> float:
     diagonal = np.diag(simplex_gram)
     return 0.25 * float(
         diagonal @ np.linalg.solve(simplex_gram, diagonal)
+    )
+
+
+def _simplex_radii(
+    gram: np.ndarray, simplices: Sequence[np.ndarray]
+) -> np.ndarray:
+    """Squared circumradius of every triangulation orbit representative."""
+    return np.asarray(
+        [circumradius_squared(gram, rows) for rows in simplices]
     )
 
 
@@ -299,10 +307,8 @@ def determinant_rescale(
     gram: np.ndarray, target_determinant: float
 ) -> np.ndarray:
     """Rescale an SPD Gram form without changing any distance ratio."""
-    gram = 0.5 * (
-        np.asarray(gram, dtype=np.float64)
-        + np.asarray(gram, dtype=np.float64).T
-    )
+    gram = np.asarray(gram, dtype=np.float64)
+    gram = 0.5 * (gram + gram.T)
     determinant = float(np.linalg.det(gram))
     if determinant <= 0 or target_determinant <= 0:
         raise ValueError("Gram determinants must be positive")
@@ -444,12 +450,7 @@ def main(argv: Sequence[str] | None = None) -> int:
         raise RuntimeError("source metric does not reproduce before SDP")
     source_gram = source_evaluation.basis @ source_evaluation.basis.T
     simplices = triangulation_orbits(source_evaluation.basis)
-    source_radii = np.asarray(
-        [
-            circumradius_squared(source_gram, rows)
-            for rows in simplices
-        ]
-    )
+    source_radii = _simplex_radii(source_gram, simplices)
     source_facets = relevant_coordinate_rows(source_evaluation.basis)
 
     initial_radius = 2.0 * source_evaluation.diameter + 1e-8
@@ -459,26 +460,37 @@ def main(argv: Sequence[str] | None = None) -> int:
     source_distances, _ = exact_coordinate_separations(
         source_evaluation.basis, source_coordinates
     )
-    source_order = np.argsort(source_distances)
     certificates: dict[tuple[int, ...], np.ndarray] = {}
     certificate_values: dict[tuple[int, ...], float] = {}
-    for index in source_order:
-        coordinate = source_coordinates[int(index)]
+
+    def store_certificate(
+        gram: np.ndarray,
+        coordinate: np.ndarray,
+        facet_rows: np.ndarray,
+    ) -> float:
+        """Freeze the projection dual of one kernel vector as an SDP cut."""
         certificate, dual, primal = projection_certificate(
-            source_gram,
+            gram,
             coordinate,
-            source_facets,
+            facet_rows,
             solver=args.solver,
         )
-        if abs(primal - source_distances[int(index)] ** 2) > max(
+        key = tuple(int(value) for value in coordinate)
+        certificates[key] = certificate
+        certificate_values[key] = dual
+        return primal
+
+    for raw_index in np.argsort(source_distances):
+        index = int(raw_index)
+        primal = store_certificate(
+            source_gram, source_coordinates[index], source_facets
+        )
+        if abs(primal - source_distances[index] ** 2) > max(
             2e-6, 3e-6 * primal
         ):
             raise RuntimeError(
                 "projection QP and complete Voronoi distance disagree"
             )
-        key = tuple(int(value) for value in coordinate)
-        certificates[key] = certificate
-        certificate_values[key] = dual
 
     source_minimum_certificate = min(certificate_values.values())
     gram = source_gram / source_minimum_certificate
@@ -517,18 +529,13 @@ def main(argv: Sequence[str] | None = None) -> int:
         if eigenvalues[0] <= 0:
             raise RuntimeError("SDP returned a non-positive Gram form")
         basis = np.linalg.cholesky(gram)
-        simplex_radii = np.asarray(
-            [
-                circumradius_squared(gram, rows)
-                for rows in simplices
-            ]
-        )
-        covering_rho = float(simplex_radii.max())
+        round_radii = _simplex_radii(gram, simplices)
+        covering_rho = float(round_radii.max())
         simplex_violations = [
-            int(index)
-            for index in np.argsort(simplex_radii)[::-1]
-            if int(index) not in selected_simplex_ids
-            and simplex_radii[int(index)]
+            index
+            for index in (int(value) for value in np.argsort(round_radii)[::-1])
+            if index not in selected_simplex_ids
+            and round_radii[index]
             > master_rho * (1.0 + args.violation_tolerance)
         ]
 
@@ -538,11 +545,10 @@ def main(argv: Sequence[str] | None = None) -> int:
         )
         distances, _ = exact_coordinate_separations(basis, coordinates)
         violating_ids = [
-            int(index)
-            for index in np.argsort(distances)
-            if distances[int(index)] ** 2
-            < 1.0 - args.violation_tolerance
-            and tuple(int(value) for value in coordinates[int(index)])
+            index
+            for index in (int(value) for value in np.argsort(distances))
+            if distances[index] ** 2 < 1.0 - args.violation_tolerance
+            and tuple(int(value) for value in coordinates[index])
             not in certificates
         ]
         new_simplex_ids = simplex_violations[: args.add_simplices]
@@ -554,15 +560,7 @@ def main(argv: Sequence[str] | None = None) -> int:
         if new_coordinates:
             current_facets = relevant_coordinate_rows(basis)
             for coordinate in new_coordinates:
-                certificate, dual, _ = projection_certificate(
-                    gram,
-                    coordinate,
-                    current_facets,
-                    solver=args.solver,
-                )
-                key = tuple(int(value) for value in coordinate)
-                certificates[key] = certificate
-                certificate_values[key] = dual
+                store_certificate(gram, coordinate, current_facets)
 
         minimum_distance = (
             float(distances.min()) if len(distances) else float("inf")
@@ -611,15 +609,8 @@ def main(argv: Sequence[str] | None = None) -> int:
     evaluation = evaluator.evaluate(
         output_parameters, with_witnesses=True
     )
-    final_radii = np.asarray(
-        [
-            circumradius_squared(output_gram, rows)
-            for rows in simplices
-        ]
-    )
-    scale = float(
-        np.trace(output_gram) / np.trace(gram)
-    )
+    final_radii = _simplex_radii(output_gram, simplices)
+    scale = float(np.trace(output_gram) / np.trace(gram))
     scaled_minimum_certificate = min(
         float(np.sum(output_gram * matrix))
         for matrix in certificates.values()

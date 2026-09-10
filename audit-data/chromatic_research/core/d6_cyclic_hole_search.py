@@ -74,6 +74,39 @@ def divisor_targets(
     )
 
 
+def _hits_target(
+    residues: np.ndarray, modulus: int, target: int
+) -> np.ndarray:
+    """Mask of residues landing in ``{0,+target,-target}`` modulo N."""
+    return (
+        (residues == 0)
+        | (residues == int(target) % modulus)
+        | (residues == (-int(target)) % modulus)
+    )
+
+
+def _value_residues(
+    forbidden: np.ndarray,
+    row: np.ndarray,
+    coordinate: int,
+    modulus: int,
+) -> np.ndarray:
+    """Residue of every forbidden vector for all values of one coordinate."""
+    forbidden = np.asarray(forbidden, dtype=np.int64)
+    current = np.remainder(forbidden @ row, modulus)
+    coefficient = np.remainder(forbidden[:, coordinate], modulus)
+    base = np.remainder(
+        current - coefficient * int(row[coordinate]),
+        modulus,
+    )
+    return np.remainder(
+        base[:, None]
+        + coefficient[:, None]
+        * np.arange(modulus, dtype=np.int64)[None, :],
+        modulus,
+    )
+
+
 def target_violation_mask(
     forbidden: np.ndarray,
     row: Sequence[int],
@@ -84,12 +117,7 @@ def target_violation_mask(
     forbidden = np.asarray(forbidden, dtype=np.int64)
     row = np.asarray(row, dtype=np.int64)
     residues = np.remainder(forbidden @ row, modulus)
-    inverse_target = (-int(target)) % modulus
-    return (
-        (residues == 0)
-        | (residues == int(target) % modulus)
-        | (residues == inverse_target)
-    )
+    return _hits_target(residues, modulus, target)
 
 
 def coordinate_scores(
@@ -100,23 +128,9 @@ def coordinate_scores(
     target: int,
 ) -> np.ndarray:
     """Exact violation counts for every value of one row coordinate."""
-    current = np.remainder(forbidden @ row, modulus)
-    coefficient = np.remainder(forbidden[:, coordinate], modulus)
-    base = np.remainder(
-        current - coefficient * int(row[coordinate]),
-        modulus,
-    )
-    values = np.remainder(
-        base[:, None]
-        + coefficient[:, None]
-        * np.arange(modulus, dtype=np.int64)[None, :],
-        modulus,
-    )
-    inverse_target = (-int(target)) % modulus
+    values = _value_residues(forbidden, row, coordinate, modulus)
     return np.count_nonzero(
-        (values == 0)
-        | (values == int(target) % modulus)
-        | (values == inverse_target),
+        _hits_target(values, modulus, target),
         axis=0,
     ).astype(np.int64)
 
@@ -130,29 +144,11 @@ def coordinate_weighted_scores(
     weights: Sequence[float],
 ) -> np.ndarray:
     """Weighted violation sum for every value of one row coordinate."""
-    forbidden = np.asarray(forbidden, dtype=np.int64)
     weights_array = np.asarray(weights, dtype=np.float64)
     if weights_array.shape != (len(forbidden),):
         raise ValueError("one violation weight is required per vector")
-    current = np.remainder(forbidden @ row, modulus)
-    coefficient = np.remainder(forbidden[:, coordinate], modulus)
-    base = np.remainder(
-        current - coefficient * int(row[coordinate]),
-        modulus,
-    )
-    values = np.remainder(
-        base[:, None]
-        + coefficient[:, None]
-        * np.arange(modulus, dtype=np.int64)[None, :],
-        modulus,
-    )
-    inverse_target = (-int(target)) % modulus
-    violations = (
-        (values == 0)
-        | (values == int(target) % modulus)
-        | (values == inverse_target)
-    )
-    return weights_array @ violations
+    values = _value_residues(forbidden, row, coordinate, modulus)
+    return weights_array @ _hits_target(values, modulus, target)
 
 
 def weighted_violation_score(
@@ -169,6 +165,24 @@ def weighted_violation_score(
         target,
     )
     return float(np.asarray(weights, dtype=np.float64)[mask].sum())
+
+
+def _row_scores(
+    forbidden: np.ndarray,
+    row: Sequence[int],
+    modulus: int,
+    target: int,
+    violation_weights: Sequence[float] | None,
+) -> tuple[int, float]:
+    """Violation count of one row, with its weighted sum when weights exist."""
+    mask = target_violation_mask(forbidden, row, modulus, target)
+    count = int(mask.sum())
+    if violation_weights is None:
+        return count, float(count)
+    weighted = float(
+        np.asarray(violation_weights, dtype=np.float64)[mask].sum()
+    )
+    return count, weighted
 
 
 def primitive_cyclic_row(row: Sequence[int], modulus: int) -> bool:
@@ -192,24 +206,8 @@ def pair_coordinate_escape(
 ) -> tuple[np.ndarray, int, float]:
     """Try Cartesian products of promising values for coordinate pairs."""
     if pair_top < 2 or pair_trials < 1:
-        score = int(
-            target_violation_mask(
-                forbidden,
-                row,
-                modulus,
-                target,
-            ).sum()
-        )
-        weighted = (
-            weighted_violation_score(
-                forbidden,
-                row,
-                modulus,
-                target,
-                violation_weights,
-            )
-            if violation_weights is not None
-            else float(score)
+        score, weighted = _row_scores(
+            forbidden, row, modulus, target, violation_weights
         )
         return row.copy(), score, weighted
     pairs = [
@@ -219,24 +217,8 @@ def pair_coordinate_escape(
     ]
     rng.shuffle(pairs)
     best_row = row.copy()
-    best_score = int(
-        target_violation_mask(
-            forbidden,
-            row,
-            modulus,
-            target,
-        ).sum()
-    )
-    best_weighted = (
-        weighted_violation_score(
-            forbidden,
-            row,
-            modulus,
-            target,
-            violation_weights,
-        )
-        if violation_weights is not None
-        else float(best_score)
+    best_score, best_weighted = _row_scores(
+        forbidden, row, modulus, target, violation_weights
     )
     score_cache: dict[int, np.ndarray] = {}
     for left, right in pairs[: min(pair_trials, len(pairs))]:
@@ -275,20 +257,10 @@ def pair_coordinate_escape(
         if not np.any(primitive):
             continue
         residues = np.remainder(forbidden @ variants.T, modulus)
-        inverse_target = (-int(target)) % modulus
-        scores = np.count_nonzero(
-            (residues == 0)
-            | (residues == int(target) % modulus)
-            | (residues == inverse_target),
-            axis=0,
-        )
+        violations = _hits_target(residues, modulus, target)
+        scores = np.count_nonzero(violations, axis=0)
         scores[~primitive] = len(forbidden) + 1
         if violation_weights is not None:
-            violations = (
-                (residues == 0)
-                | (residues == int(target) % modulus)
-                | (residues == inverse_target)
-            )
             weighted_scores = (
                 np.asarray(violation_weights, dtype=np.float64)
                 @ violations
@@ -391,24 +363,8 @@ def cyclic_target_descent(
             # excluding rows whose best representative has another unit pivot.
             anchor = int(rng.integers(forbidden.shape[1]))
             row[anchor] = 1
-        current_score = int(
-            target_violation_mask(
-                forbidden,
-                row,
-                modulus,
-                target,
-            ).sum()
-        )
-        current_weighted = (
-            weighted_violation_score(
-                forbidden,
-                row,
-                modulus,
-                target,
-                violation_weights,
-            )
-            if violation_weights is not None
-            else float(current_score)
+        current_score, current_weighted = _row_scores(
+            forbidden, row, modulus, target, violation_weights
         )
         for sweep in range(sweeps):
             improved = False
@@ -440,33 +396,19 @@ def cyclic_target_descent(
                 request = min(int(top), modulus)
                 candidates = order[:request]
                 if weighted_first:
+                    # Ties in the leading weight keep every candidate value.
+                    pool = candidates
                     best_local_weight = float(
                         weighted_scores[candidates[0]]
                     )
-                    tolerance = max(
-                        1e-12,
-                        0.02 * abs(best_local_weight),
-                    )
-                    near_best = candidates[
-                        weighted_scores[candidates]
-                        <= best_local_weight + tolerance
-                    ]
                 else:
                     best_count = int(scores[candidates[0]])
-                    same_count = candidates[
-                        scores[candidates] == best_count
-                    ]
-                    best_local_weight = float(
-                        weighted_scores[same_count].min()
-                    )
-                    tolerance = max(
-                        1e-12,
-                        0.02 * abs(best_local_weight),
-                    )
-                    near_best = same_count[
-                        weighted_scores[same_count]
-                        <= best_local_weight + tolerance
-                    ]
+                    pool = candidates[scores[candidates] == best_count]
+                    best_local_weight = float(weighted_scores[pool].min())
+                tolerance = max(1e-12, 0.02 * abs(best_local_weight))
+                near_best = pool[
+                    weighted_scores[pool] <= best_local_weight + tolerance
+                ]
                 chosen = int(
                     near_best[int(rng.integers(len(near_best)))]
                 )
@@ -474,13 +416,11 @@ def cyclic_target_descent(
                     int(scores[chosen]),
                     float(weighted_scores[chosen]),
                 )
-                if state_key(*chosen_key) <= state_key(
-                    current_score,
-                    current_weighted,
-                ):
+                chosen_state = state_key(*chosen_key)
+                current_state = state_key(current_score, current_weighted)
+                if chosen_state <= current_state:
                     improved |= (
-                        state_key(*chosen_key)
-                        < state_key(current_score, current_weighted)
+                        chosen_state < current_state
                         or chosen != int(row[coordinate])
                     )
                     row[coordinate] = chosen
@@ -498,14 +438,10 @@ def cyclic_target_descent(
                     violation_weights=violation_weights,
                     weighted_first=weighted_first,
                 )
-                if state_key(
-                    pair_score,
-                    pair_weighted,
-                ) <= state_key(current_score, current_weighted):
-                    improved |= state_key(
-                        pair_score,
-                        pair_weighted,
-                    ) < state_key(current_score, current_weighted)
+                pair_state = state_key(pair_score, pair_weighted)
+                current_state = state_key(current_score, current_weighted)
+                if pair_state <= current_state:
+                    improved |= pair_state < current_state
                     row = pair_row
                     current_score = pair_score
                     current_weighted = pair_weighted
@@ -533,24 +469,8 @@ def cyclic_target_descent(
             if not improved:
                 kick = int(rng.integers(forbidden.shape[1]))
                 row[kick] = int(rng.integers(modulus))
-                current_score = int(
-                    target_violation_mask(
-                        forbidden,
-                        row,
-                        modulus,
-                        target,
-                    ).sum()
-                )
-                current_weighted = (
-                    weighted_violation_score(
-                        forbidden,
-                        row,
-                        modulus,
-                        target,
-                        violation_weights,
-                    )
-                    if violation_weights is not None
-                    else float(current_score)
+                current_score, current_weighted = _row_scores(
+                    forbidden, row, modulus, target, violation_weights
                 )
 
     return {
@@ -1124,6 +1044,19 @@ def main(argv: Sequence[str] | None = None) -> int:
         basis,
         diameter,
     )
+    # The optimized core depends only on the ratio threshold, not on the
+    # period or the target difference, so it is selected once.
+    search_mask = forbidden_ratios < args.search_min_ratio - 1e-12
+    search_forbidden = forbidden[search_mask]
+    search_ratios = forbidden_ratios[search_mask]
+    search_weights = (
+        np.power(
+            np.maximum(0.0, 1.0 - search_ratios),
+            args.weight_power,
+        )
+        if args.weight_power > 0
+        else None
+    )
     started = time.perf_counter()
     payload: dict = {
         "method": (
@@ -1187,11 +1120,6 @@ def main(argv: Sequence[str] | None = None) -> int:
             flush=True,
         )
         for target_number, target in enumerate(targets):
-            search_mask = (
-                forbidden_ratios < args.search_min_ratio - 1e-12
-            )
-            search_forbidden = forbidden[search_mask]
-            search_ratios = forbidden_ratios[search_mask]
             search = cyclic_target_descent(
                 search_forbidden,
                 modulus,
@@ -1202,14 +1130,7 @@ def main(argv: Sequence[str] | None = None) -> int:
                 pair_top=args.pair_top,
                 pair_trials=args.pair_trials,
                 initial_row=args.initial_row,
-                violation_weights=(
-                    np.power(
-                        np.maximum(0.0, 1.0 - search_ratios),
-                        args.weight_power,
-                    )
-                    if args.weight_power > 0
-                    else None
-                ),
+                violation_weights=search_weights,
                 weighted_first=args.weighted_first,
                 seed=(
                     args.seed

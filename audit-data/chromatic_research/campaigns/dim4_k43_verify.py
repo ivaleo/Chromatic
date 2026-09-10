@@ -28,6 +28,7 @@ import itertools
 import json
 import sys
 from fractions import Fraction as F
+from pathlib import Path
 
 import numpy as np
 from scipy.optimize import minimize
@@ -40,11 +41,17 @@ N = 4
 DEFAULT_INPUT = "r4_k43_eisenstein_rational.json"
 
 
+def resolve_input(path=None):
+    """Путь со слешем берётся буквально, голое имя ищется в results/."""
+    if path and "/" in str(path):
+        return Path(path)
+    return results_path(path or DEFAULT_INPUT)
+
+
 def load_input(path=None):
     """Читает форму Грама и переход; устанавливает Q, Qf, M как глобальные."""
     global Q_STR, M, Q, Qf
-    src = json.load(open(path if path and "/" in str(path)
-                         else results_path(path or DEFAULT_INPUT)))
+    src = json.loads(resolve_input(path).read_text(encoding="utf-8"))
     Q_STR = src["Q_fractions"]
     M = src["transition"]
     Q = [[F(s) for s in row] for row in Q_STR]
@@ -57,6 +64,17 @@ load_input()
 def dot(a, b):
     """Точное <a, b> = a Q b^T для координатных векторов a, b."""
     return sum(a[i] * Q[i][j] * b[j] for i in range(N) for j in range(N))
+
+
+def sq_dist(u, w):
+    """Точный квадрат расстояния между координатными векторами."""
+    delta = [a - b for a, b in zip(u, w)]
+    return dot(delta, delta)
+
+
+def gram_row(v):
+    """Коэффициенты линейной формы x -> <x, v>, то есть строка (Q v)^T."""
+    return [sum(Q[i][j] * v[j] for j in range(N)) for i in range(N)]
 
 
 def solve_exact(A, b):
@@ -101,7 +119,8 @@ def relevant_vectors(window=6):
         for c in grid:
             if any((c[i] - coset[i]) % 2 for i in range(N)):
                 continue
-            n2 = dot([F(x) for x in c], [F(x) for x in c])
+            exact = [F(x) for x in c]
+            n2 = dot(exact, exact)
             if best is None or n2 < best:
                 best, reps = n2, [c]
             elif n2 == best:
@@ -113,11 +132,21 @@ def relevant_vectors(window=6):
     return rel, degenerate
 
 
+def halfspaces(rel):
+    """Пары (v, off) неравенств <x, v> <= off = |v|^2/2 --- по паре на каждый ±v."""
+    half = []
+    for c in rel:
+        for sign in (1, -1):
+            v = [F(sign * x) for x in c]
+            half.append((v, dot(v, v) / 2))
+    return half
+
+
 def cell_vertices(half):
     """Все вершины V0 = {x : <x,v> <= off} точным перебором четвёрок граней."""
     verts, seen = [], set()
     for idx in itertools.combinations(range(len(half)), N):
-        A = [[sum(Q[i][j] * half[t][0][j] for j in range(N)) for i in range(N)] for t in idx]
+        A = [gram_row(half[t][0]) for t in idx]
         x = solve_exact(A, [half[t][1] for t in idx])
         if x is None:
             continue
@@ -129,7 +158,7 @@ def cell_vertices(half):
     return verts
 
 
-def exact_dist2(p, half, ambient):
+def exact_dist2(p, half):
     """Точный dist(p, V0)^2: активное множество из float-QP + проверка ККТ в дробях."""
     if all(dot(p, v) <= off for v, off in half):
         return F(0), []
@@ -166,44 +195,58 @@ def exact_dist2(p, half, ambient):
     raise RuntimeError("ККТ-сертификат не найден")
 
 
+def gamma_candidates(diam2, d_est, basis):
+    """Кандидаты v in Gamma\\0 внутри окна |v| <= (1 + d_est) * diam.
+
+    Окно полно: из D(v) >= |v| - diam вектор вне него даёт D(v) > d_est * diam,
+    то есть рекорд улучшить не может.
+    """
+    bound2 = float((1 + d_est) ** 2 * diam2)
+    sub = np.array(M, float) @ basis
+    lim = int(np.ceil(np.sqrt(bound2) * np.abs(np.linalg.inv(sub)).sum(axis=0).max())) + 2
+    cands = []
+    for c in itertools.product(range(-lim, lim + 1), repeat=N):
+        if not any(c):
+            continue
+        y = np.array(c, float) @ sub
+        if y @ y <= bound2 * (1 + 1e-9):
+            cands.append(c)
+    return lim, cands
+
+
 def main():
     if len(sys.argv) > 1:
         load_input(sys.argv[1])
     B = np.linalg.cholesky(Qf)
     rel, degenerate = relevant_vectors()
     assert not degenerate, f"вырожденные классы Lambda/2Lambda: {degenerate}"
-    half = [([F(s * x) for x in c], dot([F(s * x) for x in c], [F(s * x) for x in c]) / 2)
-            for c in rel for s in (1, -1)]
+    half = halfspaces(rel)
     print(f"релевантных пар: {len(rel)} (ожидалось 15), полупространств: {len(half)}")
 
     verts = cell_vertices(half)
     print(f"вершин V0: {len(verts)}")
-    sym = all(any(all(a == -b for a, b in zip(v, w)) for w in verts) for v in verts)
+    coords = {tuple(v) for v in verts}
+    sym = all(tuple(-x for x in v) in coords for v in verts)
     vol = ConvexHull(np.array([[float(x) for x in v] for v in verts]) @ B).volume
     det = abs(float(np.linalg.det(B)))
     print(f"центральная симметрия: {sym}; объём V0 = {vol:.9f}, det(Lambda) = {det:.9f}")
     assert sym and abs(vol - det) < 1e-6 * det, "ячейка построена неверно"
 
-    diam2 = max(dot([a - b for a, b in zip(u, w)], [a - b for a, b in zip(u, w)])
-                for u, w in itertools.combinations(verts, 2))
+    diam2 = max(sq_dist(u, w) for u, w in itertools.combinations(verts, 2))
     print(f"diam(V0)^2 = {diam2} = {float(diam2):.12f}")
 
-    # окно кандидатов Gamma: |v| <= (1 + d_est) * diam, d_est = 1.01 > d
-    d_est = F(101, 100)
-    bound2 = float((1 + d_est) ** 2 * diam2)
-    sub = np.array(M, float) @ B
-    lim = int(np.ceil(np.sqrt(bound2) * np.abs(np.linalg.inv(sub)).sum(axis=0).max())) + 2
-    cands = [c for c in itertools.product(range(-lim, lim + 1), repeat=N)
-             if any(c) and (np.array(c, float) @ sub) @ (np.array(c, float) @ sub) <= bound2 * (1 + 1e-9)]
+    d_est = F(101, 100)                      # заведомая мажоранта искомого d
+    lim, cands = gamma_candidates(diam2, d_est, B)
     print(f"окно коэффициентов Gamma: +-{lim}; кандидатов: {len(cands)}")
 
-    D2, arg = None, None
+    D2, best_coeffs, best_coords = None, None, None
     for c in cands:
         v = [sum(F(c[i]) * M[i][j] for i in range(N)) for j in range(N)]
-        d2, S = exact_dist2([x / 2 for x in v], half, B)
-        if D2 is None or 4 * d2 < D2:
-            D2, arg = 4 * d2, (list(c), [str(x) for x in v], S)
-    print(f"D(Gamma)^2 = {D2} = {float(D2):.12f}; минимум на v = {arg[1]}")
+        dist2, _active = exact_dist2([x / 2 for x in v], half)
+        if D2 is None or 4 * dist2 < D2:
+            D2 = 4 * dist2
+            best_coeffs, best_coords = list(c), [str(x) for x in v]
+    print(f"D(Gamma)^2 = {D2} = {float(D2):.12f}; минимум на v = {best_coords}")
 
     ratio2 = D2 / diam2
     print(f"\nd^2 = {ratio2} = {float(ratio2):.12f}")
@@ -216,11 +259,13 @@ def main():
            "Q_fractions": Q_STR, "transition": M,
            "diam2": str(diam2), "D2": str(D2), "d2": str(ratio2),
            "d_float": float(ratio2) ** 0.5, "n_relevant_pairs": len(rel),
+           # volume_ok: объём ячейки сверен с det(Lambda) ассертом выше
            "n_vertices": len(verts), "volume_ok": True, "widths": widths,
-           "argmin_gamma_coeffs": arg[0], "argmin_lambda_coords": arg[1],
+           "argmin_gamma_coeffs": best_coeffs, "argmin_lambda_coords": best_coords,
            "note": "независимая точная перепроверка раскраски индекса 43 в R^4"}
+    # абсолютный путь во втором аргументе pathlib берёт как есть
     path = results_path(sys.argv[2] if len(sys.argv) > 2 else "dim4_k43_verify.json")
-    json.dump(out, open(path, "w"), ensure_ascii=False, indent=1)
+    path.write_text(json.dumps(out, ensure_ascii=False, indent=1), encoding="utf-8")
     print("записано:", path)
 
 

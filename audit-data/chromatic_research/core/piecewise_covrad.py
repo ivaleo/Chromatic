@@ -113,8 +113,8 @@ def certify_two_layer(base: np.ndarray, offset: np.ndarray, height: float,
             if radius < 1e-9:
                 continue
             try:
-                hs = HalfspaceIntersection(np.hstack([A_r, -b_r[:, None]]), center)
-                vertices = hs.intersections
+                vertices = HalfspaceIntersection(
+                    np.hstack([A_r, -b_r[:, None]]), center).intersections
             except Exception as error:         # noqa: BLE001
                 # a FULL-dimensional region that qhull cannot enumerate would be
                 # a hole in the covering -- the certificate must not stay silent

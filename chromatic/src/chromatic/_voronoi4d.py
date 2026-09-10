@@ -81,20 +81,23 @@ class Voronoi4dBackend(Backend):
         from voronoi4d import dist_to_s, lattice_points_within, lll_reduce, shortest_vector
 
         vor, _ = self._build(basis)
+        diam = float(vor.max_len)
         sub_lll = np.asarray(lll_reduce(np.asarray(sub_basis, dtype=float)), dtype=float)
+
+        def normalized_at(v):
+            """d = D/diam для середины вектора v (early_stop=0 — точное значение)."""
+            return dist_to_s(vor, 0.5 * np.asarray(v, dtype=float), vor.max_len,
+                             early_stop=0.0)
 
         # точный минимум: старт с кратчайшего вектора, затем полный перебор
         # в границе достаточности |v| < D_текущ + diam (D(v) >= |v| - diam)
-        v_min = shortest_vector(sub_lll)
-        best = dist_to_s(vor, 0.5 * np.asarray(v_min, dtype=float), vor.max_len,
-                         early_stop=0.0)
-        for c in sorted(lattice_points_within(sub_lll, (best + 1.0) * vor.max_len),
-                        key=lambda v: float(v @ v)):
-            if float(np.linalg.norm(c)) - vor.max_len >= best * vor.max_len:
+        best = normalized_at(shortest_vector(sub_lll))
+        candidates = lattice_points_within(sub_lll, (best + 1.0) * diam)
+        for c in sorted(candidates, key=lambda v: float(v @ v)):
+            if float(np.linalg.norm(c)) - diam >= best * diam:
                 break
-            best = min(best, dist_to_s(vor, 0.5 * np.asarray(c, dtype=float), vor.max_len,
-                                       early_stop=0.0))
-        return best * vor.max_len  # сырое D = d·diam
+            best = min(best, normalized_at(c))
+        return best * diam  # сырое D = d·diam
 
     def find_optimal(self, basis: Sequence[Sequence[float]], index: int) -> OptimalResult:
         import numpy as np

@@ -12,7 +12,7 @@ import json
 import time
 import numpy as np
 from multiprocessing import Pool
-from chromatic_research.paths import results_path
+from chromatic_research.paths import load_json, results_path
 from chromatic_research.forms import norm_gram, pack, unpack
 
 OUT = results_path("n8_cma44_ladder.json")
@@ -31,7 +31,7 @@ def one_instance(args):
     k, budget, seed, x0, sigma = args
     import combigeo, cma
     def f(x):
-        Q = unpack(np.asarray(x))
+        Q = unpack(np.asarray(x), 4)
         if Q is None: return 1.0
         try:
             B = np.linalg.cholesky(Q + 1e-12 * np.eye(4))
@@ -65,7 +65,7 @@ def run_k(pool, k, jobs, out, tag):
     results = pool.map(one_instance, jobs)
     best_d, best_x = max(results, key=lambda t: t[0])
     alld = sorted(round(d, 5) for d, _ in results)
-    Q = unpack(np.asarray(best_x)) if best_x is not None else None
+    Q = unpack(np.asarray(best_x), 4) if best_x is not None else None
     out[f"k{k}"] = {"d": best_d, "instances": alld,
                     "Q": None if Q is None else Q.tolist(),
                     "phase": tag, "secs": round(time.time() - t0)}
@@ -76,9 +76,9 @@ def run_k(pool, k, jobs, out, tag):
 
 
 if __name__ == "__main__":
-    W45 = np.array(json.load(open(results_path("n6_push45.json")))["Q"])
-    W46 = np.array(json.load(open(results_path("n4_push46.json")))["Q"])
-    X44 = json.load(open(results_path("n7_push44.json")))["k44"]["x"]  # NM-рекорд 0.9656
+    W45 = np.array(load_json("n6_push45.json")["Q"])
+    W46 = np.array(load_json("n4_push46.json")["Q"])
+    X44 = load_json("n7_push44.json")["k44"]["x"]  # NM-рекорд 0.9656
     D4 = norm_gram(np.array([[2,0,0,0],[1,1,0,0],[1,0,1,0],[1,0,0,1]], float))
     A4G = np.array([[2,-1,0,0],[-1,2,-1,0],[0,-1,2,-1],[0,0,-1,2]], float)
     A4S = norm_gram(np.linalg.inv(np.linalg.cholesky(A4G)).T)

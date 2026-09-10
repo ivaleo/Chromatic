@@ -27,7 +27,7 @@ import math
 import time
 from collections import deque
 from pathlib import Path
-from typing import Iterable, Sequence
+from typing import Sequence
 
 import numpy as np
 from scipy.optimize import linprog
@@ -44,7 +44,7 @@ def rational_floor_sqrt(value: Rational) -> int:
     value = Rational(value)
     if value < 0:
         raise ValueError("square-root argument must be nonnegative")
-    result = math.isqrt(int(value.p // value.q))
+    result = math.isqrt(value.p // value.q)
     while Rational((result + 1) ** 2) <= value:
         result += 1
     while Rational(result**2) > value:
@@ -120,7 +120,7 @@ def exact_relevant_vectors(
         )
 
     relevant = sorted(set(relevant))
-    if len(relevant) * 2 == 0:
+    if not relevant:
         raise AssertionError("no relevant vectors found")
     return relevant, classes
 
@@ -132,9 +132,8 @@ def facet_system(
     coordinates: list[tuple[int, ...]] = []
     for vector in relevant:
         canonical = tuple(int(value) for value in vector)
-        coordinates.extend(
-            [canonical, tuple(-value for value in canonical)]
-        )
+        coordinates.append(canonical)
+        coordinates.append(tuple(-value for value in canonical))
     coordinates = sorted(set(coordinates))
     normals: list[Matrix] = []
     offsets: list[Rational] = []
@@ -341,7 +340,7 @@ def enumerate_short_kernel_vectors(
     covering_radius_squared: Rational,
     reduced_rows: Matrix,
     upper_endpoint: Rational = Rational(1),
-) -> tuple[list[tuple[int, ...]], list[Rational]]:
+) -> tuple[list[tuple[int, ...]], list[Rational], list[int]]:
     """Enumerate every kernel vector inside the provably complete window.
 
     A vector ``v`` can violate ``D(v) >= ell * diam V_0 = 2 ell R`` only if
@@ -372,7 +371,7 @@ def enumerate_short_kernel_vectors(
         )
         if norm < norm_bound:
             vectors.append(tuple(int(value) for value in coordinate))
-    return sorted(set(vectors)), coefficient_bounds
+    return sorted(set(vectors)), coefficient_bounds, box
 
 
 def projection_distance_from_witness(
@@ -472,6 +471,35 @@ def determinant_abs(matrix: Matrix) -> int:
     return abs(int(matrix.det()))
 
 
+def in_modular_kernel(
+    vector: Sequence[int],
+    rows: Sequence[Sequence[int]],
+    moduli: Sequence[int],
+) -> bool:
+    """Check that every coloring character annihilates ``vector``."""
+    for row, modulus in zip(rows, moduli):
+        dot = sum(int(left) * int(right) for left, right in zip(row, vector))
+        if dot % int(modulus):
+            return False
+    return True
+
+
+def verify_kernel_basis(certificate: dict) -> tuple[Matrix, Matrix]:
+    """Recheck the stored kernel basis and its LLL reduction, exactly."""
+    kernel = Matrix(certificate["kernel_basis_columns"])
+    reduced_rows = Matrix(certificate["lll_kernel_basis_rows"])
+    if determinant_abs(kernel) != certificate["image_index"]:
+        raise AssertionError("kernel determinant does not equal image index")
+    if determinant_abs(reduced_rows) != determinant_abs(kernel):
+        raise AssertionError("reduced rows do not generate an equal-index lattice")
+    for reduced_row in reduced_rows.tolist():
+        if not in_modular_kernel(
+            reduced_row, certificate["rows"], certificate["moduli"]
+        ):
+            raise AssertionError("LLL row is not in the modular kernel")
+    return kernel, reduced_rows
+
+
 def main(argv: Sequence[str] | None = None) -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("certificate", type=Path)
@@ -526,30 +554,16 @@ def main(argv: Sequence[str] | None = None) -> int:
     if incident != set(range(len(facet_coordinates))):
         raise AssertionError("some exact relevant facet is not vertex-incident")
 
-    kernel = Matrix(certificate["kernel_basis_columns"])
-    reduced_rows = Matrix(certificate["lll_kernel_basis_rows"])
+    kernel, reduced_rows = verify_kernel_basis(certificate)
     rows = certificate["rows"]
     moduli = certificate["moduli"]
-    if determinant_abs(kernel) != certificate["image_index"]:
-        raise AssertionError("kernel determinant does not equal image index")
-    if determinant_abs(reduced_rows) != determinant_abs(kernel):
-        raise AssertionError("reduced rows do not generate an equal-index lattice")
-    for reduced_row in reduced_rows.tolist():
-        for row, modulus in zip(rows, moduli):
-            dot = sum(
-                int(left) * int(right)
-                for left, right in zip(row, reduced_row)
-            )
-            if dot % int(modulus):
-                raise AssertionError("LLL row is not in the modular kernel")
 
     upper_endpoint = Rational(
         certificate.get("certified_interval", {}).get("upper_endpoint", 1)
     )
-    short_vectors, coefficient_bounds = enumerate_short_kernel_vectors(
+    short_vectors, coefficient_bounds, box = enumerate_short_kernel_vectors(
         gram, denominator, radius_squared, reduced_rows, upper_endpoint
     )
-    box = [rational_floor_sqrt(value) for value in coefficient_bounds]
     print(
         f"exact kernel audit: window |v|^2 < 4(1+ell)^2 R^2, ell={upper_endpoint}, "
         f"short-vectors={len(short_vectors)} coefficient-box={box}",
@@ -560,9 +574,8 @@ def main(argv: Sequence[str] | None = None) -> int:
     ]:
         raise AssertionError("short-vector count differs from main certificate")
     for coordinate in short_vectors:
-        for row, modulus in zip(rows, moduli):
-            if sum(a * b for a, b in zip(row, coordinate)) % int(modulus):
-                raise AssertionError("enumerated short vector is outside the kernel")
+        if not in_modular_kernel(coordinate, rows, moduli):
+            raise AssertionError("enumerated short vector is outside the kernel")
 
     minimum_distance_squared, projection_checks = (
         verify_projection_witnesses(

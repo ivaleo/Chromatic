@@ -64,11 +64,8 @@ def _geometry_from_basis(
 
 def _d6_source() -> np.ndarray:
     records = json.loads(results_path("interval_fast_results.json").read_text())
-    record = next(
-        item
-        for item in records
-        if item["name"] == "E6*" and int(item["k"]) == 343
-    )
+    record = next(item for item in records
+                  if item["name"] == "E6*" and int(item["k"]) == 343)
     return hnf_columns(
         kernel_basis(
             [np.asarray(row, dtype=np.int64) for row in record["phi"]],
@@ -151,13 +148,9 @@ def _candidate_record(
         "distance_ratio": float(separation["minimum_distance_ratio"]),
         "valid": bool(separation["valid"]),
         "checked_kernel_vectors": int(separation["checked_kernel_vectors"]),
-        "conflict_count_with_sign": int(
-            separation["conflict_count_with_sign"]
-        ),
+        "conflict_count_with_sign": int(separation["conflict_count_with_sign"]),
         "conflicts": separation["conflicts"][:40],
-        "lll_row_perturbation_frobenius_norm": float(
-            np.linalg.norm(rows - source_rows)
-        ),
+        "lll_row_perturbation_frobenius_norm": float(np.linalg.norm(rows - source_rows)),
     }
 
 
@@ -166,9 +159,7 @@ def main(argv: Sequence[str] | None = None) -> int:
     parser.add_argument("preset", choices=["d5", "d6", "d7", "d8", "d9"])
     parser.add_argument("--target", type=int)
     parser.add_argument("--samples", type=int, default=250_000)
-    parser.add_argument(
-        "--destroy", type=parse_int_list, default=[3, 4, 5, 6]
-    )
+    parser.add_argument("--destroy", type=parse_int_list, default=[3, 4, 5, 6])
     parser.add_argument("--mutation-bound", type=int, default=2)
     parser.add_argument("--repair-bound", type=int, default=12)
     parser.add_argument("--shortest-cutoff", type=float, default=0.78)
@@ -186,9 +177,7 @@ def main(argv: Sequence[str] | None = None) -> int:
     target = source_index - 1 if args.target is None else int(args.target)
     if target < 2:
         parser.error("target determinant must be at least two")
-    source_separation = separate_kernel(
-        basis, diameter, facets, source_kernel
-    )
+    source_separation = separate_kernel(basis, diameter, facets, source_kernel)
     if not source_separation["valid"]:
         raise AssertionError(
             f"preset source failed: ratio="
@@ -214,9 +203,7 @@ def main(argv: Sequence[str] | None = None) -> int:
         "source_kernel_basis_columns": source_kernel.astype(int).tolist(),
         "source_lll_rows": source_rows.astype(int).tolist(),
         "source_smith": smith_diagonal(source_kernel),
-        "source_distance_ratio": source_separation[
-            "minimum_distance_ratio"
-        ],
+        "source_distance_ratio": source_separation["minimum_distance_ratio"],
         "parent_diameter": diameter,
         "parent_facet_count": len(facets),
         "budget": {
@@ -255,13 +242,9 @@ def main(argv: Sequence[str] | None = None) -> int:
         matrix = source_rows.copy()
         for position in positions[:-1]:
             delta = 0
-            while delta == 0:
-                delta = int(
-                    rng.integers(
-                        -args.mutation_bound,
-                        args.mutation_bound + 1,
-                    )
-                )
+            while delta == 0:                 # a zero mutation would be a no-op
+                delta = int(rng.integers(-args.mutation_bound,
+                                         args.mutation_bound + 1))
             matrix[position // n, position % n] += delta
         repair_position = int(positions[-1])
         repair_row, repair_col = divmod(repair_position, n)
@@ -297,9 +280,7 @@ def main(argv: Sequence[str] | None = None) -> int:
             continue
         payload["shortest_vector_passes"] += 1
         try:
-            separation = separate_kernel(
-                basis, diameter, facets, kernel
-            )
+            separation = separate_kernel(basis, diameter, facets, kernel)
         except Exception as error:
             print(
                 f"  oracle skipped sample {sample}: "
@@ -325,7 +306,7 @@ def main(argv: Sequence[str] | None = None) -> int:
             ),
             reverse=True,
         )
-        del best[args.top :]
+        del best[args.top:]
         payload["best"] = best
         if best and best[0] is record:
             print(
@@ -342,9 +323,7 @@ def main(argv: Sequence[str] | None = None) -> int:
             payload["samples_completed"] = sample
             payload["elapsed_seconds"] = time.perf_counter() - start
             args.output.write_text(json.dumps(payload, indent=2) + "\n")
-            print(
-                f"*** VALID INDEX-{target} CANDIDATE FOUND ***", flush=True
-            )
+            print(f"*** VALID INDEX-{target} CANDIDATE FOUND ***", flush=True)
             return 0
 
         if sample % progress == 0:

@@ -12,9 +12,9 @@ namespace combigeo {
 double dist_to_halfspaces(const Vec& p, const std::vector<Halfspace>& facets, double tol,
                           int max_iter) {
     // внутри?
-    bool inside = true;
-    for (const Halfspace& h : facets)
-        if (dot(p, h.normal) > h.offset + tol) { inside = false; break; }
+    const bool inside = std::none_of(facets.begin(), facets.end(), [&](const Halfspace& h) {
+        return dot(p, h.normal) > h.offset + tol;
+    });
     if (inside) return 0.0;
 
     const std::size_t m = facets.size();
@@ -24,17 +24,17 @@ double dist_to_halfspaces(const Vec& p, const std::vector<Halfspace>& facets, do
         double max_move = 0.0;
         for (std::size_t i = 0; i < m; ++i) {
             // z = x + corr[i]; проекция z на полупространство i
-            Vec z = add(x, corr[i]);
+            const Vec z = add(x, corr[i]);
             const double slack = dot(z, facets[i].normal) - facets[i].offset;
             Vec proj = z;
             if (slack > 0.0)                       // нормаль единичная => проекция проста
                 proj = sub(z, scaled(facets[i].normal, slack));
-            // новая коррекция и сдвиг x
-            Vec new_corr = sub(z, proj);
+            corr[i] = sub(z, proj);                // новая коррекция Дейкстры
+
+            // сдвиг x за эту проекцию (в L1) — мера сходимости
             double move = 0.0;
             for (std::size_t d = 0; d < x.size(); ++d) move += std::abs(proj[d] - x[d]);
             max_move = std::max(max_move, move);
-            corr[i] = std::move(new_corr);
             x = std::move(proj);
         }
         if (max_move < tol) break;
@@ -61,20 +61,19 @@ std::vector<std::vector<long>> forbidden_coords(const Lattice& lat,
 
     std::vector<std::vector<long>> F;
     for (const Vec& v : shorts) {
-        const Vec half = scaled(v, 0.5);
-        const double D = 2.0 * dist_to_halfspaces(half, facets);
-        if (D < ell * diam - 1e-9) {
-            Vec c;
-            if (!solve_linear(Bt, v, c)) continue;
-            std::vector<long> ci(n);
-            bool ok = true;
-            for (int i = 0; i < n; ++i) {
-                const double r = std::round(c[i]);
-                if (std::abs(c[i] - r) > 1e-6) { ok = false; break; }
-                ci[i] = static_cast<long>(r);
-            }
-            if (ok) F.push_back(std::move(ci));
+        const double D = 2.0 * dist_to_halfspaces(scaled(v, 0.5), facets);
+        if (!(D < ell * diam - 1e-9)) continue;  // не запрещённый (или NaN) — пропускаем
+
+        Vec c;
+        if (!solve_linear(Bt, v, c)) continue;
+        std::vector<long> ci(n);
+        bool integral = true;
+        for (int i = 0; i < n; ++i) {
+            const double r = std::round(c[i]);
+            if (std::abs(c[i] - r) > 1e-6) { integral = false; break; }
+            ci[i] = static_cast<long>(r);
         }
+        if (integral) F.push_back(std::move(ci));
     }
     return F;
 }
@@ -120,15 +119,14 @@ McResult min_conflicts_csp(const std::vector<std::vector<long>>& F,
     std::mt19937_64 rng(seed);
     long best_killed = static_cast<long>(nf) + 1;   // глобальный минимум по рестартам
 
-    // предвычислим F по столбцам как long
-    // res[j][f] = (phi_j . F[f]) mod e_j  — держим инкрементально
     for (int restart = 0; restart < restarts; ++restart) {
         std::vector<std::vector<long>> phi(m, std::vector<long>(n));
         for (int j = 0; j < m; ++j)
             for (int i = 0; i < n; ++i)
                 phi[j][i] = static_cast<long>(rng() % static_cast<unsigned long long>(e_list[j]));
 
-        // остатки и число убитых
+        // остатки res[j][f] = (phi_j . F[f]) mod e_j — держим инкрементально;
+        // f «убит», если все его остатки нулевые (phi(f) = 0)
         std::vector<std::vector<long>> res(m, std::vector<long>(nf, 0));
         for (int j = 0; j < m; ++j)
             for (std::size_t f = 0; f < nf; ++f) {
@@ -136,14 +134,15 @@ McResult min_conflicts_csp(const std::vector<std::vector<long>>& F,
                 for (int i = 0; i < n; ++i) s += phi[j][i] * F[f][i];
                 res[j][f] = mod(s, e_list[j]);
             }
-        auto killed_count = [&]() {
+        const auto is_killed = [&](std::size_t f) {
+            for (int j = 0; j < m; ++j)
+                if (res[j][f] != 0) return false;
+            return true;
+        };
+        const auto killed_count = [&]() {
             long cnt = 0;
-            for (std::size_t f = 0; f < nf; ++f) {
-                bool k = true;
-                for (int j = 0; j < m; ++j)
-                    if (res[j][f] != 0) { k = false; break; }
-                if (k) ++cnt;
-            }
+            for (std::size_t f = 0; f < nf; ++f)
+                if (is_killed(f)) ++cnt;
             return cnt;
         };
         long nk = killed_count();
@@ -160,12 +159,8 @@ McResult min_conflicts_csp(const std::vector<std::vector<long>>& F,
             }
             // выбираем случайный убитый вектор
             std::vector<std::size_t> killed_idx;
-            for (std::size_t f = 0; f < nf; ++f) {
-                bool k = true;
-                for (int j = 0; j < m; ++j)
-                    if (res[j][f] != 0) { k = false; break; }
-                if (k) killed_idx.push_back(f);
-            }
+            for (std::size_t f = 0; f < nf; ++f)
+                if (is_killed(f)) killed_idx.push_back(f);
             const std::size_t fsel = killed_idx[rng() % killed_idx.size()];
 
             // ход должен ОЖИВИТЬ fsel: сменить phi[j][i] (F[fsel][i] != 0) так,
@@ -173,8 +168,8 @@ McResult min_conflicts_csp(const std::vector<std::vector<long>>& F,
             // общее число убитых.
             int best_j = -1, best_i = -1;
             long best_val = 0, best_after = nk + 1;
-            const int tries = 40;
-            for (int t = 0; t < tries; ++t) {
+            constexpr int kTries = 40;
+            for (int t = 0; t < kTries; ++t) {
                 const int j = static_cast<int>(rng() % static_cast<unsigned>(m));
                 const int i = static_cast<int>(rng() % static_cast<unsigned>(n));
                 const long e = e_list[j];
@@ -197,8 +192,9 @@ McResult min_conflicts_csp(const std::vector<std::vector<long>>& F,
                 if (after == 0) break;
             }
 
-            // шум: с вероятностью 0.2 случайный ход
-            bool noise = (rng() % 5 == 0);
+            // шум: с вероятностью 0.2 случайный ход (rng() дёргается всегда —
+            // поток ГСЧ не должен зависеть от того, нашёлся ли направленный ход)
+            const bool noise = (rng() % 5 == 0);
             if (best_j < 0 || noise) {
                 best_j = static_cast<int>(rng() % static_cast<unsigned>(m));
                 best_i = static_cast<int>(rng() % static_cast<unsigned>(n));

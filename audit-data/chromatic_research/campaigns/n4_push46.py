@@ -3,7 +3,7 @@ import json
 import numpy as np
 from scipy.optimize import minimize
 import combigeo
-from chromatic_research.paths import results_path
+from chromatic_research.paths import load_json, results_path
 from chromatic_research.forms import pack, unpack
 
 def d_of(Q, k=46):
@@ -16,7 +16,7 @@ def d_of(Q, k=46):
 
 
 def main():
-    prev = json.load(open(results_path("n2_4d_frontier.json")))
+    prev = load_json("n2_4d_frontier.json")
     Q46 = np.array(prev["k46"]["Q"])
     x0 = pack(Q46)
     rng = np.random.default_rng(46)

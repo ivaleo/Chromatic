@@ -76,6 +76,8 @@ def layer_budget(diam_base: float, width_base: float) -> float:
 
 
 def eisenstein_map(alpha: complex, n_complex: int) -> np.ndarray:
+    """Real ``2n x 2n`` matrix of multiplication by ``alpha`` on ``C^n_complex``,
+    one rotation-scaling block per complex coordinate."""
     block = np.array([[alpha.real, -alpha.imag], [alpha.imag, alpha.real]])
     return np.kron(np.eye(n_complex), block)
 

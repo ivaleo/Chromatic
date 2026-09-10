@@ -7,7 +7,7 @@ import json
 import numpy as np
 from scipy.optimize import minimize
 import combigeo
-from chromatic_research.paths import results_path
+from chromatic_research.paths import load_json, results_path
 from chromatic_research.forms import norm_gram, pack, unpack
 
 def d_of(Q, k):
@@ -21,7 +21,7 @@ def d_of(Q, k):
 D4 = norm_gram(np.array([[2,0,0,0],[1,1,0,0],[1,0,1,0],[1,0,0,1]], float))
 A4G = np.array([[2,-1,0,0],[-1,2,-1,0],[0,-1,2,-1],[0,0,-1,2]], float)
 A4S = norm_gram(np.linalg.inv(np.linalg.cholesky(A4G)).T)
-W48 = np.array(json.load(open(results_path("r5_push48.json")))["k48"]["Q"])
+W48 = np.array(load_json("r5_push48.json")["k48"]["Q"])
 W48 = W48 / abs(np.linalg.det(W48)) ** 0.25
 
 rng = np.random.default_rng(11)

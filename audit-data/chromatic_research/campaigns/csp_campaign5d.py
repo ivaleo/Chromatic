@@ -37,7 +37,7 @@ if __name__ == "__main__":
     M = np.ones((n + 1, n))
     for j in range(n):
         M[j, j] = -n
-    A5 = norm_gram(np.linalg.cholesky(M.T @ M), n)
+    A5 = norm_gram(np.linalg.cholesky(M.T @ M))
 
     if mode == "validate":
         # A5*/140 — восемь параллельных попыток с разными семенами (нециклич. структура)

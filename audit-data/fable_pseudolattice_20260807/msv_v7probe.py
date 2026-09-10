@@ -43,8 +43,8 @@ def collect_sources():
 def run():
     t0 = time.time()
     rows = []
-    f = lambda x: -mcamp.objective(x, [7, 7], mcamp.D_CAP_SEARCH,
-                                   mcamp.FW_ITERS_SEARCH)
+    def f(x):
+        return -mcamp.objective(x, [7, 7], mcamp.D_CAP_SEARCH, mcamp.FW_ITERS_SEARCH)
     for tag, x in collect_sources():
         x = np.array(x, float)
         d0 = -f(x)

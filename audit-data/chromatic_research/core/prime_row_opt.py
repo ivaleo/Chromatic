@@ -44,6 +44,12 @@ from chromatic_research.core.prime_radon import hnf_columns, kernel_basis, smith
 _INVERSE_CACHE: dict[int, np.ndarray] = {}
 
 
+def _scaled_tolerance(scale: float) -> float:
+    """Relative tolerance plus a few ULPs at the given magnitude."""
+    scale = abs(float(scale))
+    return max(1e-12 * scale, 16.0 * float(np.spacing(scale)))
+
+
 def _cost_cutoff(minimum: float) -> float:
     """Scale-aware upper cutoff for floating weighted-cost ties.
 
@@ -54,11 +60,17 @@ def _cost_cutoff(minimum: float) -> float:
     without erasing the ordering.
     """
     minimum = float(minimum)
-    tolerance = max(
-        1e-12 * abs(minimum),
-        16.0 * float(np.spacing(abs(minimum))),
-    )
-    return minimum + tolerance
+    return minimum + _scaled_tolerance(minimum)
+
+
+def _inverse_table(prime: int) -> np.ndarray:
+    """Cached table of modular inverses, with a zero placeholder at index 0."""
+    inverse = _INVERSE_CACHE.get(prime)
+    if inverse is None:
+        inverse = np.zeros(prime, dtype=np.int64)
+        inverse[1:] = [pow(value, -1, prime) for value in range(1, prime)]
+        _INVERSE_CACHE[prime] = inverse
+    return inverse
 
 
 def _is_prime(value: int) -> bool:
@@ -196,9 +208,8 @@ def _pareto_dominates(first: dict, second: dict) -> bool:
     second_weight = float(second["conflict_weight"])
     first_ratio = float(first["minimum_forbidden_ratio"])
     second_ratio = float(second["minimum_forbidden_ratio"])
-    weight_tolerance = max(
-        1e-12 * max(abs(first_weight), abs(second_weight)),
-        16.0 * float(np.spacing(max(abs(first_weight), abs(second_weight)))),
+    weight_tolerance = _scaled_tolerance(
+        max(abs(first_weight), abs(second_weight))
     )
     ratio_tolerance = 1e-12
     weak = (
@@ -212,6 +223,16 @@ def _pareto_dominates(first: dict, second: dict) -> bool:
         or first_ratio > second_ratio + ratio_tolerance
     )
     return weak and strict
+
+
+def _archive_order(entry: dict) -> tuple[int, float, float, tuple[int, ...]]:
+    """Archive ranking: fewest conflicts, widest ratio, least weight, row."""
+    return (
+        int(entry["conflict_projective_pairs"]),
+        -float(entry["minimum_forbidden_ratio"]),
+        float(entry["conflict_weight"]),
+        tuple(entry["row"]),
+    )
 
 
 def _update_pareto_archive(
@@ -244,6 +265,13 @@ def _update_pareto_archive(
     ]
     archive.append(candidate)
     if len(archive) > maximum_size:
+        def weight_of(index: int) -> float:
+            return float(archive[index]["conflict_weight"])
+
+        def ratio_of(index: int) -> float:
+            return float(archive[index]["minimum_forbidden_ratio"])
+
+        # Keep, for every conflict count, the lightest and the widest entry.
         preserve: set[int] = set()
         counts = sorted(
             {int(entry["conflict_projective_pairs"]) for entry in archive}
@@ -254,33 +282,14 @@ def _update_pareto_archive(
                 for index, entry in enumerate(archive)
                 if int(entry["conflict_projective_pairs"]) == count
             ]
-            preserve.add(
-                min(indices, key=lambda index: archive[index]["conflict_weight"])
-            )
-            preserve.add(
-                max(
-                    indices,
-                    key=lambda index: archive[index][
-                        "minimum_forbidden_ratio"
-                    ],
-                )
-            )
-        preserve.add(
-            max(
-                range(len(archive)),
-                key=lambda index: archive[index]["minimum_forbidden_ratio"],
-            )
-        )
+            preserve.add(min(indices, key=weight_of))
+            preserve.add(max(indices, key=ratio_of))
+        preserve.add(max(range(len(archive)), key=ratio_of))
         priority = sorted(
             range(len(archive)),
-            key=lambda index: (
-                int(archive[index]["conflict_projective_pairs"]),
-                -float(archive[index]["minimum_forbidden_ratio"]),
-                float(archive[index]["conflict_weight"]),
-                tuple(archive[index]["row"]),
-            ),
+            key=lambda index: _archive_order(archive[index]),
         )
-        selected = list(sorted(preserve, key=priority.index))
+        selected = sorted(preserve, key=priority.index)
         selected.extend(
             index
             for index in priority
@@ -288,14 +297,7 @@ def _update_pareto_archive(
         )
         selected = selected[:maximum_size]
         archive[:] = [archive[index] for index in selected]
-    archive.sort(
-        key=lambda entry: (
-            int(entry["conflict_projective_pairs"]),
-            -float(entry["minimum_forbidden_ratio"]),
-            float(entry["conflict_weight"]),
-            tuple(entry["row"]),
-        )
-    )
+    archive.sort(key=_archive_order)
     return any(tuple(entry["row"]) == key for entry in archive)
 
 
@@ -311,24 +313,21 @@ def _best_coordinate_values(
     coefficients = forbidden[:, coordinate] % prime
     base = (dots - row[coordinate] * coefficients) % prime
     nonzero = coefficients != 0
-    inverse = _INVERSE_CACHE.get(prime)
-    if inverse is None:
-        inverse = np.zeros(prime, dtype=np.int64)
-        inverse[1:] = [pow(value, -1, prime) for value in range(1, prime)]
-        _INVERSE_CACHE[prime] = inverse
+    inverse = _inverse_table(prime)
     forbidden_values = (
         -base[nonzero] * inverse[coefficients[nonzero]]
     ) % prime
-    fixed = (not np.all(nonzero)) and np.any((~nonzero) & (base == 0))
-    fixed_count = int(np.count_nonzero((~nonzero) & (base == 0)))
-    fixed_weight = float(weights[(~nonzero) & (base == 0)].sum())
+    # Constraints without this coordinate conflict for every value alike.
+    fixed_mask = (~nonzero) & (base == 0)
+    fixed_count = int(np.count_nonzero(fixed_mask))
+    fixed_weight = float(weights[fixed_mask].sum())
     counts = np.bincount(forbidden_values, minlength=prime).astype(np.int64)
     costs = np.bincount(
         forbidden_values,
         weights=weights[nonzero],
         minlength=prime,
     ).astype(np.float64, copy=False)
-    if fixed:
+    if fixed_count:
         counts += fixed_count
         costs += fixed_weight
     if objective == "weighted":
@@ -370,13 +369,7 @@ def _best_pair_values(
         - row[first] * first_coefficients
         - row[second] * second_coefficients
     ) % prime
-    inverse = _INVERSE_CACHE.get(prime)
-    if inverse is None:
-        inverse = np.zeros(prime, dtype=np.int64)
-        inverse[1:] = [
-            pow(value, -1, prime) for value in range(1, prime)
-        ]
-        _INVERSE_CACHE[prime] = inverse
+    inverse = _inverse_table(prime)
     counts = np.zeros((prime, prime), dtype=np.int64)
     costs = np.zeros((prime, prime), dtype=np.float64)
     values = np.arange(prime, dtype=np.int64)
@@ -656,7 +649,10 @@ def main(argv: Sequence[str] | None = None) -> int:
                 payload["results"].append(candidate)
         payload["restarts_completed"] = restart + 1
         payload["elapsed_seconds"] = time.perf_counter() - start
-        if score[0] == 0 and record["complete_separation"]["valid"]:
+        separated = (
+            score[0] == 0 and record["complete_separation"]["valid"]
+        )
+        if separated:
             payload["valid_candidate"] = record
         args.output.write_text(json.dumps(payload, indent=2) + "\n")
         labels = []
@@ -670,10 +666,19 @@ def main(argv: Sequence[str] | None = None) -> int:
             f"min-ratio={record['minimum_forbidden_ratio']}",
             flush=True,
         )
-        if score[0] == 0 and record["complete_separation"]["valid"]:
+        if separated:
             print("*** VALID PRIME-INDEX KERNEL FOUND ***", flush=True)
-            return True
-        return False
+        return separated
+
+    def assign(
+        row: np.ndarray, dots: np.ndarray, coordinate: int, value: int
+    ) -> np.ndarray:
+        """Write one coordinate in place and return the updated residues."""
+        delta = value - int(row[coordinate])
+        if not delta:
+            return dots
+        row[coordinate] = value
+        return (dots + delta * forbidden[:, coordinate]) % prime
 
     for restart in range(args.restarts):
         if restart < len(seed_rows):
@@ -701,12 +706,7 @@ def main(argv: Sequence[str] | None = None) -> int:
                     args.objective,
                 )
                 value = int(rng.choice(candidates))
-                delta = value - int(row[coordinate])
-                if delta:
-                    dots = (
-                        dots + delta * forbidden[:, coordinate]
-                    ) % prime
-                    row[coordinate] = value
+                dots = assign(row, dots, int(coordinate), value)
             for _ in range(args.pair_moves):
                 first, second = sorted(
                     int(value)
@@ -753,12 +753,7 @@ def main(argv: Sequence[str] | None = None) -> int:
                 kick = min(n, max(1, args.kick))
                 for coordinate in rng.choice(n, size=kick, replace=False):
                     value = int(rng.integers(0, prime))
-                    delta = value - int(row[coordinate])
-                    if delta:
-                        dots = (
-                            dots + delta * forbidden[:, coordinate]
-                        ) % prime
-                        row[coordinate] = value
+                    dots = assign(row, dots, int(coordinate), value)
                 stalled = 0
 
         if (restart + 1) % progress == 0:
