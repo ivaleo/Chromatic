@@ -14,11 +14,11 @@
 
 | Каталог | Что |
 |---|---|
-| `chromatic_research/core/` | Модули, которыми пользуются несколько кампаний (15 штук, входящая степень ≥ 5). |
+| `chromatic_research/core/` | Модули, которыми пользуются несколько кампаний (30 модулей). |
 | `chromatic_research/campaigns/` | Отдельные кампании (143 модуля). |
 | `chromatic_research/enumerators/` | Исходники C++-переборщиков (собираются локально). |
 | `tests/` | Тесты; `make test` гоняет их вместе с остальными. |
-| `results/` | Опорные данные (210 файлов): на них ссылаются статья, README и тесты. |
+| `results/` | Опорные данные (211 файлов): на них ссылаются статья, README и тесты. |
 | `runs/` | Сырые выгрузки прогонов (537 файлов, gzip); см. [`runs/MANIFEST.md`](runs/MANIFEST.md). |
 
 ## Запуск
@@ -51,6 +51,9 @@ python -m chromatic_research.campaigns.<имя> [аргументы]
 | `results/dim4_below43_screen.json` | Экран **[Э]** k = 31…42: два симметричных семейства × исчерпывающий перебор всех подрешёток. |
 | `results/dim4_eisenstein_scan.json` | Лестница эйзенштейновых норменных индексов 7…43 (порог пересекается ровно на 43). |
 | `results/dim4_k43_optimum.json` | Оптимум семейства: четыре орбиты в связке, система трёх многочленов, 80 знаков. |
+| `results/metric_deform_a5_132_refined_certificate.json` | Рациональный сертификат **χ(ℝ⁵) ≤ 132** (ℓ = 101/100); независимый аудит без Qhull — `results/metric_deform_a5_132_refined_independent_exact_audit.json`. |
+| `results/dim7_1029_exact.json` | Точный рациональный сертификат **χ(ℝ⁷) ≤ 1029**: 254 фасеты, 30 368 вершин, полнота по 1-скелету. Генератор — `campaigns/dim7_1029_exact.py`. |
+| `results/dim9_7203_exact.json` | Точный рациональный сертификат **χ(ℝ⁹) ≤ 7203**: 752 фасеты, 1 654 230 вершин (4590 непростых), полнота по 1-скелету. Генератор — `campaigns/dim9_7203_exact.py`. |
 | `cert48.py` | Генератор `cert48.json`. |
 | `results/metric_deform_e7_1323_certificate.json` | Рациональный сертификат **χ(ℝ⁷) ≤ 1323**; генератор-проверщик — `chromatic_research/campaigns/verify_metric_candidate.py`. |
 | `results/dim7_1029_layer_cert.json` | **Независимая перепроверка χ(ℝ⁷) ≤ 1029** точным слоёным сертификатом: работает в шестимерной базе, семимерную ячейку не строит. 167 кусков (103 доказано пустыми), max φ = 103310189182571717/59047277850000000 < 7/4. Генератор — `campaigns/dim7_1029_layer_cert.py`. |
@@ -115,7 +118,7 @@ python -m chromatic_research.campaigns.<имя> [аргументы]
 - **3D-интервалы и Q-поиск:** `o1_widths4d.py`, `o2_r3.py`, `n1_r3_full.py`,
   `qsearch.py`, `q_frontier.py` (порт `../articles/Qpoisk.c`).
 - **5D/6D — ранние черновики** (вытеснены `README-dim5-9.md`, оставлены для истории):
-  `csp_campaign5d.py`, `csp_sweep5d.py`, `cyclic_csp.py`, `general_csp.py`,
+  `csp_campaign5d.py`, `csp_sweep5d.py`, `core/cyclic_csp.py`, `core/general_csp.py`,
   `minconf_csp.py`, `mc_attack5d.py`, `probe5d.py`, `smart_sub.py`, `dim6.py`,
   `r4_beat343.py`, `cma_form.py`, `n3_5d_probe.py`.
 - **Экраны 8D/9D после результата 1323:** `results/prime_screen_e8_2400.json`,
@@ -133,6 +136,7 @@ python -m chromatic_research.campaigns.<имя> [аргументы]
 Примеры:
 
 ```bash
-python -m chromatic_research.campaigns.cert_generic   # перепроверит сертификат главной теоремы
+python -m chromatic_research.campaigns.verify_main_results   # пять заголовочных утверждений (--full: полные верификаторы)
+python -m chromatic_research.campaigns.cert_generic   # перепроверит сертификат k=48 (cert48.json)
 make figures                                          # перестроит рисунки статьи
 ```

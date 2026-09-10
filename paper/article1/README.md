@@ -13,14 +13,15 @@
 `sections/intro.tex` — постановка и единственная таблица результатов;
 `sections/criterion.tex` — критерий, лемма о середине, окно полноты,
 протокол точного сертификата (предложение 2); `sections/constructions.tex`
-— конструкции 43/132/1029 (матрицы 1029 генерируются из
-`audit-data/results/dim7_1029_exact.json` в `sections/mat1029.tex`);
+— конструкции 43/132/1029/7203 (матрицы 1029 и 7203 генерируются из
+`audit-data/results/dim7_1029_exact.json` и `dim9_7203_exact.json` в
+`sections/mat1029.tex` и `sections/mat7203.tex`);
 `sections/product.tex` — планарная граница, продуктовое правило, 45619 и
 вытесненное 9604; `sections/repro.tex` — таблица пяти утверждений с верификаторами и
 раздел о вкладе авторов и ИИ; `sections/conclusion.tex`.
 
 **Сборка.** `latexmk -pdf bounds.tex` (рисунок `fig_method.pdf` берётся из
-`../`). Текущий объём: **14 страниц** A4, 11pt.
+`../`). Текущий объём: **16 страниц** A4, 11pt.
 
 **Инварианты** закреплены тестом `audit-data/tests/test_paper_split.py`:
 в исходниках нет 28812/21609/1323 и статусных меток численных
