@@ -11,6 +11,8 @@ __pycache__/
 build*/
 dist/
 .pytest_cache/
+.ruff_cache/
+.mypy_cache/
 .ipynb_checkpoints/
 
 # C++ / clangd
@@ -22,21 +24,15 @@ dist/
 # логи
 *.log
 
-# LaTeX
-paper/*.aux
-paper/*.fdb_latexmk
-paper/*.fls
-paper/*.log
-paper/*.out
-paper/*.synctex.gz
-paper/*.toc
-paper/*/*.aux
-paper/*/*.fdb_latexmk
-paper/*/*.fls
-paper/*/*.log
-paper/*/*.out
-paper/*/*.synctex.gz
-paper/*/*.toc
+# LaTeX (в любом каталоге: paper/, paper/*/, voronoi/docs/)
+*.aux
+*.bbl
+*.blg
+*.fdb_latexmk
+*.fls
+*.out
+*.synctex.gz
+*.toc
 paper/*/pg-*.png
 
 # результаты локальных прогонов voronoi4d

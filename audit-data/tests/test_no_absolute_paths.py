@@ -5,7 +5,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[2]
 SELF = Path(__file__).resolve()
 SKIP_DIRS = {".venv", ".git", "__pycache__", ".pytest_cache", "journal"}
-FORBIDDEN = ("/Users/", "/home/", "C:\\")
+FORBIDDEN = ("/Users/", "/home/", "C:\\", "/private/tmp/", "claude-501")
 
 
 def test_no_machine_specific_paths_in_sources():
