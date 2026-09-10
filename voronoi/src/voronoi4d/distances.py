@@ -81,31 +81,31 @@ def dist_to_s_cascade(vor4, s, max_len, early_stop=1.0, check=True):
     min_dist_to_pol = float("inf")  # минимальное расстояние до центрального многогранника
 
     # полный скан всех 3-мерных граней
-    for i in range(len(polyhedrons)):
+    for pol in polyhedrons:
         # проекция на 3-мерную грань
-        d0 = polyhedrons[i].normal @ (s - polyhedrons[i].center)
-        coord0 = s - d0 * polyhedrons[i].normal
-        simplex = vor4.delaunay.find_simplex(coord0, tol=TOL_SIMPLEX)
+        d0 = pol.normal @ (s - pol.center)
+        coord0 = s - d0 * pol.normal
 
-        d0_squared = d0 * d0
-
-        if simplex != -1:  # проекция принадлежит центральному многограннику
+        if vor4.delaunay.find_simplex(coord0, tol=TOL_SIMPLEX) != -1:
+            # проекция принадлежит центральному многограннику
             min_dist_to_pol = min(min_dist_to_pol, abs(d0))
             continue
 
-        for face2d in polyhedrons[i].faces:
+        # накопленная сумма квадратов «сходов» по уровням каскада (для Пифагора)
+        sum_sq_3d = d0 * d0
+
+        for face2d in pol.faces:
             # проекция на 2-мерную грань
             d1 = face2d.normal @ (coord0 - face2d.center)
             coord1 = coord0 - d1 * face2d.normal
-            simplex = vor4.delaunay.find_simplex(coord1, tol=TOL_SIMPLEX)
+            sum_sq_2d = sum_sq_3d + d1 * d1
 
-            d1_squared = d1 * d1
-
-            if simplex != -1:  # проекция принадлежит центральному многограннику
+            if vor4.delaunay.find_simplex(coord1, tol=TOL_SIMPLEX) != -1:
+                # проекция принадлежит центральному многограннику
                 dist = _dist(s, coord1)
 
                 if check:
-                    check_dist(dist * dist, d0_squared + d1_squared)
+                    check_dist(dist * dist, sum_sq_2d)
 
                 min_dist_to_pol = min(min_dist_to_pol, dist)
                 continue
@@ -114,37 +114,35 @@ def dist_to_s_cascade(vor4, s, max_len, early_stop=1.0, check=True):
                 # проекция на ребро
                 d2 = edge.normal @ (coord1 - edge.center)
                 coord2 = coord1 - d2 * edge.normal
-                simplex = vor4.delaunay.find_simplex(coord2, tol=TOL_SIMPLEX)
+                sum_sq_edge = sum_sq_2d + d2 * d2
 
-                d2_squared = d2 * d2
-
-                if simplex != -1:  # проекция принадлежит центральному многограннику
-                    dist = _dist(s, coord2)
-
-                    if check:
-                        check_dist(dist * dist, d0_squared + d1_squared + d2_squared)
-
-                    min_dist_to_pol = min(min_dist_to_pol, dist)
+                if vor4.delaunay.find_simplex(coord2, tol=TOL_SIMPLEX) != -1:
+                    # проекция принадлежит центральному многограннику
+                    nearest = coord2
+                    expected_sq = sum_sq_edge
                 else:
                     # проекция вне ребра — берём ближайшую вершину ребра
                     d3 = _dist(coord2, edge.vertex1)
                     d4 = _dist(coord2, edge.vertex2)
 
                     if d3 < d4:
-                        dist = _dist(s, edge.vertex1)
-                        d34_squared = d3 * d3
+                        nearest, d34 = edge.vertex1, d3
                     else:
-                        dist = _dist(s, edge.vertex2)
-                        d34_squared = d4 * d4
+                        nearest, d34 = edge.vertex2, d4
 
-                    if check:
-                        check_dist(dist * dist, d0_squared + d1_squared + d2_squared + d34_squared)
+                    expected_sq = sum_sq_edge + d34 * d34
 
-                    min_dist_to_pol = min(min_dist_to_pol, dist)
+                dist = _dist(s, nearest)
+
+                if check:
+                    check_dist(dist * dist, expected_sq)
+
+                min_dist_to_pol = min(min_dist_to_pol, dist)
 
         # если нормированное расстояние уже ниже порога, дальше можно не считать
-        if early_stop > 0.0 and min_dist_to_pol * 2 / max_len < early_stop:
-            return float(min_dist_to_pol * 2 / max_len)
+        normalized = min_dist_to_pol * 2 / max_len
+        if early_stop > 0.0 and normalized < early_stop:
+            return float(normalized)
 
     return float(min_dist_to_pol * 2 / max_len)
 

@@ -3,8 +3,9 @@
 Прогоняет ОБА бэкенда (combigeo и voronoi4d) на D4 для числа цветов 49 —
 известной пригодной раскраски (d = 1.080123) — и сверяет результаты.
 
-С версии 1.1.0 voronoi4d на индексе 49 считает ~7 секунд (точный префильтр по кратчайшему вектору); без fpylll — до пары минут.
-Для скорости установите fpylll: pip install fpylll cysignals.
+С версии 1.1.0 voronoi4d на индексе 49 считает ~7 секунд (точный префильтр
+по кратчайшему вектору); без fpylll — до пары минут. Для скорости установите
+fpylll: pip install fpylll cysignals.
 
 Запуск:  python examples/cross_validate.py
 Требует оба бэкенда.
@@ -25,9 +26,9 @@ def main() -> None:
     index = 49
     print(f"Кросс-валидация D4, {index} цветов (известная пригодная раскраска)\n")
 
-    t = time.time()
+    started = time.time()
     report = chromatic.compare_backends(D4, [index])
-    dt = time.time() - t
+    elapsed = time.time() - started
 
     rv = report.results_voronoi4d[index]
     rc = report.results_combigeo[index]
@@ -39,7 +40,7 @@ def main() -> None:
     print()
 
     if report.agree:
-        print(f"✓ бэкенды СОГЛАСНЫ (за {dt:.1f}s)")
+        print(f"✓ бэкенды СОГЛАСНЫ (за {elapsed:.1f}s)")
     else:
         print("✗ РАСХОЖДЕНИЯ:")
         for d in report.discrepancies:

@@ -22,6 +22,7 @@ colour = index of the orbit.  Two points of one colour are either in one cell
 
 from __future__ import annotations
 
+import math
 from fractions import Fraction as F
 from itertools import combinations
 
@@ -90,7 +91,6 @@ def cell_vertices(G, p, wp, sites, weights, keep=22):
         for (x, y) in verts:
             if rows[k][0]*x + rows[k][1]*y > rhs[k]:
                 return None
-    import math
     cx = sum(v[0] for v in verts)/len(verts)
     cy = sum(v[1] for v in verts)/len(verts)
     verts.sort(key=lambda v: math.atan2(float(v[1]-cy), float(v[0]-cx)))
@@ -168,8 +168,8 @@ def certify(G, ts, ws, nb_shells=3):
     ts = [reduce_mod(t) for t in ts]
     lam2 = min(_ip(G, (1, 0), (1, 0)), _ip(G, (0, 1), (0, 1)),
                _ip(G, (1, -1), (1, -1)), _ip(G, (1, 1), (1, 1)))
-    shifts = gamma_coords(lam2 * nb_shells * nb_shells, G)
     shell_r2 = lam2 * nb_shells * nb_shells
+    shifts = gamma_coords(shell_r2, G)
     sites, weights = [], []
     for sh in shifts:
         for t, w in zip(ts, ws):

@@ -8,11 +8,11 @@ import json, math, time
 from fractions import Fraction
 import numpy as np
 import combigeo
-from chromatic_research.paths import results_path
+from chromatic_research.paths import load_json, results_path
 
 
 def main():
-    AUDIT = json.load(open(results_path("sweep_results.json")))
+    AUDIT = load_json("sweep_results.json")
     SQ3 = math.sqrt(3.0)
     A4G = np.array([[2,-1,0,0],[-1,2,-1,0],[0,-1,2,-1],[0,0,-1,2]], float)
     A4B = np.linalg.cholesky(A4G); A4S = np.linalg.inv(A4B).T

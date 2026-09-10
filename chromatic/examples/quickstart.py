@@ -10,10 +10,11 @@ D4 = [[2, 0, 0, 0], [1, 1, 0, 0], [1, 0, 1, 0], [1, 0, 0, 1]]
 
 
 def main() -> None:
-    print("Доступные бэкенды:", chromatic.available_backends())
+    available = chromatic.available_backends()
+    print("Доступные бэкенды:", available)
 
     # явный выбор бэкенда по имени
-    backend_name = "combigeo" if "combigeo" in chromatic.available_backends() else "voronoi4d"
+    backend_name = "combigeo" if "combigeo" in available else "voronoi4d"
     backend = chromatic.get_backend(backend_name)
     print(f"Используем бэкенд: {backend_name}\n")
 
@@ -35,7 +36,7 @@ def main() -> None:
           f"({'пригодна' if res.feasible else 'непригодна'})")
 
     # кросс-валидация (если доступны оба бэкенда)
-    if {"voronoi4d", "combigeo"} <= set(chromatic.available_backends()):
+    if {"voronoi4d", "combigeo"} <= set(available):
         print("\nКросс-валидация бэкендов на D4, индекс 49:")
         report = chromatic.compare_backends(D4, [49])
         print(" ", report, "— совпадают" if report.agree else "— РАСХОЖДЕНИЯ")

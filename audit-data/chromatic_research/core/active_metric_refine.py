@@ -20,7 +20,6 @@ from __future__ import annotations
 
 import argparse
 import json
-import math
 import time
 from pathlib import Path
 from typing import Sequence
@@ -272,11 +271,30 @@ def main(argv: Sequence[str] | None = None) -> int:
         flush=True,
     )
 
+    def save(evaluation: MetricEvaluation) -> dict:
+        """Write the current best to --output and return the payload written."""
+        written = _payload(
+            args.metric,
+            source,
+            base_metric,
+            record,
+            kernel,
+            evaluation,
+            elapsed=time.perf_counter() - start,
+            evaluations=total_evaluations,
+            iterations=iteration,
+            radius=radius,
+            settings=settings,
+            history=history,
+        )
+        args.output.write_text(json.dumps(written, indent=2) + "\n")
+        return written
+
     iteration = 0
     while iteration < args.iterations and radius >= args.min_radius:
         iteration += 1
         (
-            local,
+            _local,
             coordinates,
             values,
             gradients,
@@ -310,7 +328,7 @@ def main(argv: Sequence[str] | None = None) -> int:
         else:
             radius *= 0.45
             outcome = "shrink"
-        record_history = {
+        history_entry = {
             "iteration": iteration,
             "outcome": outcome,
             "active_constraints": len(coordinates),
@@ -321,7 +339,7 @@ def main(argv: Sequence[str] | None = None) -> int:
             "incumbent_min_ratio": incumbent.min_ratio,
             "best_min_ratio": best.min_ratio,
         }
-        history.append(record_history)
+        history.append(history_entry)
         print(
             f"iter {iteration:3d}: {outcome:6s} active={len(coordinates):2d} "
             f"pred={predicted:.12f} min={incumbent.min_ratio:.12f} "
@@ -330,47 +348,14 @@ def main(argv: Sequence[str] | None = None) -> int:
         )
         best_full = evaluator.evaluate(best.parameters, with_witnesses=True)
         total_evaluations += 1
-        args.output.write_text(
-            json.dumps(
-                _payload(
-                    args.metric,
-                    source,
-                    base_metric,
-                    record,
-                    kernel,
-                    best_full,
-                    elapsed=time.perf_counter() - start,
-                    evaluations=total_evaluations,
-                    iterations=iteration,
-                    radius=radius,
-                    settings=settings,
-                    history=history,
-                ),
-                indent=2,
-            )
-            + "\n"
-        )
+        save(best_full)
         if best.min_ratio >= 1.0 + args.target_margin:
             print("*** numerical separation target reached ***", flush=True)
             break
 
     final = evaluator.evaluate(best.parameters, with_witnesses=True)
     total_evaluations += 1
-    payload = _payload(
-        args.metric,
-        source,
-        base_metric,
-        record,
-        kernel,
-        final,
-        elapsed=time.perf_counter() - start,
-        evaluations=total_evaluations,
-        iterations=iteration,
-        radius=radius,
-        settings=settings,
-        history=history,
-    )
-    args.output.write_text(json.dumps(payload, indent=2) + "\n")
+    save(final)
     print(
         f"FINAL min={final.min_ratio:.12f} D={final.min_distance:.12f} "
         f"diam={final.diameter:.12f} valid={final.min_ratio >= 1.0} "

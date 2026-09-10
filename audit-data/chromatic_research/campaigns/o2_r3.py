@@ -46,6 +46,6 @@ if __name__=="__main__":
             res=pool.map(one,[(s.tolist(),k,500) for s in starts])
             bd,bx=max(res,key=lambda t:t[0])
             print(f"k={k}: max d = {bd:.6f}",flush=True)
-            out[f"width_k{k}"]={"d":bd,"Q":unpack(np.asarray(bx)).tolist()}
+            out[f"width_k{k}"]={"d":bd,"Q":unpack(np.asarray(bx), 3).tolist()}
     json.dump(out,open(results_path("o2_r3.json"),"w"),indent=1)
     print("DONE",flush=True)

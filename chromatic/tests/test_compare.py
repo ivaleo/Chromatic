@@ -5,6 +5,8 @@
 в examples/cross_validate.py.
 """
 
+import math
+
 import pytest
 
 import chromatic
@@ -31,8 +33,6 @@ def test_compare_nontrivial_index_agrees():
     Независимые геометрические алгоритмы (GJK против каскада проекций) дают
     один результат — сильная взаимная проверка корректности.
     """
-    import math
-
     _need_both()
     report = chromatic.compare_backends(D4, [16])
     assert report.agree, f"расхождения: {report.discrepancies}"
@@ -57,8 +57,6 @@ def test_compare_nontrivial_index_agrees():
 
 def test_compare_flagship_d4_49_combigeo_pin():
     """Флагманский пин в python: combigeo D4/49 -> d = sqrt(7/6) (под секунду)."""
-    import math
-
     avail = chromatic.available_backends()
     if "combigeo" not in avail:
         pytest.skip("нужен combigeo")

@@ -9,7 +9,8 @@ import sys
 import numpy as np
 from multiprocessing import Pool
 from chromatic_research.campaigns.qsearch import qsearch, cholesky_unpack, make_objective, default_bounds
-from chromatic_research.paths import results_path
+from chromatic_research.paths import load_json, results_path
+from chromatic_research.forms import pack
 
 
 def one_instance(args):
@@ -28,18 +29,14 @@ def one_instance(args):
     return (-bf, bx.tolist())
 
 
-def pack_lower(Q, dim=4):
-    return np.linalg.cholesky(Q)[np.tril_indices(dim)].tolist()
-
-
 if __name__ == "__main__":
     ks = [int(a) for a in sys.argv[1:]] or [44]
     # известные победители как тёплые старты
     warms = []
     for fn in ("n6_push45.json", "n4_push46.json"):
         try:
-            Q = np.array(json.load(open(results_path(fn)))["Q"])
-            warms.append(pack_lower(Q))
+            Q = np.array(load_json(fn)["Q"])
+            warms.append(pack(Q).tolist())
         except Exception:
             pass
 

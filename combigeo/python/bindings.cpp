@@ -45,22 +45,18 @@ double min_color_distance_py(const Mat& basis, const Mat& sub_basis) {
     // результат возвращается в исходных единицах
     const double s_raw = std::pow(Lattice(basis).det(), 1.0 / dim);
     const double s = (s_raw > 1e2 || s_raw < 1e-2) ? s_raw : 1.0;
+    const auto divide_rows = [s](Mat& m) {
+        if (s == 1.0) return;
+        for (Vec& row : m)
+            for (double& x : row) x /= s;
+    };
     Mat b = basis;
     Mat sb = sub_basis;
-    if (s != 1.0) {
-        for (auto& row : b)
-            for (double& x : row) x /= s;
-        for (auto& row : sb)
-            for (double& x : row) x /= s;
-    }
-    const Lattice lat = Lattice(b).lll_reduced();
-    const VoronoiCell cell = build_voronoi_cell(lat);
-    return s * min_color_distance(cell, Lattice(sb));
-}
+    divide_rows(b);
+    divide_rows(sb);
 
-Mat validated_basis_for_lll(const Mat& basis) {
-    validated_dim(basis, "lll_reduce: базис");
-    return basis;
+    const VoronoiCell cell = build_voronoi_cell(Lattice(b).lll_reduced());
+    return s * min_color_distance(cell, Lattice(sb));
 }
 
 }  // namespace
@@ -114,7 +110,10 @@ PYBIND11_MODULE(combigeo, m) {
 
     m.def(
         "lll_reduce",
-        [](const Mat& basis, double delta) { return lll_reduce(validated_basis_for_lll(basis), delta); },
+        [](const Mat& basis, double delta) {
+            validated_dim(basis, "lll_reduce: базис");
+            return lll_reduce(basis, delta);
+        },
         py::arg("basis"), py::arg("delta") = 0.75,
         "LLL-приведение базиса решётки (вход валидируется: квадратность, конечность).");
 
@@ -215,10 +214,12 @@ PYBIND11_MODULE(combigeo, m) {
         "relevant_facets",
         [](const Mat& basis) {
             py::gil_scoped_release rel;
+            const std::vector<Halfspace> facets = relevant_facets(Lattice(basis));
+            // пара (вектор решётки v, offset = |v|/2): полупространство x·(v/|v|) <= |v|/2
             std::vector<std::pair<Vec, double>> out;
-            for (const Halfspace& h : relevant_facets(Lattice(basis)))
-                out.emplace_back(h.lattice_vector, h.offset);
-            return out;   // (вектор решётки v, offset=|v|^2/2 нормировки нет — offset=|v|/2)
+            out.reserve(facets.size());
+            for (const Halfspace& h : facets) out.emplace_back(h.lattice_vector, h.offset);
+            return out;
         },
         py::arg("basis"),
         "Релевантные фасеты ячейки (опорные полупространства) БЕЗ перечисления "
@@ -274,11 +275,13 @@ PYBIND11_MODULE(combigeo, m) {
     m.def(
         "dist_to_halfspaces",
         [](const Vec& p, const std::vector<std::pair<Vec, double>>& facets) {
+            // вход — формат relevant_facets: (вектор решётки v, offset); нормаль
+            // полупространства нужна единичной
             std::vector<Halfspace> hs;
+            hs.reserve(facets.size());
             for (const auto& [v, off] : facets) {
                 Halfspace h;
-                const double len = norm(v);
-                h.normal = scaled(v, 1.0 / len);
+                h.normal = scaled(v, 1.0 / norm(v));
                 h.offset = off;
                 hs.push_back(std::move(h));
             }

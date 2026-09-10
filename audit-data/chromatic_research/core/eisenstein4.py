@@ -16,7 +16,6 @@
 сами подмодули для циклического фактора Lambda/Gamma = O/pi перечисляются явно.
 """
 
-import itertools
 import math
 
 import numpy as np
@@ -46,16 +45,22 @@ def zw_elements_of_norm(k, lim=None):
             if zw_norm((x, y)) == k]
 
 
+def _hermitian_gram(a, b, c, unit):
+    """Грам Z-базиса (e1, u e1, e2, u e2) эрмитовой формы [[a, c], [conj c, b]],
+    где u --- образующая порядка (w для Z[w], i для Z[i])."""
+    H = np.array([[a, c], [np.conj(c), b]], dtype=complex)
+    cols = np.array([[1, unit, 0, 0], [0, 0, 1, unit]], dtype=complex)
+    G = np.real(np.conj(cols).T @ H @ cols)
+    return 0.5 * (G + G.T)
+
+
 def hermitian_gram(a, b, c):
     """Грам Z-базиса (e1, w e1, e2, w e2) эрмитовой формы [[a, c], [conj c, b]].
 
     Вещественное скалярное произведение <u, v> = Re h(u, v); форма положительно
     определена при a > 0 и a*b > |c|^2.
     """
-    H = np.array([[a, c], [np.conj(c), b]], dtype=complex)
-    cols = np.array([[1, OMEGA, 0, 0], [0, 0, 1, OMEGA]], dtype=complex)
-    G = np.real(np.conj(cols).T @ H @ cols)
-    return 0.5 * (G + G.T)
+    return _hermitian_gram(a, b, c, OMEGA)
 
 
 def hnf_rows(gens, n=4):
@@ -89,24 +94,25 @@ def hnf_rows(gens, n=4):
     return np.array(A, dtype=float) if len(A) == n else None
 
 
-def zw_submodules(k):
-    """Z[w]-подмодули ранга 2 индекса k с циклическим фактором Lambda/Gamma.
+def _rank2_submodules(k, primes, mul):
+    """O-подмодули ранга 2 индекса k с циклическим фактором Lambda/Gamma.
 
     Фактор изоморфен O/pi при N(pi) = k, поэтому Gamma содержит pi*Lambda и
     отвечает 𝔽-прямой в Lambda/pi*Lambda: представители (1 : t) и (0 : 1).
+    ``primes`` --- элементы нормы k, ``mul`` --- умножение в порядке O.
     Возвращает список целочисленных базисов 4x4 (строки --- координаты в Lambda).
     """
     out, seen = [], set()
-    w = (0, 1)
-    for pi in zw_elements_of_norm(k):
+    unit = (0, 1)                       # w для Z[w], i для Z[i]
+    for pi in primes:
         reps = [((1, 0), (t, 0)) for t in range(k)] + [((0, 0), (1, 0))]
         for u in reps:
             gens = [[*u[0], *u[1]],
-                    [*zw_mul(w, u[0]), *zw_mul(w, u[1])]]
+                    [*mul(unit, u[0]), *mul(unit, u[1])]]
             for e in (((1, 0), (0, 0)), ((0, 0), (1, 0))):
-                pe = (zw_mul(pi, e[0]), zw_mul(pi, e[1]))
+                pe = (mul(pi, e[0]), mul(pi, e[1]))
                 gens.append([*pe[0], *pe[1]])
-                gens.append([*zw_mul(w, pe[0]), *zw_mul(w, pe[1])])
+                gens.append([*mul(unit, pe[0]), *mul(unit, pe[1])])
             basis = hnf_rows(gens)
             if basis is None or abs(round(float(np.linalg.det(basis)))) != k:
                 continue
@@ -115,6 +121,11 @@ def zw_submodules(k):
                 seen.add(key)
                 out.append(basis)
     return out
+
+
+def zw_submodules(k):
+    """Z[w]-подмодули ранга 2 индекса k с циклическим фактором Lambda/Gamma."""
+    return _rank2_submodules(k, zw_elements_of_norm(k), zw_mul)
 
 
 def zw_norm_indices(lo, hi):
@@ -144,32 +155,12 @@ def zi_elements_of_norm(k):
 
 def gauss_gram(a, b, c):
     """Грам Z-базиса (e1, i e1, e2, i e2) эрмитовой формы над Z[i]."""
-    H = np.array([[a, c], [np.conj(c), b]], dtype=complex)
-    cols = np.array([[1, 1j, 0, 0], [0, 0, 1, 1j]], dtype=complex)
-    G = np.real(np.conj(cols).T @ H @ cols)
-    return 0.5 * (G + G.T)
+    return _hermitian_gram(a, b, c, 1j)
 
 
 def zi_submodules(k):
     """Z[i]-подмодули ранга 2 индекса k с циклическим фактором."""
-    out, seen = [], set()
-    im = (0, 1)
-    for pi in zi_elements_of_norm(k):
-        reps = [((1, 0), (t, 0)) for t in range(k)] + [((0, 0), (1, 0))]
-        for u in reps:
-            gens = [[*u[0], *u[1]], [*zi_mul(im, u[0]), *zi_mul(im, u[1])]]
-            for e in (((1, 0), (0, 0)), ((0, 0), (1, 0))):
-                pe = (zi_mul(pi, e[0]), zi_mul(pi, e[1]))
-                gens.append([*pe[0], *pe[1]])
-                gens.append([*zi_mul(im, pe[0]), *zi_mul(im, pe[1])])
-            basis = hnf_rows(gens)
-            if basis is None or abs(round(float(np.linalg.det(basis)))) != k:
-                continue
-            key = tuple(map(tuple, basis.astype(int).tolist()))
-            if key not in seen:
-                seen.add(key)
-                out.append(basis)
-    return out
+    return _rank2_submodules(k, zi_elements_of_norm(k), zi_mul)
 
 
 # --------------------------------------------------------------------------------

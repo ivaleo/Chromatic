@@ -56,22 +56,21 @@ bool SublatticeIterator::next(HnfMatrix& h) {
         fresh_diag_ = false;
     }
 
-    // собрать матрицу из текущего состояния счётчика:
-    // диагональ — текущее разложение, наддиагональ — offdiag_ по позициям
-    // (i,j), i<j, в порядке обхода по строкам; ниже диагонали — нули
+    // Собрать матрицу из текущего состояния счётчика: диагональ — текущее
+    // разложение, наддиагональ — offdiag_ по позициям (i,j), i<j, в порядке
+    // обхода по строкам; ниже диагонали — нули. Попутно — лимиты счётчика:
+    // элемент позиции (i,j) лежит в [0, d_j), при d_j == 1 он всегда нулевой.
     h.assign(n, std::vector<long>(n, 0));
+    std::vector<long> limits(m);
     std::size_t pos = 0;
     for (std::size_t i = 0; i < n; ++i) {
         h[i][i] = d[i];
-        for (std::size_t j = i + 1; j < n; ++j) h[i][j] = offdiag_[pos++];
+        for (std::size_t j = i + 1; j < n; ++j) {
+            h[i][j] = offdiag_[pos];
+            limits[pos] = d[j];
+            ++pos;
+        }
     }
-
-    // лимиты счётчика: элемент позиции (i,j) лежит в [0, d_j);
-    // при d_j == 1 позиция всегда нулевая
-    std::vector<long> limits(m);
-    pos = 0;
-    for (std::size_t i = 0; i < n; ++i)
-        for (std::size_t j = i + 1; j < n; ++j) limits[pos++] = d[j];
 
     // продвинуть одометр: инкремент младшей (последней) позиции с переносом
     for (std::size_t p = m; p-- > 0;) {
@@ -102,8 +101,10 @@ long SublatticeIterator::count(int dim, long index) {
     __int128 total = 0;
     for (const std::vector<long>& d : ordered_factorizations(index, dim)) {
         __int128 variants = 1;
-        for (int j = 0; j < dim; ++j)
-            for (int t = 0; t < j; ++t) variants *= d[static_cast<std::size_t>(j)];
+        for (int j = 0; j < dim; ++j) {
+            const long dj = d[static_cast<std::size_t>(j)];
+            for (int power = 0; power < j; ++power) variants *= dj;  // d_j^j
+        }
         total += variants;
     }
     if (total > static_cast<__int128>(std::numeric_limits<long>::max()))

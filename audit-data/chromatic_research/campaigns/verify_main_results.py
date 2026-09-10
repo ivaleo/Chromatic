@@ -39,8 +39,6 @@ from pathlib import Path
 
 from chromatic_research.paths import results_path
 
-CLAIMS = ("R4_43", "R5_132", "R7_1029", "R9_7203", "R10_45619")
-
 
 @dataclass
 class Check:
@@ -49,8 +47,44 @@ class Check:
     detail: str
 
 
+@dataclass(frozen=True)
+class ExactCert:
+    """Поля артефакта точного верификатора; дроби уже разобраны в Fraction."""
+
+    index: int
+    # не приводится к bool: проверки требуют именно `is True`, а не истинность
+    interval_valid: object
+    ell: F
+    dmin2: F
+    diam2: F
+    r2: F
+    d2: F
+    margin: F
+
+
 def _load(name: str) -> dict:
     return json.loads(results_path(name).read_text())
+
+
+def _load_exact_cert(name: str) -> ExactCert:
+    """Разбирает артефакт dim7/dim9: у них одинаковый набор ключей."""
+    raw = _load(name)
+    return ExactCert(
+        index=raw["index"],
+        interval_valid=raw["interval_valid"],
+        ell=F(raw["ell"]),
+        dmin2=F(raw["minimum_distance_squared_exact"]),
+        diam2=F(raw["diameter_squared_exact"]),
+        r2=F(raw["radius_squared_exact"]),
+        d2=F(raw["normalized_distance_squared_exact"]),
+        margin=F(raw["margin_exact"]),
+    )
+
+
+def _verdict(claim: str, conds: dict[str, bool], detail: str) -> Check:
+    """Свёртка словаря «условие -> выполнено» в Check; при провале — их список."""
+    bad = [name for name, held in conds.items() if not held]
+    return Check(claim, not bad, detail if not bad else "нарушено: " + ", ".join(bad))
 
 
 # ---------------------------------------------------------------- R^4: 43
@@ -61,21 +95,20 @@ def check_r4_43() -> Check:
     ver = _load("dim4_k43_verify.json")             # независимый пересчёт
     l0 = F(cert["l0"])
     ddown2, diamup2 = F(cert["Ddown2"]), F(cert["diamup2"])
-    d2, big_d2, diam2 = F(ver["d2"]), F(ver["D2"]), F(ver["diam2"])
+    d2, dmin2, diam2 = F(ver["d2"]), F(ver["D2"]), F(ver["diam2"])
     conds = {
         "ok-флаг сертификата": bool(cert["ok"]),
         "l0 = 100411/100000": l0 == F(100411, 100000),
         "Ddown2 > l0^2*diamup2": ddown2 > l0 * l0 * diamup2,
         "индекс 43": ver["index"] == 43,
-        "d2 = D2/diam2": d2 == big_d2 / diam2,
+        "d2 = D2/diam2": d2 == dmin2 / diam2,
         "d2 > l0^2": d2 > l0 * l0,
-        "опорная оценка не выше точной": ddown2 <= big_d2,
+        "опорная оценка не выше точной": ddown2 <= dmin2,
         "диаметры совпали": diamup2 == diam2,
     }
-    bad = [k for k, v in conds.items() if not v]
-    detail = (f"d^2 = {d2} = {float(d2):.9f}, запас d^2 - l0^2 = "
-              f"{float(d2 - l0 * l0):.3e} > 0")
-    return Check("R4_43", not bad, detail if not bad else "нарушено: " + ", ".join(bad))
+    return _verdict("R4_43", conds,
+                    f"d^2 = {d2} = {float(d2):.9f}, запас d^2 - l0^2 = "
+                    f"{float(d2 - l0 * l0):.3e} > 0")
 
 
 # ---------------------------------------------------------------- R^5: 132
@@ -95,35 +128,30 @@ def check_r5_132() -> Check:
         "запас > 0": margin > 0,
         "diam^2 = 4 R^2": diam2 == 4 * F(cert["voronoi"]["covering_radius_squared"]),
     }
-    bad = [k for k, v in conds.items() if not v]
-    detail = (f"D_min^2 - (101/100)^2 diam^2 = {float(margin):.6f} > 0, "
-              f"d = {float(m2 / diam2) ** 0.5:.9f}")
-    return Check("R5_132", not bad, detail if not bad else "нарушено: " + ", ".join(bad))
+    return _verdict("R5_132", conds,
+                    f"D_min^2 - (101/100)^2 diam^2 = {float(margin):.6f} > 0, "
+                    f"d = {float(m2 / diam2) ** 0.5:.9f}")
 
 
 # ---------------------------------------------------------------- R^7: 1029
 
 
 def check_r7_1029() -> Check:
-    d = _load("dim7_1029_exact.json")
-    ell = F(d["ell"])
-    dmin2, diam2, r2 = (F(d["minimum_distance_squared_exact"]),
-                        F(d["diameter_squared_exact"]), F(d["radius_squared_exact"]))
-    d2, margin = F(d["normalized_distance_squared_exact"]), F(d["margin_exact"])
+    c = _load_exact_cert("dim7_1029_exact.json")
     conds = {
-        "индекс 1029": d["index"] == 1029,
-        "interval_valid": d["interval_valid"] is True,
-        "D_min^2 = 7": dmin2 == 7,
-        "d^2 = 7/diam^2": d2 == dmin2 / diam2,
-        "d^2 > 1": d2 > 1,
-        "ell = 103/100": ell == F(103, 100),
-        "запас = 7 - ell^2 diam^2": margin == dmin2 - ell * ell * diam2,
-        "запас > 0": margin > 0,
-        "diam^2 = 4 R^2": diam2 == 4 * r2,
+        "индекс 1029": c.index == 1029,
+        "interval_valid": c.interval_valid is True,
+        "D_min^2 = 7": c.dmin2 == 7,
+        "d^2 = 7/diam^2": c.d2 == c.dmin2 / c.diam2,
+        "d^2 > 1": c.d2 > 1,
+        "ell = 103/100": c.ell == F(103, 100),
+        "запас = 7 - ell^2 diam^2": c.margin == c.dmin2 - c.ell * c.ell * c.diam2,
+        "запас > 0": c.margin > 0,
+        "diam^2 = 4 R^2": c.diam2 == 4 * c.r2,
     }
-    bad = [k for k, v in conds.items() if not v]
-    detail = f"d^2 = {d2}, d = {float(d2) ** 0.5:.9f}, запас {float(margin):.3e} > 0"
-    return Check("R7_1029", not bad, detail if not bad else "нарушено: " + ", ".join(bad))
+    return _verdict("R7_1029", conds,
+                    f"d^2 = {c.d2}, d = {float(c.d2) ** 0.5:.9f}, "
+                    f"запас {float(c.margin):.3e} > 0")
 
 
 # ------------------------------------------------- аналитические блоки
@@ -152,31 +180,26 @@ def planar_block_width_squared() -> F:
 
 def check_r9_7203() -> Check:
     """Точный сертификат ламинирования E8/2401 (m=3); вытеснил 9604."""
-    d = _load("dim9_7203_exact.json")
-    ell = F(d["ell"])
-    dmin2, diam2, r2 = (F(d["minimum_distance_squared_exact"]),
-                        F(d["diameter_squared_exact"]), F(d["radius_squared_exact"]))
-    d2, margin = F(d["normalized_distance_squared_exact"]), F(d["margin_exact"])
+    c = _load_exact_cert("dim9_7203_exact.json")
     # прежняя аналитическая ступень: 6/7 + 1/9 = 61/63 < 1 даёт 9604
     superseded = 1 / e8_block_width_squared() + 1 / F(3) ** 2
     conds = {
-        "индекс 7203": d["index"] == 7203,
-        "interval_valid": d["interval_valid"] is True,
-        "D_min^2 = 7": dmin2 == 7,
-        "d^2 = 7/diam^2": d2 == dmin2 / diam2,
-        "d^2 > 1": d2 > 1,
-        "R^2 < 7/4": r2 < F(7, 4),
-        "diam^2 = 4 R^2": diam2 == 4 * r2,
-        "запас = 7 - ell^2 diam^2": margin == dmin2 - ell * ell * diam2,
-        "запас > 0": margin > 0,
-        "шире вытесненной 9604": d2 > 1 / superseded,
+        "индекс 7203": c.index == 7203,
+        "interval_valid": c.interval_valid is True,
+        "D_min^2 = 7": c.dmin2 == 7,
+        "d^2 = 7/diam^2": c.d2 == c.dmin2 / c.diam2,
+        "d^2 > 1": c.d2 > 1,
+        "R^2 < 7/4": c.r2 < F(7, 4),
+        "diam^2 = 4 R^2": c.diam2 == 4 * c.r2,
+        "запас = 7 - ell^2 diam^2": c.margin == c.dmin2 - c.ell * c.ell * c.diam2,
+        "запас > 0": c.margin > 0,
+        "шире вытесненной 9604": c.d2 > 1 / superseded,
         "цветов меньше 9604": 7203 < 2401 * 4,
     }
-    bad = [k for k, v in conds.items() if not v]
-    detail = (f"d^2 = {d2}, d = {float(d2) ** 0.5:.9f} против "
-              f"sqrt(63/61) = {float(1 / superseded) ** 0.5:.9f}, "
-              f"запас {float(margin):.3e} > 0")
-    return Check("R9_7203", not bad, detail if not bad else "нарушено: " + ", ".join(bad))
+    return _verdict("R9_7203", conds,
+                    f"d^2 = {c.d2}, d = {float(c.d2) ** 0.5:.9f} против "
+                    f"sqrt(63/61) = {float(1 / superseded) ** 0.5:.9f}, "
+                    f"запас {float(c.margin):.3e} > 0")
 
 
 def check_r10_45619() -> Check:
@@ -187,9 +210,9 @@ def check_r10_45619() -> Check:
         "сумма < 1": cost < 1,
         "2401*19 = 45619": 2401 * 19 == 45619,
     }
-    bad = [k for k, v in conds.items() if not v]
-    detail = f"6/7 + 4/31 = {cost} < 1, ell = sqrt(217/214) = {float(1 / cost) ** 0.5:.6f}"
-    return Check("R10_45619", not bad, detail if not bad else "нарушено: " + ", ".join(bad))
+    return _verdict(
+        "R10_45619", conds,
+        f"6/7 + 4/31 = {cost} < 1, ell = sqrt(217/214) = {float(1 / cost) ** 0.5:.6f}")
 
 
 CHECKS = (check_r4_43, check_r5_132, check_r7_1029, check_r9_7203, check_r10_45619)
@@ -214,32 +237,26 @@ def full_commands(tmp: Path) -> list[list[str]]:
         # замыкание по 1-скелету на 17,7 млн рёберных подмножеств
         [py, "-m", "chromatic_research.campaigns.dim9_7203_exact",
          "--output", str(tmp / "dim9_7203_exact.json")],
+        # Аудит 132 без Qhull: перечисляет короткие векторы в том же доказуемо
+        # полном окне |v| < 2(1+ell)R, что и сертификат (ell берётся из поля
+        # certified_interval.upper_endpoint; при ell = 1 это классическое окно
+        # 4R), и сверяет их число и KKT-свидетели с сертификатом. Его протокол —
+        # results/metric_deform_a5_132_refined_independent_exact_audit.json
+        # (certificate_count 38).
+        [py, "-m", "chromatic_research.campaigns.verify_exact_voronoi",
+         str(results_path("metric_deform_a5_132_refined_certificate.json")),
+         "--output", str(tmp / "a5_132_independent_audit.json")],
     ]
-
-
-# Аудит 132 без Qhull (verify_exact_voronoi) перечисляет короткие векторы в том же
-# доказуемо полном окне |v| < 2(1+ell)R, что и сертификат (ell берётся из поля
-# certified_interval.upper_endpoint; при ell = 1 это классическое окно 4R), и
-# сверяет их число и KKT-свидетели с сертификатом. Его протокол —
-# results/metric_deform_a5_132_refined_independent_exact_audit.json
-# (certificate_count 38).
-
-
-def audit_132_command(tmp: Path) -> list[str]:
-    return [sys.executable, "-m", "chromatic_research.campaigns.verify_exact_voronoi",
-            str(results_path("metric_deform_a5_132_refined_certificate.json")),
-            "--output", str(tmp / "a5_132_independent_audit.json")]
 
 
 def run_full() -> bool:
     ok = True
     with tempfile.TemporaryDirectory() as tmpdir:
-        tmp = Path(tmpdir)
-        for cmd in full_commands(tmp) + [audit_132_command(tmp)]:
+        for cmd in full_commands(Path(tmpdir)):
             print(">>", " ".join(cmd[1:]))
             code = subprocess.call(cmd)
             print("   код возврата", code)
-            ok &= code == 0
+            ok = ok and code == 0
     return ok
 
 

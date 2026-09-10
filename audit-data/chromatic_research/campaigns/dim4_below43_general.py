@@ -29,7 +29,7 @@ import combigeo
 from scipy.optimize import minimize
 
 from chromatic_research.core.eisenstein4 import gauss_gram, hermitian_gram
-from chromatic_research.paths import results_path
+from chromatic_research.paths import load_json, results_path
 
 IDX = [(0, 0), (1, 0), (1, 1), (2, 0), (2, 1), (2, 2),
        (3, 0), (3, 1), (3, 2), (3, 3)]
@@ -92,8 +92,8 @@ def seeds(k, screen, cma):
 def main():
     lo, hi = (int(x) for x in (sys.argv[1] if len(sys.argv) > 1 else "31-42").split("-"))
     maxfev = int(sys.argv[2]) if len(sys.argv) > 2 else 250
-    screen = json.load(open(results_path("dim4_below43_screen.json")))
-    cma = json.load(open(results_path("n8_cma44_ladder.json")))
+    screen = load_json("dim4_below43_screen.json")
+    cma = load_json("n8_cma44_ladder.json")
 
     out = {}
     for k in range(lo, hi + 1):

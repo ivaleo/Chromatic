@@ -3,7 +3,6 @@
 #include <algorithm>
 #include <cmath>
 #include <cstddef>
-#include <cstdio>
 #include <iterator>
 #include <limits>
 #include <numeric>
@@ -91,6 +90,51 @@ std::vector<Vec> relevant_vectors(const Mat& reduced) {
     return out;
 }
 
+// Масштабная нормировка: при экстремальном масштабе базиса абсолютные допуски
+// (kGeomEps и т.п.) теряют смысл — считаем в масштабе det^(1/n) ~ 1 и в конце
+// возвращаем результат в исходных единицах. Возвращает 1.0, если нормировка
+// не нужна.
+double normalization_scale(const Lattice& lat) {
+    const double s = std::pow(lat.det(), 1.0 / lat.dim());
+    return (s > 1e2 || s < 1e-2) ? s : 1.0;
+}
+
+// Базис решётки, поделённый на масштаб нормировки.
+Mat rescaled_basis(const Lattice& lat, double s) {
+    Mat base = lat.basis();
+    if (s != 1.0)
+        for (Vec& row : base)
+            for (double& x : row) x /= s;
+    return base;
+}
+
+// Фасеты-биссекторы релевантных векторов: x·v <= |v|^2/2, т.е. x·(v/|v|) <= |v|/2.
+// Ячейка центрально-симметрична: каждая пара ±v даёт ДВЕ фасеты.
+std::vector<Halfspace> bisector_facets(const Mat& reduced) {
+    std::vector<Halfspace> facets;
+    for (const Vec& v : relevant_vectors(reduced)) {
+        const double len = norm(v);
+        Halfspace h;
+        h.normal = scaled(v, 1.0 / len);
+        h.offset = 0.5 * len;
+        h.lattice_vector = v;
+        facets.push_back(h);
+        h.normal = scaled(v, -1.0 / len);
+        h.lattice_vector = scaled(v, -1.0);
+        facets.push_back(std::move(h));
+    }
+    return facets;
+}
+
+// Возврат фасет из рабочего масштаба в исходные единицы (нормаль единичная —
+// от масштаба не зависит).
+void rescale_facets(std::vector<Halfspace>& facets, double s) {
+    for (Halfspace& h : facets) {
+        h.offset *= s;
+        for (double& x : h.lattice_vector) x *= s;
+    }
+}
+
 }  // namespace
 
 bool VoronoiCell::contains(const Vec& p, double tol) const {
@@ -105,37 +149,17 @@ VoronoiCell build_voronoi_cell(const Lattice& lat, int window) {
     const int n = lat.dim();
     const std::size_t un = static_cast<std::size_t>(n);
 
-    // шаг 0: масштабная нормировка — при экстремальном масштабе базиса
-    // абсолютные допуски (kGeomEps и т.п.) теряют смысл; работаем в масштабе
-    // det^(1/n) ~ 1 и в конце возвращаем результат в исходных единицах
-    const double s_raw = std::pow(lat.det(), 1.0 / n);
-    const double s = (s_raw > 1e2 || s_raw < 1e-2) ? s_raw : 1.0;
-    Mat base = lat.basis();
-    if (s != 1.0)
-        for (Vec& row : base)
-            for (double& x : row) x /= s;
+    // шаг 0: масштабная нормировка (см. normalization_scale)
+    const double s = normalization_scale(lat);
 
     // шаг 1: LLL-приведение — узкие границы CVP-перебора классов смежности
-    const Mat reduced = lll_reduce(base);
+    const Mat reduced = lll_reduce(rescaled_basis(lat, s));
 
     VoronoiCell cell;
     cell.dim = n;
 
-    // шаг 2: кандидаты в фасеты — биссекторы x·v <= |v|^2/2, т.е.
-    // x·(v/|v|) <= |v|/2. Ячейка центрально-симметрична: каждая пара ±v
-    // даёт ДВЕ фасеты (для v и для -v).
-    std::vector<Halfspace> cand;
-    for (const Vec& v : relevant_vectors(reduced)) {
-        const double len = norm(v);
-        Halfspace h;
-        h.normal = scaled(v, 1.0 / len);
-        h.offset = 0.5 * len;
-        h.lattice_vector = v;
-        cand.push_back(h);
-        h.normal = scaled(v, -1.0 / len);
-        h.lattice_vector = scaled(v, -1.0);
-        cand.push_back(std::move(h));
-    }
+    // шаг 2: кандидаты в фасеты — биссекторы релевантных векторов
+    const std::vector<Halfspace> cand = bisector_facets(reduced);
 
     // шаг 3: вершины — пересечения всех сочетаний n фасет, прошедшие
     // все неравенства (с допуском) и дедупликацию
@@ -172,21 +196,15 @@ VoronoiCell build_voronoi_cell(const Lattice& lat, int window) {
             if (!solve_linear(std::move(a), std::move(b), x)) continue;
 
             // точка обязана удовлетворять ВСЕМ неравенствам
-            bool inside = true;
-            for (const Halfspace& f : cand)
-                if (dot(x, f.normal) > f.offset + kGeomEps) {
-                    inside = false;
-                    break;
-                }
+            const bool inside = std::none_of(cand.begin(), cand.end(), [&x](const Halfspace& f) {
+                return dot(x, f.normal) > f.offset + kGeomEps;
+            });
             if (!inside) continue;
 
             // дедупликация по расстоянию
-            bool dup = false;
-            for (const Vec& w : verts)
-                if (dist2(w, x) < kGeomEps * kGeomEps) {
-                    dup = true;
-                    break;
-                }
+            const bool dup = std::any_of(verts.begin(), verts.end(), [&x](const Vec& w) {
+                return dist2(w, x) < kGeomEps * kGeomEps;
+            });
             if (!dup) verts.push_back(std::move(x));
         } while (next_combination());
     }
@@ -262,13 +280,11 @@ VoronoiCell build_voronoi_cell(const Lattice& lat, int window) {
         throw std::runtime_error("build_voronoi_cell: не найдено ни одной вершины");
     for (const Vec& w : cell.vertices) {
         const Vec neg = scaled(w, -1.0);
-        bool found = false;
-        for (const Vec& u : cell.vertices)
-            if (dist2(u, neg) < kGeomEps * kGeomEps) {
-                found = true;
-                break;
-            }
-        if (!found)
+        const bool has_antipode =
+            std::any_of(cell.vertices.begin(), cell.vertices.end(), [&neg](const Vec& u) {
+                return dist2(u, neg) < kGeomEps * kGeomEps;
+            });
+        if (!has_antipode)
             throw std::runtime_error(
                 "build_voronoi_cell: множество вершин не центрально-симметрично "
                 "(численный сбой построения)");
@@ -285,10 +301,7 @@ VoronoiCell build_voronoi_cell(const Lattice& lat, int window) {
     if (s != 1.0) {
         for (Vec& w : cell.vertices)
             for (double& x : w) x *= s;
-        for (Halfspace& f : cell.facets) {
-            f.offset *= s;
-            for (double& x : f.lattice_vector) x *= s;
-        }
+        rescale_facets(cell.facets, s);
         cell.diameter *= s;
     }
 
@@ -296,37 +309,10 @@ VoronoiCell build_voronoi_cell(const Lattice& lat, int window) {
 }
 
 std::vector<Halfspace> relevant_facets(const Lattice& lat) {
-    const int n = lat.dim();
-
-    // масштабная нормировка (как в build_voronoi_cell)
-    const double s_raw = std::pow(lat.det(), 1.0 / n);
-    const double s = (s_raw > 1e2 || s_raw < 1e-2) ? s_raw : 1.0;
-    Mat base = lat.basis();
-    if (s != 1.0)
-        for (Vec& row : base)
-            for (double& x : row) x /= s;
-
-    const Mat reduced = lll_reduce(base);
-
-    std::vector<Halfspace> facets;
-    for (const Vec& v : relevant_vectors(reduced)) {
-        const double len = norm(v);
-        Halfspace h;
-        h.normal = scaled(v, 1.0 / len);
-        h.offset = 0.5 * len;
-        h.lattice_vector = v;
-        facets.push_back(h);
-        h.normal = scaled(v, -1.0 / len);
-        h.lattice_vector = scaled(v, -1.0);
-        facets.push_back(std::move(h));
-    }
-
-    // возврат в исходный масштаб
-    if (s != 1.0)
-        for (Halfspace& h : facets) {
-            h.offset *= s;
-            for (double& x : h.lattice_vector) x *= s;
-        }
+    // те же шаги 0-2, что и в build_voronoi_cell, но без перечисления вершин
+    const double s = normalization_scale(lat);
+    std::vector<Halfspace> facets = bisector_facets(lll_reduce(rescaled_basis(lat, s)));
+    if (s != 1.0) rescale_facets(facets, s);
     return facets;
 }
 

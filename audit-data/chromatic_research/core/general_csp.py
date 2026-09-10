@@ -10,8 +10,6 @@
 избегающий всё F. Дёшево: |F| проверок на пробу.
 """
 import numpy as np
-from sympy import Matrix
-from sympy.matrices.normalforms import smith_normal_form
 
 
 def invariant_factor_structures(k):
@@ -31,46 +29,33 @@ def invariant_factor_structures(k):
 
 
 def sublattice_index(a_forms, e_list, n):
-    """Индекс ядра φ = |образ| = ∏ e_j при сюръективности (иначе делитель).
-    Возвращает точный индекс через SNF матрицы отображения."""
-    # матрица отображения Z^n -> ⊕ Z/e_j: строки — формы, но модули разные.
-    # Проще: строим генераторы ядра и берём |det|. Ядро = {x: a_j·x≡0 mod e_j ∀j}.
-    # Индекс = |Z^n / ker| = |образ|. Образ ⊆ ∏Z/e_j; сюръективность проверяем рангом.
-    # Быстрая проверка: собрать матрицу [diag(e_j) | a_forms] и SNF.
-    m = len(e_list)
-    # Решётка ker: порождается {e_j·(координата)} и соотношениями. Используем:
-    # ker = преобразование HNF системы сравнений. Строим базис ker численно.
-    # Матрица A (m x n) со строками a_j; ker в Z^n от системы A x ≡ 0 (покомпонентно mod e_j).
-    # Эквивалентно: решётка L = {x∈Z^n : a_j·x ≡ 0 mod e_j}. Её индекс = ∏e_j / |коядро|.
-    # Точно через SNF расширенной матрицы:
-    rows = []
-    for j in range(m):
-        rows.append(list(a_forms[j]) + [0] * m)
-    for j in range(m):
-        r = [0] * n + [0] * m
-        r[n + j] = e_list[j]
-        rows.append(r)
-    # это задаёт отображение; индекс ker в Z^n = произведение нетривиальных инв.факторов
-    # проекции. Надёжнее: прямой перебор образа малого размера.
-    return None  # используем прямой метод ниже
+    """Не реализовано: точный индекс ядра считает :func:`index_and_check`.
+
+    Подход через SNF расширенной матрицы [diag(e_j) | a_forms] оказался лишним —
+    прямое порождение образа ⊆ ∏ Z/e_j дешевле, потому что ∏e_j = k мал.
+    Заглушка сохранена ради совместимости и всегда возвращает ``None``.
+    """
+    return None
+
+
+def _killed_mask(Fa, a_forms, e_list):
+    """Для каждого f∈F: True, если ВСЕ φ_j(f) ≡ 0, то есть f лежит в ядре."""
+    killed = np.ones(len(Fa), dtype=bool)
+    for j, e in enumerate(e_list):
+        killed &= (Fa @ np.asarray(a_forms[j], dtype=np.int64)) % e == 0
+    return killed
 
 
 def index_and_check(a_forms, e_list, F, n):
     """Возвращает (index, avoids_F). index — точный индекс ядра; avoids_F — избегает ли F."""
     m = len(e_list)
     Fa = np.asarray(F, dtype=np.int64)
-    # avoids: для каждого f — НЕ (все φ_j(f)≡0)
-    killed = np.ones(len(F), dtype=bool)
-    for j in range(m):
-        res = (Fa @ np.asarray(a_forms[j], dtype=np.int64)) % e_list[j]
-        killed &= (res == 0)
-    avoids = not killed.any()
+    avoids = not _killed_mask(Fa, a_forms, e_list).any()
     # индекс ядра = |образ φ|. Образ порождён столбцами (a_1i mod e_1,...,a_mi mod e_m).
     # |образ| = |группа|/|коядро|. Считаем образ прямо: подгруппа ∏Z/e_j, порождённая n
     # элементами g_i=(a_1i,...,a_mi). Индекс ker = |образ|.
     G = [tuple(int(a_forms[j][i]) % e_list[j] for j in range(m)) for i in range(n)]
     # порождаем подгруппу перебором (|∏e_j|=k мало)
-    from itertools import product as iproduct
     gen = set()
     gen.add(tuple([0] * m))
     frontier = [tuple([0] * m)]
@@ -93,15 +78,23 @@ def search_structure(F, e_list, n, k, ntry=40000, seed=0):
     Fa = np.asarray(F, dtype=np.int64)
     for _ in range(ntry):
         a_forms = [rng.integers(0, e_list[j], size=n).astype(np.int64) for j in range(m)]
-        killed = np.ones(len(F), dtype=bool)
-        for j in range(m):
-            killed &= ((Fa @ a_forms[j]) % e_list[j] == 0)
-        if killed.any():
+        if _killed_mask(Fa, a_forms, e_list).any():
             continue                       # не избегает F — дешёвый отказ
         idx, _ = index_and_check(a_forms, e_list, F, n)
         if idx == k:
             return [list(int(x) for x in a) for a in a_forms]
     return None
+
+
+def _last_candidates(rng, e_last, n, inner):
+    """Пробы для последней (наибольшей) формы: структурные (1, t, t², …) mod e_last,
+    затем случайные.  Ленивый генератор — та же последовательность, но при раннем
+    успехе не материализуются все inner проб."""
+    structured = min(e_last, 300) - 1
+    for t in range(1, min(e_last, 300)):
+        yield np.array([pow(t, i + 1, e_last) for i in range(n)], np.int64)
+    for _ in range(inner - structured):
+        yield rng.integers(0, e_last, size=n).astype(np.int64)
 
 
 def search_structure_nested(F, e_list, n, k, outer=4000, inner=20000, seed=0):
@@ -118,21 +111,14 @@ def search_structure_nested(F, e_list, n, k, outer=4000, inner=20000, seed=0):
         # случайные формы для факторов 0..m-2
         head = [rng.integers(0, e_list[j], size=n) for j in range(m - 1)]
         # остаточное F: те f, что «убиты» всеми головными формами (для них нужна last-форма)
-        killed_head = np.ones(len(F), dtype=bool)
-        for j in range(m - 1):
-            killed_head &= ((Fa @ head[j]) % e_list[j] == 0)
+        killed_head = _killed_mask(Fa, head, e_list[:m - 1])
         Fres = Fa[killed_head]                 # для этих f нужна last: φ_last(f) ≢ 0 mod e_last
         if len(Fres) > 6 * e_last:
             continue                            # слишком много — почти наверняка невыполнимо
         # циклический CSP mod e_last для φ_last, избегающий Fres
         fhead = Fres[:, :n] % e_last
         found = None
-        # структурные пробы + случайные
-        cand = [np.array([pow(t, i + 1, e_last) for i in range(n)], np.int64)
-                for t in range(1, min(e_last, 300))]
-        for _ in range(inner - len(cand)):
-            cand.append(rng.integers(0, e_last, size=n).astype(np.int64))
-        for last in cand:
+        for last in _last_candidates(rng, e_last, n, inner):
             if len(Fres) == 0 or np.all((fhead @ last) % e_last != 0):
                 a_forms = head + [last]
                 idx, avoids = index_and_check(a_forms, e_list, F, n)

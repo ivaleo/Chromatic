@@ -9,6 +9,20 @@
 
 using namespace combigeo;
 
+namespace {
+
+// Отбраковал ли конструктор решётки этот базис?
+bool rejects(const Mat& basis) {
+    try {
+        Lattice lat(basis);
+    } catch (const std::invalid_argument&) {
+        return true;
+    }
+    return false;
+}
+
+}  // namespace
+
 TEST(det_and_validation) {
     Lattice z3(Mat{{1, 0, 0}, {0, 1, 0}, {0, 0, 1}});
     CHECK_NEAR(z3.det(), 1.0, 1e-12);
@@ -16,13 +30,7 @@ TEST(det_and_validation) {
     Lattice d4(Mat{{2, 0, 0, 0}, {1, 1, 0, 0}, {1, 0, 1, 0}, {1, 0, 0, 1}});
     CHECK_NEAR(d4.det(), 2.0, 1e-9);
 
-    bool threw = false;
-    try {
-        Lattice bad(Mat{{1, 2}, {2, 4}});
-    } catch (const std::invalid_argument&) {
-        threw = true;
-    }
-    CHECK(threw);
+    CHECK(rejects(Mat{{1, 2}, {2, 4}}));  // вырожденный
 }
 
 TEST(rejects_nan_inf_basis) {
@@ -30,25 +38,11 @@ TEST(rejects_nan_inf_basis) {
     // проверки конечности такой базис прошёл бы (регрессия)
     const double nan = std::numeric_limits<double>::quiet_NaN();
     const double inf = std::numeric_limits<double>::infinity();
-    for (double bad : {nan, inf}) {
-        bool threw = false;
-        try {
-            Lattice l(Mat{{1, 0}, {bad, 1}});
-        } catch (const std::invalid_argument&) {
-            threw = true;
-        }
-        CHECK(threw);
-    }
+    for (double bad : {nan, inf}) CHECK(rejects(Mat{{1, 0}, {bad, 1}}));
 }
 
 TEST(rejects_nonsquare_basis) {
-    bool threw = false;
-    try {
-        Lattice l(Mat{{1, 0, 0}, {0, 1, 0}});  // 2 строки по 3
-    } catch (const std::invalid_argument&) {
-        threw = true;
-    }
-    CHECK(threw);
+    CHECK(rejects(Mat{{1, 0, 0}, {0, 1, 0}}));  // 2 строки по 3
 }
 
 TEST(vectors_within_z2) {

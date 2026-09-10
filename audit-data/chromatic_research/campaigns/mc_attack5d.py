@@ -41,9 +41,9 @@ if __name__ == "__main__":
     M = np.ones((n + 1, n))
     for j in range(n):
         M[j, j] = -n
-    A5 = norm_gram(np.linalg.cholesky(M.T @ M), n)
+    A5 = norm_gram(np.linalg.cholesky(M.T @ M))
     D5 = norm_gram(np.array([[1,1,0,0,0],[1,-1,0,0,0],[0,1,-1,0,0],[0,0,1,-1,0],
-                             [0,0,0,1,-1]], float), n)
+                             [0,0,0,1,-1]], float))
     rng = np.random.default_rng(23)
     forms = [("A5*", A5), ("D5", D5)]
     for i in range(14):

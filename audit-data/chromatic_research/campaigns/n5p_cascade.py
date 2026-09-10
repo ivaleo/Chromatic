@@ -42,15 +42,15 @@ if __name__ == "__main__":
         prev_x = pack(W46).tolist()
         for k in (45, 44, 43):
             d, xw = push(pool, k, prev_x, maxfev=650, nstarts=10)
-            out[f"k{k}"] = {"d": d, "Q": None if unpack(np.asarray(xw)) is None
-                            else unpack(np.asarray(xw)).tolist()}
+            out[f"k{k}"] = {"d": d, "Q": None if unpack(np.asarray(xw), 4) is None
+                            else unpack(np.asarray(xw), 4).tolist()}
             if d >= 1.0:
                 prev_x = xw
             else:
                 break
         d47, x47 = push(pool, 47, pack(W46).tolist(), maxfev=550, nstarts=8)
-        out["k47"] = {"d": d47, "Q": None if unpack(np.asarray(x47)) is None
-                      else unpack(np.asarray(x47)).tolist()}
+        out["k47"] = {"d": d47, "Q": None if unpack(np.asarray(x47), 4) is None
+                      else unpack(np.asarray(x47), 4).tolist()}
     json.dump(out, open(results_path("n5_cascade.json"),
                         "w"), indent=1)
     print("DONE", flush=True)

@@ -47,9 +47,9 @@ class Cell:
     handle: Any = None
 
     def __repr__(self) -> str:
-        f = self.f_vector if self.f_vector is not None else "—"
+        f_vec = self.f_vector if self.f_vector is not None else "—"
         return (f"Cell(backend={self.backend!r}, dim={self.dim}, "
-                f"vertices={len(self.vertices)}, f={f}, diam={self.diameter:.6g})")
+                f"vertices={len(self.vertices)}, f={f_vec}, diam={self.diameter:.6g})")
 
 
 @dataclass

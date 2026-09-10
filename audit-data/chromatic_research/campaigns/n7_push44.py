@@ -2,7 +2,7 @@
 import json
 import numpy as np
 from multiprocessing import Pool
-from chromatic_research.paths import results_path
+from chromatic_research.paths import load_json, results_path
 from chromatic_research.forms import norm_gram, pack, unpack
 
 def one_start(args):
@@ -21,14 +21,14 @@ def one_start(args):
     return (-r.fun, r.x.tolist())
 
 if __name__ == "__main__":
-    W45 = np.array(json.load(open(results_path("n6_push45.json")))["Q"])
-    W46 = np.array(json.load(open(results_path("n4_push46.json")))["Q"])
+    W45 = np.array(load_json("n6_push45.json")["Q"])
+    W46 = np.array(load_json("n4_push46.json")["Q"])
     D4 = norm_gram(np.array([[2,0,0,0],[1,1,0,0],[1,0,1,0],[1,0,0,1]], float))
     rng = np.random.default_rng(44)
     out = {}
     with Pool(8) as pool:
         for k in (44, 43):
-            base = pack(W45) if k == 44 else (pack(unpack(np.asarray(out["k44"]["x"])))
+            base = pack(W45) if k == 44 else (pack(unpack(np.asarray(out["k44"]["x"]), 4))
                                               if out.get("k44", {}).get("d", 0) >= 1 else pack(W45))
             jobs = [(base.tolist(), k, 1400)]
             for b, reps, scales in [(pack(W45), 10, (0.008, 0.02, 0.05, 0.1)),
@@ -44,8 +44,8 @@ if __name__ == "__main__":
             print(f"k={k}: max d = {best_d:.7f}  {'>=1 ПРОБОЙ!' if best_d >= 1 else '< 1'}  "
                   f"(пробили {over}/{len(jobs)})", flush=True)
             out[f"k{k}"] = {"d": best_d, "x": best_x,
-                            "Q": None if unpack(np.asarray(best_x)) is None
-                            else unpack(np.asarray(best_x)).tolist()}
+                            "Q": None if unpack(np.asarray(best_x), 4) is None
+                            else unpack(np.asarray(best_x), 4).tolist()}
             if best_d < 1.0:
                 break
     json.dump(out, open(results_path("n7_push44.json"), "w"),

@@ -141,7 +141,8 @@ def configure(*, n: int, denominator: int, integer_gram, sublattice_columns,
     достаточно их переприсвоить. Нужно, чтобы тот же самый -- уже проверенный --
     код можно было натравить на другую размерность, не копируя его.
     """
-    global N, DENOMINATOR, INTEGER_GRAM, SUBLATTICE_COLUMNS, EXPECTED_INDEX
+    global N, DENOMINATOR, INTEGER_GRAM, SUBLATTICE_COLUMNS
+    global EXPECTED_INDEX, RELEVANT_NORM_BOUND
     if len(integer_gram) != n or any(len(row) != n for row in integer_gram):
         raise ValueError("матрица Грама не согласована с размерностью")
     if len(sublattice_columns) != n or any(len(col) != n for col in sublattice_columns):
@@ -151,7 +152,6 @@ def configure(*, n: int, denominator: int, integer_gram, sublattice_columns,
     INTEGER_GRAM = [[int(x) for x in row] for row in integer_gram]
     SUBLATTICE_COLUMNS = [[int(x) for x in col] for col in sublattice_columns]
     EXPECTED_INDEX = int(expected_index)
-    global RELEVANT_NORM_BOUND
     RELEVANT_NORM_BOUND = (None if relevant_norm_bound is None
                            else int(relevant_norm_bound))
 
@@ -751,21 +751,16 @@ def certify_float_vertex_hint(
 
 
 def primitive_integer_direction(vector: Sequence[int]) -> tuple[int, ...]:
+    """Примитивный целый вектор того же направления, с каноническим знаком."""
     values = tuple(map(int, vector))
-    g = 0
-    for value in values:
-        g = math.gcd(g, abs(value))
-    if g == 0:
+    divisor = math.gcd(*values)
+    if divisor == 0:
         raise ValueError("zero direction")
-    values = tuple(value // g for value in values)
+    values = tuple(value // divisor for value in values)
     # Канонический знак только для дедупликации линии; ориентация луча
     # будет выбрана позже по активным неравенствам.
-    for value in values:
-        if value != 0:
-            if value < 0:
-                values = tuple(-x for x in values)
-            break
-    return values
+    first_nonzero = next(value for value in values if value != 0)
+    return values if first_nonzero > 0 else tuple(-x for x in values)
 
 
 def null_direction_of_rank_n_minus_1(
@@ -793,97 +788,6 @@ def null_direction_of_rank_n_minus_1(
     if all(value == 0 for value in cofactors):
         return None
     return primitive_integer_direction(cofactors)
-
-
-def tangent_extreme_rays_exact(
-    certificate: ExactVertexCertificate,
-    fs: FacetSystem,
-) -> tuple[tuple[int, ...], ...]:
-    """Все экстремальные лучи касательного конуса в вершине, точно.
-
-    Касательный конус задаётся active normals * d <= 0.
-    В R^N каждый экстремальный луч лежит в пересечении как минимум N-1
-    линейно независимых активных гиперплоскостей. Перебираем такие наборы,
-    вычисляем 1D-ядро и оставляем только направления, допустимые для ВСЕХ
-    активных неравенств.
-    """
-    active = certificate.active_facets
-    rays: set[tuple[int, ...]] = set()
-
-    for ids in itertools.combinations(active, N - 1):
-        rows = [fs.normals[i] for i in ids]
-        line = null_direction_of_rank_n_minus_1(rows)
-        if line is None:
-            continue
-
-        dots = [
-            sum(fs.normals[i][k] * line[k] for k in range(N))
-            for i in active
-        ]
-
-        if all(value <= 0 for value in dots) and any(value < 0 for value in dots):
-            ray = tuple(line)
-        elif all(value >= 0 for value in dots) and any(value > 0 for value in dots):
-            ray = tuple(-x for x in line)
-        else:
-            continue
-
-        # Здесь знак уже важен: это ориентированный луч от данной вершины.
-        g = 0
-        for value in ray:
-            g = math.gcd(g, abs(value))
-        ray = tuple(value // g for value in ray)
-        rays.add(ray)
-
-    if not rays:
-        raise RuntimeError(
-            f"no tangent extreme rays at vertex with active set {active}"
-        )
-    return tuple(sorted(rays))
-
-
-def next_vertex_along_ray_exact(
-    certificate: ExactVertexCertificate,
-    ray: Sequence[int],
-    fs: FacetSystem,
-) -> tuple[tuple[Fr, ...], tuple[int, ...]]:
-    """Идёт от вершины вдоль экстремального луча до следующей вершины."""
-    x = certificate.coordinates()
-    ray = tuple(map(int, ray))
-
-    best_t: Fr | None = None
-
-    for i, normal in enumerate(fs.normals):
-        directional = sum(normal[k] * ray[k] for k in range(N))
-        if directional <= 0:
-            continue
-
-        lhs = sum(Fr(normal[k]) * x[k] for k in range(N))
-        remaining = fs.offsets[i] - lhs
-        if remaining < 0:
-            raise RuntimeError("current exact vertex is infeasible")
-
-        t = remaining / directional
-        if t < 0:
-            continue
-        if t == 0:
-            # Для допустимого касательного луча активная фасета не может
-            # иметь положительную производную. Если это случилось — ошибка.
-            raise RuntimeError(
-                "ray leaves the polytope immediately; tangent test failed"
-            )
-        if best_t is None or t < best_t:
-            best_t = t
-
-    if best_t is None:
-        raise RuntimeError("unbounded ray in a Voronoi cell")
-
-    endpoint = tuple(x[k] + best_t * ray[k] for k in range(N))
-    feasible, active = fs.exact_active_fraction(endpoint)
-    if not feasible or active is None:
-        raise RuntimeError("computed edge endpoint is not feasible")
-
-    return endpoint, active
 
 
 def build_and_certify_all_vertices(
@@ -1059,8 +963,8 @@ def build_and_certify_all_vertices(
     # при rank<N-1 такая пара может дать лишний кандидат, поэтому это число
     # называется edge_pair_candidates, а не exact edge count.
     edge_pair_candidates: set[tuple[int, int]] = set()
-    for start, count in zip(starts[counts == 2], counts[counts == 2]):
-        a_id, b_id = sorted(int(x) for x in owners[start:start + count])
+    for start in starts[counts == 2]:
+        a_id, b_id = sorted(int(x) for x in owners[start:start + 2])
         edge_pair_candidates.add((a_id, b_id))
 
     print(
@@ -1138,15 +1042,15 @@ def exact_kkt_projection_for_active_set(
         return None
 
     point = [Fr(int(value), 2) for value in vector]
-    F = [fs.facets[i] for i in active]
-    m = len(F)
+    active_facets = [fs.facets[i] for i in active]
+    m = len(active_facets)
 
     middle = [
-        [qdot_int(F[i], F[j]) for j in range(m)]
+        [qdot_int(active_facets[i], active_facets[j]) for j in range(m)]
         for i in range(m)
     ]
     rhs = [
-        qdot_frac(F[i], point) - fs.offsets[active[i]]
+        qdot_frac(active_facets[i], point) - fs.offsets[active[i]]
         for i in range(m)
     ]
 
@@ -1156,7 +1060,7 @@ def exact_kkt_projection_for_active_set(
 
     projection = [
         point[k] - sum(
-            multipliers[i] * F[i][k]
+            multipliers[i] * active_facets[i][k]
             for i in range(m)
         )
         for k in range(N)
@@ -1465,7 +1369,7 @@ def verify(ell: Fr = DEFAULT_ELL, json_path: Path | None = None) -> dict:
     minimum_distance_squared = Fr(distance_data["minimum_distance_squared"])
     minimizers = distance_data["minimizers"]
 
-    print(f"[4/7] global finite set certified", flush=True)
+    print("[4/7] global finite set certified", flush=True)
     print(
         f"      vectors={distance_data['global_vectors']}, "
         f"pairs={distance_data['global_pairs']}",

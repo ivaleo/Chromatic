@@ -49,7 +49,7 @@ import math
 import time
 from dataclasses import dataclass, field
 from fractions import Fraction as Fr
-from typing import Iterable, Sequence
+from typing import Sequence
 
 from chromatic_research.core.exact_dd import DDLimit, dd_vertices
 
@@ -244,11 +244,8 @@ def _phi(geometry: LayeredGeometry, point: Sequence[Fr],
     return a0 + numerator * numerator / (4 * geometry.height2)
 
 
-def _halfspace_rows(geometry: LayeredGeometry, shift: Sequence[Fr]):
-    """Неравенства обоих слоёв в виде ``(row, rhs, float_row, float_rhs)``.
-
-    Слой 0: ``<x, v> <= |v|^2 / 2``.  Слой 1: ``<x - s, v> <= |v|^2 / 2``.
-    """
+def _halfspace_rows(geometry: LayeredGeometry):
+    """Неравенства слоя 0 в виде ``(rows, rhs)``: ``<x, v> <= |v|^2 / 2``."""
     dim = geometry.dim
     rows, rhs = [], []
     for vector in geometry.relevant:
@@ -257,9 +254,13 @@ def _halfspace_rows(geometry: LayeredGeometry, shift: Sequence[Fr]):
         norm = sum(row[i] * vector[i] for i in range(dim))
         rows.append(row)
         rhs.append(norm / 2)
-    shifted_rhs = [rhs[i] + sum(rows[i][k] * shift[k] for k in range(dim))
-                   for i in range(len(rows))]
-    return rows, rhs, shifted_rhs
+    return rows, rhs
+
+
+def _shifted_rhs(rows, rhs, shift: Sequence[Fr], dim: int) -> list[Fr]:
+    """Те же неравенства для слоя 1: ``<x - s, v> <= |v|^2 / 2``."""
+    return [rhs[i] + sum(rows[i][k] * shift[k] for k in range(dim))
+            for i in range(len(rows))]
 
 
 @dataclass
@@ -355,7 +356,7 @@ def certify_covering_radius(
     geometry = geometry.with_relevant()
     bound = geometry.coordinate_bound()
     shifts = geometry.piece_shifts()
-    rows, rhs, _ = _halfspace_rows(geometry, [Fr(0)] * geometry.dim)
+    rows, rhs = _halfspace_rows(geometry)
 
     worst = Fr(0)
     worst_shift = None
@@ -363,11 +364,9 @@ def certify_covering_radius(
     empty = 0
     failures: list[tuple[Fr, ...]] = []
     for number, shift in enumerate(shifts):
-        shifted_rhs = [rhs[i] + sum(rows[i][k] * shift[k]
-                                    for k in range(geometry.dim))
-                       for i in range(len(rows))]
         report = certify_piece(geometry, shift, target_r2, rows, rhs,
-                               shifted_rhs, coordinate_bound=bound)
+                               _shifted_rhs(rows, rhs, shift, geometry.dim),
+                               coordinate_bound=bound)
         reports.append(report)
         if report.bound is None:
             empty += 1

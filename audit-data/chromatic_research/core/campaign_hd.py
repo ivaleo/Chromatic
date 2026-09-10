@@ -6,8 +6,8 @@ bottom-up, stop at the first feasible k (that IS the minimum). Each screen call
 is lean (1 seed, top-5 richest structures; valid found <0.3s, fails ~0.5s).
 Lattices run in parallel; the winner is CONFIRMED at full budget/many seeds and
 its phi recorded for exact certification."""
-import sys, time, json, math
-import numpy as np, combigeo
+import sys, time, json
+import combigeo
 from chromatic_research.core.lattices import CATALOG
 from chromatic_research.core.covrad import covering_radius
 from chromatic_research.core.general_csp import invariant_factor_structures
@@ -17,6 +17,7 @@ from chromatic_research.paths import results_path
 OUT = results_path("campaign_hd_results.json")
 
 def prep(name):
+    """(row basis, diam=2R, forbidden coords at l=1) of a catalog lattice."""
     B = CATALOG[name]()
     R, _ = covering_radius(B, n_dirs=2500, seed=1)
     diam = 2*R
@@ -24,11 +25,14 @@ def prep(name):
     return B, diam, F
 
 def structures_rich_first(k, cap=5):
-    S = invariant_factor_structures(k)
-    S.sort(key=lambda e: (-len(e), e))
-    return S[:cap]
+    """Invariant-factor structures of index k, most factors first (they are the
+    most flexible, so a valid phi turns up sooner)."""
+    structures = invariant_factor_structures(k)
+    structures.sort(key=lambda e: (-len(e), e))
+    return structures[:cap]
 
 def find_at_k(F, n, k, max_steps, restarts, seeds, cap=5):
+    """First (phi, e_list) of index exactly k avoiding F, or None."""
     for e_list in structures_rich_first(k, cap):
         for s in seeds:
             found, phi, idx = combigeo.min_conflicts(F, e_list, n, max_steps, restarts, s)
@@ -37,6 +41,7 @@ def find_at_k(F, n, k, max_steps, restarts, seeds, cap=5):
     return None
 
 def confirm(F, n, k):
+    """Full-budget rerun over every structure of index k (screen false-negatives)."""
     return find_at_k(F, n, k, 6000, 20, tuple(range(10)), cap=99)
 
 def sweep_lattice(name, kmax, out_q):
@@ -46,16 +51,15 @@ def sweep_lattice(name, kmax, out_q):
     rec = {'name': name, 'n': n, 'diam': diam, 'nF': len(F), 'min_k': None}
     kfound = None; hit = None
     for k in range(lb, kmax+1):
-        r = find_at_k(F, n, k, 1000, 4, (0,))
-        if r is not None:
-            kfound, hit = k, r; break
+        hit = find_at_k(F, n, k, 1000, 4, (0,))
+        if hit is not None:
+            kfound = k; break
     if kfound is not None:
         # confirm at full budget (guards against a rare screen false-negative just below)
-        lo = max(lb, kfound-3)
-        for kk in range(lo, kfound+1):
-            c = confirm(F, n, kk)
-            if c is not None:
-                kfound, hit = kk, c; break
+        for kk in range(max(lb, kfound-3), kfound+1):
+            confirmed = confirm(F, n, kk)
+            if confirmed is not None:
+                kfound, hit = kk, confirmed; break
         phi, e_list = hit
         rec.update({'min_k': kfound, 'e_list': e_list, 'phi': phi})
     rec['secs'] = round(time.time()-t0, 1)

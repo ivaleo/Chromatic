@@ -53,10 +53,10 @@ __all__ = [
     "lattice_points_within",
     "lll_reduce",
     "lll_reduce_python",
-    "ordered_factorizations",
-    "shortest_vector",
     "min_max_det",
     "normalize_rows",
+    "ordered_factorizations",
     "plot_results",
     "save_result",
+    "shortest_vector",
 ]

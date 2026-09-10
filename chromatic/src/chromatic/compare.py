@@ -12,7 +12,7 @@ from dataclasses import dataclass
 from typing import Iterable, List, Sequence
 
 from .backend import get_backend
-from .model import OptimalResult
+from .model import OptimalResult, as_matrix
 
 
 @dataclass
@@ -30,8 +30,8 @@ class Discrepancy:
 class ComparisonReport:
     """Итог сравнения по диапазону индексов."""
 
-    results_voronoi4d: "dict[int, OptimalResult]"
-    results_combigeo: "dict[int, OptimalResult]"
+    results_voronoi4d: dict[int, OptimalResult]
+    results_combigeo: dict[int, OptimalResult]
     discrepancies: List[Discrepancy]
 
     @property
@@ -61,7 +61,7 @@ def compare_backends(basis: Sequence[Sequence[float]], indices: Iterable[int],
     :param tol: допуск сравнения.
     :return: отчёт со словарями результатов и списком расхождений.
     """
-    basis = [list(map(float, row)) for row in basis]  # материализуем (вход мог быть генератором)
+    basis = as_matrix(basis)  # материализуем (вход мог быть генератором)
     if len(basis) != 4 or any(len(row) != 4 for row in basis):
         raise ValueError("compare_backends применим только к базисам 4×4")
 
@@ -76,15 +76,17 @@ def compare_backends(basis: Sequence[Sequence[float]], indices: Iterable[int],
     for k in idx:
         rv, rc = res_v[k], res_c[k]
 
-        if abs(rv.diameter - rc.diameter) > tol:
-            discrepancies.append(Discrepancy(k, "diameter", rv.diameter, rc.diameter,
-                                             abs(rv.diameter - rc.diameter)))
+        diam_diff = abs(rv.diameter - rc.diameter)
+        if diam_diff > tol:
+            discrepancies.append(
+                Discrepancy(k, "diameter", rv.diameter, rc.diameter, diam_diff))
 
         dv, dc = rv.normalized, rc.normalized
-        if abs(dv - dc) > tol:
-            discrepancies.append(Discrepancy(k, "normalized", dv, dc, abs(dv - dc)))
+        d_diff = abs(dv - dc)
+        if d_diff > tol:
+            discrepancies.append(Discrepancy(k, "normalized", dv, dc, d_diff))
         elif (dv >= 1.0) != (dc >= 1.0) and abs(dv - 1.0) > tol and abs(dc - 1.0) > tol:
             # разный вердикт пригодности вне tol-окрестности границы d = 1
-            discrepancies.append(Discrepancy(k, "feasible", dv, dc, abs(dv - dc)))
+            discrepancies.append(Discrepancy(k, "feasible", dv, dc, d_diff))
 
     return ComparisonReport(res_v, res_c, discrepancies)

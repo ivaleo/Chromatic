@@ -4,7 +4,7 @@ import json
 import numpy as np
 from scipy.optimize import minimize
 import combigeo
-from chromatic_research.paths import results_path
+from chromatic_research.paths import load_json, results_path
 from chromatic_research.forms import pack, unpack
 
 def d_of(Q, k):
@@ -20,7 +20,7 @@ def diag_ab(a, b):
 
 
 def main():
-    prev = json.load(open(results_path("r1_refined.json")))
+    prev = load_json("r1_refined.json")
     BCC = np.array([[2,0,0],[0,2,0],[1,1,1]], float)
     rng = np.random.default_rng(5)
     out = {}

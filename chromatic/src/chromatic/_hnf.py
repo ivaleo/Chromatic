@@ -26,8 +26,7 @@ def hnf_of(matrix: Sequence[Sequence[int]]) -> List[List[int]]:
                     continue
                 # евклидов шаг: деление с округлением к нулю уменьшает |c[row][col]|
                 q = int(c[row][col] / c[col][col])
-                for j in range(n):
-                    c[row][j] -= q * c[col][j]
+                c[row] = [x - q * y for x, y in zip(c[row], c[col])]
                 if c[row][col] != 0:
                     c[col], c[row] = c[row], c[col]
         if c[col][col] == 0:
@@ -38,8 +37,7 @@ def hnf_of(matrix: Sequence[Sequence[int]]) -> List[List[int]]:
         for row in range(col):
             q = c[row][col] // d  # floor-деление: остаток попадает в [0, d)
             if q:
-                for j in range(n):
-                    c[row][j] -= q * c[col][j]
+                c[row] = [x - q * y for x, y in zip(c[row], c[col])]
     return c
 
 

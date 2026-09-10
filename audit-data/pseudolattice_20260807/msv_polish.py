@@ -33,8 +33,8 @@ def polish(fname: str, top_m: int = 6, seed: int = 7):
     for r in starts:
         t0 = time.time()
         jl = r["j_list"]
-        f = lambda x: -mcamp.objective(x, jl, mcamp.D_CAP_SEARCH,
-                                       mcamp.FW_ITERS_SEARCH)
+        def f(x):
+            return -mcamp.objective(x, jl, mcamp.D_CAP_SEARCH, mcamp.FW_ITERS_SEARCH)
         best_d, best_x = r["d"], np.array(r["x"])
         xs = [best_x] + [best_x * (1 + rng.normal(scale=s, size=len(best_x)))
                          for s in (0.02, 0.06, 0.15)]

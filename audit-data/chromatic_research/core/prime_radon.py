@@ -45,8 +45,6 @@ from sympy.polys.matrices.normalforms import smith_normal_decomp
 from chromatic_research.paths import results_path
 
 
-
-
 _FORM_CACHE: dict[tuple[int, int], np.ndarray] = {}
 
 
@@ -143,31 +141,13 @@ def projective_forms(n: int, q: int) -> np.ndarray:
     return result
 
 
-def rank_mod(matrix: Sequence[Sequence[int]] | np.ndarray, p: int) -> int:
-    """Rank over F_p."""
+def _row_reduce_mod(
+    matrix: Sequence[Sequence[int]] | np.ndarray, p: int
+) -> tuple[np.ndarray, list[int]]:
+    """Reduced row echelon form over F_p together with its pivot columns."""
     a = np.asarray(matrix, dtype=np.int64).copy() % p
     if a.ndim != 2:
         raise ValueError("rank_mod expects a matrix")
-    rows, cols = a.shape
-    rank = 0
-    for col in range(cols):
-        pivot = next((r for r in range(rank, rows) if a[r, col] % p), None)
-        if pivot is None:
-            continue
-        a[[rank, pivot]] = a[[pivot, rank]]
-        a[rank] = a[rank] * pow(int(a[rank, col]), -1, p) % p
-        for row in range(rows):
-            if row != rank and a[row, col] % p:
-                a[row] = (a[row] - a[row, col] * a[rank]) % p
-        rank += 1
-        if rank == rows:
-            break
-    return rank
-
-
-def nullspace_mod(matrix: Sequence[Sequence[int]] | np.ndarray, p: int) -> np.ndarray:
-    """A row basis for the right nullspace over F_p."""
-    a = np.asarray(matrix, dtype=np.int64).copy() % p
     rows, cols = a.shape
     rank = 0
     pivots: list[int] = []
@@ -184,6 +164,19 @@ def nullspace_mod(matrix: Sequence[Sequence[int]] | np.ndarray, p: int) -> np.nd
         rank += 1
         if rank == rows:
             break
+    return a, pivots
+
+
+def rank_mod(matrix: Sequence[Sequence[int]] | np.ndarray, p: int) -> int:
+    """Rank over F_p."""
+    _, pivots = _row_reduce_mod(matrix, p)
+    return len(pivots)
+
+
+def nullspace_mod(matrix: Sequence[Sequence[int]] | np.ndarray, p: int) -> np.ndarray:
+    """A row basis for the right nullspace over F_p."""
+    a, pivots = _row_reduce_mod(matrix, p)
+    cols = a.shape[1]
     free = [col for col in range(cols) if col not in set(pivots)]
     basis: list[np.ndarray] = []
     for free_col in free:
@@ -255,13 +248,14 @@ def direct_scores(
     """Direct scores for a prime-power pool, bounded in memory."""
     dtype = np.float64 if weights is not None else np.int64
     scores = np.empty(len(forms), dtype=dtype)
+    weight_row = None if weights is None else np.asarray(weights, dtype=np.float64)
     for lo in range(0, len(forms), chunk):
         hi = min(lo + chunk, len(forms))
         zero = (vectors @ forms[lo:hi].T) % modulus == 0
-        if weights is None:
+        if weight_row is None:
             scores[lo:hi] = np.count_nonzero(zero, axis=0)
         else:
-            scores[lo:hi] = np.asarray(weights, dtype=np.float64) @ zero
+            scores[lo:hi] = weight_row @ zero
     return scores
 
 
@@ -599,6 +593,18 @@ def solve_field_subspace_cpsat(
     return ("UNKNOWN" if unknown else "UNSAT"), None
 
 
+def _kernel_payload(
+    rows: Sequence[np.ndarray], moduli: Sequence[int]
+) -> dict:
+    """Canonical kernel description reported for a zero-conflict result."""
+    canonical = hnf_columns(kernel_basis(rows, moduli, len(rows[0])))
+    return {
+        "kernel_basis_columns": canonical.astype(int).tolist(),
+        "det": abs(int(Matrix(canonical.tolist()).det())),
+        "smith": smith_diagonal(canonical),
+    }
+
+
 @dataclass
 class SearchResult:
     killed: int
@@ -625,11 +631,7 @@ class SearchResult:
             "seconds": round(self.seconds, 6),
         }
         if self.found:
-            basis = kernel_basis(self.rows, self.moduli, len(self.rows[0]))
-            canonical = hnf_columns(basis)
-            payload["kernel_basis_columns"] = canonical.astype(int).tolist()
-            payload["det"] = abs(int(Matrix(canonical.tolist()).det()))
-            payload["smith"] = smith_diagonal(canonical)
+            payload.update(_kernel_payload(self.rows, self.moduli))
         return payload
 
 
@@ -661,11 +663,7 @@ class WeightedSearchResult:
             "seconds": round(self.seconds, 6),
         }
         if self.found:
-            basis = kernel_basis(self.rows, self.moduli, len(self.rows[0]))
-            canonical = hnf_columns(basis)
-            payload["kernel_basis_columns"] = canonical.astype(int).tolist()
-            payload["det"] = abs(int(Matrix(canonical.tolist()).det()))
-            payload["smith"] = smith_diagonal(canonical)
+            payload.update(_kernel_payload(self.rows, self.moduli))
         return payload
 
 
@@ -690,29 +688,19 @@ class PrimarySearch:
     def _independent(
         self, candidate: np.ndarray, rows: Sequence[np.ndarray], row_index: int
     ) -> bool:
-        modulus = self.moduli[row_index]
-        prime, _ = _prime_power(modulus)
-        peers = [
-            np.asarray(rows[index], dtype=np.int64) % prime
-            for index, other_modulus in enumerate(self.moduli)
-            if index != row_index and _prime_power(other_modulus)[0] == prime
-        ]
-        if not peers:
-            return True
-        before = rank_mod(np.asarray(peers), prime)
-        after = rank_mod(np.vstack([peers, candidate % prime]), prime)
-        return after == before + 1
+        """Independence from every other row of the same prime modulus."""
+        return self._independent_against(
+            candidate, row_index, rows, {row_index}
+        )
 
     def random_rows(self) -> list[np.ndarray]:
         rows: list[np.ndarray] = []
         for index, pool in enumerate(self.pools):
             for _ in range(10_000):
                 candidate = pool[int(self.rng.integers(len(pool)))].copy()
-                provisional = rows + [candidate]
                 # _independent expects all row slots; check directly for the
                 # already initialized peers of this modulus.
-                modulus = self.moduli[index]
-                prime, _ = _prime_power(modulus)
+                prime, _ = _prime_power(self.moduli[index])
                 peers = [
                     rows[j] % prime
                     for j in range(len(rows))
@@ -785,6 +773,73 @@ class PrimarySearch:
         after = rank_mod(np.vstack([peers, candidate % prime]), prime)
         return after == before + 1
 
+    def _active_mask(
+        self, rows: Sequence[np.ndarray], ignored: set[int]
+    ) -> np.ndarray:
+        """Vectors still killed by every block outside ``ignored``."""
+        mask = np.ones(len(self.forbidden), dtype=bool)
+        for index, (row, modulus) in enumerate(zip(rows, self.moduli)):
+            if index in ignored:
+                continue
+            mask &= (self.forbidden @ row) % modulus == 0
+        return mask
+
+    def _first_row_candidates(
+        self,
+        vectors: np.ndarray,
+        rows: Sequence[np.ndarray],
+        first_index: int,
+        ignored: set[int],
+        first_top: int,
+        weights: np.ndarray | None = None,
+    ) -> list[np.ndarray]:
+        """Best-scoring independent rows of the first block, best first."""
+        pool = self.pools[first_index]
+        scores = score_forms(vectors, self.moduli[first_index], pool, weights)
+        request = min(len(pool), max(first_top * 4, 64))
+        ids = np.argpartition(scores, request - 1)[:request]
+        ids = ids[np.argsort(scores[ids], kind="stable")]
+        candidates: list[np.ndarray] = []
+        for candidate_id in ids:
+            candidate = pool[int(candidate_id)]
+            if self._independent_against(
+                candidate, first_index, rows, ignored
+            ):
+                candidates.append(candidate.copy())
+            if len(candidates) >= first_top:
+                break
+        return candidates
+
+    def _validated_weights(
+        self, weights: Sequence[float] | np.ndarray
+    ) -> np.ndarray:
+        """Check that a conflict weight vector matches the forbidden set."""
+        weights_array = np.asarray(weights, dtype=np.float64)
+        if weights_array.shape != (len(self.forbidden),):
+            raise ValueError(
+                f"weights must have shape {(len(self.forbidden),)}, "
+                f"got {weights_array.shape}"
+            )
+        if not np.all(np.isfinite(weights_array)) or np.any(
+            weights_array < 0
+        ):
+            raise ValueError("weights must be finite and nonnegative")
+        return weights_array
+
+    def _restart_starts(
+        self,
+        initial_rows: Sequence[Sequence[int]] | None,
+        restarts: int,
+    ) -> list[Sequence[np.ndarray] | None]:
+        """Warm start first, then the requested number of random restarts."""
+        starts: list[Sequence[np.ndarray] | None] = []
+        if initial_rows is not None:
+            starts.append(
+                [np.asarray(row, dtype=np.int64) for row in initial_rows]
+            )
+        starts.extend([None] * restarts)
+        return starts
+
     def pair_improve(
         self,
         rows: Sequence[np.ndarray],
@@ -804,28 +859,10 @@ class PrimarySearch:
             raise ValueError("pair indices must differ")
         rows = [np.asarray(row, dtype=np.int64).copy() for row in rows]
         ignored = {first_index, second_index}
-        active = np.ones(len(self.forbidden), dtype=bool)
-        for index, (row, modulus) in enumerate(zip(rows, self.moduli)):
-            if index in ignored:
-                continue
-            active &= (self.forbidden @ row) % modulus == 0
-        vectors = self.forbidden[active]
-        first_pool = self.pools[first_index]
-        first_scores = score_forms(
-            vectors, self.moduli[first_index], first_pool
+        vectors = self.forbidden[self._active_mask(rows, ignored)]
+        first_candidates = self._first_row_candidates(
+            vectors, rows, first_index, ignored, first_top
         )
-        request = min(len(first_pool), max(first_top * 4, 64))
-        ids = np.argpartition(first_scores, request - 1)[:request]
-        ids = ids[np.argsort(first_scores[ids], kind="stable")]
-        first_candidates: list[np.ndarray] = []
-        for candidate_id in ids:
-            candidate = first_pool[int(candidate_id)]
-            if self._independent_against(
-                candidate, first_index, rows, ignored
-            ):
-                first_candidates.append(candidate.copy())
-            if len(first_candidates) >= first_top:
-                break
 
         current = int(killed_mask(self.forbidden, rows, self.moduli).sum())
         best = current
@@ -924,46 +961,16 @@ class PrimarySearch:
         """
         if first_index == second_index:
             raise ValueError("pair indices must differ")
-        weights_array = np.asarray(weights, dtype=np.float64)
-        if weights_array.shape != (len(self.forbidden),):
-            raise ValueError(
-                f"weights must have shape {(len(self.forbidden),)}, "
-                f"got {weights_array.shape}"
-            )
-        if not np.all(np.isfinite(weights_array)) or np.any(
-            weights_array < 0
-        ):
-            raise ValueError("weights must be finite and nonnegative")
+        weights_array = self._validated_weights(weights)
 
         rows = [np.asarray(row, dtype=np.int64).copy() for row in rows]
         ignored = {first_index, second_index}
-        active = np.ones(len(self.forbidden), dtype=bool)
-        for index, (row, modulus) in enumerate(zip(rows, self.moduli)):
-            if index in ignored:
-                continue
-            active &= (self.forbidden @ row) % modulus == 0
+        active = self._active_mask(rows, ignored)
         vectors = self.forbidden[active]
         active_weights = weights_array[active]
-
-        first_pool = self.pools[first_index]
-        first_scores = score_forms(
-            vectors,
-            self.moduli[first_index],
-            first_pool,
-            active_weights,
+        first_candidates = self._first_row_candidates(
+            vectors, rows, first_index, ignored, first_top, active_weights
         )
-        request = min(len(first_pool), max(first_top * 4, 64))
-        ids = np.argpartition(first_scores, request - 1)[:request]
-        ids = ids[np.argsort(first_scores[ids], kind="stable")]
-        first_candidates: list[np.ndarray] = []
-        for candidate_id in ids:
-            candidate = first_pool[int(candidate_id)]
-            if self._independent_against(
-                candidate, first_index, rows, ignored
-            ):
-                first_candidates.append(candidate.copy())
-            if len(first_candidates) >= first_top:
-                break
 
         current_mask = killed_mask(self.forbidden, rows, self.moduli)
         best = float(weights_array[current_mask].sum())
@@ -1137,10 +1144,7 @@ class PrimarySearch:
         best = len(self.forbidden) + 1
         best_rows: list[np.ndarray] | None = None
         total_sweeps = 0
-        starts: list[Sequence[np.ndarray] | None] = []
-        if initial_rows is not None:
-            starts.append([np.asarray(row, dtype=np.int64) for row in initial_rows])
-        starts.extend([None] * restarts)
+        starts = self._restart_starts(initial_rows, restarts)
         for restart, initial in enumerate(starts):
             killed, rows, sweeps = self.descend(
                 initial,
@@ -1198,23 +1202,13 @@ class PrimarySearch:
         the search toward conflicts that are easier to remove by a subsequent
         lattice-metric deformation.
         """
-        weights_array = np.asarray(weights, dtype=np.float64)
-        if weights_array.shape != (len(self.forbidden),):
-            raise ValueError(
-                f"weights must have shape {(len(self.forbidden),)}, "
-                f"got {weights_array.shape}"
-            )
-        if not np.all(np.isfinite(weights_array)) or np.any(weights_array < 0):
-            raise ValueError("weights must be finite and nonnegative")
+        weights_array = self._validated_weights(weights)
 
         start = time.perf_counter()
         best_loss = float("inf")
         best_rows: list[np.ndarray] | None = None
         total_sweeps = 0
-        starts: list[Sequence[np.ndarray] | None] = []
-        if initial_rows is not None:
-            starts.append([np.asarray(row, dtype=np.int64) for row in initial_rows])
-        starts.extend([None] * restarts)
+        starts = self._restart_starts(initial_rows, restarts)
         for restart, initial in enumerate(starts):
             loss, rows, sweeps = self.descend(
                 initial,
@@ -1276,22 +1270,10 @@ class PrimarySearch:
         """Return HNF-distinct local optima instead of only the best restart."""
         if archive_size < 1 or restarts < 0:
             raise ValueError("archive size must be positive")
-        weights_array = np.asarray(weights, dtype=np.float64)
-        if weights_array.shape != (len(self.forbidden),):
-            raise ValueError(
-                f"weights must have shape {(len(self.forbidden),)}, "
-                f"got {weights_array.shape}"
-            )
-        if not np.all(np.isfinite(weights_array)) or np.any(weights_array < 0):
-            raise ValueError("weights must be finite and nonnegative")
+        weights_array = self._validated_weights(weights)
 
         start = time.perf_counter()
-        starts: list[Sequence[np.ndarray] | None] = []
-        if initial_rows is not None:
-            starts.append(
-                [np.asarray(row, dtype=np.int64) for row in initial_rows]
-            )
-        starts.extend([None] * restarts)
+        starts = self._restart_starts(initial_rows, restarts)
         archive: dict[
             tuple[int, ...], tuple[float, int, list[np.ndarray]]
         ] = {}

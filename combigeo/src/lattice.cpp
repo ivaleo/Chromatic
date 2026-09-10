@@ -1,5 +1,6 @@
 #include "combigeo/lattice.hpp"
 
+#include <algorithm>
 #include <cmath>
 #include <limits>
 #include <stdexcept>
@@ -27,6 +28,33 @@ Lattice Lattice::lll_reduced(double delta) const { return Lattice(lll_reduce(bas
 
 namespace {
 
+// Приведённый базис вместе с его ортогонализацией Грама-Шмидта — общая
+// подготовка всех переборов (они работают в координатах b*).
+struct ReducedFrame {
+    Mat basis;
+    Mat b_star;
+    Mat mu;
+    std::vector<double> bstar_norm2;  // |b*_j|^2
+};
+
+ReducedFrame make_frame(const Mat& basis, bool assume_reduced) {
+    ReducedFrame frame;
+    frame.basis = assume_reduced ? basis : lll_reduce(basis);
+    gram_schmidt(frame.basis, frame.b_star, frame.mu);
+    frame.bstar_norm2.resize(frame.b_star.size());
+    for (std::size_t j = 0; j < frame.b_star.size(); ++j)
+        frame.bstar_norm2[j] = norm2(frame.b_star[j]);
+    return frame;
+}
+
+// координаты цели в ортогонализованном базисе: t_j = <target, b*_j>/|b*_j|^2
+std::vector<double> target_coords(const Vec& target, const ReducedFrame& frame) {
+    std::vector<double> t(frame.b_star.size());
+    for (std::size_t j = 0; j < t.size(); ++j)
+        t[j] = dot(target, frame.b_star[j]) / std::max(frame.bstar_norm2[j], kEpsDegenerate);
+    return t;
+}
+
 // Рекурсивный перебор коэффициентов с отсечением по частичной норме
 // (sphere decoding в координатах Грама-Шмидта), с необязательным сдвигом (CVP).
 //
@@ -36,104 +64,87 @@ namespace {
 // уже зафиксированных координат — нижняя оценка |v - target|^2, что даёт точные
 // границы для c_j: |c_j + center_j| <= sqrt(remaining)/|b*_j|.
 //
-// Режимы: target == nullptr — перебор вокруг нуля, нулевой вектор исключается,
-// из пары (v, -v) выдаётся канонический представитель; target != nullptr —
-// CVP-режим, выдаются ВСЕ векторы с |v - target| <= bound, включая нулевой.
+// Режимы: cvp_mode == false — перебор вокруг нуля, нулевой вектор исключается,
+// из пары (v, -v) выдаётся канонический представитель; cvp_mode == true —
+// выдаются ВСЕ векторы с |v - target| <= bound, включая нулевой (tcoord = t_j).
 struct SphereEnum {
-    const Mat& basis;
-    const Mat& b_star;
-    const Mat& mu;
-    double bound2;                    // |v - target|^2 <= bound2
-    std::vector<double> bstar_norm2;  // |b*_j|^2
-    std::vector<double> tcoord;      // t_j (пусто в режиме target == nullptr)
-    std::vector<long> coeffs;
+    const ReducedFrame& frame;
+    double bound2;                 // |v - target|^2 <= bound2
+    std::vector<double> tcoord;    // t_j (пусто вне CVP-режима)
+    bool cvp_mode;
     std::vector<Vec>* out;
-    bool cvp_mode = false;
+    std::vector<long> coeffs{};    // рабочее состояние перебора, задаётся в run()
 
     void run() {
-        const std::size_t n = basis.size();
-        coeffs.assign(n, 0);
-        descend(n, 0.0);
+        coeffs.assign(frame.basis.size(), 0);
+        descend(frame.basis.size(), 0.0);
+    }
+
+    // Смещение координаты j: c_j + sum_{i>j} c_i mu[i][j] - t_j.
+    double offset_at(std::size_t j) const {
+        double c = cvp_mode ? -tcoord[j] : 0.0;
+        for (std::size_t i = j + 1; i < coeffs.size(); ++i)
+            c += static_cast<double>(coeffs[i]) * frame.mu[i][j];
+        return c;
+    }
+
+    // |v - target|^2 по всем координатам (финальная проверка листа в CVP-режиме)
+    double shifted_norm2() const {
+        double d2 = 0.0;
+        for (std::size_t j = 0; j < frame.b_star.size(); ++j) {
+            const double c = static_cast<double>(coeffs[j]) + offset_at(j);
+            d2 += c * c * frame.bstar_norm2[j];
+        }
+        return d2;
     }
 
     // level: индекс j+1 (идём от n к 0); partial2 — сумма квадратов координат j+1..n-1
     void descend(std::size_t level, double partial2) {
         if (level == 0) {
-            if (!cvp_mode) {
-                // не нулевой вектор и канонический представитель пары (v, -v):
-                // первый ненулевой коэффициент положителен
-                for (std::size_t i = 0; i < coeffs.size(); ++i) {
-                    if (coeffs[i] > 0) break;
-                    if (coeffs[i] < 0) return;
-                    if (i + 1 == coeffs.size()) return;  // все нули
-                }
-            }
-            Vec v = combination(coeffs, basis);
-            // финальная проверка нормы по фактическим координатам вектора
             if (cvp_mode) {
-                double d2 = 0.0;
-                for (std::size_t j = 0; j < b_star.size(); ++j) {
-                    double c = static_cast<double>(coeffs[j]) - tcoord[j];
-                    for (std::size_t i = j + 1; i < coeffs.size(); ++i)
-                        c += static_cast<double>(coeffs[i]) * mu[i][j];
-                    d2 += c * c * bstar_norm2[j];
-                }
-                if (d2 <= bound2 + kEps) out->push_back(std::move(v));
-            } else {
-                if (norm2(v) <= bound2 + kEps) out->push_back(std::move(v));
+                if (shifted_norm2() <= bound2 + kEps)
+                    out->push_back(combination(coeffs, frame.basis));
+                return;
             }
+            // канонический представитель пары (v, -v): первый ненулевой
+            // коэффициент положителен; нулевой вектор отбрасывается
+            const auto first_nz =
+                std::find_if(coeffs.begin(), coeffs.end(), [](long c) { return c != 0; });
+            if (first_nz == coeffs.end() || *first_nz < 0) return;
+            Vec v = combination(coeffs, frame.basis);
+            if (norm2(v) <= bound2 + kEps) out->push_back(std::move(v));
             return;
         }
 
         const std::size_t j = level - 1;
 
-        // центр интервала: c_j + sum_{i>j} c_i mu[i][j] - t_j
-        // в пределах +-sqrt(rem)/|b*_j|
-        double center = cvp_mode ? -tcoord[j] : 0.0;
-        for (std::size_t i = j + 1; i < coeffs.size(); ++i)
-            center += static_cast<double>(coeffs[i]) * mu[i][j];
-
+        // c_j лежит в интервале -center +- sqrt(remaining2)/|b*_j|
+        const double center = offset_at(j);
         const double remaining2 = bound2 - partial2;
         if (remaining2 < -kEps) return;
         const double radius =
-            std::sqrt(std::max(0.0, remaining2) / std::max(bstar_norm2[j], kEpsDegenerate));
+            std::sqrt(std::max(0.0, remaining2) / std::max(frame.bstar_norm2[j], kEpsDegenerate));
 
         const long lo = static_cast<long>(std::ceil(-center - radius - kEps));
         const long hi = static_cast<long>(std::floor(-center + radius + kEps));
 
         for (long c = lo; c <= hi; ++c) {
             coeffs[j] = c;
-            const double coord = (static_cast<double>(c) + center);
-            const double add2 = coord * coord * bstar_norm2[j];
-            descend(j, partial2 + add2);
+            const double coord = static_cast<double>(c) + center;
+            descend(j, partial2 + coord * coord * frame.bstar_norm2[j]);
         }
         coeffs[j] = 0;
     }
 };
 
-// координаты цели в ортогонализованном базисе: t_j = <target, b*_j>/|b*_j|^2
-std::vector<double> target_coords(const Vec& target, const Mat& b_star,
-                                  const std::vector<double>& bn2) {
-    std::vector<double> t(b_star.size());
-    for (std::size_t j = 0; j < b_star.size(); ++j)
-        t[j] = dot(target, b_star[j]) / std::max(bn2[j], kEpsDegenerate);
-    return t;
-}
-
 }  // namespace
 
 std::vector<Vec> Lattice::vectors_within(double bound, bool assume_reduced) const {
     // работаем в LLL-приведённом базисе: узкие границы перебора
-    const Mat reduced = assume_reduced ? basis_ : lll_reduce(basis_);
-
-    Mat b_star, mu;
-    gram_schmidt(reduced, b_star, mu);
-
-    std::vector<double> bn2(reduced.size());
-    for (std::size_t j = 0; j < reduced.size(); ++j) bn2[j] = norm2(b_star[j]);
+    const ReducedFrame frame = make_frame(basis_, assume_reduced);
 
     std::vector<Vec> out;
-    SphereEnum e{reduced, b_star, mu, bound * bound, std::move(bn2), {}, {}, &out, false};
+    SphereEnum e{frame, bound * bound, {}, /*cvp_mode=*/false, &out};
     e.run();
     return out;
 }
@@ -159,37 +170,27 @@ Vec Lattice::shortest_vector(bool assume_reduced) const {
 }
 
 double Lattice::babai_distance(const Vec& target, bool assume_reduced) const {
-    const Mat reduced = assume_reduced ? basis_ : lll_reduce(basis_);
-    Mat b_star, mu;
-    gram_schmidt(reduced, b_star, mu);
-    std::vector<double> bn2(reduced.size());
-    for (std::size_t j = 0; j < reduced.size(); ++j) bn2[j] = norm2(b_star[j]);
+    const ReducedFrame frame = make_frame(basis_, assume_reduced);
+    const std::vector<double> t = target_coords(target, frame);
 
-    // ближайшая плоскость Бабаи: округление коэффициентов с конца
-    const std::size_t n = reduced.size();
-    std::vector<double> t = target_coords(target, b_star, bn2);
+    // ближайшая точка Бабаи: округление коэффициентов с конца
+    const std::size_t n = frame.basis.size();
     std::vector<long> c(n, 0);
-    for (std::size_t jj = n; jj-- > 0;) {
-        double center = -t[jj];
-        for (std::size_t i = jj + 1; i < n; ++i)
-            center += static_cast<double>(c[i]) * mu[i][jj];
-        c[jj] = std::lround(-center);
+    for (std::size_t j = n; j-- > 0;) {
+        double center = -t[j];
+        for (std::size_t i = j + 1; i < n; ++i)
+            center += static_cast<double>(c[i]) * frame.mu[i][j];
+        c[j] = std::lround(-center);
     }
-    Vec b = combination(c, reduced);
-    return std::sqrt(dist2(b, target));
+    return std::sqrt(dist2(combination(c, frame.basis), target));
 }
 
 std::vector<Vec> Lattice::vectors_near(const Vec& target, double bound,
                                        bool assume_reduced) const {
-    const Mat reduced = assume_reduced ? basis_ : lll_reduce(basis_);
-    Mat b_star, mu;
-    gram_schmidt(reduced, b_star, mu);
-    std::vector<double> bn2(reduced.size());
-    for (std::size_t j = 0; j < reduced.size(); ++j) bn2[j] = norm2(b_star[j]);
+    const ReducedFrame frame = make_frame(basis_, assume_reduced);
 
     std::vector<Vec> out;
-    SphereEnum e{reduced,  b_star, mu, bound * bound, bn2, target_coords(target, b_star, bn2),
-                 {},       &out,   true};
+    SphereEnum e{frame, bound * bound, target_coords(target, frame), /*cvp_mode=*/true, &out};
     e.run();
     return out;
 }

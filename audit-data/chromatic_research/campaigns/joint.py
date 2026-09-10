@@ -14,7 +14,7 @@ c_1..c_{n-1} (целые в [0,k), релаксируются и округля�
 import numpy as np
 import combigeo
 from voronoi4d import lattice_points_within, lll_reduce, shortest_vector
-from chromatic_research.paths import results_path
+from chromatic_research.paths import load_json
 from chromatic_research.forms import unpack as cholesky_unpack
 
 
@@ -85,7 +85,7 @@ if __name__ == "__main__":
     # нашу 4D-запись k=45 (циклическая c=(15,41,37)):
     import json
     Q45 = np.array([[float(__import__("fractions").Fraction(s)) for s in row]
-                    for row in json.load(open(results_path("n6_k45_rational.json")))["Q_fractions"]])
+                    for row in load_json("n6_k45_rational.json")["Q_fractions"]])
     p = list(chol_params(Q45, 4)) + [15, 41, 37]
     print("4D k=45 циклическая (15,41,37): d =", round(eval_joint(p, 4, 45), 6),
           " (ожидалось 1.016339)")

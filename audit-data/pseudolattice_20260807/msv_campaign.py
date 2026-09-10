@@ -103,7 +103,8 @@ def one_start(args):
     x0, j_list, maxfev, tag = args
     from scipy.optimize import minimize
     t0 = time.time()
-    f = lambda x: -objective(x, j_list, D_CAP_SEARCH, FW_ITERS_SEARCH)
+    def f(x):
+        return -objective(x, j_list, D_CAP_SEARCH, FW_ITERS_SEARCH)
     res = minimize(f, np.asarray(x0, float), method="Nelder-Mead",
                    options={"maxfev": maxfev, "xatol": NM_XATOL,
                             "fatol": NM_FATOL, "adaptive": True})

@@ -52,8 +52,9 @@ TARGETS = {
 }
 
 
-def parse_fraction(text: str) -> Fraction:
-    return Fraction(text) if "/" in text else Fraction(int(text), 1)
+def _ft(value: Fraction) -> str:
+    """Текст дроби в формате артефактов (через sympy.Rational)."""
+    return fraction_text(Rational(value.numerator, value.denominator))
 
 
 def main() -> int:
@@ -81,7 +82,7 @@ def main() -> int:
 
     radius_sq, farthest, singular = exact_vertex_radius(
         gram_int, denominator, facet_coordinates, hull)
-    stored_radius_sq = parse_fraction(
+    stored_radius_sq = Fraction(
         payload["voronoi"]["covering_radius_squared"])
     radius_sq_frac = Fraction(int(radius_sq.p), int(radius_sq.q))
     assert radius_sq_frac == stored_radius_sq, (
@@ -159,10 +160,10 @@ def main() -> int:
             print(f"  kkt {k}/{len(vectors)} "
                   f"elapsed={time.perf_counter()-start:.0f}s", flush=True)
 
-    distances_sq = [parse_fraction(c["distance_squared"])
+    distances_sq = [Fraction(c["distance_squared"])
                     for c in certificates]
     min_d_sq = min(distances_sq)
-    stored_min = parse_fraction(
+    stored_min = Fraction(
         payload["separation"]["minimum_distance_squared"])
     assert min_d_sq == stored_min, (
         f"minimum changed: {min_d_sq} != {stored_min} — новая пара стала "
@@ -184,8 +185,7 @@ def main() -> int:
         "enumeration window |v| < 2(1+ell)R")
     payload["short_vector_certificate"] = {
         "window_definition": "|v|^2 < 4(1+ell)^2 R^2, ell = "
-                             + fraction_text(Rational(ell.numerator,
-                                                      ell.denominator)),
+                             + _ft(ell),
         "length_cutoff_squared": f"{p}/{q}" if q != 1 else str(p),
         "coefficient_bounds_squared": [
             (f"{b.numerator}/{b.denominator}" if b.denominator != 1
@@ -197,12 +197,9 @@ def main() -> int:
     }
     payload["separation"] = {
         "valid": True,
-        "minimum_distance_squared": fraction_text(
-            Rational(min_d_sq.numerator, min_d_sq.denominator)),
-        "diameter_squared": fraction_text(
-            Rational(diam_sq.numerator, diam_sq.denominator)),
-        "squared_margin": fraction_text(
-            Rational(margin.numerator, margin.denominator)),
+        "minimum_distance_squared": _ft(min_d_sq),
+        "diameter_squared": _ft(diam_sq),
+        "squared_margin": _ft(margin),
         "squared_margin_float": float(margin),
         "distance_ratio": ratio,
         "minimum_witnesses": witnesses,
@@ -211,8 +208,7 @@ def main() -> int:
     payload["certified_interval"] = {
         "valid": True,
         "upper_endpoint": f"{ell.numerator}/{ell.denominator}",
-        "squared_margin": fraction_text(
-            Rational(interval_margin.numerator, interval_margin.denominator)),
+        "squared_margin": _ft(interval_margin),
         "squared_margin_float": float(interval_margin),
     }
     payload["certified_upper_bound"] = int(payload["kernel_determinant"])

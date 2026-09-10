@@ -12,6 +12,7 @@
 #include <exception>
 #include <map>
 #include <string>
+#include <vector>
 
 #include "combigeo/solver.hpp"
 
@@ -38,6 +39,18 @@ Mat preset_basis(const std::string& name) {
     return it->second;
 }
 
+// Индекс из аргумента командной строки; при некорректном вводе печатает
+// ошибку и завершает процесс (как и неизвестный пресет решётки).
+long parse_index(const char* s) {
+    char* end = nullptr;
+    const long v = std::strtol(s, &end, 10);
+    if (end == s || *end != '\0' || v < 1) {
+        std::fprintf(stderr, "Некорректный индекс '%s' (ожидается целое >= 1)\n", s);
+        std::exit(2);
+    }
+    return v;
+}
+
 void print_result(const SolveResult& r) {
     std::printf("index=%ld  diam=%.6f  examined=%ld\n", r.index, r.diameter, r.examined);
     if (r.best.min_distance <= 0) {
@@ -47,13 +60,13 @@ void print_result(const SolveResult& r) {
     std::printf("  D=%.6f  d=D/diam=%.6f %s\n", r.best.min_distance, r.normalized,
                 r.normalized >= 1.0 ? "(раскраска пригодна)" : "");
     std::printf("  матрица перехода (HNF, в базисе пресета):\n");
-    for (const auto& row : r.best.transition) {
+    for (const std::vector<long>& row : r.best.transition) {
         std::printf("   ");
         for (long x : row) std::printf(" %3ld", x);
         std::printf("\n");
     }
     std::printf("  базис подрешётки (объемлющие координаты, после LLL):\n");
-    for (const auto& row : r.best.sub_basis) {
+    for (const Vec& row : r.best.sub_basis) {
         std::printf("   ");
         for (double x : row) std::printf(" %10.6f", x);
         std::printf("\n");
@@ -71,17 +84,6 @@ int main(int argc, char* argv[]) {
     }
 
     const Mat basis = preset_basis(argv[1]);
-
-    auto parse_index = [](const char* s) -> long {
-        char* end = nullptr;
-        const long v = std::strtol(s, &end, 10);
-        if (end == s || *end != '\0' || v < 1) {
-            std::fprintf(stderr, "Некорректный индекс '%s' (ожидается целое >= 1)\n", s);
-            std::exit(2);
-        }
-        return v;
-    };
-
     const long from = parse_index(argv[2]);
     const long to = (argc >= 4) ? parse_index(argv[3]) : from;
     if (to < from) {

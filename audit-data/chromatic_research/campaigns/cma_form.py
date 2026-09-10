@@ -15,7 +15,7 @@ import time
 import numpy as np
 from multiprocessing import Pool
 from chromatic_research.paths import results_path
-from chromatic_research.forms import unpack as cholesky_unpack
+from chromatic_research.forms import norm_gram, pack, unpack as cholesky_unpack
 
 
 def bounds(dim):
@@ -38,9 +38,7 @@ def warm_starts(dim):
         A4G = np.array([[2,-1,0,0],[-1,2,-1,0],[0,-1,2,-1],[0,0,-1,2]], float)
         mats["A4s"] = np.linalg.inv(np.linalg.cholesky(A4G)).T.tolist()
         for M in mats.values():
-            M = np.array(M, float); G = M @ M.T
-            Gn = G / abs(np.linalg.det(G)) ** (1.0 / dim)
-            outs.append(np.linalg.cholesky(Gn)[np.tril_indices(dim)])
+            outs.append(pack(norm_gram(M)))
     return outs
 
 

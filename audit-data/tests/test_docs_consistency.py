@@ -165,11 +165,13 @@ def test_alpha_star_rational_bound_is_exact():
     star = json.loads(
         (RESULTS_DIR / "dim3_k15_certificate.json").read_text())["alpha_star"]
     lo, hi = (F(t) for t in star["isolating_interval"])
-    p_ = lambda x: 14 * x**3 - 3 * x**2 - 10 * x + 3
+    def p_(x):
+        return 14 * x**3 - 3 * x**2 - 10 * x + 3
     assert p_(lo) > 0 > p_(hi)                       # корень в окне есть
     assert 84 * lo - 6 > 0                           # p'' > 0 на окне
     assert 42 * hi**2 - 6 * hi - 10 < 0              # p' < 0 в правом конце
-    r_a = lambda x: (4 * x**2 + 3 * x + 1) / ((x + 1) * (2 - x))
+    def r_a(x):
+        return (4 * x**2 + 3 * x + 1) / ((x + 1) * (2 - x))
     ell = F(star["ell"])
     margin = r_a(lo) - ell**2
     assert margin > 0 and margin == F(star["rational_margin"])

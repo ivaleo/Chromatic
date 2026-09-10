@@ -75,10 +75,7 @@ enough to be reachable in every dimension, which is precisely Larman-Rogers'
 
 from __future__ import annotations
 
-import json
 import math
-
-import numpy as np
 
 
 def unit_ball_volume(n: int) -> float:

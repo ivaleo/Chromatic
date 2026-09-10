@@ -5,7 +5,7 @@ PIP := .venv/bin/pip
 
 help:
 	@echo "install  — поставить voronoi4d, combigeo, chromatic и chromatic-research в .venv"
-	@echo "test     — все тесты монорепо (ожидается 199 passed)"
+	@echo "test     — все тесты монорепо (ожидается 572 passed)"
 	@echo "lint     — ruff по коду"
 	@echo "figures  — пересобрать рисунки статьи из данных"
 	@echo "paper    — собрать paper/chi4-43.pdf"

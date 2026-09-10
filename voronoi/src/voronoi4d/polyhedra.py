@@ -16,6 +16,8 @@ from scipy.spatial import Voronoi, Delaunay, ConvexHull, distance
 TOL_DEGENERATE = 1e-9  # порог вырожденности (нулевые векторы, SVD)
 TOL_DIRECTION = 1e-7  # допуск при проверке направления нормали
 
+_ORIGIN_4D = [0.0, 0.0, 0.0, 0.0]  # начало координат (список — ищется в coords4 по значению)
+
 # --------------------------------------------------------------------------------
 
 
@@ -62,18 +64,19 @@ class Edge2D:
     def _find_edge_normal(self):
         """Ищет вектор, ортогональный ребру и обеим нормалям (через SVD)."""
         edge = self.vertex2 - self.vertex1
+        edge_len = np.linalg.norm(edge)
 
         # проверка, не вырождено ли само ребро
-        if np.linalg.norm(edge) < TOL_DEGENERATE:
+        if edge_len < TOL_DEGENERATE:
             return np.zeros_like(self.vertex1)
 
-        edge = edge / np.linalg.norm(edge)
+        edge = edge / edge_len
 
         # матрица условий ортогональности
         A = np.column_stack((edge, self.normal_2d, self.normal_3d))
 
         try:
-            U, S, Vt = np.linalg.svd(A)
+            U, S, _ = np.linalg.svd(A)
         except np.linalg.LinAlgError:
             return np.zeros_like(self.vertex1)
 
@@ -122,42 +125,42 @@ class Face2D:
         (столбец ортогональной матрицы U всегда единичен, проверять его норму
         бессмысленно — прежний «guard» был мёртвым кодом).
         """
-        n_vert = len(self.vertices)
-        for j in range(1, n_vert):
-            for k in range(j + 1, n_vert):
-                v1 = self.vertices[0] - self.vertices[j]
-                v2 = self.vertices[0] - self.vertices[k]
-                A = np.column_stack((v1, v2, self.parent_normal))
-                U, S, _ = np.linalg.svd(A)
-                if S[-1] < TOL_DIRECTION:  # тройка (почти) вырождена — берём другую
-                    continue
+        base = self.vertices[0]
 
-                oriented_normal = U[:, -1]  # единичный вектор, ортогональный столбцам A
+        for j, k in combinations(range(1, len(self.vertices)), 2):
+            v1 = base - self.vertices[j]
+            v2 = base - self.vertices[k]
+            A = np.column_stack((v1, v2, self.parent_normal))
+            U, S, _ = np.linalg.svd(A)
+            if S[-1] < TOL_DIRECTION:  # тройка (почти) вырождена — берём другую
+                continue
 
-                # нормаль должна указывать "наружу" относительно центра родителя
-                vector_to_parent_center = self.parent_center - self.center
-                if np.dot(oriented_normal, vector_to_parent_center) > 0:
-                    self.normal = -oriented_normal
-                else:
-                    self.normal = oriented_normal
-                return
+            oriented_normal = U[:, -1]  # единичный вектор, ортогональный столбцам A
 
-        # все тройки вырождены — дефектная грань
-        self.normal = np.zeros(len(self.vertices[0]))
-        self.bias = 0.0
+            # нормаль должна указывать "наружу" относительно центра родителя
+            vector_to_parent_center = self.parent_center - self.center
+            if np.dot(oriented_normal, vector_to_parent_center) > 0:
+                self.normal = -oriented_normal
+            else:
+                self.normal = oriented_normal
+            return
+
+        # все тройки вырождены — дефектная грань (bias всё равно выставит __init__)
+        self.normal = np.zeros(len(base))
 
     def _find_edge_coords(self):
         """Находит рёбра грани (пары координат вершин) по списку рёбер vor4."""
-        vertex_indices = []  # индексы вершин грани в vor4.vertices
-        edge_indices = []  # рёбра грани в индексах
+        # индексы вершин грани в vor4.vertices
+        vertex_indices = {
+            int(np.argwhere((self.vor4.vertices == vert).all(axis=1))[0][0])
+            for vert in self.vertices
+        }
 
-        for vert in self.vertices:
-            ind = np.argwhere((self.vor4.vertices == vert).all(axis=1))[0][0]
-            vertex_indices.append(ind)
-
-        for edge in self.vor4.list_edges:
-            if edge[0] in vertex_indices and edge[1] in vertex_indices:
-                edge_indices.append(edge)
+        # ребро принадлежит грани, если обе его вершины — вершины грани
+        edge_indices = [
+            edge for edge in self.vor4.list_edges
+            if edge[0] in vertex_indices and edge[1] in vertex_indices
+        ]
 
         return self.vor4.vertices[edge_indices]
 
@@ -230,7 +233,9 @@ class VoronoiPolyhedra(Voronoi):
         self.grid = grid
 
         # координаты центров многогранников
-        self.coords4 = [(self.grid.T).dot(var).tolist() for var in product(self.COEFF_RANGE, repeat=4)]
+        self.coords4 = [
+            self.grid.T.dot(coeffs).tolist() for coeffs in product(self.COEFF_RANGE, repeat=4)
+        ]
 
         # строим диаграмму Вороного
         super().__init__(self.coords4)
@@ -250,7 +255,7 @@ class VoronoiPolyhedra(Voronoi):
 
             # суммарное расстояние от вершин региона до начала координат
             length = sum(
-                distance.euclidean(self.vertices[vert], [0.0, 0.0, 0.0, 0.0]) for vert in region
+                distance.euclidean(self.vertices[vert], _ORIGIN_4D) for vert in region
             )
 
             if length < sum_dist_min:
@@ -263,7 +268,8 @@ class VoronoiPolyhedra(Voronoi):
             )
 
         if verbose:
-            print("суммарное расстояние =", sum_dist_min, "индекс центрального региона =", central_index)
+            print("суммарное расстояние =", sum_dist_min,
+                  "индекс центрального региона =", central_index)
 
         self.central_region_index = self.regions[central_index]  # индексы вершин центрального региона
         self.central = self.vertices[self.central_region_index]  # координаты вершин
@@ -277,16 +283,13 @@ class VoronoiPolyhedra(Voronoi):
                 self.faces_3d.append(ridge)
 
         # в список могли попасть и грани меньшей размерности:
-        # если грань полностью входит в другую, она не 3-мерная — удаляем
-        to_remove = []
-        for face_1 in self.faces_3d:
-            for face_2 in self.faces_3d:
-                if np.all(np.isin(face_1, face_2)) and len(face_1) < len(face_2):
-                    to_remove.append(face_1)
-                    break
-
-        for face in to_remove:
-            self.faces_3d.remove(face)
+        # если грань полностью входит в другую, она не 3-мерная — отбрасываем
+        ridges = self.faces_3d
+        self.faces_3d = [
+            face for face in ridges
+            if not any(len(face) < len(other) and np.all(np.isin(face, other))
+                       for other in ridges)
+        ]
 
         # переводим индексы вершин 3-мерных граней в координаты
         self.edge_central_coords = [
@@ -319,11 +322,14 @@ class VoronoiPolyhedra(Voronoi):
                     common_coords.sort()
                     self.edges[index].append(common_coords)
 
-        # общий список рёбер без дубликатов
+        # общий список рёбер без дубликатов (порядок первого появления)
+        seen = set()
         self.list_edges = []
         for face in self.edges:
             for edge in face:
-                if edge not in self.list_edges:
+                key = tuple(edge)
+                if key not in seen:
+                    seen.add(key)
                     self.list_edges.append(edge)
 
     def find_neighbors(self):
@@ -332,7 +338,7 @@ class VoronoiPolyhedra(Voronoi):
         Вектор из начала координат в соседний центр — нормаль к 3-мерной грани
         между центральным и соседним многогранниками.
         """
-        self.central_point_index = self.coords4.index([0.0, 0.0, 0.0, 0.0])
+        self.central_point_index = self.coords4.index(_ORIGIN_4D)
 
         self.list_neigh_points = [[] for _ in range(len(self.faces_3d))]  # координаты соседних центров
         self.list_neigh_points_ind = [[] for _ in range(len(self.faces_3d))]  # индексы в coords4
@@ -343,12 +349,12 @@ class VoronoiPolyhedra(Voronoi):
 
             # индекс соседней (не центральной) точки
             neighbor = pair[1] if pair[0] == self.central_point_index else pair[0]
-            region = self.regions[self.point_region[neighbor]]
+            region = set(self.regions[self.point_region[neighbor]])
 
             # если регион соседа содержит все вершины какой-то 3-мерной грани центрального
             # многогранника, то сосед граничит с центральным именно по этой грани
-            for i in range(len(self.faces_3d)):
-                if all(item in region for item in self.faces_3d[i]):
+            for i, face in enumerate(self.faces_3d):
+                if all(vert in region for vert in face):
                     self.list_neigh_points_ind[i] = neighbor
                     self.list_neigh_points[i] = self.coords4[neighbor]
 
@@ -370,23 +376,21 @@ class VoronoiPolyhedra(Voronoi):
                     "построение нормали невозможно (проверьте COEFF_RANGE и разбиение)"
                 )
 
-        self.v_norm = [np.array(vec / np.linalg.norm(vec)) for vec in self.list_neigh_points]
+        self.v_norm = [np.asarray(vec) / np.linalg.norm(vec) for vec in self.list_neigh_points]
 
     def map_vertices_to_faces(self):
         """Для каждой вершины центрального региона составляет список содержащих её 3-мерных граней."""
-        self.vertex_to_faces = []
-
-        for vertex in self.central_region_index:
-            faces_with_vertex = [
-                face for face in range(len(self.faces_3d)) if vertex in self.faces_3d[face]
-            ]
-            self.vertex_to_faces.append(faces_with_vertex)
+        self.vertex_to_faces = [
+            [i for i, face in enumerate(self.faces_3d) if vertex in face]
+            for vertex in self.central_region_index
+        ]
 
     def create_polyhedrons(self):
         """Создаёт объекты Face3D для всех 3-мерных граней центрального многогранника."""
         self.polyhedrons = [
-            Face3D(self.edge_central_coords[i], self.list_faces[i], self.v_norm[i], self)
-            for i in range(len(self.edge_central_coords))
+            Face3D(vertices, faces_2d, normal, self)
+            for vertices, faces_2d, normal in zip(
+                self.edge_central_coords, self.list_faces, self.v_norm, strict=True)
         ]
 
     def create_triangulation(self, verbose=True):
@@ -413,9 +417,7 @@ class VoronoiPolyhedra(Voronoi):
 
     def _find_max_len(self):
         """Диаметр многогранника: удвоенное максимальное расстояние от центра до вершины."""
-        max_len = max(
-            distance.euclidean(vert, np.array([0, 0, 0, 0])) for vert in self.central
-        )
+        max_len = max(distance.euclidean(vert, _ORIGIN_4D) for vert in self.central)
         return max_len * 2
 
     def _validate_cell(self):
@@ -476,22 +478,22 @@ class VoronoiPolyhedra(Voronoi):
         self.face3_normal = np.array([p.normal for p in self.polyhedrons])
         self.face3_center = np.array([p.center for p in self.polyhedrons])
 
-        face2, parent2 = [], []
+        faces_2d, face2_parent = [], []
         for i, pol in enumerate(self.polyhedrons):
             for face in pol.faces:
-                face2.append(face)
-                parent2.append(i)
-        self.face2_normal = np.array([f.normal for f in face2])
-        self.face2_center = np.array([f.center for f in face2])
-        self.face2_parent = np.array(parent2)
+                faces_2d.append(face)
+                face2_parent.append(i)
+        self.face2_normal = np.array([f.normal for f in faces_2d])
+        self.face2_center = np.array([f.center for f in faces_2d])
+        self.face2_parent = np.array(face2_parent)
 
-        edges, parent1 = [], []
-        for j, face in enumerate(face2):
+        edges, edge_parent = [], []
+        for j, face in enumerate(faces_2d):
             for edge in face.edges:
                 edges.append(edge)
-                parent1.append(j)
+                edge_parent.append(j)
         self.edge_normal = np.array([e.normal for e in edges])
         self.edge_center = np.array([e.center for e in edges])
         self.edge_vertex1 = np.array([e.vertex1 for e in edges])
         self.edge_vertex2 = np.array([e.vertex2 for e in edges])
-        self.edge_parent = np.array(parent1)
+        self.edge_parent = np.array(edge_parent)

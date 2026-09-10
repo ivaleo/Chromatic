@@ -150,7 +150,8 @@ def dilated_cell_volume(
     normals = np.array([f[0] for f in raw], dtype=float)
     normals /= np.linalg.norm(normals, axis=1, keepdims=True)
     offsets = np.array([f[1] for f in raw], dtype=float)
-    facets = [(normals[i].tolist(), float(offsets[i])) for i in range(len(offsets))]
+    facets = [(normal.tolist(), float(offset))
+              for normal, offset in zip(normals, offsets)]
 
     rng = np.random.default_rng(seed)
     outer = 2.0 * covering_radius
@@ -161,10 +162,10 @@ def dilated_cell_volume(
     radii = outer * rng.random(samples) ** (1.0 / n)
     points = directions * radii[:, None]
 
-    hits = 0
-    for point in points:
-        if float(combigeo.dist_to_halfspaces(point.tolist(), facets)) <= covering_radius:
-            hits += 1
+    hits = sum(
+        float(combigeo.dist_to_halfspaces(point.tolist(), facets)) <= covering_radius
+        for point in points
+    )
     p = hits / samples
     return outer_volume * p, outer_volume * math.sqrt(max(p * (1 - p), 1e-12) / samples)
 

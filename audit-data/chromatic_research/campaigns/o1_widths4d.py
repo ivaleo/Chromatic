@@ -5,7 +5,7 @@
 import json
 import numpy as np
 from multiprocessing import Pool
-from chromatic_research.paths import results_path
+from chromatic_research.paths import load_json, results_path
 from chromatic_research.forms import norm_gram, pack, unpack
 
 def one(args):
@@ -25,7 +25,7 @@ if __name__=="__main__":
     A4G=np.array([[2,-1,0,0],[-1,2,-1,0],[0,-1,2,-1],[0,0,-1,2]],float)
     A4S=norm_gram(np.linalg.inv(np.linalg.cholesky(A4G)).T)
     # предыдущие победители-ширины как старты
-    try: prev=json.load(open(results_path("n2_4d_frontier.json")))
+    try: prev=load_json("n2_4d_frontier.json")
     except Exception: prev={}
     rng=np.random.default_rng(4964)
     out={}
@@ -43,6 +43,6 @@ if __name__=="__main__":
             cl=classical.get(k)
             mark=f" (классич. {cl:.4f}, +{bd-cl:.4f})" if cl else ""
             print(f"k={k}: max d = {bd:.6f}{mark}",flush=True)
-            out[k]={"d":bd,"Q":unpack(np.asarray(bx)).tolist()}
+            out[k]={"d":bd,"Q":unpack(np.asarray(bx), 4).tolist()}
     json.dump(out,open(results_path("o1_widths4d.json"),"w"),indent=1)
     print("DONE",flush=True)

@@ -4,7 +4,7 @@ import json
 import numpy as np
 from scipy.optimize import minimize
 import combigeo
-from chromatic_research.paths import results_path
+from chromatic_research.paths import load_json, results_path
 
 def basis(a, b):
     return [[a, b, b], [b, a, b], [b, b, a]]
@@ -20,7 +20,7 @@ def d_of(k, a, b):
 
 
 def main():
-    prev = json.load(open(results_path("campaign_b.json")))
+    prev = load_json("campaign_b.json")
     out = {}
     for k in range(16, 33):
         fam, p = prev[str(k)]["family"]

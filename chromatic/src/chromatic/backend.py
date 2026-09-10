@@ -53,7 +53,7 @@ class Backend(abc.ABC):
         """Оптимальная подрешётка заданного индекса (числа цветов)."""
 
     def find_optimal_range(self, basis: Sequence[Sequence[float]],
-                           indices: Iterable[int]) -> "dict[int, OptimalResult]":
+                           indices: Iterable[int]) -> dict[int, OptimalResult]:
         """Поиск по набору индексов; по умолчанию — цикл find_optimal."""
         return {int(k): self.find_optimal(basis, int(k)) for k in indices}
 
@@ -71,10 +71,10 @@ class Backend(abc.ABC):
 
 # --- реестр и явный выбор -------------------------------------------------------
 
-_REGISTRY: "dict[str, type[Backend]]" = {}
+_REGISTRY: dict[str, type[Backend]] = {}
 
 
-def register_backend(cls: "type[Backend]") -> "type[Backend]":
+def register_backend(cls: type[Backend]) -> type[Backend]:
     """Регистрирует класс бэкенда по его имени (декоратор)."""
     _REGISTRY[cls.name] = cls
     return cls
@@ -115,5 +115,5 @@ def _ensure_loaded() -> None:
     global _loaded
     if _loaded:
         return
-    from . import _voronoi4d, _combigeo  # noqa: F401  (регистрация через декоратор)
+    from . import _combigeo, _voronoi4d  # noqa: F401  (регистрация через декоратор)
     _loaded = True

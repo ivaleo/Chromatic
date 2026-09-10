@@ -27,6 +27,7 @@ import argparse
 import json
 import math
 import time
+from functools import partial
 from pathlib import Path
 from typing import Sequence
 
@@ -144,15 +145,11 @@ def candidate_record(
         )
         return record
     kernel = hnf_columns(kernel_basis(rows, moduli, basis.shape[0]))
-    separation = separate_kernel(
-        basis, diameter, facets, kernel
-    )
+    separation = separate_kernel(basis, diameter, facets, kernel)
     record.update(
         {
             "kernel_basis_columns": kernel.astype(int).tolist(),
-            "kernel_determinant": abs(
-                int(round(np.linalg.det(kernel)))
-            ),
+            "kernel_determinant": abs(int(round(np.linalg.det(kernel)))),
             "kernel_smith": smith_diagonal(kernel),
             "complete_separation": {
                 key: value
@@ -223,10 +220,9 @@ def main(argv: Sequence[str] | None = None) -> int:
     diameter = float(metric["best"]["diameter"])
     lattice = _source_lattice(args.metric, metric)
     facets = combigeo.relevant_facets(basis.tolist())
-    forbidden, ratios, squared_deficits = _forbidden_with_weights(
-        basis, diameter
-    )
+    forbidden, ratios, _ = _forbidden_with_weights(basis, diameter)
     deficits = np.maximum(0.0, 1.0 - ratios)
+    unit_weights = np.ones(len(forbidden), dtype=np.float64)
     started = time.perf_counter()
     payload = {
         "method": (
@@ -259,6 +255,18 @@ def main(argv: Sequence[str] | None = None) -> int:
         payload["elapsed_seconds"] = time.perf_counter() - started
         args.output.write_text(json.dumps(payload, indent=2) + "\n")
 
+    def submit(record: dict, summary: str, valid_message: str) -> bool:
+        """Store one candidate and report whether it separates completely."""
+        payload["results"].append(record)
+        save()
+        print(summary, flush=True)
+        if not record.get("complete_separation", {}).get("valid"):
+            return False
+        payload["valid_candidate"] = record
+        save()
+        print(valid_message, flush=True)
+        return True
+
     for structure_number, moduli in enumerate(args.structures):
         print(
             f"\nstructure={moduli} target={math.prod(moduli)}",
@@ -269,40 +277,39 @@ def main(argv: Sequence[str] | None = None) -> int:
             moduli,
             seed=args.seed + 1009 * structure_number,
         )
+        # Everything except the incumbent rows is fixed for this structure.
+        make_record = partial(
+            candidate_record,
+            moduli=moduli,
+            forbidden=forbidden,
+            ratios=ratios,
+            basis=basis,
+            diameter=diameter,
+            facets=facets,
+        )
         source_rows = (
             None
             if args.ignore_source_seed
             else metric_source_rows(metric, moduli, basis.shape[0])
         )
         if source_rows is not None:
-            source_record = candidate_record(
+            source_record = make_record(
                 label="metric-source-control",
                 beta=-2.0,
                 rows=source_rows,
-                moduli=moduli,
-                forbidden=forbidden,
-                ratios=ratios,
-                weights=np.ones(len(forbidden), dtype=np.float64),
-                basis=basis,
-                diameter=diameter,
-                facets=facets,
+                weights=unit_weights,
                 search_seconds=0.0,
                 search_metadata={
                     "source": "metric.source_record",
                     "optimization": "none",
                 },
             )
-            payload["results"].append(source_record)
-            save()
-            print(
+            if submit(
+                source_record,
                 f"  source control killed={source_record['killed']} "
                 f"min-ratio={source_record['minimum_conflict_ratio']}",
-                flush=True,
-            )
-            if source_record.get("complete_separation", {}).get("valid"):
-                payload["valid_candidate"] = source_record
-                save()
-                print("*** VALID SOURCE KERNEL FOUND ***", flush=True)
+                "*** VALID SOURCE KERNEL FOUND ***",
+            ):
                 return 0
         count_started = time.perf_counter()
         count = search.run(
@@ -312,31 +319,20 @@ def main(argv: Sequence[str] | None = None) -> int:
             progress_every=max(1, (args.count_restarts + 1) // 4),
             initial_rows=source_rows,
         )
-        count_record = candidate_record(
+        count_record = make_record(
             label="count",
             beta=0.0,
             rows=count.rows,
-            moduli=moduli,
-            forbidden=forbidden,
-            ratios=ratios,
-            weights=np.ones(len(forbidden), dtype=np.float64),
-            basis=basis,
-            diameter=diameter,
-            facets=facets,
+            weights=unit_weights,
             search_seconds=time.perf_counter() - count_started,
             search_metadata=count.as_json(),
         )
-        payload["results"].append(count_record)
-        save()
-        print(
+        if submit(
+            count_record,
             f"  count result killed={count_record['killed']} "
             f"min-ratio={count_record['minimum_conflict_ratio']}",
-            flush=True,
-        )
-        if count_record.get("complete_separation", {}).get("valid"):
-            payload["valid_candidate"] = count_record
-            save()
-            print("*** VALID BLOCK KERNEL FOUND ***", flush=True)
+            "*** VALID BLOCK KERNEL FOUND ***",
+        ):
             return 0
 
         if args.pair_top and len(moduli) >= 2:
@@ -344,17 +340,11 @@ def main(argv: Sequence[str] | None = None) -> int:
             pair_killed, pair_rows = search.pair_polish(
                 count.rows, first_top=args.pair_top
             )
-            pair_record = candidate_record(
+            pair_record = make_record(
                 label="count-pair-polish",
                 beta=-1.0,
                 rows=pair_rows,
-                moduli=moduli,
-                forbidden=forbidden,
-                ratios=ratios,
-                weights=np.ones(len(forbidden), dtype=np.float64),
-                basis=basis,
-                diameter=diameter,
-                facets=facets,
+                weights=unit_weights,
                 search_seconds=time.perf_counter() - pair_started,
                 search_metadata={
                     "pair_top": args.pair_top,
@@ -362,17 +352,12 @@ def main(argv: Sequence[str] | None = None) -> int:
                     "final_killed": pair_killed,
                 },
             )
-            payload["results"].append(pair_record)
-            save()
-            print(
+            if submit(
+                pair_record,
                 f"  pair result killed={pair_record['killed']} "
                 f"min-ratio={pair_record['minimum_conflict_ratio']}",
-                flush=True,
-            )
-            if pair_record.get("complete_separation", {}).get("valid"):
-                payload["valid_candidate"] = pair_record
-                save()
-                print("*** VALID BLOCK KERNEL FOUND ***", flush=True)
+                "*** VALID BLOCK KERNEL FOUND ***",
+            ):
                 return 0
 
         for power_number, power in enumerate(args.weight_powers):
@@ -398,34 +383,21 @@ def main(argv: Sequence[str] | None = None) -> int:
                     source_rows if source_rows is not None else count.rows
                 ),
             )
-            weighted_record = candidate_record(
+            weighted_record = make_record(
                 label=f"deficit-power-{power:g}",
                 beta=float(power),
                 rows=weighted.rows,
-                moduli=moduli,
-                forbidden=forbidden,
-                ratios=ratios,
                 weights=weights,
-                basis=basis,
-                diameter=diameter,
-                facets=facets,
                 search_seconds=time.perf_counter() - weighted_started,
                 search_metadata=weighted.as_json(),
             )
-            payload["results"].append(weighted_record)
-            save()
-            print(
+            if submit(
+                weighted_record,
                 f"  power={power:g} killed={weighted_record['killed']} "
                 f"loss={weighted_record['weighted_loss']:.9g} "
                 f"min-ratio={weighted_record['minimum_conflict_ratio']}",
-                flush=True,
-            )
-            if weighted_record.get(
-                "complete_separation", {}
-            ).get("valid"):
-                payload["valid_candidate"] = weighted_record
-                save()
-                print("*** VALID BLOCK KERNEL FOUND ***", flush=True)
+                "*** VALID BLOCK KERNEL FOUND ***",
+            ):
                 return 0
 
             if args.weighted_pair_top and len(moduli) >= 2:
@@ -435,17 +407,11 @@ def main(argv: Sequence[str] | None = None) -> int:
                     weights,
                     first_top=args.weighted_pair_top,
                 )
-                weighted_pair_record = candidate_record(
+                weighted_pair_record = make_record(
                     label=f"deficit-power-{power:g}-pair-polish",
                     beta=float(power),
                     rows=pair_rows,
-                    moduli=moduli,
-                    forbidden=forbidden,
-                    ratios=ratios,
                     weights=weights,
-                    basis=basis,
-                    diameter=diameter,
-                    facets=facets,
                     search_seconds=time.perf_counter() - pair_started,
                     search_metadata={
                         "weighted_pair_top": args.weighted_pair_top,
@@ -453,22 +419,15 @@ def main(argv: Sequence[str] | None = None) -> int:
                         "final_loss": pair_loss,
                     },
                 )
-                payload["results"].append(weighted_pair_record)
-                save()
-                print(
+                if submit(
+                    weighted_pair_record,
                     f"  weighted pair power={power:g} "
                     f"killed={weighted_pair_record['killed']} "
                     f"loss={weighted_pair_record['weighted_loss']:.9g} "
                     "min-ratio="
                     f"{weighted_pair_record['minimum_conflict_ratio']}",
-                    flush=True,
-                )
-                if weighted_pair_record.get(
-                    "complete_separation", {}
-                ).get("valid"):
-                    payload["valid_candidate"] = weighted_pair_record
-                    save()
-                    print("*** VALID BLOCK KERNEL FOUND ***", flush=True)
+                    "*** VALID BLOCK KERNEL FOUND ***",
+                ):
                     return 0
 
     save()

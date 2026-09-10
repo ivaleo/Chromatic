@@ -151,7 +151,8 @@ def search(t: float, m: int, n_starts: int, maxfev: int, seed: int,
           f"|p10|={len(pr.p10)}, |g10|={len(pr.g10)}", flush=True)
     rng = np.random.default_rng(seed)
     best = {"d": -1.0}
-    f = lambda c: -pr.d_value(np.asarray(c))[0]
+    def f(c):
+        return -pr.d_value(np.asarray(c))[0]
     starts = [np.zeros(10)] + [rng.normal(scale=s, size=10)
                                for s in ([0.3] * (n_starts // 2) +
                                          [0.7] * (n_starts - 1 - n_starts // 2))]
