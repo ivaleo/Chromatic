@@ -1,0 +1,617 @@
+% Краткое сообщение для журнала «Доклады Российской академии наук.
+% Математика, информатика, процессы управления».
+% Оформление --- официальный стилевой файл DAN2E.STY (DanMath_for_Authors.zip,
+% sciencejournals.ru/journal/danmiup/), здесь --- копия dan2e.sty.
+% Правила (guid.pdf, сверено 14.09.2026): <= 25 000 знаков с таблицами и
+% библиографией (<= 25 источников), представление академиком РАН, аннотация
+% <= 1000 знаков без ссылок, 3--10 ключевых слов, метаданные на русском и
+% английском, ссылки на неопубликованные работы не допускаются,
+% самоцитирование <= 30 %, одновременная подача в другой журнал запрещена.
+%
+% Содержание намеренно НЕ пересекается с заметкой УМН (note-umn/note-2p.tex):
+% там --- четыре явные конструкции с точными сертификатами (43/132/1029/7203),
+% здесь --- аналитическая часть: тождество для эйзенштейновых решёток,
+% продуктовое правило, оценки 45619 (R^10), 4*7^12 (R^25), 19*7^12 (R^26)
+% и оболочечный пол индекса (2401 неулучшаемо на E_8). Все доказательства
+% полные и не опираются на вычисления и на неопубликованные работы.
+\documentclass{article}
+
+\usepackage[T2A]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[russian]{babel}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{mathrsfs}
+
+\usepackage{dan2e}
+
+\theoremstyle{plain}
+\newtheorem{theorem}{Теорема}
+\newtheorem{proposition}{Предложение}
+\newtheorem{lemma}{Лемма}
+\newtheorem{corollary}{Следствие}
+\theoremstyle{remark}
+\newtheorem{remark}{Замечание}
+
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\CC}{\mathbb{C}}
+\newcommand{\diam}{\operatorname{diam}}
+\newcommand{\dist}{\operatorname{dist}}
+\newcommand{\vol}{\operatorname{vol}}
+
+\begin{document}
+
+% Том, год и страницы проставляет редакция.
+\Volume{000}
+\Year{2026}
+\Pages{000--000}
+
+% TODO: сверить УДК с редакцией.
+\udk{514.174.5+519.174}
+
+\title{Точные ширины решёточных раскрасок евклидовых пространств:
+тождество для эйзенштейновых решёток, продуктовое правило и оценка
+$\chi(\mathbb R^{10})\le45619$}
+
+% Порядок авторов --- по вкладу (решение от 22.08.2026).
+\author{Л.\,Л.~Иванов\Addressmark[1]\Emailmark[1],
+Н.\,В.~Глушкова\Addressmark[2]\Emailmark[2]}
+
+% TODO: место работы обоих авторов (полное название учреждения, город).
+\Addresstext[1]{Москва, Россия}
+\Addresstext[2]{Московский физико-технический институт (национальный
+исследовательский университет), Долгопрудный, Московская обл., Россия}
+
+\Emailtext[1]{leo.ivanov@gmail.com}
+\Emailtext[2]{glushkova.nv@phystech.edu}
+
+\markboth{Л.\,Л.~Иванов, Н.\,В.~Глушкова}{Точные ширины решёточных
+раскрасок евклидовых пространств}
+
+% TODO: представление действительного члена РАН (п. 1 правил).
+\presentedby{Представлено академиком РАН \ldots}
+
+\dateA{\ldots}
+
+\alttitle{Exact widths of lattice colorings of Euclidean spaces:
+an identity for Eisenstein lattices, the product rule, and the bound
+$\chi(\mathbb R^{10})\le45619$}
+
+\altauthor{L.\,L.~Ivanov\Addressmark[a]\Emailmark[1],
+N.\,V.~Glushkova\Addressmark[b]\Emailmark[2]}
+
+\altAddresstext[a]{Moscow, Russian Federation}
+\altAddresstext[b]{Moscow Institute of Physics and Technology (National
+Research University), Dolgoprudny, Moscow Region, Russian Federation}
+
+\altpresentedby{Presented by Academician of the RAS \ldots}
+
+\maketitle
+
+\begin{abstract}
+Рассматриваются раскраски пространства $\R^n$, при которых никакие две
+одноцветные точки не находятся на расстоянии из отрезка $[1,\ell]$; при
+$\ell=1$ наименьшее число цветов есть классическое хроматическое число
+$\chi(\R^n)$. Для периодической раскраски ячеек Вороного решётки $\Lambda$
+классами подрешётки $\Gamma$ ширина запрещённого интервала равна отношению
+расстояния между одноцветными ячейками к диаметру ячейки. Доказано
+тождество: для любой решётки $\Lambda$ с эйзенштейновой структурой расстояние
+между одноцветными ячейками подрешётки $(3+\omega)\Lambda$ равно
+$\sqrt{7/3}\,\lambda_1(\Lambda)$, где $\lambda_1$~--- длина кратчайшего
+вектора; отсюда точные ширины всех известных раскрасок в $7^{n/2}$ цветов.
+Доказано продуктовое правило: ширина ортогонального произведения раскрасок
+с ширинами $d_i$ при оптимальном масштабировании блоков равна
+$(\sum_i d_i^{-2})^{-1/2}$. Как следствие, $\chi(\R^{10})\le45619$~---
+первая оценка в $\R^{10}$ ниже классической $3^{10}$, а также
+$\chi(\R^{25})\le4\cdot7^{12}$ и $\chi(\R^{26})\le19\cdot7^{12}$. Доказано,
+что среди подрешёток решётки $E_8$, задающих правильную раскраску, индекс
+$2401$ неулучшаем.
+\end{abstract}
+
+\begin{keywords}
+хроматическое число, проблема Нельсона--Хадвигера, запрещённый интервал
+расстояний, решётка, ячейка Вороного, радиус покрытия, эйзенштейновы
+решётки, решётка $E_8$, постоянная Эрмита
+\end{keywords}
+
+\begin{altabstract}
+We consider colorings of $\R^n$ in which no two points of the same color
+are at a distance from the segment $[1,\ell]$; for $\ell=1$ the minimum
+number of colors is the classical chromatic number $\chi(\R^n)$. For a
+periodic coloring of the Voronoi cells of a lattice $\Lambda$ by the cosets
+of a sublattice $\Gamma$, the width of the forbidden interval is the ratio
+of the distance between same-colored cells to the diameter of a cell. We
+prove an identity: for every lattice $\Lambda$ with an Eisenstein structure,
+the distance between same-colored cells of the sublattice $(3+\omega)\Lambda$
+equals $\sqrt{7/3}\,\lambda_1(\Lambda)$, where $\lambda_1$ is the length of a
+shortest vector; this gives the exact widths of all known colorings with
+$7^{n/2}$ colors. We prove a product rule: the width of an orthogonal
+product of colorings with widths $d_i$, under the optimal scaling of the
+blocks, equals $(\sum_i d_i^{-2})^{-1/2}$. As a consequence,
+$\chi(\R^{10})\le45619$, the first bound in $\R^{10}$ below the classical
+$3^{10}$, and also $\chi(\R^{25})\le4\cdot7^{12}$ and
+$\chi(\R^{26})\le19\cdot7^{12}$. We prove that among the sublattices of
+$E_8$ defining a proper coloring the index $2401$ cannot be improved.
+\end{altabstract}
+
+\begin{altkeywords}
+chromatic number, Nelson--Hadwiger problem, forbidden distance interval,
+lattice, Voronoi cell, covering radius, Eisenstein lattices, the lattice
+$E_8$, Hermite constant
+\end{altkeywords}
+
+\section*{1. Введение и результаты}
+
+Через $\chi(\R^n,[1,\ell])$, $\ell\ge1$, обозначим наименьшее число цветов
+раскраски пространства $\R^n$, при которой никакие две одноцветные точки не
+находятся на расстоянии из отрезка $[1,\ell]$. При $\ell=1$ это классическое
+хроматическое число $\chi(\R^n)$ (проблема Нельсона--Хадвигера, см.~\cite{Soifer,deGrey}); интервальная постановка изучалась в~\cite{Ivanov2011}.
+Очевидно, $\chi(\R^n)\le\chi(\R^n,[1,\ell])$.
+
+Все известные верхние оценки $\chi(\R^n)$ в малых размерностях получены
+\emph{решёточными раскрасками}. Пусть $\Lambda\subset\R^n$~--- решётка,
+$\Gamma\subset\Lambda$~--- подрешётка индекса $k=[\Lambda:\Gamma]$,
+$V_0$~--- ячейка Вороного нуля (выпуклый центрально-симметричный
+многогранник, $\diam V_0=2R$, где $R$~--- радиус покрытия $\Lambda$);
+ячейку $a+V_0$, $a\in\Lambda$, окрасим цветом класса $a+\Gamma$. Положим
+\begin{equation}\label{eq:defs}
+D(v)=\dist\bigl(V_0,\,v+V_0\bigr),\quad
+D(\Gamma)=\min_{v\in\Gamma\setminus\{0\}}D(v),\quad
+d(\Lambda,\Gamma)=\frac{D(\Gamma)}{\diam V_0},\quad
+\rho(\Lambda)=\frac{\diam V_0}{\lambda_1(\Lambda)},
+\end{equation}
+где $\lambda_1(\Lambda)$~--- длина кратчайшего ненулевого вектора. Две
+одноцветные точки лежат либо в одной ячейке (расстояние $\le\diam V_0$),
+либо в двух ячейках, центры которых различаются на $v\in\Gamma\setminus\{0\}$
+(расстояние $\ge D(\Gamma)$). Выбрав масштаб $s$ с $s\diam V_0<1<\ell<sD(\Gamma)$,
+что возможно в точности при $\ell<d(\Lambda,\Gamma)$, получаем
+\begin{equation}\label{eq:crit}
+\chi(\R^n,[1,\ell])\le[\Lambda:\Gamma]\qquad\text{при всех }\ell<d(\Lambda,\Gamma).
+\end{equation}
+Величину $d(\Lambda,\Gamma)$ называем \emph{шириной} раскраски; раскраска
+\emph{правильна}, если $d\ge1$. Лучшие известные оценки в размерностях
+$4$--$10$ и $24$ принадлежат работе~\cite{ABPR}; в размерностях
+$n=4,6,8,24$ они получены на решётках $D_4$, $E_6^*$, $E_8$ и решётке Лича
+$\Lambda_{24}$, снабжённых структурой модуля над кольцом Эйзенштейна
+$\Z[\omega]$, $\omega=e^{2\pi i/3}$, с подрешёткой $\Gamma=(3+\omega)\Lambda$
+индекса $|3+\omega|^n=7^{n/2}$; в~\cite{ABPR} доказана лишь правильность
+этих раскрасок. Ниже решётка называется \emph{эйзенштейновой}, если на ней
+задано умножение на $\omega$, являющееся изометрией; тогда $\Lambda$~---
+$\Z[\omega]$-модуль, и для $\alpha\in\Z[\omega]\setminus\{0\}$ подрешётка
+$\alpha\Lambda$ имеет индекс $|\alpha|^n$. Через $H_1\subset\CC$ обозначим
+ячейку Вороного решётки $\Z[\omega]\subset\CC=\R^2$: правильный
+шестиугольник с фасетами на расстоянии $1/2$ от нуля и вершинами на
+расстоянии $1/\sqrt3$.
+
+\begin{theorem}\label{thm:eis}
+Пусть $\Lambda\subset\R^n$~--- эйзенштейнова решётка. Тогда для любого
+$\alpha\in\Z[\omega]\setminus\{0\}$
+\begin{equation}\label{eq:alpha}
+D(\alpha\Lambda)=2\,\lambda_1(\Lambda)\cdot\dist\bigl(\alpha/2,\,H_1\bigr),
+\end{equation}
+причём при $|\alpha|>1$ минимум в~\eqref{eq:defs} достигается ровно на
+векторах $\alpha w$ с кратчайшими $w$. В частности,
+\begin{equation}\label{eq:eis}
+D\bigl((3+\omega)\Lambda\bigr)^2=\tfrac73\,\lambda_1(\Lambda)^2,\qquad
+d\bigl(\Lambda,(3+\omega)\Lambda\bigr)=\frac{\sqrt{7/3}}{\rho(\Lambda)},
+\end{equation}
+а для целого $m\ge2$ выполнено $D(m\Lambda)=(m-1)\lambda_1(\Lambda)$.
+\end{theorem}
+
+\begin{corollary}\label{cor:widths}
+Для $D_4$, $E_6^*$, $E_8$ и $\Lambda_{24}$ имеем $\rho=\sqrt2$, поэтому
+ширина каждой из четырёх раскрасок~\cite{ABPR} в $7^{n/2}$ цветов равна
+ровно $\sqrt{7/6}$:
+$\chi(\R^n,[1,\ell])\le7^{n/2}$ при $\ell<\sqrt{7/6}$ и $n=4,6,8,24$, и в
+пределах этих конструкций $\sqrt{7/6}$ не улучшить. Для решётки
+Коксетера--Тодда $K_{12}$ имеем $\rho=\sqrt{8/3}$, так что
+$d(K_{12},(3+\omega)K_{12})=\sqrt{7/8}<1$: раскраска в $7^6$ цветов в $\R^{12}$
+этим путём не получается; зато $d(K_{12},3K_{12})=\sqrt{3/2}$, то есть
+$\chi(\R^{12},[1,\ell])\le3^{12}$ при $\ell<\sqrt{3/2}$.
+\end{corollary}
+
+Пороговая константа $\sqrt{7/3}$ в~\cite[замечание~9]{ABPR} упоминается как
+достаточное условие правильности ($\rho\le\sqrt{7/3}$), однако «решётки,
+использующие это усиление», там названы неизвестными; тождество~\eqref{eq:eis}
+показывает, что условие является и необходимым, и даёт точную ширину для
+каждой решётки. Отрицательный вывод о $K_{12}$ (частичный ответ на открытый
+вопрос~2 работы~\cite{ABPR}) опирается именно на верхнюю половину
+тождества.
+
+\begin{theorem}[продуктовое правило]\label{thm:prod}
+Пусть $\Lambda=\bigoplus_{i=1}^{s}\Lambda_i$~--- ортогональная прямая сумма
+решёток $\Lambda_i\subset\R^{n_i}$, $\Gamma=\bigoplus_i\Gamma_i$,
+$\Gamma_i\subset\Lambda_i$, $d_i=d(\Lambda_i,\Gamma_i)$,
+$k_i=[\Lambda_i:\Gamma_i]$. Тогда максимум ширины $d(\Lambda,\Gamma)$ по
+всем независимым масштабированиям блоков равен
+$\bigl(\sum_i d_i^{-2}\bigr)^{-1/2}$ и достигается при
+$\diam^2V_0(\Lambda_i)\propto d_i^{-2}$. Следовательно,
+$\chi(\R^n,[1,\ell])\le\prod_i k_i$, $n=\sum_i n_i$, при всех
+$\ell<\bigl(\sum_i d_i^{-2}\bigr)^{-1/2}$.
+\end{theorem}
+
+\begin{theorem}\label{thm:bounds}
+$\chi(\R^{10},[1,\ell])\le2401\cdot19=45619$ и
+$\chi(\R^{26},[1,\ell])\le19\cdot7^{12}$ при всех $\ell<\sqrt{217/214}$;
+$\chi(\R^{9},[1,\ell])\le2401\cdot4=9604$ и
+$\chi(\R^{25},[1,\ell])\le4\cdot7^{12}$ при всех $\ell<\sqrt{63/61}$.
+В частности, $\chi(\R^{10})\le45619$, $\chi(\R^{25})\le4\cdot7^{12}$,
+$\chi(\R^{26})\le19\cdot7^{12}$.
+\end{theorem}
+
+Прежние оценки в этих размерностях~--- $3^{10}=59049$, $3^{25}$, $3^{26}$
+и $17253$~\cite{ABPR}; $45619$~--- первая оценка в $\R^{10}$ ниже
+классической величины $3^n$. Оценка $9604$ в $\R^9$ приведена как
+кратчайший, чисто аналитический путь ниже $17253$; другой, вычислительной
+конструкцией (ламинированием той же раскраски $E_8/2401$ с проверкой в
+точной рациональной арифметике) авторами получена более сильная оценка
+$\chi(\R^9)\le7203$, которая публикуется отдельно.
+
+\begin{theorem}\label{thm:e8}
+Пусть $\Lambda=E_8$ и подрешётка $\Gamma\subset\Lambda$ задаёт правильную
+раскраску. Тогда $[\Lambda:\Gamma]\ge2401$; равенство достигается на
+$\Gamma=(3+\omega)E_8$. Для объёмноцентрированной кубической решётки
+$\Lambda=A_3^*$ аналогично $[\Lambda:\Gamma]\ge15$.
+\end{theorem}
+
+Общая нижняя граница Кулсона $2^{n+1}-1$~\cite{Coulson,ABPR} даёт для $E_8$
+лишь $511$; теорема~\ref{thm:e8} отвечает для этой решётки на открытый
+вопрос~8 работы~\cite{ABPR} о нижних границах индекса, зависящих от
+дополнительных характеристик решётки.
+
+\section*{2. Доказательство теоремы~\ref{thm:eis}}
+
+\begin{lemma}\label{lem:mid}
+$D(v)=2\dist(v/2,\,V_0)$ для всех $v\in\R^n$.
+\end{lemma}
+
+\begin{proof}
+Если $x\in V_0$, $y\in v+V_0$, то $x'=v-y\in V_0$, и по выпуклости
+$(x+x')/2\in V_0$, откуда $|x-y|=2\,|(x+x')/2-v/2|\ge2\dist(v/2,V_0)$.
+Обратно, для ближайшей к $v/2$ точки $x\in V_0$ положим $y=v-x\in v+V_0$;
+тогда $|x-y|=2|x-v/2|=2\dist(v/2,V_0)$.
+\end{proof}
+
+\begin{proposition}[планарная нижняя граница]\label{prop:planar}
+Пусть $\Lambda$ эйзенштейнова, $w\in\Lambda\setminus\{0\}$,
+$P=\operatorname{span}(w,\omega w)$ и $H=\|w\|H_1$~--- ячейка Вороного
+плоской решётки $\Z[\omega]w\subset P$. Тогда ортогональная проекция
+$\pi_P(V_0)$ содержится в $H$, и для любого $\alpha\in\Z[\omega]$
+\[
+\dist\bigl(\alpha w/2,\,V_0\bigr)\ \ge\ \|w\|\cdot\dist\bigl(\alpha/2,\,H_1\bigr).
+\]
+\end{proposition}
+
+\begin{proof}
+Векторы $\pm w$, $\pm\omega w$, $\pm(1+\omega)w=\mp\omega^2w$ лежат в
+$\Lambda$ и имеют длину $\|w\|$, поскольку умножение на обратимые элементы
+$\Z[\omega]$~--- изометрия. Шесть полупространств
+$\{x:\langle x,u\rangle\le\|u\|^2/2\}$ по этим $u$ содержат $V_0$, а их
+нормали лежат в $P$; поэтому $\pi_P(V_0)$ содержится в шестиугольнике,
+высекаемом в $P$ теми же неравенствами,~--- в ячейке Вороного решётки
+$\Z[\omega]w$, изометричной $\|w\|H_1$. Точка $\alpha w/2$ лежит в $P$,
+проекция не увеличивает расстояний, значит
+$\dist(\alpha w/2,V_0)\ge\dist_P(\alpha w/2,H)=\|w\|\dist(\alpha/2,H_1)$.
+\end{proof}
+
+\begin{lemma}[точка в ячейке]\label{lem:cell}
+Пусть $u_1,\dots,u_s$~--- кратчайшие векторы решётки $\Lambda$,
+$q=\sum_ic_iu_i$, $c_i\ge0$, $\sum_ic_i\le1$, и
+$\langle q,u_j\rangle\le\frac12\lambda_1^2$ при всех $j$. Тогда $q\in V_0$.
+\end{lemma}
+
+\begin{proof}
+Условие $x\in V_0$ равносильно $\langle x,r\rangle\le\frac12\|r\|^2$ для
+всех $r\in\Lambda$. Пусть $r\in\Lambda\setminus\{0\}$. Если $r\ne u_i$, то
+$\|r-u_i\|^2\ge\lambda_1^2=\|u_i\|^2$, откуда
+$\langle r,u_i\rangle\le\frac12\|r\|^2$. Если $r\notin\{u_1,\dots,u_s\}$, то
+$\langle q,r\rangle\le\bigl(\sum_ic_i\bigr)\frac12\|r\|^2\le\frac12\|r\|^2$;
+если же $r=u_j$, требуемое неравенство есть условие леммы.
+\end{proof}
+
+\begin{proposition}[верхняя граница]\label{prop:up}
+Пусть $\Lambda$ эйзенштейнова и $w$~--- её кратчайший вектор. Тогда все
+шесть вершин шестиугольника $H=\|w\|H_1\subset P$ лежат в $V_0$; в
+частности, $V_0\cap P=H$ и
+$\dist(\alpha w/2,V_0)=\|w\|\dist(\alpha/2,H_1)$ для всех
+$\alpha\in\Z[\omega]$.
+\end{proposition}
+
+\begin{proof}
+Из $1+\omega+\omega^2=0$ следует $w+\omega w=-\omega^2w$, поэтому
+$\|w+\omega w\|=\|w\|$, и, раскрывая квадрат,
+\begin{equation}\label{eq:ip}
+\langle w,\omega w\rangle=-\tfrac12\|w\|^2=-\tfrac12\lambda_1^2 .
+\end{equation}
+Вершины $H$~--- это $\pm\omega^kq$, $k=0,1,2$, где
+$q=\frac13(2w+\omega w)$~--- центроид треугольника $\{0,w,-\omega^2w\}$;
+достаточно проверить $q\in V_0$, остальные вершины получаются заменой $w$ на
+$\pm\omega^kw$. Векторы $w$ и $\omega w$ кратчайшие,
+$q=\frac23w+\frac13\omega w$, и по~\eqref{eq:ip}
+$\langle q,w\rangle=\frac13(2-\frac12)\lambda_1^2=\frac12\lambda_1^2$,
+$\langle q,\omega w\rangle=\frac13(-1+1)\lambda_1^2=0$; лемма~\ref{lem:cell}
+даёт $q\in V_0$. По выпуклости $H\subseteq V_0\cap P$, а
+$V_0\cap P\subseteq\pi_P(V_0)\subseteq H$ по предложению~\ref{prop:planar};
+значит, $V_0\cap P=H$. Для $\alpha w/2\in P$ отсюда
+$\dist(\alpha w/2,V_0)\le\dist_P(\alpha w/2,H)=\|w\|\dist(\alpha/2,H_1)$,
+а обратное неравенство~--- предложение~\ref{prop:planar}.
+\end{proof}
+
+\begin{proof}[Доказательство теоремы~\ref{thm:eis}]
+Всякий ненулевой вектор $\alpha\Lambda$ имеет вид $\alpha w$,
+$w\in\Lambda\setminus\{0\}$, и по лемме~\ref{lem:mid} и
+предложению~\ref{prop:planar}
+$D(\alpha w)\ge2\|w\|\dist(\alpha/2,H_1)\ge2\lambda_1\dist(\alpha/2,H_1)$,
+причём для кратчайшего $w$ по предложению~\ref{prop:up} здесь равенство.
+Это даёт~\eqref{eq:alpha}. Если $|\alpha|>1$, то $|\alpha|^2\ge3$ и
+$|\alpha/2|\ge\sqrt3/2>1/\sqrt3$, так что $\alpha/2\notin H_1$ и
+$\dist(\alpha/2,H_1)>0$; тогда для некратчайшего $w$ первое неравенство
+в цепочке строгое, и минимум достигается только на кратчайших векторах.
+Далее, при $\|w\|=1$ точка $(3+\omega)/2=(5/4,\sqrt3/4)$ лежит в нормальном
+конусе вершины $(1/2,\,1/(2\sqrt3))$ шестиугольника $H_1$, и квадрат
+расстояния до неё равен $9/16+1/48=7/12$; отсюда~\eqref{eq:eis}. Наконец,
+для вещественного $\alpha=m$ ближайшая к $m/2$ точка $H_1$~--- середина
+фасеты $1/2$, и $\dist(m/2,H_1)=(m-1)/2$.
+\end{proof}
+
+\begin{proof}[Доказательство следствия~\ref{cor:widths}]
+Решётки $D_4$, $E_6^*$, $E_8$, $\Lambda_{24}$ и $K_{12}$ эйзенштейновы
+\cite{ABPR,ConwaySloane}. Их отношения $\rho=2R/\lambda_1$ известны точно
+\cite{ConwaySloane}: $\sqrt2$ для первых четырёх ($E_8$: $\lambda_1^2=2$,
+$R=1$; $\Lambda_{24}$: $\lambda_1^2=4$, $R=\sqrt2$) и $\sqrt{8/3}$ для
+$K_{12}$ ($\lambda_1^2=4$, $R^2=8/3$). Остаётся подставить в~\eqref{eq:eis},
+а для $3K_{12}$~--- в $d=(m-1)/\rho$ при $m=3$.
+\end{proof}
+
+\section*{3. Продуктовое правило и размерности $9$, $10$, $25$, $26$}
+
+\begin{proof}[Доказательство теоремы~\ref{thm:prod}]
+Ячейка Вороного прямой суммы есть произведение ячеек, поэтому квадрат
+диаметра $V_0(\Lambda)$ равен сумме квадратов диаметров
+$s_i=\diam^2V_0(\Lambda_i)$ ячеек блоков, а для
+$v=(v_1,\dots,v_s)$ выполнено
+\[
+\dist^2(v/2,V_0)=\sum_i\dist^2\bigl(v_i/2,\,V_0(\Lambda_i)\bigr),
+\qquad\text{то есть}\qquad D(v)^2=\sum_iD_i(v_i)^2
+\]
+по лемме~\ref{lem:mid}. Так как $D_i(0)=0$, а
+$D_i(v_i)\ge D(\Gamma_i)$ при $v_i\ne0$, минимум по $\Gamma\setminus\{0\}$
+достигается на векторе с единственной ненулевой компонентой:
+$D(\Gamma)^2=\min_iD(\Gamma_i)^2=\min_id_i^2s_i$, и
+$d(\Lambda,\Gamma)^2=\min_i\bigl(d_i^2s_i\bigr)\big/\sum_js_j$.
+Масштабирование блока не меняет $d_i$, так что $s_i>0$ произвольны;
+при $s_i=S/d_i^2$ все $d_i^2s_i$ равны $S$ и
+$d(\Lambda,\Gamma)^2=\bigl(\sum_jd_j^{-2}\bigr)^{-1}$. При любом выборе
+$s_i$ положим $t_i=d_i^2s_i$; тогда
+$\sum_js_j=\sum_jt_jd_j^{-2}\ge\min_it_i\cdot\sum_jd_j^{-2}$, то есть
+$d(\Lambda,\Gamma)^2\le\bigl(\sum_jd_j^{-2}\bigr)^{-1}$. Индекс $\Gamma$ в
+$\Lambda$ равен $\prod_ik_i$, и остаётся~\eqref{eq:crit}.
+\end{proof}
+
+Величина $d_i^{-2}$~--- \emph{цена} блока при бюджете $1$: ширина
+оказывается расходуемым ресурсом, а блоки могут иметь разный индекс.
+
+\begin{proof}[Доказательство теоремы~\ref{thm:bounds}]
+\emph{Блок $E_8$.} $\Gamma_1=(3+\omega)E_8$, индекс $7^4=2401$, по
+следствию~\ref{cor:widths} $d_1^2=7/6$, цена $6/7$.
+
+\emph{Плоский блок.} $\Lambda_2=\Z[\omega]\subset\CC$ (шестиугольная
+решётка, $\lambda_1=1$, $V_0=H_1$, $\diam^2V_0=4/3$),
+$\Gamma_2=(5+2\omega)\Z[\omega]$, индекс $N(5+2\omega)=25-10+4=19$. По
+теореме~\ref{thm:eis} $D(\Gamma_2)=2\dist\bigl((5+2\omega)/2,H_1\bigr)$;
+точка $(5+2\omega)/2=(2,\sqrt3/2)$ лежит в нормальном конусе вершины
+$(1/2,\,1/(2\sqrt3))$, квадрат расстояния равен $9/4+1/3=31/12$, так что
+$D(\Gamma_2)^2=31/3$, $d_2^2=(31/3)/(4/3)=31/4$, цена $4/31$.
+
+\emph{Одномерный блок.} $\Lambda_3=\Z$, $\Gamma_3=4\Z$: ячейка~--- отрезок
+длины $1$, ближайшие одноцветные ячейки $[-1/2,1/2]$ и $[7/2,9/2]$ удалены
+на $3$, так что $d_3=3$, цена $1/9$.
+
+\emph{Блок Лича.} $\Gamma_4=(3+\omega)\Lambda_{24}$, индекс $7^{12}$,
+$d_4^2=7/6$, цена $6/7$.
+
+Суммы цен: $6/7+4/31=214/217<1$ для пар $(E_8,\Lambda_2)$ и
+$(\Lambda_{24},\Lambda_2)$~--- размерности $10$ и $26$, индексы $2401\cdot19$
+и $7^{12}\cdot19$, ширина $\sqrt{217/214}$; $6/7+1/9=61/63<1$ для пар
+$(E_8,\Z)$ и $(\Lambda_{24},\Z)$~--- размерности $9$ и $25$, индексы
+$2401\cdot4$ и $7^{12}\cdot4$, ширина $\sqrt{63/61}$. Остаётся применить
+теорему~\ref{thm:prod}.
+\end{proof}
+
+\begin{remark}
+Блок $E_8/2401$ расходует $6/7$ бюджета, поэтому в произведении может быть
+лишь один такой блок, а второй блок обязан иметь $d\ge\sqrt7$.
+Одномерный блок из трёх цветов ($\Gamma=3\Z$, $d=2$) не проходит:
+$6/7+1/4>1$. Численный перебор плоских решёточных раскрасок показывает, что
+ширина $\sqrt7$ впервые достигается при индексе $19$.
+\end{remark}
+
+\section*{4. Пол индекса на фиксированной решётке}
+
+\begin{lemma}[инрадиусная граница]\label{lem:inr}
+$D(v)\le\|v\|-\lambda_1(\Lambda)$ при $\|v\|\ge\lambda_1(\Lambda)$.
+\end{lemma}
+
+\begin{proof}
+Шар радиуса $\lambda_1/2$ с центром в нуле содержится в $V_0$, поэтому
+$\dist(v/2,V_0)\le\|v\|/2-\lambda_1/2$; остаётся лемма~\ref{lem:mid}.
+\end{proof}
+
+\begin{proposition}[оболочечный пол]\label{prop:shell}
+Пусть $s^*>0$ таково, что $D(v)<\diam V_0$ для всех $v\in\Lambda\setminus\{0\}$
+с $\|v\|^2<s^*$. Если $\Gamma\subset\Lambda$ задаёт правильную раскраску, то
+\[
+[\Lambda:\Gamma]\ \ge\ \frac{(s^*)^{n/2}}{\gamma_n^{n/2}\det\Lambda},
+\]
+где $\gamma_n$~--- постоянная Эрмита.
+\end{proposition}
+
+\begin{proof}
+Правильность означает $D(v)\ge\diam V_0$ для всех $v\in\Gamma\setminus\{0\}$,
+поэтому $\lambda_1(\Gamma)^2\ge s^*$; по неравенству Эрмита
+$\lambda_1(\Gamma)^n\le\gamma_n^{n/2}\det\Gamma=\gamma_n^{n/2}[\Lambda:\Gamma]\det\Lambda$.
+\end{proof}
+
+По лемме~\ref{lem:inr} всегда годится $s^*=(\diam V_0+\lambda_1)^2$. Но нормы
+векторов решётки пробегают не континуум, а \emph{оболочки}; если первая
+оболочка выше этого порога запрещена целиком, $s^*$ поднимается скачком до
+следующей. Запрет оболочки удостоверяется одной строкой.
+
+\begin{lemma}[радиальный свидетель]\label{lem:rad}
+Пусть $\langle\Lambda,\Lambda\rangle\subseteq\frac1e\Z$, $\|v\|^2=N$, и
+рациональное $s\in(0,\frac12)$ таково, что для каждой оболочки
+$\|u\|^2=M<4s^2N$ выполнено
+$s\lfloor e\sqrt{NM}\rfloor/e\le M/2$. Тогда $sv\in V_0$ и
+$D(v)\le(1-2s)\sqrt N$.
+\end{lemma}
+
+\begin{proof}
+Надо проверить $s\langle v,u\rangle\le\|u\|^2/2$ для всех $u\in\Lambda$. При
+$M=\|u\|^2\ge4s^2N$ это следует из неравенства Коши--Буняковского:
+$s\langle v,u\rangle\le s\sqrt{NM}\le M/2$. При $M<4s^2N$ число
+$\langle v,u\rangle$ кратно $1/e$ и не превосходит $\sqrt{NM}$, то есть не
+превосходит $\lfloor e\sqrt{NM}\rfloor/e$, и работает условие леммы. Наконец,
+$D(v)=2\dist(v/2,V_0)\le2\|v/2-sv\|=(1-2s)\sqrt N$.
+\end{proof}
+
+\begin{proof}[Доказательство теоремы~\ref{thm:e8}]
+\emph{Решётка $E_8$:} $\lambda_1^2=2$, $R=1$, $\diam V_0=2$, $\det\Lambda=1$,
+$\langle\Lambda,\Lambda\rangle=\Z$, нормы чётны. Правильность требует по
+лемме~\ref{lem:inr} $\|v\|\ge2+\sqrt2$, то есть $\|v\|^2\ge6+4\sqrt2>11$,
+и ближайшая оболочка~--- $12$. Пусть $\|v\|^2=12$; применим
+лемму~\ref{lem:rad} с $e=1$, $s=1/4$: тогда $4s^2N=3$, отдельной проверки
+требует лишь оболочка $M=2$, где $\lfloor\sqrt{24}\rfloor=4$ и
+$\frac14\cdot4=1=M/2$. Значит, $D(v)\le\frac12\sqrt{12}=\sqrt3<2=\diam V_0$:
+оболочка $12$ запрещена целиком, $s^*=14$, и предложение~\ref{prop:shell} с
+$\gamma_8=2$ \cite{Blichfeldt} даёт $[\Lambda:\Gamma]\ge14^4/2^4=7^4=2401$.
+Для $\Gamma=(3+\omega)E_8$ индекс равен $2401$, а раскраска правильна по
+следствию~\ref{cor:widths}.
+
+\emph{Решётка $A_3^*$} (ОЦК: $\Z^3\cup(\Z^3+(\frac12,\frac12,\frac12))$):
+$\lambda_1^2=3/4$, $R^2=5/16$, $\det\Lambda=1/2$,
+$\langle\Lambda,\Lambda\rangle\subseteq\frac14\Z$. Лемма~\ref{lem:inr} даёт
+$\|v\|^2\ge(2R+\lambda_1)^2=2+\sqrt{15}/2>3{,}93$; нормы ОЦК~--- целые числа
+и числа вида (сумма трёх нечётных квадратов)$/4$, так что в промежутке
+$[3{,}93;\,5]$ лежат оболочки $4$, $19/4$, $5$. Для $\|v\|^2=4$ лемма~\ref{lem:rad} с
+$e=4$, $s=1/4$: $4s^2N=1$, отдельно проверяется $M=3/4$, где
+$\lfloor4\sqrt3\rfloor/4=3/2$ и $\frac14\cdot\frac32=\frac38=M/2$; значит,
+$D(v)\le\frac12\cdot2=1<\sqrt5/2=\diam V_0$, и $s^*=19/4$. Предложение~\ref{prop:shell}
+с $\gamma_3^{3/2}=\sqrt2$ \cite{ConwaySloane} даёт
+$[\Lambda:\Gamma]^2\ge(19/4)^3\cdot2=6859/32>214$, то есть
+$[\Lambda:\Gamma]\ge15$.
+\end{proof}
+
+Для ОЦК граница $15$ известна из общей теоремы Кулсона~\cite{Coulson}; новое
+здесь~--- вывод из одного лишь спектра норм, который для $E_8$ даёт $2401$
+вместо $511$. Тем же приёмом получаются полы $305$ на $E_6^*$ (рекорд $343$)
+и $5\,688\,009\,064$ на решётке Лича (рекорд $7^{12}$; используется
+$\gamma_{24}=4$~\cite{CohnKumar}). Отметим, что на решётках общего положения,
+где нормы почти непрерывны, оболочечный пол не даёт выигрыша: минимальность
+индекса на них остаётся открытым вопросом.
+
+Программы, воспроизводящие численный контроль всех утверждений (в том
+числе перебор всех векторов подрешёток в доказуемо полных окнах), открыты.\footnote{\texttt{https://github.com/ivaleo/Chromatic}}
+
+\section*{ИСТОЧНИК ФИНАНСИРОВАНИЯ}
+
+Работа выполнена без финансовой поддержки.
+
+\section*{КОНФЛИКТ ИНТЕРЕСОВ}
+
+Авторы заявляют об отсутствии конфликта интересов.
+
+\begin{thebibliography}{99}
+
+\bibitem{Soifer}
+\textit{Soifer A.}
+The Mathematical Coloring Book. New York: Springer, 2009. 607~p.
+
+\bibitem{deGrey}
+\textit{de Grey A.\,D.\,N.\,J.}
+The chromatic number of the plane is at least 5 //
+Geombinatorics. 2018. V.~28. №~1. P.~18--31.
+
+\bibitem{Ivanov2011}
+\textit{Иванов Л.\,Л.}
+О хроматических числах $\R^2$ и $\R^3$ с интервалами запрещённых
+расстояний // Вестник РУДН. Сер. Математика. Информатика. Физика. 2011.
+№~1. С.~14--29.
+
+\bibitem{ABPR}
+\textit{Arman A., Bondarenko A., Prymak A., Radchenko D.}
+Upper bounds on chromatic number of $\mathbb E^n$ in low dimensions //
+Electron. J. Combin. 2024. V.~31. №~2. P2.35.
+https://doi.org/10.37236/11440
+
+\bibitem{ConwaySloane}
+\textit{Conway J.\,H., Sloane N.\,J.\,A.}
+Sphere Packings, Lattices and Groups. 3rd ed. New York: Springer, 1999.
+703~p.
+
+\bibitem{Coulson}
+\textit{Coulson D.}
+A 15-colouring of 3-space omitting distance one //
+Discrete Math. 2002. V.~256. P.~83--90.
+
+\bibitem{Blichfeldt}
+\textit{Blichfeldt H.\,F.}
+The minimum values of positive quadratic forms in six, seven and eight
+variables // Math. Z. 1935. V.~39. P.~1--15.
+
+\bibitem{CohnKumar}
+\textit{Cohn H., Kumar A.}
+Optimality and uniqueness of the Leech lattice among lattices //
+Ann. of Math. (2). 2009. V.~170. №~3. P.~1003--1050.
+
+\end{thebibliography}
+
+\renewcommand\refname{References}
+
+\begin{thebibliography}{99}
+
+\bibitem{Soifer_e}
+\textit{Soifer A.}
+The Mathematical Coloring Book. New York: Springer, 2009. 607~p.
+
+\bibitem{deGrey_e}
+\textit{de Grey A.\,D.\,N.\,J.}
+The chromatic number of the plane is at least 5 //
+Geombinatorics. 2018. V.~28. No.~1. P.~18--31.
+
+\bibitem{Ivanov2011_e}
+\textit{Ivanov L.\,L.}
+On the chromatic numbers of $\R^2$ and $\R^3$ with intervals of forbidden
+distances // Bulletin of PFUR. Ser. Mathematics. Information Sciences.
+Physics. 2011. No.~1. P.~14--29. (In Russian.)
+
+\bibitem{ABPR_e}
+\textit{Arman A., Bondarenko A., Prymak A., Radchenko D.}
+Upper bounds on chromatic number of $\mathbb E^n$ in low dimensions //
+Electron. J. Combin. 2024. V.~31. No.~2. P2.35.
+https://doi.org/10.37236/11440
+
+\bibitem{ConwaySloane_e}
+\textit{Conway J.\,H., Sloane N.\,J.\,A.}
+Sphere Packings, Lattices and Groups. 3rd ed. New York: Springer, 1999.
+703~p.
+
+\bibitem{Coulson_e}
+\textit{Coulson D.}
+A 15-colouring of 3-space omitting distance one //
+Discrete Math. 2002. V.~256. P.~83--90.
+
+\bibitem{Blichfeldt_e}
+\textit{Blichfeldt H.\,F.}
+The minimum values of positive quadratic forms in six, seven and eight
+variables // Math. Z. 1935. V.~39. P.~1--15.
+
+\bibitem{CohnKumar_e}
+\textit{Cohn H., Kumar A.}
+Optimality and uniqueness of the Leech lattice among lattices //
+Ann. of Math. (2). 2009. V.~170. No.~3. P.~1003--1050.
+
+\end{thebibliography}
+
+\end{document}
