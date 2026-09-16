@@ -4,4 +4,4 @@
   7+8#s3 [7, 8]: 0.829253 → 0.869860 (финал 0.869860, 86.3s)
   6+9#s3 [6, 9]: 0.826251 → 0.860678 (финал 0.860678, 91.8s)
   6+9#s7 [6, 9]: 0.825567 → 0.848137 (финал 0.848137, 76.9s)
-→ /Users/mac/Documents/_My_code/Chromatic/audit-data/pseudolattice_20260807/results/msv_E2_k15_polished.json
+→ audit-data/pseudolattice_20260807/results/msv_E2_k15_polished.json

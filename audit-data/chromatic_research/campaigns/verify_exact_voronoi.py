@@ -32,6 +32,7 @@ from typing import Sequence
 import numpy as np
 from scipy.optimize import linprog
 from sympy import Matrix, Rational
+from chromatic_research.paths import portable
 
 
 def fraction_text(value: Rational | int) -> str:
@@ -608,7 +609,7 @@ def main(argv: Sequence[str] | None = None) -> int:
             "exact parity classes + exact one-skeleton traversal + "
             "exact short-vector/KKT audit"
         ),
-        "source_certificate": str(args.certificate),
+        "source_certificate": portable(args.certificate),
         "diagnostic_mode": bool(args.diagnostic),
         "diagnostic_status": (
             "valid-certificate" if interval_valid else "invalid-candidate"

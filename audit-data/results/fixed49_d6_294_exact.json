@@ -2,7 +2,7 @@
   "method": "complete enumeration of every mod-2/mod-3 continuation after fixing two source mod-7 characters",
   "lattice": "E6*",
   "n": 6,
-  "source_certificate": "/Users/mac/Documents/_My_code/Chromatic/audit-data/hd-2026-07/interval_fast_results.json",
+  "source_certificate": "audit-data/hd-2026-07/interval_fast_results.json",
   "source_rows": [
     [
       2,

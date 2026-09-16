@@ -5,25 +5,46 @@
 **Численно** (кусочный сертификат диаметра в плавающей точке, статус [Ч]):
 χ(ℝ¹⁰) ≤ 28812.
 
-Набор из трёх взаимосвязанных проектов для исследования верхних оценок
-хроматического числа евклидова пространства с запрещённым интервалом
-расстояний (методология Л.Л. Иванова): пространство раскрашивается периодически
-по подрешётке Γ ⊂ Λ, число цветов k = [Λ:Γ] = |det(M)|, а корректность
-раскраски определяется нормированным запрещённым расстоянием d = D/diam(V₀) ≥ 1.
+Авторы: Л. Л. Иванов, Н. В. Глушкова (распределение вкладов — [CONTRIBUTIONS.md](CONTRIBUTIONS.md)).
+
+Исследование верхних оценок хроматического числа евклидова пространства с
+запрещённым интервалом расстояний (методология Л.Л. Иванова): пространство
+раскрашивается периодически по подрешётке Γ ⊂ Λ, число цветов
+k = [Λ:Γ] = |det(M)|, а корректность раскраски определяется нормированным
+запрещённым расстоянием d = D/diam(V₀) ≥ 1. Репозиторий содержит статьи,
+вычислительные пакеты, точные сертификаты и журнал работы:
 
 ```
 Chromatic/
-├── voronoi/     — python-пакет voronoi4d (эталонная реализация, размерность 4)
-├── combigeo/    — C++ ядро + python-модуль (pybind11), размерности 2…6
-└── chromatic/   — над-проект: единый фасад над обоими бэкендами
+├── paper/            — статьи и краткие сообщения (см. «Что читать» ниже), рисунки
+├── audit-data/       — пакет chromatic_research: кампании, опорные данные и
+│                       сертификаты (results/), сырые выгрузки (runs/), тесты
+├── voronoi/          — python-пакет voronoi4d (эталонная реализация, размерность 4)
+├── combigeo/         — C++ ядро + python-модуль (pybind11)
+├── chromatic/        — фасад над voronoi4d и combigeo
+├── articles/         — первоисточник Q-поиска (Qpoisk.c) и ссылки на предшествующие статьи
+├── journal/          — датированные аудиты, планы, ревью и разборы литературы
+├── RESULTS.md        — хроника кампаний со статусами
+├── CONTRIBUTIONS.md  — учёт вкладов авторов
+└── Makefile          — install · test · lint · figures · paper · clean
 ```
+
+## Что читать
+
+| Нужно | Документ |
+|---|---|
+| Пять доказанных оценок с протоколом проверки | статья 1 — [`paper/article1/bounds.pdf`](paper/article1/bounds.pdf) (16 стр.); по-английски — [`paper/arxiv-en/bounds-en.pdf`](paper/arxiv-en/bounds-en.pdf) (8 стр., первой идёт на arXiv) |
+| Метод и его границы: тождество, лестницы ширин, экраны, мозаики | статья 2 — [`paper/article2/widths.pdf`](paper/article2/widths.pdf) |
+| Краткое сообщение | [`paper/note-dan/dan.pdf`](paper/note-dan/dan.pdf) — для «Докладов РАН» |
+| Всё подробно: алгоритмы, кампании, отрицательные экраны | полная рукопись [`paper/chi4-43.pdf`](paper/chi4-43.pdf) (69 стр., электронное дополнение) |
+| Перепроверить пять оценок | `python -m chromatic_research.campaigns.verify_main_results` (из `audit-data/`) |
 
 ## Статья и результаты
 
-Основной итог исследования — статья **[`paper/chi4-43.tex`](paper/chi4-43.tex)**
-(собирается в `paper/chi4-43.pdf`, иллюстрации строит `paper/figures.py`).
-С 03.09.2026 это **полная версия (электронное дополнение)**; для публикации
-из неё выделены три коротких документа (план и ревью —
+Полная рукопись **[`paper/chi4-43.tex`](paper/chi4-43.tex)** (собирается в
+`paper/chi4-43.pdf`, иллюстрации строит `paper/figures.py`) с 03.09.2026 играет
+роль **электронного дополнения**; для публикации из неё выделены самостоятельные
+документы (план и ревью —
 [`journal/PLAN-2026-09-03-paper-split.md`](journal/PLAN-2026-09-03-paper-split.md),
 [`journal/REVIEW-2026-09-03-split-proposals.md`](journal/REVIEW-2026-09-03-split-proposals.md)):
 
@@ -36,7 +57,11 @@ Chromatic/
 - **краткое сообщение**:
   все пять оценок на страницах шаблона — явные конструкции 43/132/1029/7203
   с точными инвариантами и продуктовое правило для 45619; двухстраничный
-  вариант без 45619.
+  вариант без 45619;
+- **сообщение для Докладов РАН** — [`paper/note-dan/dan.tex`](paper/note-dan/dan.tex):
+  та же короткая статья для альтернативной площадки (5 стр.);
+- **английская версия для arXiv** — [`paper/arxiv-en/bounds-en.tex`](paper/arxiv-en/bounds-en.tex):
+  все пять оценок с данными сертификатов (8 стр.).
 
 Пять заголовочных утверждений перепроверяются одной командой из `audit-data/`:
 `python -m chromatic_research.campaigns.verify_main_results` (флаг `--full`
@@ -163,18 +188,20 @@ Chromatic/
   максимальна; статус **[Э]**);
   экраны ближайших индексов в ℝ⁵–ℝ⁹.
 
-Скрипты и данные экспериментов больших размерностей —
-**[`audit-data/`](audit-data/README-dim5-9.md)** (с README, где
-для каждого эксперимента указан результат и раздел статьи). Ранние аудит, план и
-отчёт перенесены в [`journal/`](journal/) (предшествуют результату χ(ℝ⁴) ≤ 43).
+Скрипты, данные и сертификаты — **[`audit-data/`](audit-data/README.md)**;
+эксперименты больших размерностей описаны отдельно в
+[`audit-data/README-dim5-9.md`](audit-data/README-dim5-9.md) (для каждого
+указан результат и раздел статьи). Ранние аудит, план и отчёт — в
+[`journal/`](journal/) (предшествуют результату χ(ℝ⁴) ≤ 43).
 
-## Три проекта
+## Пакеты
 
 | Проект | Что это | Размерность | Документация |
 |---|---|---|---|
 | **voronoi/** | Пакет `voronoi4d` на чистом python (numpy/scipy/sympy). Эталон, на котором отлажен алгоритм. | только 4 | [voronoi/README.md](voronoi/README.md), [voronoi/docs/USAGE.md](voronoi/docs/USAGE.md) |
-| **combigeo/** | Быстрое ядро на C++17 + python-обёртка. Геометрия любой размерности (GJK, теорема Вороного); модуль `bigdim` (min‑conflicts, запрещённое множество через опорные полупространства, безвершинный радиус покрытия) работает до ℝ⁹. Без внешних зависимостей кроме pybind11. | 2…6 полностью; поиск раскрасок до 7–9 | [combigeo/README.md](combigeo/README.md), [combigeo/docs/USAGE.md](combigeo/docs/USAGE.md) |
+| **combigeo/** | Быстрое ядро на C++17 + python-обёртка. Геометрия любой размерности (GJK, теорема Вороного); модуль `bigdim` (min‑conflicts, запрещённое множество через опорные полупространства, безвершинный радиус покрытия) работает до ℝ⁹. Без внешних зависимостей кроме pybind11. | ячейка с вершинами — 2…5 (6 — для специальных решёток); поиск раскрасок до 7–9 | [combigeo/README.md](combigeo/README.md), [combigeo/docs/USAGE.md](combigeo/docs/USAGE.md) |
 | **chromatic/** | Над-проект: единый python-API с явным выбором бэкенда и кросс-валидацией. | по бэкенду | [chromatic/README.md](chromatic/README.md), [chromatic/docs/USAGE.md](chromatic/docs/USAGE.md) |
+| **audit-data/** | Исследовательский пакет `chromatic_research` (не путать с фасадом `chromatic`): кампании поиска, точные верификаторы, опорные данные статьи. | 2…26 | [audit-data/README.md](audit-data/README.md) |
 
 ## С чего начать
 
@@ -201,10 +228,16 @@ python3 -m venv .venv && source .venv/bin/activate
 pip install -e voronoi                 # voronoi4d (+ numpy, scipy, sympy)
 pip install ./combigeo                 # combigeo (нужен компилятор C++; pybind11 подтянется)
 pip install -e 'chromatic[dev]'        # фасад + pytest (кавычки обязательны в zsh)
+pip install -e 'audit-data[solvers]'   # chromatic_research: кампании и верификаторы
 
 python -c "import chromatic; print(chromatic.available_backends())"
 # ['combigeo', 'voronoi4d']
 ```
+
+То же одной командой — `make install`. Дальше: `make test` (все тесты
+монорепо), `make lint` (ruff), `make figures` (рисунки статьи из данных),
+`make paper` (все PDF), `make clean`. Те же тесты и ruff гоняет CI
+(`.github/workflows/ci.yml`) на каждый push.
 
 > Для быстрого LLL в voronoi4d опционально: `pip install -e voronoi[fast]` (fpylll).
 
@@ -219,7 +252,7 @@ python -c "import chromatic; print(chromatic.available_backends())"
 
 ## Теория (кратко)
 
-Подробное обоснование — в [voronoi/docs/article.tex](voronoi/docs/article.tex).
+Полное изложение — в [`paper/`](paper/README.md); ранний текст с обоснованием метода (22.07.2026) — [voronoi/docs/article.tex](voronoi/docs/article.tex).
 
 - Решётка Λ задаёт периодическое разбиение ℝⁿ на ячейки Вороного.
 - Подрешётка Γ индекса k разбивает Λ на k классов смежности — k цветов.
@@ -229,7 +262,7 @@ python -c "import chromatic; print(chromatic.available_backends())"
 
 ## Результаты и воспроизведение
 
-Актуальный источник результатов — статья [`paper/chi4-43.tex`](paper/chi4-43.tex).
+Актуальный источник результатов — статьи в [`paper/`](paper/README.md) (доказанные оценки — статья 1, всё подробно — полная рукопись `chi4-43`).
 Все три пакета — версия **1.1.0**.
 
 - [audit-data/](audit-data/README.md) — скрипты воспроизведения и сырые

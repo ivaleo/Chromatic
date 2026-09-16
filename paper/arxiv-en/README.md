@@ -64,8 +64,10 @@ of the 54 minimal vectors of E₆*), which is how this text states it.
 ## Relation to the other documents
 
 The Russian articles remain the detailed versions (search algorithms,
-ladders, screens, tilings); the short note carries the four certificates only,
-the Doklady note (`../note-dan`) the analytic part only. This text
+ladders, screens, tilings); the short note announces
+all five bounds, and the
+Doklady note (`../note-dan`) is the same short paper prepared for the
+alternative venue. This text
 overlaps with both by design — arXiv is a preprint server, not a journal —
 but the authors should check the preprint policy of the target journals
 before posting (Doklady: `../note-dan/README.md`, last item).

@@ -2,7 +2,7 @@ from pybind11.setup_helpers import Pybind11Extension, build_ext
 from setuptools import setup
 
 # в модуль компилируется ВСЁ ядро + обёртка (прежняя сборка включала только
-# wrapper.cpp и давала .so без реализации — см. legacy/)
+# wrapper.cpp и давала .so без реализации)
 sources = [
     "src/linalg.cpp",
     "src/lll.cpp",

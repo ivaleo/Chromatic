@@ -20,6 +20,9 @@
 | `tests/` | Тесты; `make test` гоняет их вместе с остальными. |
 | `results/` | Опорные данные (205 файлов): на них ссылаются статья, README и тесты. |
 | `runs/` | Сырые выгрузки прогонов (542 файла, gzip); см. [`runs/MANIFEST.md`](runs/MANIFEST.md). |
+| `pseudolattice_20260807/` | Замороженный снимок сессии 07–08.08.2026 (псевдо-решётчатые и кластерные раскраски, МСВ-метод): свои скрипты, логи, результаты и README; в пакет не входит, тесты — `test_sanity.py` внутри. |
+| `README-dim5-9.md` | Хроника экспериментов в размерностях n ≥ 5 (статусы — на дату записи). |
+| `NEXT_MECHANISM.md` | Архивный план механизма поиска для ℝ⁵–ℝ⁹ (до 07.09.2026). |
 
 ## Запуск
 
@@ -64,7 +67,22 @@ python -m chromatic_research.campaigns.<имя> [аргументы]
 **Зависимости рисунков статьи** (`../paper/figures.py` читает их напрямую):
 `campaign_a.json`, `campaign_c.json`, `n2_4d_frontier.json`, `n5_cascade.json`,
 `n4_push46.json`, `n6_push45.json`, `r5_push48.json`, `n8_cma44_ladder.json`,
-`n7_push44.json`, `n10_push44.json`.
+`n7_push44.json`, `n10_push44.json`, `dim4_below43_general.json`,
+`dim4_below43_screen.json`, `dim4_k43_optimum.json`, `dim4_symmetry_atlas.json`,
+`ladder2d.json`, `layer_shells.json`.
+
+**Файлы без генератора в пакете.** Получены в сессиях до переноса кода в
+`chromatic_research` или записаны вручную из разовых прогонов; оставлены как
+данные, а не как воспроизводимый вывод:
+`layer_shells.json` (рисунок плотности оболочек, 07.08.2026),
+`semilattice_room.json` и `semilattice_ladder2d.json` (полурешётчатые раскраски,
+08.08.2026; читают тесты), `r3_best_consolidated.json` и `o2_r3_widths.json`
+(3D-интервалы, до 05.08.2026), `dim9_laminate_m4_candidate.json` (кандидат 9604, 06.08.2026),
+`dim9_7203_rational.json` и `dim7_piecewise_certificate.json` (кампания
+07.08.2026; второй — ранняя версия
+`dim7_laminate_m3_t1.00_verified_piecewise.json` без полей `sound` и
+`qhull_failures`), `rank2_eisenstein_optimum.json` (07.08.2026),
+`dim4_k43_first_verify.json` (первая проверка решётки 43, 23.08.2026).
 
 ## Разведочные скрипты (по темам)
 
@@ -102,7 +120,7 @@ python -m chromatic_research.campaigns.<имя> [аргументы]
 - **Верификация констант ABPR/Иванова:** `verify_a5s.py`, `verify_e6s.py`,
   `verify_e8.py`, `verify2.py` (+ `verify2_results.json`), `sweep.py`
   (+ `sweep_results.json`).
-- **Кампании 4D/3D:** `campaign_a..d.py` (+ json), `campaign_b_witnesses.json`.
+- **Кампании 4D/3D:** `campaign_a..d.py` (json — у `a`, `b`, `c`), `campaign_b_witnesses.json`.
 - **Спуск χ(ℝ⁴) 49→45:** `n4_push46.py`, `n6_push45.py`, `n7_push44.py`,
   `n5_cascade.py`, `n5p_cascade.py`, `joint.py`, `joint_optimize.py`,
   `r1_r3_refine.py`, `r2_cone48.py`, `r5_push48.py` (+ соответствующие json).
@@ -126,6 +144,12 @@ python -m chromatic_research.campaigns.<имя> [аргументы]
   в `runs/`. Нового рекорда не получено;
   полный разбор и следующий механизм — в
   `README-dim5-9.md` и `NEXT_MECHANISM.md`.
+- **Отдельные поисковые модули:** `a9_replace71_campaign.py` (ядро A₉*/17253 с
+  заменой множителя 71 → 70 при замороженных F₃-характерах; итоги — в
+  `README-dim5-9.md`), `d6_cyclic_transversal_search.py` (совместный HiGHS-поиск
+  произвольных трансверсальных блоков в циклическом факторе, ℝ⁶),
+  `power_search.py` (степенные мозаики против решёточных раскрасок; его
+  использует `dim4_tiling_below43.py`).
 
 ## Как воспроизвести
 

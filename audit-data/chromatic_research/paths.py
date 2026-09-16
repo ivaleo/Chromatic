@@ -14,6 +14,7 @@ from pathlib import Path
 AUDIT_DIR = Path(__file__).resolve().parents[1]
 RESULTS_DIR = AUDIT_DIR / "results"
 RUNS_DIR = AUDIT_DIR / "runs"
+REPO_DIR = AUDIT_DIR.parent
 
 
 def results_path(name: str) -> Path:
@@ -26,6 +27,15 @@ def runs_path(name: str) -> Path:
     """Path for writing a raw campaign artifact; creates the directory if needed."""
     RUNS_DIR.mkdir(parents=True, exist_ok=True)
     return RUNS_DIR / name
+
+
+def portable(path) -> str:
+    """Path as recorded in an artifact: relative to the checkout when inside it, never machine-specific."""
+    resolved = Path(path).resolve()
+    try:
+        return str(resolved.relative_to(REPO_DIR))
+    except ValueError:
+        return str(path)
 
 
 def find_artifact(name: str) -> Path:

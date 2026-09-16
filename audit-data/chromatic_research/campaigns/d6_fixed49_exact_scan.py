@@ -37,7 +37,7 @@ from chromatic_research.core.block_row_metric_opt import candidate_record
 from chromatic_research.campaigns.d6_fixed7_campaign import DEFAULT_SOURCE, load_e6_source_rows
 from chromatic_research.core.prime_radon import load_forbidden, projective_forms
 from chromatic_research.core.prime_row_opt import _forbidden_with_weights
-from chromatic_research.paths import results_path
+from chromatic_research.paths import portable, results_path
 
 
 HERE = Path(__file__).resolve().parent
@@ -136,7 +136,7 @@ def main(argv: Sequence[str] | None = None) -> int:
         ),
         "lattice": "E6*",
         "n": 6,
-        "source_certificate": str(args.source),
+        "source_certificate": portable(args.source),
         "source_rows": [row.astype(int).tolist() for row in source_rows],
         "target_index": 294,
         "moduli": [7, 7, 2, 3],

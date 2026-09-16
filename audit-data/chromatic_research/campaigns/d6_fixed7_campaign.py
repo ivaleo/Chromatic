@@ -53,7 +53,7 @@ from chromatic_research.core.prime_radon import (
     weighted_improves,
 )
 from chromatic_research.core.prime_row_opt import _forbidden_with_weights
-from chromatic_research.paths import results_path
+from chromatic_research.paths import portable, results_path
 
 
 HERE = Path(__file__).resolve().parent
@@ -578,7 +578,7 @@ def main(argv: Sequence[str] | None = None) -> int:
         "lattice": "E6*",
         "n": 6,
         "dimension": 6,
-        "source_certificate": str(args.source),
+        "source_certificate": portable(args.source),
         "source_index": 343,
         "source_moduli": [7, 7, 7],
         "source_rows": [row.astype(int).tolist() for row in source_rows],
