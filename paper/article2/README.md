@@ -22,8 +22,8 @@
 | `sections/discussion.tex` | Четыре открытых вопроса, вклад авторов и использование ИИ. |
 
 Рисунки берутся из `../` (`fig_eisenstein`, `fig_staircase`, `fig_budget`,
-`fig_spacer`, `fig_shells`). Статья 1 — [`../article1/`](../article1/),
-полная версия (электронное дополнение) — [`../chi4-43.tex`](../chi4-43.tex).
+`fig_spacer`, `fig_shells`). Статья 1 — [`../article1/`](../article1/);
+программы, журналы кампаний и сертификаты — в репозитории (`\cite{Repo}`).
 
 ## Сборка
 

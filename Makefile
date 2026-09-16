@@ -8,7 +8,7 @@ help:
 	@echo "test     — все тесты монорепо"
 	@echo "lint     — ruff по коду"
 	@echo "figures  — пересобрать рисунки статьи из данных"
-	@echo "paper    — собрать все PDF: полную рукопись, статьи 1–2, сообщение для Докладов, английскую версию"
+	@echo "paper    — собрать все PDF: статьи 1–2, сообщение для Докладов, английскую версию"
 	@echo "clean    — убрать артефакты сборки (кроме .venv)"
 
 install:
@@ -28,7 +28,6 @@ figures:
 	$(PY) paper/figures.py
 
 paper:
-	cd paper && latexmk -pdf chi4-43.tex
 	cd paper/article1 && latexmk -pdf bounds.tex
 	cd paper/article2 && latexmk -pdf widths.tex
 	cd paper/note-dan && latexmk -pdf dan.tex
@@ -40,7 +39,6 @@ clean:
 	find . -path ./.venv -prune -o \( -name '*.egg-info' -type d -prune -exec rm -rf {} + \)
 	rm -f combigeo/src/*.so
 	find . -path ./.venv -prune -o -name .DS_Store -type f -exec rm -f {} +
-	cd paper && latexmk -c chi4-43.tex || true
 	cd paper/article1 && latexmk -c bounds.tex || true
 	cd paper/article2 && latexmk -c widths.tex || true
 	cd paper/note-dan && latexmk -c dan.tex || true

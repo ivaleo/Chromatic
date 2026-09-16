@@ -65,11 +65,7 @@ python -m chromatic_research.campaigns.<имя> [аргументы]
 | `results/dim6_cyclotomic7_337.json` | Закрытое циклотомическое семейство ℤ[ζ₇] при k = 337: max d = 0.8278 по всему двупараметрическому семейству. |
 
 **Зависимости рисунков статьи** (`../paper/figures.py` читает их напрямую):
-`campaign_a.json`, `campaign_c.json`, `n2_4d_frontier.json`, `n5_cascade.json`,
-`n4_push46.json`, `n6_push45.json`, `r5_push48.json`, `n8_cma44_ladder.json`,
-`n7_push44.json`, `n10_push44.json`, `dim4_below43_general.json`,
-`dim4_below43_screen.json`, `dim4_k43_optimum.json`, `dim4_symmetry_atlas.json`,
-`ladder2d.json`, `layer_shells.json`.
+`campaign_a.json`, `campaign_c.json`, `ladder2d.json`, `layer_shells.json`.
 
 **Файлы без генератора в пакете.** Получены в сессиях до переноса кода в
 `chromatic_research` или записаны вручную из разовых прогонов; оставлены как

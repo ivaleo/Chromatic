@@ -57,9 +57,8 @@ of the 54 minimal vectors of E₆*), which is how this text states it.
 - **Comments:** 9 pages. Code, exact certificates and data:
   https://github.com/ivaleo/Chromatic
 - **License:** arXiv non-exclusive license v1.0.
-- Account, endorsement and the checklist: `../arxiv-metadata.md` (items
-  1–3, 5–7 apply verbatim; the tarball is the single file `bounds-en.tex`,
-  no figures).
+- Account, endorsement and the checklist: `../arxiv-metadata.md` (all items
+  apply).
 
 ## Relation to the other documents
 

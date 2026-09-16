@@ -1,10 +1,13 @@
 """Заголовочные числа документации совпадают с артефактами results/*.json.
 
-Документация (README, RESULTS, статья) трижды расходилась с артефактами за
+Документация (README, RESULTS, статьи) трижды расходилась с артефактами за
 два дня ревью 08.08.2026: статусы таблицы результатов, лестница ℝ⁹ в README,
 несинхронизированный сертификат 28812. Этот тест закрепляет: каждое
 заголовочное число берётся из своего json-артефакта и обязано присутствовать
 в производных документах; устаревшие паттерны — отсутствовать.
+
+С 16.09.2026 полной рукописи в репозитории нет: проверки текста идут по
+статьям 1 (paper/article1) и 2 (paper/article2).
 """
 
 import json
@@ -19,16 +22,28 @@ RESULTS_DIR = Path(__file__).resolve().parents[1] / "results"
 
 README = (ROOT / "README.md").read_text()
 RESULTS = (ROOT / "RESULTS.md").read_text()
-INTRO = (ROOT / "paper" / "sections" / "intro.tex").read_text()
-PRODUCT = (ROOT / "paper" / "sections" / "product.tex").read_text()
-TILINGS = (ROOT / "paper" / "sections" / "tilings.tex").read_text()
-SECTIONS = {
-    p.name: p.read_text() for p in (ROOT / "paper" / "sections").glob("*.tex")
+A1 = ROOT / "paper" / "article1"
+A2 = ROOT / "paper" / "article2"
+ARTICLES = {
+    p.relative_to(ROOT / "paper").as_posix(): p.read_text()
+    for d in (A1, A2) for p in sorted(d.rglob("*.tex"))
 }
+A1_MAIN = ARTICLES["article1/bounds.tex"]
+A2_MAIN = ARTICLES["article2/widths.tex"]
+A1_INTRO = ARTICLES["article1/sections/intro.tex"]
+A2_INTRO = ARTICLES["article2/sections/intro.tex"]
+
+
+def _sec(name):
+    return ARTICLES[name]
+
+
+def _flat(text):
+    return " ".join(text.split())
 
 
 def test_no_known_typos_in_paper():
-    for name, text in SECTIONS.items():
+    for name, text in ARTICLES.items():
         assert "частасти" not in text, f"опечатка «частасти» в {name}"
 
 
@@ -42,8 +57,9 @@ def test_dim10_certificate_is_reflected_everywhere():
     d6 = f"{best['d_certified']:.6f}"          # 1.043297
     d4 = f"{best['d_certified']:.4f}"          # 1.0433
     assert "28812" in README and d4 in README
-    assert "28812" in INTRO
-    assert "28812" in PRODUCT and d6.replace(".", "{,}") in PRODUCT
+    assert "28812" in A2_INTRO
+    lam = _sec("article2/sections/lamination.tex")
+    assert "28812" in lam and d6.replace(".", "{,}") in lam
     assert "28812" in RESULTS and d6 in RESULTS
 
 
@@ -54,8 +70,9 @@ def test_stale_r9_ladder_is_gone():
 
 
 def test_semilattice_certificates_are_reflected():
-    for n, doc_hits in ((8, (TILINGS, RESULTS, README)),
-                        (15, (TILINGS, RESULTS, README))):
+    tilings = _sec("article2/sections/tilings.tex")
+    for n, doc_hits in ((8, (tilings, RESULTS, README)),
+                        (15, (tilings, RESULTS, README))):
         cert = json.loads(
             (RESULTS_DIR / f"semilattice_cert_N{n}.json").read_text())
         assert cert["N"] == n and cert["tiling_exact"]
@@ -77,23 +94,23 @@ def test_intro_headline_carries_only_proven_bounds():
     явной меткой. С 22.08.2026 сюда входит 1029 (thm:r7ex, сменил 1323), с
     07.09.2026 — 7203 (ssec:7203, сменил 9604).
     """
-    MAIN = (ROOT / "paper" / "chi4-43.tex").read_text()
     proven = ("43", "132", "1029", "7203", "45619")
     numeric = ("28812",)
-    # таблица §1.2: полужирным — доказанные, численные без \mathbf
+    # таблица известных оценок статьи 1: полужирным — доказанные
     for k in proven:
-        assert rf"\mathbf{{{k}}}" in INTRO, f"{k} не выделено в таблице §1.2"
+        assert rf"\mathbf{{{k}}}" in A1_INTRO, f"{k} не выделено в таблице статьи 1"
     for k in numeric:
-        assert rf"\mathbf{{{k}}}" not in INTRO, (
-            f"{k} выделено как доказанная оценка — статус [Ч]")
-    # заголовок статьи: пять доказанных величин и ни одной численной
-    title = MAIN[MAIN.index(r"\title{"):MAIN.index(r"\author{")]
+        for intro in (A1_INTRO, A2_INTRO):
+            assert rf"\mathbf{{{k}}}" not in intro, (
+                f"{k} выделено как доказанная оценка — статус [Ч]")
+    # заголовок статьи 1: пять доказанных величин и ни одной численной
+    title = A1_MAIN[A1_MAIN.index(r"\title{"):A1_MAIN.index(r"\author{")]
     for k in proven:
         assert rf"\le{k}$" in title, f"{k} отсутствует в заголовке"
     for k in numeric:
         assert rf"\le{k}$" not in title, f"{k} (статус [Ч]) стоит в заголовке"
-    # каждая численная оценка сопровождается меткой в тексте
-    assert r"\stN" in INTRO and "повышенной пробы" in INTRO
+    # численные кандидаты статьи 2 помечены меткой [Ч]
+    assert r"\stN" in A2_INTRO and "численный кандидат" in A2_INTRO
 
 
 def test_proven_r9_step_is_documented():
@@ -103,8 +120,9 @@ def test_proven_r9_step_is_documented():
     вытеснено точным сертификатом на 7203 (меньше цветов, шире отрезок), но
     из статьи не убрано — это самый короткий путь в R^9 ниже прежней 17253.
     """
-    assert r"\label{cor:dim9}" in PRODUCT
-    assert "61/63" in PRODUCT and r"\sqrt{63/61}" in PRODUCT
+    product = _sec("article1/sections/product.tex")
+    assert r"\label{cor:dim9}" in product
+    assert "61/63" in product and r"\sqrt{63/61}" in product
     assert "9604" in README and "9604" in RESULTS
     assert "7203" in README and "7203" in RESULTS
 
@@ -116,12 +134,13 @@ def test_interval_certificates_match_paper_claims():
     содержали 36/70 (окно 4R вместо 2(1+ell)R) и у ℝ⁷ не было
     certified_interval. Тест закрепляет согласованность после перегенерации.
     """
-    dim57 = " ".join((ROOT / "paper" / "sections" / "dim57.tex").read_text().split())
-    for name, count, ell, extra in (
+    constructions = _flat(_sec("article1/sections/constructions.tex"))
+    for name, count, ell, extra, in_text in (
         ("metric_deform_a5_132_refined_certificate.json", 38, "101/100",
-         [-2, 2, -2, 2, 2]),
+         [-2, 2, -2, 2, 2], True),
+        # 1323 в статьи не входит (текст — в истории git до 16.09.2026)
         ("metric_deform_e7_1323_certificate.json", 72, "1007/1000",
-         [2, -1, 0, 0, 0, 0, 1]),
+         [2, -1, 0, 0, 0, 0, 1], False),
     ):
         cert = json.loads((RESULTS_DIR / name).read_text())
         sv = cert["short_vector_certificate"]
@@ -132,7 +151,8 @@ def test_interval_certificates_match_paper_claims():
         assert ci["valid"] and ci["upper_endpoint"] == ell
         # каждый вектор окна обязан иметь KKT-сертификат в файле
         assert len(cert["separation"]["all_projection_certificates"]) == count
-        assert f"ровно ${count}$ ненулевых вектор" in dim57
+        if in_text:
+            assert f"ровно ${count}$ ненулевых вектор" in constructions
 
 
 def test_dim3_certificate_matches_paper():
@@ -144,10 +164,10 @@ def test_dim3_certificate_matches_paper():
     assert opt["alpha"] == "3137/10000"
     assert opt["width_squared"] == "121967690/115730769"
     assert opt["certified_interval"]["upper_endpoint"] == "102659/100000"
-    intervals = (ROOT / "paper" / "sections" / "intervals.tex").read_text()
+    ladders = _sec("article2/sections/ladders.tex")
     for token in ("121967690/115730769", "102659", "3137/10000",
                   "14\\alpha^3-3\\alpha^2-10\\alpha+3"):
-        assert token in intervals, f"нет {token} в intervals.tex"
+        assert token in ladders, f"нет {token} в article2/sections/ladders.tex"
     assert "102659" in RESULTS and "102659" in README
     # прежняя точка 16/51 осталась в артефакте как история
     assert cert["earlier_rational_point"]["width_squared"] == "1586/1505"
@@ -201,10 +221,10 @@ def test_coulson_improved_colouring_is_alpha_4_13():
     # ширина Кулсона строго между вырожденной единицей и нашим сертификатом
     assert (Fraction(1) < Fraction(imp["width_squared"])
             < Fraction(cert["certified_optimum"]["width_squared"]))
-    intervals = (ROOT / "paper" / "sections" / "intervals.tex").read_text()
+    ladders = _sec("article2/sections/ladders.tex")
     for token in ("4/13", "389/374", "389/17", r"\sqrt{22}"):
-        assert token in intervals, f"нет {token} в intervals.tex"
-    assert "вместо единственного" not in intervals
+        assert token in ladders, f"нет {token} в article2/sections/ladders.tex"
+    assert "вместо единственного" not in ladders
     assert "4/13" in README and "4/13" in RESULTS
 
 
@@ -234,9 +254,8 @@ def test_dim9_7203_exact_data_is_consistent():
     base = np.array([row[:8] for row in C.INTEGER_GRAM[:8]], float) / C.DENOMINATOR
     assert abs(np.linalg.det(base) - (1.5 ** 8)) < 1e-6, "база не E8"
 
-    # результат заявлен: 7203 в заголовке, 9604 из него ушло
-    main = (ROOT / "paper" / "chi4-43.tex").read_text()
-    title = main[main.index(r"\title{"):main.index(r"\author{")]
+    # результат заявлен: 7203 в заголовке статьи 1, 9604 из него ушло
+    title = A1_MAIN[A1_MAIN.index(r"\title{"):A1_MAIN.index(r"\author{")]
     assert r"\le7203$" in title, "7203 нет в заголовке"
     assert r"\le9604$" not in title, "9604 осталось в заголовке"
 
@@ -272,13 +291,14 @@ def test_dim7_1029_exact_certificate():
     assert ell == Fraction(103, 100)
 
     # статья: заголовок, теорема, статус и точная дробь на месте
-    assert r"\label{thm:r7ex}" in SECTIONS["dim9-12.tex"]
-    assert str(d2.numerator) in SECTIONS["extra.tex"], (
-        "точная дробь d^2 должна стоять в таблице ширин")
-    main = (ROOT / "paper" / "chi4-43.tex").read_text()
-    assert r"\chi(\R^7)\le1029" in main, "1029 не попало в заголовок/аннотацию"
-    assert "1,032881" not in SECTIONS["dim9-12.tex"], (
-        "старое завышенное число ширины (по измеренному диаметру) вернулось")
+    constructions = _sec("article1/sections/constructions.tex")
+    assert r"\label{thm:r7ex}" in constructions
+    assert str(d2.numerator) in constructions, (
+        "точная дробь d^2 должна стоять в теореме о 1029")
+    assert r"\chi(\R^7)\le1029" in A1_MAIN, "1029 не попало в заголовок/аннотацию"
+    for name, text in ARTICLES.items():
+        assert "1,032881" not in text and "1{,}032881" not in text, (
+            f"старое завышенное число ширины вернулось: {name}")
 
 
 def test_eisenstein_identity_is_a_theorem():
@@ -293,19 +313,19 @@ def test_eisenstein_identity_is_a_theorem():
     Атрибуция намеренно вынесена из текста статьи в журнал ревью до решения
     вопроса о соавторстве (см. test_eisenstein_proof_attribution_is_recorded).
     """
-    extra = SECTIONS["extra.tex"]
-    openq = SECTIONS["open.tex"]
+    extra = _sec("article2/sections/identity.tex")
+    openq = _sec("article2/sections/discussion.tex")
 
     for label in (r"\label{lem:cellpoint}", r"\label{prop:eisup}",
                   r"\label{thm:eis}", r"\label{cor:hexcell}", r"\label{rem:a2tri}"):
-        assert label in extra, f"нет {label} в extra.tex"
-    assert r"\label{cor:Uexact}" in PRODUCT, "нет cor:Uexact в product.tex"
+        assert label in extra, f"нет {label} в article2/sections/identity.tex"
+    assert r"\label{cor:Uexact}" in extra, "нет cor:Uexact в статье 2"
 
     # старые формулировки «доказана только половина» должны исчезнуть
     assert "во всех проверенных случаях" not in extra
     assert "открытым остаётся только вопрос о равенстве" not in extra
     assert "остаётся доказать\nравенство" not in openq
-    assert "половина тождества" not in INTRO
+    assert "половина тождества" not in A2_INTRO
 
     # численный контроль
     data = json.loads((RESULTS_DIR / "eisenstein_identity_checks.json").read_text())
@@ -332,20 +352,26 @@ def test_coauthor_contributions_are_recorded():
     CONTRIBUTIONS.md. Тест следит, чтобы ни один из двух не потерялся и чтобы
     в них были перечислены все четыре её вклада.
     """
-    main = (ROOT / "paper" / "chi4-43.tex").read_text()
-    origin = (ROOT / "paper" / "origin-and-ai.tex").read_text()
     ledger = (ROOT / "CONTRIBUTIONS.md").read_text()
+    contrib = {
+        "article1": _sec("article1/sections/repro.tex"),
+        "article2": _sec("article2/sections/discussion.tex"),
+    }
 
-    # титул: оба автора, порядок по вкладу
-    assert r"\author{" in main and "Глушкова" in main, "второй автор пропал с титула"
-    assert main.index("Иванов") < main.index("Глушкова"), (
-        "порядок авторов — по вкладу (Иванов, Глушкова)")
+    # титулы обеих статей: оба автора, порядок по вкладу
+    for name, main in (("article1", A1_MAIN), ("article2", A2_MAIN)):
+        block = main[main.index(r"\author{"):]
+        assert "Глушкова" in block, f"второй автор пропал с титула {name}"
+        assert block.index("Иванов") < block.index("Глушкова"), (
+            f"{name}: порядок авторов — по вкладу (Иванов, Глушкова)")
 
-    # раздел «Вклад авторов» и его содержимое
-    assert r"\label{ssec:contrib}" in origin, "нет раздела «Вклад авторов»"
+    # разделы «Вклад авторов» статей и их содержимое
+    for name, text in contrib.items():
+        assert "Вклад авторов" in text, f"нет раздела «Вклад авторов» в {name}"
+        assert "CONTRIBUTIONS.md" in text, f"{name} не ссылается на журнал вкладов"
+    both = contrib["article1"] + contrib["article2"]
     for anchor in (r"\ref{prop:eisup}", r"\ref{thm:r7ex}", "alpha^*"):
-        assert anchor in origin, f"вклад {anchor} не назван в разделе о вкладе"
-    assert "CONTRIBUTIONS.md" in origin, "статья не ссылается на журнал вкладов"
+        assert anchor in both, f"вклад {anchor} не назван в разделах о вкладе"
 
     # журнал вкладов: четыре строки с датами, коммитами и проверкой
     for commit in ("d59edd7", "5f46e4a", "e06defa", "9d70ecc"):
@@ -353,20 +379,19 @@ def test_coauthor_contributions_are_recorded():
     assert "Проверка" in ledger, "в журнале нет колонки проверки"
 
     # благодарностей за то, что теперь авторство, быть не должно
-    assert "Автор благодарит Надежду Глушкову" not in main, (
-        "она соавтор — благодарность за собственный вклад некорректна")
+    for name, text in ARTICLES.items():
+        assert "Автор благодарит Надежду Глушкову" not in text, (
+            f"{name}: она соавтор — благодарность за собственный вклад некорректна")
 
 
 def test_paper_artifact_paths_exist():
-    """Каждый путь audit-data/..., на который ссылается статья, существует.
+    """Каждый путь audit-data/..., на который ссылаются статьи, существует.
 
     Ловит класс ошибок «сертификат переехал, статья ссылается в пустоту»
     (замечания №2 и №23 к версии 5: пути hd-2026-07/ и cert46.json).
     """
-    texts = dict(SECTIONS)
-    texts["origin-and-ai.tex"] = (ROOT / "paper" / "origin-and-ai.tex").read_text()
     missing = []
-    for name, text in texts.items():
+    for name, text in ARTICLES.items():
         for m in re.finditer(r"\\path\{(audit-data/[^}]+)\}", text):
             rel = m.group(1).replace(r"\_", "_")
             if not (ROOT / rel).exists():
@@ -405,12 +430,14 @@ def test_dim4_43_record_is_consistent():
     # ширина в документах
     d5 = f"{float(d2) ** 0.5:.5f}"          # 1.00411
     assert "43" in README and d5 in README
-    assert d5.replace(".", "{,}") in SECTIONS["main.tex"]
-    assert r"\label{thm:main43}" in SECTIONS["main.tex"]
+    constructions = _sec("article1/sections/constructions.tex")
+    assert d5.replace(".", "{,}") in constructions
+    assert r"\label{thm:main43}" in constructions
 
     # прежние формулировки «спуск ниже 45 не пробит» должны исчезнуть
-    assert "минимальности~$45$" not in SECTIONS["main.tex"]
-    assert "спуск ниже\n$45$ не удался" not in SECTIONS["open.tex"]
+    for name, text in ARTICLES.items():
+        assert "минимальности~$45$" not in text, name
+        assert "спуск ниже\n$45$ не удался" not in text, name
     assert "«ниже 45»" not in README and "ниже 45" not in RESULTS
 
 

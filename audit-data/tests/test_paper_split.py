@@ -2,8 +2,8 @@
 
 План разделения --- journal/PLAN-2026-09-03-paper-split.md, ревью
 предложений --- journal/REVIEW-2026-09-03-split-proposals.md. Полная
-рукопись paper/chi4-43.tex не меняется и остаётся электронным дополнением;
-здесь закрепляется, что производные документы не «подтягивают» обратно
+рукопись, из которой выделены статьи, с 16.09.2026 в репозитории не хранится
+(она в истории git); здесь закрепляется, что статьи не «подтягивают» обратно
 то, ради чего их отделяли: численные кандидаты в статью 1, запись χ≤ для
 кандидатов в статью 2 (краткие версии проверяет test_paper_short_versions).
 """
@@ -14,7 +14,6 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[2]
 A1 = ROOT / "paper" / "article1"
 A2 = ROOT / "paper" / "article2"
-FULL = ROOT / "paper" / "chi4-43.tex"
 
 
 def _texts(d):
@@ -58,12 +57,8 @@ def test_article2_never_states_candidates_as_bounds():
         assert "[Э]" not in t, f"метка экрана в статье 2: {n}"
 
 
-
-def test_full_version_declares_its_role():
-    """Полная рукопись объявлена дополнением и знает о выделенных документах."""
-    main = FULL.read_text(encoding="utf-8")
-    assert r"\input{split-preface}" in main
-    preface = (ROOT / "paper" / "split-preface.tex").read_text(encoding="utf-8")
-    for token in ("paper/article1/bounds.tex", "paper/article2/widths.tex",
-                  "paper/note-dan/dan.tex", "paper/arxiv-en/bounds-en.tex"):
-        assert token in preface, f"предисловие не указывает на {token}"
+def test_articles_do_not_cite_removed_full_version():
+    """Полная рукопись убрана 16.09.2026: ссылки ведут на репозиторий (Repo)."""
+    pat = re.compile(r"\\(?:cite|nocite)(?:\[[^\]]*\])?\{[^}]*\bFull\b[^}]*\}|\\bibitem\{Full\}")
+    hits = [n for d in (A1, A2) for n, t in _texts(d).items() if pat.search(t)]
+    assert not hits, f"ссылка на удалённую полную версию: {hits}"
