@@ -49,7 +49,7 @@ _MPL_CACHE = Path(tempfile.gettempdir()) / "chromatic-metric-mpl"
 _MPL_CACHE.mkdir(parents=True, exist_ok=True)
 os.environ.setdefault("MPLCONFIGDIR", str(_MPL_CACHE))
 import cma  # noqa: E402  (MPLCONFIGDIR must be set first)
-from chromatic_research.paths import results_path
+from chromatic_research.paths import runs_path
 
 
 def parse_moduli(text: str) -> list[int]:
@@ -559,7 +559,7 @@ def main(argv: Sequence[str] | None = None) -> int:
     parser.add_argument(
         "--output",
         type=Path,
-        default=results_path("metric_deform_best.json"),
+        default=runs_path("metric_deform_best.json"),
     )
     args = parser.parse_args(argv)
     if args.record_rank < 0:

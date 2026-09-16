@@ -29,9 +29,7 @@ import numpy as np
 from sympy import Matrix
 
 import combigeo
-from chromatic_research.campaigns.a9_replace71_campaign import C9_FUNDAMENTAL
-from chromatic_research.campaigns.conflict_graph import C5
-from chromatic_research.campaigns.e8_neighbor_search import C2401_ROWS, e8_geometry
+from chromatic_research.core.abpr_kernels import C5, C2401_ROWS, C9_FUNDAMENTAL, e8_geometry
 from chromatic_research.core.lazy_prime_campaign import parent_geometry, separate_kernel
 from chromatic_research.core.metric_deform import exhaustive_covering_radius
 from chromatic_research.core.prime_radon import (
@@ -40,7 +38,7 @@ from chromatic_research.core.prime_radon import (
     load_forbidden,
     smith_diagonal,
 )
-from chromatic_research.campaigns.symlat import kernel_minimal_to_fundamental
+from chromatic_research.core.abpr_kernels import kernel_minimal_to_fundamental
 from chromatic_research.paths import results_path
 
 

@@ -31,7 +31,7 @@ def restricted_hnfs():
 HNFS = restricted_hnfs()
 
 from voronoi4d import lattice_points_within, lll_reduce, shortest_vector
-from chromatic_research.paths import results_path
+from chromatic_research.paths import runs_path
 
 def min_D(cell, diam, sub):
     """min_v 2*dist(v/2, V0) по подрешётке — с готовой ячейкой (без перестройки)."""
@@ -78,7 +78,7 @@ def main():
     print(f"probe done: best restricted d(139) = {best[0]:.6f} ({best[1]}) "
           f"[{time.time()-t0:.0f}s]", flush=True)
     json.dump({"best": best[0], "tag": best[1]},
-              open(results_path("n3_5d_probe.json"), "w"))
+              open(runs_path("n3_5d_probe.json"), "w"))
     print("DONE", flush=True)
 
 

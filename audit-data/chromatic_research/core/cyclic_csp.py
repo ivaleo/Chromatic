@@ -13,7 +13,7 @@
 """
 import numpy as np
 import combigeo
-from voronoi4d import lattice_points_within
+from voronoi4d import lattice_points_within, lll_reduce
 from chromatic_research.paths import results_path
 
 
@@ -79,6 +79,20 @@ def best_cyclic_csp(B, cell, k, dim, ell_lo=1.0, ell_hi=None, steps=18, ntry=600
     return best_ell, best_c
 
 
+def d_of_sub(cell, diam, sub_basis):
+    """d(Λ,Λ') для КОНКРЕТНОЙ подрешётки с готовой ячейкой."""
+    sub_l = lll_reduce(np.asarray(sub_basis))
+    # кратчайший вектор подрешётки
+    v0 = min(lattice_points_within(sub_l, min(np.linalg.norm(r) for r in sub_l) + 1e-9),
+             key=lambda w: float(w @ w))
+    cur = 2.0 * combigeo.distance_to_cell((0.5 * v0).tolist(), cell)
+    for v in sorted(lattice_points_within(sub_l, cur + diam), key=lambda w: float(w @ w)):
+        if float(np.linalg.norm(v)) - diam >= cur:
+            break
+        cur = min(cur, 2.0 * combigeo.distance_to_cell((0.5 * v).tolist(), cell))
+    return cur / diam
+
+
 if __name__ == "__main__":
     import sys, time, json
     n = int(sys.argv[1]) if len(sys.argv) > 1 else 5
@@ -97,7 +111,6 @@ if __name__ == "__main__":
     print(f"циклическая Γ_c индекса {k} с d>=1: {'НАЙДЕНА c='+str(c) if c else 'НЕ найдена'}")
     if c:
         # точная ширина этой c
-        from chromatic_research.campaigns.smart_sub import d_of_sub
         T = np.eye(n); T[:n-1, n-1] = c; T[n-1, n-1] = k
         d = d_of_sub(cell, diam, (T @ B).tolist())
         print(f"   её точная ширина d = {d:.5f}")

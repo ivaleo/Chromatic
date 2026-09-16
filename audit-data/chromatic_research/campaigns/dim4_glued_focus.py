@@ -30,7 +30,7 @@ from chromatic_research.campaigns.dim4_symmetry_atlas import (CANDIDATES, COND_M
                                                               canonical,
                                                               invariant_basis,
                                                               order_of)
-from chromatic_research.paths import results_path
+from chromatic_research.paths import runs_path
 
 SEED = 20260823
 
@@ -108,9 +108,9 @@ def main():
                        "admissible": bool(d_best >= 1.0), "samples": len(rows)}
         json.dump({"class": name, "samples": N, "seed": SEED, "results": out,
                    "note": "прицельный плотный скан одного класса симметрии"},
-                  open(results_path("dim4_glued_focus.json"), "w"),
+                  open(runs_path("dim4_glued_focus.json"), "w"),
                   ensure_ascii=False, indent=1)
-    print("записано:", results_path("dim4_glued_focus.json"))
+    print("записано:", runs_path("dim4_glued_focus.json"))
 
 
 if __name__ == "__main__":

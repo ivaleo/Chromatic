@@ -6,7 +6,7 @@ import numpy as np, sys, time
 from chromatic_research.campaigns.beat_e7 import build, short_pool, Validator, index_of, gradient_descent
 from chromatic_research.core.e7_abpr import C7
 import multiprocessing as mp
-from chromatic_research.paths import results_path
+from chromatic_research.paths import runs_path
 
 _G = {}
 def _init(d): _G.update(d)
@@ -56,5 +56,5 @@ if __name__ == "__main__":
     gb = min(results, key=lambda r: r[0])
     print(f"=== global best index = {gb[0]} {'(NEW: chi(E^7) <= %d)'%gb[0] if gb[0]<1372 else '(no improvement)'} ===", flush=True)
     if gb[0] < 1372:
-        np.save(results_path("e7_best_C.npy"), np.array(gb[1]))
+        np.save(runs_path("e7_best_C.npy"), np.array(gb[1]))
         print("  saved improved basis to e7_best_C.npy", flush=True)

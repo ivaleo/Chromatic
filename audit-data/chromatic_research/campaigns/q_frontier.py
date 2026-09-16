@@ -9,7 +9,7 @@ import sys
 import numpy as np
 from multiprocessing import Pool
 from chromatic_research.campaigns.qsearch import qsearch, cholesky_unpack, make_objective, default_bounds
-from chromatic_research.paths import load_json, results_path
+from chromatic_research.paths import load_json, runs_path
 from chromatic_research.forms import pack
 
 
@@ -52,6 +52,6 @@ if __name__ == "__main__":
             print(f"k={k}: Q-поиск max d = {bd:.7f}  {'>=1 ПРОБОЙ!' if bd >= 1 else '< 1'}  "
                   f"(инстансы: {alld})", flush=True)
             out[f"k{k}"] = {"d": bd, "Q": cholesky_unpack(np.asarray(bx), 4).tolist()}
-    json.dump(out, open(results_path("q_frontier.json"), "w"),
+    json.dump(out, open(runs_path("q_frontier.json"), "w"),
               indent=1)
     print("DONE", flush=True)

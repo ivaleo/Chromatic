@@ -52,7 +52,7 @@ from sympy import Matrix
 
 import combigeo
 from chromatic_research.core.active_metric_refine import _load_problem
-from chromatic_research.campaigns.d6_ltype_wall_cross import voronoi_geometry
+from chromatic_research.core.voronoi_geometry import voronoi_geometry
 from chromatic_research.core.metric_deform import matrix_parameters
 from chromatic_research.core.prime_radon import smith_diagonal
 

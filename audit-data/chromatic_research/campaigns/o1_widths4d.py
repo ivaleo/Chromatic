@@ -5,7 +5,7 @@
 import json
 import numpy as np
 from multiprocessing import Pool
-from chromatic_research.paths import load_json, results_path
+from chromatic_research.paths import load_json, runs_path
 from chromatic_research.forms import norm_gram, pack, unpack
 
 def one(args):
@@ -44,5 +44,5 @@ if __name__=="__main__":
             mark=f" (классич. {cl:.4f}, +{bd-cl:.4f})" if cl else ""
             print(f"k={k}: max d = {bd:.6f}{mark}",flush=True)
             out[k]={"d":bd,"Q":unpack(np.asarray(bx), 4).tolist()}
-    json.dump(out,open(results_path("o1_widths4d.json"),"w"),indent=1)
+    json.dump(out,open(runs_path("o1_widths4d.json"),"w"),indent=1)
     print("DONE",flush=True)

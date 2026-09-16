@@ -11,7 +11,7 @@
 import math, time
 import numpy as np
 from scipy.optimize import minimize
-from chromatic_research.paths import results_path
+from chromatic_research.paths import runs_path
 
 
 def main():
@@ -181,7 +181,7 @@ def main():
           flush=True)
     if found:
         import json
-        json.dump(found, open(results_path("r4_found.json"), "w"))
+        json.dump(found, open(runs_path("r4_found.json"), "w"))
     print("DONE", flush=True)
 
 

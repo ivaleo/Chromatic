@@ -8,7 +8,7 @@ from sympy import factorint
 from chromatic_research.campaigns.beat_e7 import build, short_pool, Validator, index_of
 from chromatic_research.core.e7_abpr import C7
 from chromatic_research.campaigns.pool_cover import nullspace_modp
-from chromatic_research.paths import results_path
+from chromatic_research.paths import runs_path
 
 def modinv(a, p): return pow(int(a) % p, p-2, p)
 
@@ -54,4 +54,4 @@ if __name__ == "__main__":
     print(f"explored {explored} valid densifications; indices seen: {sorted(seen_idx)}", flush=True)
     print(f"=== best valid index = {best} {'(NEW chi(E^7)<=%d)'%best if best<1372 else '(no improvement; 1372 densening-minimal)'} ===", flush=True)
     if best < 1372:
-        np.save(results_path("e7_best_C.npy"), bestC)
+        np.save(runs_path("e7_best_C.npy"), bestC)

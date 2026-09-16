@@ -26,55 +26,7 @@ from sympy import Matrix
 import combigeo
 from chromatic_research.core.lazy_prime_campaign import separate_kernel
 from chromatic_research.core.prime_radon import smith_diagonal
-
-
-BINT = np.asarray(
-    [
-        [3, 0, 0, 0, 0, 0, 0, 0],
-        [2, 1, 0, 0, 0, 0, 0, 0],
-        [0, 0, 3, 0, 0, 0, 0, 0],
-        [0, 0, 2, 1, 0, 0, 0, 0],
-        [1, 0, 1, 0, 1, 0, 0, 0],
-        [1, 0, 1, 0, 0, 1, 0, 0],
-        [1, 0, 2, 0, 0, 0, 1, 0],
-        [1, 0, 2, 0, 0, 0, 0, 1],
-    ],
-    dtype=np.int64,
-)
-
-
-C2401_ROWS = np.asarray(
-    [
-        [1, 3, 0, 0, 0, 0, 0, 0],
-        [-1, 4, 0, 0, 0, 0, 0, 0],
-        [0, 0, 1, 3, 0, 0, 0, 0],
-        [0, 0, -1, 4, 0, 0, 0, 0],
-        [-1, 1, -1, 1, 3, 1, 0, 0],
-        [0, 1, 0, 1, -1, 2, 0, 0],
-        [-1, 1, -2, 2, 0, 0, 3, 1],
-        [0, 1, 0, 2, 0, 0, -1, 2],
-    ],
-    dtype=np.int64,
-)
-
-
-def e8_geometry() -> tuple[
-    np.ndarray, float, list[tuple[list[float], float]]
-]:
-    transform = np.zeros((8, 8), dtype=np.float64)
-    for index in range(4):
-        transform[2 * index, 2 * index : 2 * index + 2] = [1.0, 0.0]
-        transform[2 * index + 1, 2 * index : 2 * index + 2] = [
-            -0.5,
-            math.sqrt(3.0) / 2.0,
-        ]
-    basis = BINT @ transform
-    shortest = float(
-        np.linalg.norm(combigeo.shortest_vector(basis.tolist()))
-    )
-    diameter = math.sqrt(2.0) * shortest
-    facets = combigeo.relevant_facets(basis.tolist())
-    return basis, diameter, facets
+from chromatic_research.core.abpr_kernels import BINT, C2401_ROWS, e8_geometry
 
 
 def exact_det(matrix: np.ndarray) -> int:

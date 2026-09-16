@@ -7,14 +7,9 @@ import numpy as np, sys, itertools, time
 import combigeo
 from chromatic_research.core.covrad import covering_radius
 from chromatic_research.core.e7_abpr import M_E7, C7
-from chromatic_research.paths import results_path
+from chromatic_research.paths import runs_path
+from chromatic_research.core.e7_abpr import e7_geometry as build
 
-def build():
-    M = M_E7(); G = M.T @ M
-    B = np.linalg.cholesky(G)
-    R,_ = covering_radius(B, n_dirs=600); diam = 2*R
-    F = np.array(combigeo.forbidden_coords(B.tolist(), diam, 1.0), dtype=np.int64)
-    return M, G, B, diam, F
 
 def short_pool(B, F, radius):
     """short lattice vectors (integer M-coords) NOT in F, sorted by norm."""
@@ -81,5 +76,5 @@ if __name__ == "__main__":
     print(f"gradient descent from C7 -> index={idx}  [{time.time()-t:.1f}s]  "
           f"{'*** BEATS 1372! ***' if idx<1372 else ''}", flush=True)
     if idx < 1372:
-        np.save(results_path("e7_best_C.npy"), C)
+        np.save(runs_path("e7_best_C.npy"), C)
         print("  saved improved sublattice basis")

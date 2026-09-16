@@ -20,18 +20,7 @@ from pathlib import Path
 from typing import Sequence
 
 from chromatic_research.core.prime_radon import PrimarySearch, load_forbidden
-
-
-def parse_structures(text: str) -> list[list[int]]:
-    raw = json.loads(text)
-    if not isinstance(raw, list) or not raw:
-        raise argparse.ArgumentTypeError("structures must be a non-empty JSON list")
-    result: list[list[int]] = []
-    for item in raw:
-        if not isinstance(item, list) or not item:
-            raise argparse.ArgumentTypeError("each structure must be a non-empty list")
-        result.append([int(value) for value in item])
-    return result
+from chromatic_research.core.lazy_prime_campaign import parse_structures
 
 
 def main(argv: Sequence[str] | None = None) -> int:

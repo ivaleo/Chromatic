@@ -34,7 +34,7 @@ from scipy.optimize import Bounds, LinearConstraint, milp
 from scipy.sparse import coo_matrix
 
 import combigeo
-from chromatic_research.campaigns.d6_torus_period_portfolio import (
+from chromatic_research.core.torus_quotient import (
     quotient_matching_coloring,
     signed_connection_images,
 )

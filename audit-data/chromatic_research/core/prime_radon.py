@@ -1345,9 +1345,9 @@ class PrimarySearch:
 def load_forbidden(name: str) -> tuple[np.ndarray, np.ndarray, float]:
     """Return (basis, F, diameter) for a catalog lattice or ABPR E7 coordinates."""
     if name == "E7*-ABPR":
-        from chromatic_research.campaigns.beat_e7 import build
+        from chromatic_research.core.e7_abpr import e7_geometry
 
-        _, _, basis, diameter, forbidden = build()
+        _, _, basis, diameter, forbidden = e7_geometry()
         return np.asarray(basis), np.asarray(forbidden, dtype=np.int64), float(diameter)
 
     # In dimensions 8 and 9, recomputing F dominates a campaign (minutes rather

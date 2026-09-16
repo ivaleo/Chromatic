@@ -32,7 +32,6 @@ from sympy import Matrix
 
 import combigeo
 from chromatic_research.core.lattices import CATALOG
-from chromatic_research.campaigns.prime_campaign import parse_structures
 from chromatic_research.core.prime_radon import (
     PrimarySearch,
     hnf_columns,
@@ -47,6 +46,18 @@ EXACT_DIAMETER_RATIOS = {
     "E8": math.sqrt(2.0),
     "A9*": math.sqrt(11.0 / 3.0),
 }
+
+
+def parse_structures(text: str) -> list[list[int]]:
+    raw = json.loads(text)
+    if not isinstance(raw, list) or not raw:
+        raise argparse.ArgumentTypeError("structures must be a non-empty JSON list")
+    result: list[list[int]] = []
+    for item in raw:
+        if not isinstance(item, list) or not item:
+            raise argparse.ArgumentTypeError("each structure must be a non-empty list")
+        result.append([int(value) for value in item])
+    return result
 
 
 def parent_geometry(

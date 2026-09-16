@@ -7,7 +7,7 @@
 import sys, time, json
 import numpy as np
 from multiprocessing import Pool
-from chromatic_research.paths import results_path
+from chromatic_research.paths import results_path, runs_path
 from chromatic_research.forms import norm_gram
 
 
@@ -79,5 +79,5 @@ if __name__ == "__main__":
                     print(f"k={k}: не найдено", flush=True)
         print(f"ИТОГ атаки: минимальный найденный индекс = {best} "
               f"({'НОВЫЙ РЕЗУЛЬТАТ <140!' if best < 140 else 'не ниже 140'})", flush=True)
-        json.dump(out, open(results_path("csp_attack5d.json"), "w"), indent=1)
+        json.dump(out, open(runs_path("csp_attack5d.json"), "w"), indent=1)
     print("DONE", flush=True)

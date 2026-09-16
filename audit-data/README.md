@@ -14,7 +14,7 @@
 
 | Каталог | Что |
 |---|---|
-| `chromatic_research/core/` | Модули, которыми пользуются несколько кампаний (30 модулей). |
+| `chromatic_research/core/` | Модули, которыми пользуются несколько кампаний (33 модуля): методы, ядра АБПР (`abpr_kernels`), геометрия ячейки (`voronoi_geometry`), факторгруппы (`torus_quotient`). От `campaigns/` не зависят — это проверяет `tests/test_core_layering.py`. |
 | `chromatic_research/campaigns/` | Отдельные кампании (142 модуля). |
 | `chromatic_research/enumerators/` | Исходники C++-переборщиков (собираются локально). |
 | `tests/` | Тесты; `make test` гоняет их вместе с остальными. |

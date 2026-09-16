@@ -39,30 +39,7 @@ from chromatic_research.core.prime_radon import (
     smith_diagonal,
 )
 from chromatic_research.campaigns.symlat import kernel_minimal_to_fundamental
-
-
-C9 = np.asarray(
-    [
-        [0, 0, -3, 1, 0, 0, -1, 1, 0],
-        [1, 0, -3, 1, 1, 0, -1, 4, 1],
-        [0, 0, -2, 1, 0, -1, -1, 1, 3],
-        [0, 0, -3, 4, 0, 0, -1, 1, 0],
-        [0, 3, -3, 1, 0, 0, -1, 1, 0],
-        [3, 0, -3, 1, 0, 0, 2, 1, 0],
-        [0, 0, -4, 2, 0, 3, -1, 2, 0],
-        [0, 0, -3, 1, 3, 0, -1, 1, 0],
-        [-1, 0, -3, 1, -1, 1, 1, 1, -1],
-    ],
-    dtype=np.int64,
-)
-
-# ABPR's C9 is expressed in the minimal-weight coordinate basis used by
-# ``M_Anstar``.  ``parent_geometry("A9*")`` uses the fundamental-weight basis
-# from ``lattices.Astar``.  The distinction matters for modular characters:
-# final geometric validation made the old campaign safe, but its supposedly
-# frozen F_3 block did not belong to the published coloring.  Convert the
-# kernel before taking annihilators.
-C9_FUNDAMENTAL = kernel_minimal_to_fundamental(C9)
+from chromatic_research.core.abpr_kernels import C9, C9_FUNDAMENTAL
 
 
 def full_payload(

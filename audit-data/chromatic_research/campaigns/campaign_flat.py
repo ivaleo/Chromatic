@@ -6,9 +6,9 @@ import sys, time, json
 import combigeo
 from chromatic_research.core.campaign_hd import prep, structures_rich_first, find_at_k, confirm
 import multiprocessing as mp
-from chromatic_research.paths import results_path
+from chromatic_research.paths import runs_path
 
-OUT = results_path("campaign_flat_results.json")
+OUT = runs_path("campaign_flat_results.json")
 _G = {}
 def _init(fd):
     global _G; _G = fd

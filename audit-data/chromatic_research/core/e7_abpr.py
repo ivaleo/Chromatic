@@ -33,6 +33,16 @@ C7 = np.array([
     [ 0, 4,  6, 4, 4, 4, 4],
 ], dtype=np.int64)
 
+
+def e7_geometry():
+    """Решётка E₇* АБПР: (M, Gram, базис, диаметр ячейки, запрещённое множество F при ℓ = 1)."""
+    M = M_E7(); G = M.T @ M
+    B = np.linalg.cholesky(G)
+    R,_ = covering_radius(B, n_dirs=600); diam = 2*R
+    F = np.array(combigeo.forbidden_coords(B.tolist(), diam, 1.0), dtype=np.int64)
+    return M, G, B, diam, F
+
+
 if __name__ == "__main__":
     M = M_E7()
     G = M.T @ M                                   # 7x7 Gram

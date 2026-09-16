@@ -31,7 +31,7 @@ import numpy as np
 
 from chromatic_research.campaigns.e8_neighbor_search import e8_geometry
 from chromatic_research.core.layered_covrad import LayeredCertifier
-from chromatic_research.paths import results_path
+from chromatic_research.paths import results_path, runs_path
 
 
 def load_config(name: str) -> dict:
@@ -104,7 +104,7 @@ def decide7203(budget: float) -> dict:
           f"measured {config.get('diameter_measured', float('nan'))}", flush=True)
     result = cert.certify((target_diam / 2.0) ** 2, initial_radius=E8_COVERING_RADIUS + 1e-6, budget=budget)
     result["diam_target"] = target_diam
-    out = results_path("dim9_certify_7203.json")
+    out = runs_path("dim9_certify_7203.json")
     out.write_text(json.dumps({"config": config["index"], "height": config["height"],
                                "result": result}, indent=1) + "\n")
     verdict = ("CERTIFIED: chi(R^9) <= 7203" if result["certified"]

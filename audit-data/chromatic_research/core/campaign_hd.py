@@ -12,9 +12,9 @@ from chromatic_research.core.lattices import CATALOG
 from chromatic_research.core.covrad import covering_radius
 from chromatic_research.core.general_csp import invariant_factor_structures
 import multiprocessing as mp
-from chromatic_research.paths import results_path
+from chromatic_research.paths import runs_path
 
-OUT = results_path("campaign_hd_results.json")
+OUT = runs_path("campaign_hd_results.json")
 
 def prep(name):
     """(row basis, diam=2R, forbidden coords at l=1) of a catalog lattice."""

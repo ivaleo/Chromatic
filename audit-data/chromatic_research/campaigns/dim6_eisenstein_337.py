@@ -46,7 +46,7 @@ from pathlib import Path
 
 import numpy as np
 
-from chromatic_research.paths import results_path
+from chromatic_research.paths import results_path, runs_path
 
 INDEX = 337
 RANK = 3
@@ -430,7 +430,7 @@ def main(argv=None) -> int:
     if args.optimize:
         basis, automorphism = seed_lattice()
         forms = invariant_form_basis(automorphism)
-        out = args.output or results_path("dim6_eisenstein_337_optimum.json")
+        out = args.output or runs_path("dim6_eisenstein_337_optimum.json")
         print(f"максимизация max_подмодули d по {len(forms)}-мерному "
               f"инвариантному конусу; на каждой форме — {2*(INDEX**2+INDEX+1)} "
               f"подмодулей")

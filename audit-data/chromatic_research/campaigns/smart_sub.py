@@ -9,20 +9,7 @@ import numpy as np
 import combigeo
 from voronoi4d import lattice_points_within, lll_reduce
 from chromatic_research.paths import results_path
-
-
-def d_of_sub(cell, diam, sub_basis):
-    """d(Λ,Λ') для КОНКРЕТНОЙ подрешётки с готовой ячейкой."""
-    sub_l = lll_reduce(np.asarray(sub_basis))
-    # кратчайший вектор подрешётки
-    v0 = min(lattice_points_within(sub_l, min(np.linalg.norm(r) for r in sub_l) + 1e-9),
-             key=lambda w: float(w @ w))
-    cur = 2.0 * combigeo.distance_to_cell((0.5 * v0).tolist(), cell)
-    for v in sorted(lattice_points_within(sub_l, cur + diam), key=lambda w: float(w @ w)):
-        if float(np.linalg.norm(v)) - diam >= cur:
-            break
-        cur = min(cur, 2.0 * combigeo.distance_to_cell((0.5 * v).tolist(), cell))
-    return cur / diam
+from chromatic_research.core.cyclic_csp import d_of_sub
 
 
 def smart_search(B, cell, dim, target_index, ntry=4000, ell=1.0, seed=0):

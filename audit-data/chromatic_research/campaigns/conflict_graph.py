@@ -7,18 +7,13 @@ import numpy as np, sys
 import combigeo
 from chromatic_research.core.covrad import covering_radius
 from chromatic_research.paths import results_path
+from chromatic_research.core.abpr_kernels import C5
 
 def M_Anstar(n):
     M = np.ones((n+1, n))
     for i in range(n): M[i, i] = -n
     return M
 
-C5 = np.array([
-    [-2, 1,-2,-1, 0],
-    [-3, 1, 0,-1,-2],
-    [ 0, 1, 1,-1,-3],
-    [-2, 0,-2, 2,-2],
-    [-2,-2, 0, 0,-2]], dtype=np.int64)
 
 def adjugate_int(C):
     det = int(round(np.linalg.det(C.astype(float))))

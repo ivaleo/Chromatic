@@ -30,7 +30,7 @@ from scipy.optimize import linprog
 from chromatic_research.core.e7_abpr import M_E7
 from chromatic_research.core.metric_deform import MetricEvaluation, MetricEvaluator, select_record
 from chromatic_research.core.prime_radon import hnf_columns, kernel_basis, load_forbidden, smith_diagonal
-from chromatic_research.paths import results_path
+from chromatic_research.paths import runs_path
 
 
 def _resolve_source(metric_path: Path, source_text: str) -> Path:
@@ -229,7 +229,7 @@ def main(argv: Sequence[str] | None = None) -> int:
     parser.add_argument(
         "--output",
         type=Path,
-        default=results_path("active_metric_best.json"),
+        default=runs_path("active_metric_best.json"),
     )
     args = parser.parse_args(argv)
 

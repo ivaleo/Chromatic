@@ -7,7 +7,7 @@
 import sys, time, json
 import numpy as np
 from multiprocessing import Pool
-from chromatic_research.paths import results_path
+from chromatic_research.paths import runs_path
 from chromatic_research.forms import norm_gram
 
 
@@ -71,6 +71,6 @@ if __name__ == "__main__":
                       flush=True)
     print(f"ИТОГ: минимальный найденный валидный индекс в 5D = {best} "
           f"({'НОВЫЙ РЕЗУЛЬТАТ <140!' if best < 140 else 'не ниже 140'})", flush=True)
-    json.dump(out, open(results_path("mc_attack5d.json"), "w"),
+    json.dump(out, open(runs_path("mc_attack5d.json"), "w"),
               indent=1)
     print("DONE", flush=True)
