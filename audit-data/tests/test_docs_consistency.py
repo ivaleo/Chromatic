@@ -348,7 +348,7 @@ def test_coauthor_contributions_are_recorded():
     assert "CONTRIBUTIONS.md" in origin, "статья не ссылается на журнал вкладов"
 
     # журнал вкладов: четыре строки с датами, коммитами и проверкой
-    for commit in ("8e8bec8", "3dc50c4", "07c6bca", "0db81e7"):
+    for commit in ("d59edd7", "5f46e4a", "e06defa", "9d70ecc"):
         assert commit in ledger, f"вклад с коммитом {commit} не занесён"
     assert "Проверка" in ledger, "в журнале нет колонки проверки"
 
