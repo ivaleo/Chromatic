@@ -15,11 +15,11 @@
 | Каталог | Что |
 |---|---|
 | `chromatic_research/core/` | Модули, которыми пользуются несколько кампаний (30 модулей). |
-| `chromatic_research/campaigns/` | Отдельные кампании (143 модуля). |
+| `chromatic_research/campaigns/` | Отдельные кампании (142 модуля). |
 | `chromatic_research/enumerators/` | Исходники C++-переборщиков (собираются локально). |
 | `tests/` | Тесты; `make test` гоняет их вместе с остальными. |
-| `results/` | Опорные данные (211 файлов): на них ссылаются статья, README и тесты. |
-| `runs/` | Сырые выгрузки прогонов (537 файлов, gzip); см. [`runs/MANIFEST.md`](runs/MANIFEST.md). |
+| `results/` | Опорные данные (205 файлов): на них ссылаются статья, README и тесты. |
+| `runs/` | Сырые выгрузки прогонов (542 файла, gzip); см. [`runs/MANIFEST.md`](runs/MANIFEST.md). |
 
 ## Запуск
 
@@ -44,7 +44,7 @@ python -m chromatic_research.campaigns.<имя> [аргументы]
 | `cert43.json` | Сертификат первой найденной точки индекса 43 (ℓ₀ = 1,003714). |
 | `cert45.json` | Сертификат конструкции k=45 (более широкий интервал, ℓ ≤ 1,015). |
 | `cert46.json` | Сертификат конструкции k=46. |
-| `cert48.json` | Сертификат более широкого интервала (k=48, ℓ≤1.0396). |
+| `cert48.json` | Сертификат более широкого интервала (k=48, ℓ≤1.0396). Генератор — `campaigns/cert_generic.py` (параметры по умолчанию). |
 | `cert_generic.py` | Параметрический генератор/проверщик сертификатов. |
 | `chromatic_research/campaigns/dim4_k43_verify.py` | Независимый точный верификатор раскрасок ℝ⁴ (ничего не берёт у voronoi4d/combigeo). |
 | `results/r4_k43_eisenstein_rational.json` | Заголовочная решётка ℝ⁴/43: рациональная форма Грама и переход. |
@@ -54,7 +54,6 @@ python -m chromatic_research.campaigns.<имя> [аргументы]
 | `results/metric_deform_a5_132_refined_certificate.json` | Рациональный сертификат **χ(ℝ⁵) ≤ 132** (ℓ = 101/100); независимый аудит без Qhull — `results/metric_deform_a5_132_refined_independent_exact_audit.json`. |
 | `results/dim7_1029_exact.json` | Точный рациональный сертификат **χ(ℝ⁷) ≤ 1029**: 254 фасеты, 30 368 вершин, полнота по 1-скелету. Генератор — `campaigns/dim7_1029_exact.py`. |
 | `results/dim9_7203_exact.json` | Точный рациональный сертификат **χ(ℝ⁹) ≤ 7203**: 752 фасеты, 1 654 230 вершин (4590 непростых), полнота по 1-скелету. Генератор — `campaigns/dim9_7203_exact.py`. |
-| `cert48.py` | Генератор `cert48.json`. |
 | `results/metric_deform_e7_1323_certificate.json` | Рациональный сертификат **χ(ℝ⁷) ≤ 1323**; генератор-проверщик — `chromatic_research/campaigns/verify_metric_candidate.py`. |
 | `results/dim7_1029_layer_cert.json` | **Независимая перепроверка χ(ℝ⁷) ≤ 1029** точным слоёным сертификатом: работает в шестимерной базе, семимерную ячейку не строит. 167 кусков (103 доказано пустыми), max φ = 103310189182571717/59047277850000000 < 7/4. Генератор — `campaigns/dim7_1029_layer_cert.py`. |
 | `results/shell_floor.json` | **Оболочечные полы** для A₃*, E₆*, E₈, K₁₂, Λ₂₄: на A₃* и E₈ пол совпал с рекордом (15 и 2401 неулучшаемы). Генератор — `campaigns/shell_floor.py`. |
@@ -113,8 +112,7 @@ python -m chromatic_research.campaigns.<имя> [аргументы]
   рис. спуска), `n9_bk4d.py` (+ json; диагностика best_killed: ровно 1
   неотделимый запрещённый вектор при k=36..44 на всех формах — сигнатура
   жёсткого препятствия, как в 5D/6D), `n10_push44.py` (+ json; NM-дожим k=44 от
-  CMA-чемпиона по рецепту, пробившему 45), `n8_pause_resume.sh` (пауза/статус/
-  возобновление долгих прогонов).
+  CMA-чемпиона по рецепту, пробившему 45).
 - **3D-интервалы и Q-поиск:** `o1_widths4d.py`, `o2_r3.py`, `n1_r3_full.py`,
   `qsearch.py`, `q_frontier.py` (порт `../articles/Qpoisk.c`).
 - **5D/6D — ранние черновики** (вытеснены `README-dim5-9.md`, оставлены для истории):
@@ -123,9 +121,9 @@ python -m chromatic_research.campaigns.<имя> [аргументы]
   `r4_beat343.py`, `cma_form.py`, `n3_5d_probe.py`.
 - **Экраны 8D/9D после результата 1323:** `results/prime_screen_e8_2400.json`,
   `prime_weighted_e8_2400.json`, `metric_deform_e8_2400.json`,
-  `e8_neighbor_2400.json`, `lazy_prime_a9_16875.json`,
-  `lazy_prime_a9_16384.json`, `lazy_cxx_a9_17150.json`,
-  `a9_orbit_16875.json`, `a9_orbit_17150.json`. Нового рекорда не получено;
+  `e8_neighbor_2400.json`, `a9_orbit_16875.json`, `a9_orbit_17150.json`;
+  архивы `lazy_prime_a9_16875`, `lazy_prime_a9_16384`, `lazy_cxx_a9_17150` —
+  в `runs/`. Нового рекорда не получено;
   полный разбор и следующий механизм — в
   `README-dim5-9.md` и `NEXT_MECHANISM.md`.
 

@@ -108,9 +108,9 @@ BibTeX-прогона не требуется.
   переходы через L-type-стены и последовательный SDP/cutting-plane поиск;
   лучший полный численный фронтир равен `0.984244122033`, но это не
   допустимая раскраска и оценка 343 не изменяется;
-- `results/highs_outer_d6_336_*.json`,
-  `discrete_highs_d6_336_cycle2_archive.json`,
-  `highs_kernel_{race,refine}_d6_336_*.json` — внешняя PSD-аппроксимация
+- `results/highs_outer_d6_336_*.json` и архивы в `runs/`:
+  `discrete_highs_d6_336_cycle2_archive.json.gz`,
+  `highs_kernel_{race,refine}_d6_336_*.json.gz` — внешняя PSD-аппроксимация
   собственными векторами через HiGHS, 95 L-type-ветвей на трёх глубинах и
   турнир 169 HNF-различных ядер; `0.984244122202` численно неотличимо от
   прежнего барьера и не является новой оценкой;
