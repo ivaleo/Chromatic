@@ -137,7 +137,7 @@ n = 10, 11, 12. Данные: `results/dim9_laminate_m4_strict*.json`,
 ```
 
 Подробности и хеши — в
-[`RESEARCH_2026-07-30.md`](../journal/RESEARCH_2026-07-30.md).
+[`RESEARCH-2026-07-30.md`](../journal/RESEARCH-2026-07-30.md).
 
 ## Промежуточный сертифицированный результат: χ(ℝ⁵) ≤ 134
 
@@ -210,7 +210,7 @@ n = 10, 11, 12. Данные: `results/dim9_laminate_m4_strict*.json`,
 
 Полный протокол нового поиска, включая точную конструкцию и отрицательные
 экраны на 135, 134 и 133 цвета:
-[`RESEARCH_2026-07-30.md`](../journal/RESEARCH_2026-07-30.md).
+[`RESEARCH-2026-07-30.md`](../journal/RESEARCH-2026-07-30.md).
 
 ## Исчерпывающие экраны фиксированных метрик в ℝ⁵
 
@@ -716,7 +716,7 @@ LP HiGHS и последовательный SDP, остановилась на 
 `affine_cycle1_d6_342_*.json`, `cyclic_block_d6_342_*.json`,
 `cpsat_d6_336_44_active_*.json` и `fixed7_d6_nonmonotonic_*.json`.
 Подробная интерпретация и ограничения:
-[`RESEARCH_2026-07-30.md`](../journal/RESEARCH_2026-07-30.md).
+[`RESEARCH-2026-07-30.md`](../journal/RESEARCH-2026-07-30.md).
 
 | Размерность / цель | Экран и воспроизводимый итог |
 |---|---|

@@ -1,9 +1,5 @@
 # План (выполнен 03.09.2026, кроме коммита): из рукописи `chi4-43` — статья 1, статья 2, краткое сообщение, дополнение
 
-> **For agentic workers:** REQUIRED SUB-SKILL: use superpowers:subagent-driven-development
-> or superpowers:executing-plans to implement this plan task-by-task.
-> Steps use checkbox (`- [ ]`) syntax for tracking.
-
 **Goal:** Получить три самостоятельных LaTeX-документа (статья 1 ≈ 16–20 стр.,
 статья 2 ≈ 26–32 стр., краткое сообщение ≤ 2 журнальных страниц), собирающихся
 pdflatex без ошибок, при неизменной полной рукописи `paper/chi4-43.tex`,
@@ -20,7 +16,7 @@ pdflatex без ошибок, при неизменной полной руко�
 **Tech Stack:** pdflatex (TeX Live 2023), babel russian/english, amsmath,
 booktabs; шаблон журнала; pytest (`make test` из `audit-data/`).
 
-**Spec:** `journal/REVIEW-split-proposals-2026-09-03.md` (поправки П1–П17)
+**Spec:** `journal/REVIEW-2026-09-03-split-proposals.md` (поправки П1–П17)
 поверх `/tmp/chromatic_article_shortening_proposals.md`.
 
 ## Global Constraints

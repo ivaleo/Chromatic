@@ -5,7 +5,7 @@ PIP := .venv/bin/pip
 
 help:
 	@echo "install  — поставить voronoi4d, combigeo, chromatic и chromatic-research в .venv"
-	@echo "test     — все тесты монорепо (ожидается 572 passed)"
+	@echo "test     — все тесты монорепо"
 	@echo "lint     — ruff по коду"
 	@echo "figures  — пересобрать рисунки статьи из данных"
 	@echo "paper    — собрать все PDF: полную рукопись, статьи 1–2, сообщение для Докладов, английскую версию"
@@ -35,8 +35,11 @@ paper:
 	cd paper/arxiv-en && latexmk -pdf bounds-en.tex
 
 clean:
-	find . -name __pycache__ -type d -prune -exec rm -rf {} +
+	find . -path ./.venv -prune -o \( -name __pycache__ -type d -prune -exec rm -rf {} + \)
 	rm -rf .pytest_cache */.pytest_cache .ruff_cache combigeo/build combigeo/.cache
+	find . -path ./.venv -prune -o \( -name '*.egg-info' -type d -prune -exec rm -rf {} + \)
+	rm -f combigeo/src/*.so
+	find . -path ./.venv -prune -o -name .DS_Store -type f -exec rm -f {} +
 	cd paper && latexmk -c chi4-43.tex || true
 	cd paper/article1 && latexmk -c bounds.tex || true
 	cd paper/article2 && latexmk -c widths.tex || true

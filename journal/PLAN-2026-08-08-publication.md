@@ -1,8 +1,5 @@
 # План: доведение статьи и документации до публикационной готовности
 
-> **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:executing-plans
-> to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax.
-
 **Goal:** Реализовать приоритеты ревью 08.08 (`journal/REVIEW-2026-08-08.md`):
 ввести сертифицированный χ(ℝ¹⁰,[1,1.0432]) ≤ 28812, выровнять статусы и
 документацию, интегрировать полурешётчатую линию в статью, добиться зелёных
@@ -50,11 +47,11 @@ README/RESULTS (производные), затем закрепляются т�
 
 **Files:** Modify: `audit-data/pseudolattice_20260807/{dim11_laminate,dim11_verify,k12_shellfree,msv_campaign,tests_sanity}.py`; Delete: `__pycache__/`
 
-- [ ] **Step 1.1:** В пяти файлах заменить `sys.path.insert(0, "/Users/mac/Documents/_My_code/Chromatic/audit-data")` на
+- [ ] **Step 1.1:** В пяти файлах заменить `sys.path.insert(0, "$REPO/audit-data")` на
   ```python
   sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
   ```
-  и `ROOT = "/Users/mac/Documents/_My_code/Chromatic"` на
+  и `ROOT = "$REPO"` на
   `ROOT = str(Path(__file__).resolve().parents[2])`, добавив `from pathlib import Path` где нет.
 - [ ] **Step 1.2:** `rm -rf audit-data/pseudolattice_20260807/__pycache__`
 - [ ] **Step 1.3:** Run: `python3 -m pytest tests/test_no_absolute_paths.py -q` → PASS; полный сьют `python3 -m pytest tests/ -q` → 372 passed

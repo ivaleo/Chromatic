@@ -1,7 +1,5 @@
 # План переработки кода и материалов Chromatic
 
-> **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
-
 **Цель:** привести монорепо Chromatic к состоянию, в котором чужой человек клонирует
 его на чужую машину, одной командой прогоняет все тесты, находит нужный скрипт и
 данные за минуту и не спотыкается о мёртвый код, дубли и 187 МБ безымянных выгрузок.
@@ -46,7 +44,7 @@ Chromatic/
 ├── README.md                   ← только ориентация + таблица результатов
 ├── RESULTS.md                  ← НОВЫЙ: журнал кампаний (переехал из README)
 ├── docs/                       ← НОВЫЙ: постоянные документы
-│   └── superpowers/plans/      ← этот план
+│   └── plans/                  ← этот план
 ├── journal/                    ← НОВЫЙ: всё датированное (бывш. archive/ + RESEARCH_* + AUDIT-* + PLAN-*)
 ├── voronoi/                    ← структура без изменений
 ├── combigeo/                   ← структура без изменений
@@ -96,7 +94,7 @@ Chromatic/
 - [x] **Шаг 1: зафиксировать базовую линию**
 
 ```bash
-cd /Users/mac/Documents/_My_code/Chromatic
+cd $REPO
 .venv/bin/python -m pytest voronoi/tests chromatic/tests combigeo/tests/python audit-data -q 2>&1 | tail -2
 ```
 
@@ -1155,7 +1153,7 @@ git commit -m "voronoi4d: ускорить dist_to_s в 1.4 раза, CHECK_DIST
 
 # Фаза 3. audit-data как устанавливаемый пакет
 
-Ядро проблемы воспроизводимости: 47 строк `sys.path.insert(0, "/Users/mac/Documents/_My_code/Chromatic/...")`
+Ядро проблемы воспроизводимости: 47 строк `sys.path.insert(0, "$REPO/...")`
 в 28 файлах и абсолютные пути вывода ещё в двух десятках. На чужой машине
 `audit-data` не работает вообще.
 
@@ -1339,7 +1337,7 @@ git commit -m "audit-data: пакет chromatic_research и модуль пут�
 Скрипты первого поколения (`campaign_*`, `n*`, `r*`, `o*`, `verify*`, `cert*`)
 выполняют кампанию на уровне модуля — импорт такого файла запускает счёт — и
 пишут результат по абсолютному пути вида
-`open("/Users/mac/Documents/_My_code/Chromatic/audit-data/campaign_c.json", "w")`.
+`open("$REPO/audit-data/campaign_c.json", "w")`.
 Пока они не станут импортируемыми без побочных эффектов, задача 10 (smoke-тест)
 невозможна.
 
@@ -1353,7 +1351,7 @@ git commit -m "audit-data: пакет chromatic_research и модуль пут�
 - [x] **Шаг 1: получить точный список и убедиться, что он совпал**
 
 ```bash
-cd /Users/mac/Documents/_My_code/Chromatic/audit-data
+cd $REPO/audit-data
 for f in $(find . -name '*.py' -not -name 'test_*' -not -path '*__pycache__*'); do
   grep -q '__main__' "$f" || echo "$f"
 done | sort
@@ -1369,7 +1367,7 @@ done | sort
 Было (строка 43):
 
 ```python
-json.dump(out, open("/Users/mac/Documents/_My_code/Chromatic/audit-data/campaign_c.json", "w"), indent=1)
+json.dump(out, open("$REPO/audit-data/campaign_c.json", "w"), indent=1)
 ```
 
 Стало:
@@ -1391,7 +1389,7 @@ if __name__ == "__main__":
 - [x] **Шаг 3: найти все абсолютные пути вывода**
 
 ```bash
-grep -rn '"/Users/mac' --include='*.py' audit-data | grep -v sys.path
+grep -rn '"/Users/' --include='*.py' audit-data | grep -v sys.path
 ```
 
 Каждое вхождение заменить на `results_path("<имя>.json")`. Файлы с
@@ -1401,7 +1399,7 @@ grep -rn '"/Users/mac' --include='*.py' audit-data | grep -v sys.path
 - [x] **Шаг 4: проверить, что импорт больше ничего не запускает**
 
 ```bash
-cd /Users/mac/Documents/_My_code/Chromatic/audit-data
+cd $REPO/audit-data
 for f in $(find . -name '*.py' -not -name 'test_*' -not -path '*__pycache__*'); do
   grep -q '__main__' "$f" || echo "БЕЗ ГВАРДА: $f"
 done
@@ -1412,7 +1410,7 @@ done
 - [x] **Шаг 5: убедиться, что записи ушли из старого места**
 
 ```bash
-grep -rn '"/Users/mac' --include='*.py' audit-data | grep -v sys.path
+grep -rn '"/Users/' --include='*.py' audit-data | grep -v sys.path
 ```
 
 Ожидается: пусто (останутся только `sys.path`-хаки — их снимает задача 12).
@@ -1507,7 +1505,7 @@ git commit -m "тесты: smoke-проверка импортируемости
 - [x] **Шаг 1: подготовить каталоги**
 
 ```bash
-cd /Users/mac/Documents/_My_code/Chromatic/audit-data
+cd $REPO/audit-data
 mkdir -p chromatic_research/core chromatic_research/campaigns tests
 printf '"""Modules shared by several campaigns."""\n' > chromatic_research/core/__init__.py
 printf '"""Individual computational campaigns."""\n' > chromatic_research/campaigns/__init__.py
@@ -1516,7 +1514,7 @@ printf '"""Individual computational campaigns."""\n' > chromatic_research/campai
 - [x] **Шаг 2: перенести ядро**
 
 ```bash
-cd /Users/mac/Documents/_My_code/Chromatic/audit-data
+cd $REPO/audit-data
 for m in prime_radon prime_row_opt determinant_repair metric_deform \
          active_metric_refine lattices covrad block_row_metric_opt e7_abpr \
          lazy_prime_campaign campaign_hd d6_cyclic_hole_search d6_sdp_hybrid; do
@@ -1529,14 +1527,14 @@ git mv cyclic_csp.py chromatic_research/core/cyclic_csp.py
 - [x] **Шаг 3: перенести тесты**
 
 ```bash
-cd /Users/mac/Documents/_My_code/Chromatic/audit-data
+cd $REPO/audit-data
 git mv hd-2026-07/test_*.py tests/
 ```
 
 - [x] **Шаг 4: перенести остальные модули в campaigns**
 
 ```bash
-cd /Users/mac/Documents/_My_code/Chromatic/audit-data
+cd $REPO/audit-data
 for f in hd-2026-07/*.py *.py; do
   [ -e "$f" ] || continue
   git mv "$f" "chromatic_research/campaigns/$(basename "$f")"
@@ -1559,7 +1557,7 @@ ls *.py hd-2026-07/*.py 2>/dev/null    # ожидается: No such file
 import re
 from pathlib import Path
 
-PKG = Path("/Users/mac/Documents/_My_code/Chromatic/audit-data")
+PKG = Path("$REPO/audit-data")
 CORE = {p.stem for p in (PKG / "chromatic_research" / "core").glob("*.py")
         if p.stem != "__init__"}
 CAMP = {p.stem for p in (PKG / "chromatic_research" / "campaigns").glob("*.py")
@@ -1602,14 +1600,14 @@ grep -rnE "^\s*import [a-z_0-9]+, " audit-data/chromatic_research audit-data/tes
 - [x] **Шаг 6: убрать `sys.path`-хаки**
 
 ```bash
-cd /Users/mac/Documents/_My_code/Chromatic/audit-data
+cd $REPO/audit-data
 grep -rln "sys.path" chromatic_research tests
 ```
 
 В каждом найденном файле удалить блок вида
 
 ```python
-sys.path.insert(0, "/Users/mac/Documents/_My_code/Chromatic/audit-data/hd-2026-07")
+sys.path.insert(0, "$REPO/audit-data/hd-2026-07")
 ```
 
 и вариант из `prime_radon.py`:
@@ -1628,7 +1626,7 @@ for path in (HERE, AUDIT):
 Контроль:
 
 ```bash
-grep -rn "/Users/mac" --include='*.py' . | wc -l    # ожидается 0
+grep -rn "/Users/" --include='*.py' . | wc -l    # ожидается 0
 ```
 
 - [x] **Шаг 7: тесты читают json через `paths`**
@@ -2109,7 +2107,7 @@ import re
 import sys
 from pathlib import Path
 
-ROOT = Path("/Users/mac/Documents/_My_code/Chromatic")
+ROOT = Path("$REPO")
 SCAN_EXT = {".py", ".md", ".tex", ".sh"}
 SKIP_DIRS = {".venv", ".git", "__pycache__", ".pytest_cache", ".cache"}
 
@@ -2153,7 +2151,7 @@ print(f"опорных {len(referenced)} ({mb(referenced):.1f} МБ), "
 - [x] **Шаг 2: перенести опорные в `results/`**
 
 ```bash
-cd /Users/mac/Documents/_My_code/Chromatic
+cd $REPO
 mkdir -p audit-data/results
 while read -r f; do
   [ -n "$f" ] && git mv "$f" "audit-data/results/$(basename "$f")"
@@ -2164,7 +2162,7 @@ ls audit-data/results | wc -l     # ожидается 125
 - [x] **Шаг 3: перенести и сжать сырые**
 
 ```bash
-cd /Users/mac/Documents/_My_code/Chromatic
+cd $REPO
 mkdir -p audit-data/runs
 while read -r f; do
   [ -n "$f" ] || continue
@@ -2407,8 +2405,8 @@ git commit -m "материалы: README — точка входа, хрони�
 - Создать: `journal/`
 - Переместить: `archive/AUDIT-2026-07-21.md`, `archive/PLAN-2026-07-21.md`,
   `archive/RESULTS-2026-07-21.md`, `paper/AUDIT-2026-08-05.md`,
-  `paper/PLAN-podacha-2026-08-05.md`, `audit-data/hd-2026-07/RESEARCH_2026-07-29.md`,
-  `audit-data/hd-2026-07/RESEARCH_2026-07-30.md` → `journal/`
+  `paper/PLAN-2026-08-05-submission.md`, `audit-data/hd-2026-07/RESEARCH-2026-07-29.md`,
+  `audit-data/hd-2026-07/RESEARCH-2026-07-30.md` → `journal/`
 - Переместить: `audit-data/hd-2026-07/README.md` → `audit-data/README-dim5-9.md`
 - Переместить: `audit-data/hd-2026-07/NEXT_MECHANISM.md` → `audit-data/NEXT_MECHANISM.md`
 - Создать: `journal/README.md`
@@ -2417,15 +2415,15 @@ git commit -m "материалы: README — точка входа, хрони�
 - [x] **Шаг 1: перенести**
 
 ```bash
-cd /Users/mac/Documents/_My_code/Chromatic
+cd $REPO
 mkdir -p journal
 git mv archive/AUDIT-2026-07-21.md journal/
 git mv archive/PLAN-2026-07-21.md journal/
 git mv archive/RESULTS-2026-07-21.md journal/
 git mv paper/AUDIT-2026-08-05.md journal/
-git mv paper/PLAN-podacha-2026-08-05.md journal/
-git mv audit-data/hd-2026-07/RESEARCH_2026-07-29.md journal/
-git mv audit-data/hd-2026-07/RESEARCH_2026-07-30.md journal/
+git mv paper/PLAN-2026-08-05-submission.md journal/
+git mv audit-data/hd-2026-07/RESEARCH-2026-07-29.md journal/
+git mv audit-data/hd-2026-07/RESEARCH-2026-07-30.md journal/
 git mv audit-data/hd-2026-07/README.md audit-data/README-dim5-9.md
 git mv audit-data/hd-2026-07/NEXT_MECHANISM.md audit-data/NEXT_MECHANISM.md
 rmdir archive audit-data/hd-2026-07 2>/dev/null || ls archive audit-data/hd-2026-07
@@ -2446,10 +2444,10 @@ rmdir archive audit-data/hd-2026-07 2>/dev/null || ls archive audit-data/hd-2026
 | `AUDIT-2026-07-21.md` | 21.07.2026 | Аудит кода трёх пакетов (предшествует результату χ(ℝ⁴) ≤ 45). |
 | `PLAN-2026-07-21.md` | 21.07.2026 | План доработок до версии 1.1.0. |
 | `RESULTS-2026-07-21.md` | 22.07.2026 | Промежуточный отчёт (называет рекордом 46/48). |
-| `RESEARCH_2026-07-29.md` | 29.07.2026 | Кампании больших размерностей. |
-| `RESEARCH_2026-07-30.md` | 30.07.2026 | 342-цветная ветвь ℝ⁶, честные статусы экранов. |
+| `RESEARCH-2026-07-29.md` | 29.07.2026 | Кампании больших размерностей. |
+| `RESEARCH-2026-07-30.md` | 30.07.2026 | 342-цветная ветвь ℝ⁶, честные статусы экранов. |
 | `AUDIT-2026-08-05.md` | 05.08.2026 | Аудит статьи перед подачей. |
-| `PLAN-podacha-2026-08-05.md` | 05.08.2026 | План подачи статьи. |
+| `PLAN-2026-08-05-submission.md` | 05.08.2026 | План подачи статьи. |
 
 Актуальное состояние — в корневых [README.md](../README.md) и
 [RESULTS.md](../RESULTS.md), справочник по кампаниям n ≥ 5 —

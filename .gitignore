@@ -7,7 +7,7 @@ venv/
 __pycache__/
 *.pyc
 *.egg-info/
-build*/
+build/
 dist/
 .pytest_cache/
 .ruff_cache/
@@ -46,9 +46,6 @@ audit-data/**/threshold_enum
 audit-data/**/threshold_enum_rebuilt
 audit-data/**/threshold_mask_enum
 
-# рабочие каталоги сессий: не под контролем версий
-/tmp/
-/output/
 
-# бинарные документы ревью не отслеживаются (конспект — journal/REVIEW-notes-v5.md)
+# бинарные документы ревью не отслеживаются (конспект — journal/REVIEW-2026-08-10-notes-v5.md)
 docs/*.docx

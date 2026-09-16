@@ -25,7 +25,7 @@ Chromatic/
 С 03.09.2026 это **полная версия (электронное дополнение)**; для публикации
 из неё выделены три коротких документа (план и ревью —
 [`journal/PLAN-2026-09-03-paper-split.md`](journal/PLAN-2026-09-03-paper-split.md),
-[`journal/REVIEW-split-proposals-2026-09-03.md`](journal/REVIEW-split-proposals-2026-09-03.md)):
+[`journal/REVIEW-2026-09-03-split-proposals.md`](journal/REVIEW-2026-09-03-split-proposals.md)):
 
 - **статья 1** — [`paper/article1/bounds.tex`](paper/article1/bounds.tex):
   только пять доказанных оценок 43/132/1029/7203/45619 и единый протокол

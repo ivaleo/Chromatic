@@ -44,7 +44,7 @@ radius_squared, diameter_squared, minimum_distance_squared,
 normalized_distance_squared и margin -- это Fraction.
 
 Происхождение: верификатор написан Н. Глушковой (август 2026), см.
-journal/REVIEW-notes-v6.md. Здесь он приведён к соглашениям репозитория.
+journal/REVIEW-2026-08-20-notes-v6.md. Здесь он приведён к соглашениям репозитория.
 
 Usage::
 
