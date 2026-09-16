@@ -2,7 +2,7 @@
 
 `bounds-en.tex` — *New upper bounds for the chromatic numbers of Euclidean
 spaces: χ(ℝ⁴) ≤ 43, χ(ℝ⁵) ≤ 132, χ(ℝ⁷) ≤ 1029, χ(ℝ⁹) ≤ 7203, χ(ℝ¹⁰) ≤ 45619*.
-Self-contained, English only, **8 pages** (10 pt, A4, no figures). Build:
+Self-contained, English only, **9 pages** (10 pt, A4, no figures). Build:
 `latexmk -pdf bounds-en.tex` → `bounds-en.pdf`. Decision of 14.09.2026: this
 is the document intended for arXiv while the two full Russian articles
 (`../article1`, `../article2`) are still being proofread. A first draft was
@@ -54,7 +54,7 @@ of the 54 minimal vectors of E₆*), which is how this text states it.
   limit of 1920).
 - **Categories:** math.MG (primary), math.CO (cross-list).
 - **MSC:** 52C10 (primary); 05C15, 52C07, 11H31.
-- **Comments:** 8 pages. Code, exact certificates and data:
+- **Comments:** 9 pages. Code, exact certificates and data:
   https://github.com/ivaleo/Chromatic
 - **License:** arXiv non-exclusive license v1.0.
 - Account, endorsement and the checklist: `../arxiv-metadata.md` (items
@@ -64,10 +64,8 @@ of the 54 minimal vectors of E₆*), which is how this text states it.
 ## Relation to the other documents
 
 The Russian articles remain the detailed versions (search algorithms,
-ladders, screens, tilings); the short note announces
-all five bounds, and the
-Doklady note (`../note-dan`) is the same short paper prepared for the
-alternative venue. This text
+ladders, screens, tilings); the Doklady note (`../note-dan`) announces all
+five bounds in Russian. This text
 overlaps with both by design — arXiv is a preprint server, not a journal —
 but the authors should check the preprint policy of the target journals
 before posting (Doklady: `../note-dan/README.md`, last item).

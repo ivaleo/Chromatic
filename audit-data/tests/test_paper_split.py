@@ -1,11 +1,11 @@
-"""Инварианты разделения рукописи на статью 1, статью 2 и краткое сообщение.
+"""Инварианты разделения рукописи на статью 1, статью 2 и краткие версии.
 
 План разделения --- journal/PLAN-2026-09-03-paper-split.md, ревью
 предложений --- journal/REVIEW-2026-09-03-split-proposals.md. Полная
 рукопись paper/chi4-43.tex не меняется и остаётся электронным дополнением;
-здесь закрепляется, что три производных документа не «подтягивают» обратно
+здесь закрепляется, что производные документы не «подтягивают» обратно
 то, ради чего их отделяли: численные кандидаты в статью 1, запись χ≤ для
-кандидатов в статью 2, побочные сюжеты в двухстраничную заметку.
+кандидатов в статью 2 (краткие версии проверяет test_paper_short_versions).
 """
 
 import re
@@ -60,10 +60,10 @@ def test_article2_never_states_candidates_as_bounds():
 
 
 def test_full_version_declares_its_role():
-    """Полная рукопись объявлена дополнением и знает о трёх документах."""
+    """Полная рукопись объявлена дополнением и знает о выделенных документах."""
     main = FULL.read_text(encoding="utf-8")
     assert r"\input{split-preface}" in main
     preface = (ROOT / "paper" / "split-preface.tex").read_text(encoding="utf-8")
     for token in ("paper/article1/bounds.tex", "paper/article2/widths.tex",
-                  ):
+                  "paper/note-dan/dan.tex", "paper/arxiv-en/bounds-en.tex"):
         assert token in preface, f"предисловие не указывает на {token}"

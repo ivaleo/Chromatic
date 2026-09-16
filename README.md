@@ -33,9 +33,9 @@ Chromatic/
 
 | Нужно | Документ |
 |---|---|
-| Пять доказанных оценок с протоколом проверки | статья 1 — [`paper/article1/bounds.pdf`](paper/article1/bounds.pdf) (16 стр.); по-английски — [`paper/arxiv-en/bounds-en.pdf`](paper/arxiv-en/bounds-en.pdf) (8 стр., первой идёт на arXiv) |
+| Пять доказанных оценок с протоколом проверки | статья 1 — [`paper/article1/bounds.pdf`](paper/article1/bounds.pdf) (16 стр.); по-английски — [`paper/arxiv-en/bounds-en.pdf`](paper/arxiv-en/bounds-en.pdf) (9 стр., первой идёт на arXiv) |
 | Метод и его границы: тождество, лестницы ширин, экраны, мозаики | статья 2 — [`paper/article2/widths.pdf`](paper/article2/widths.pdf) |
-| Краткое сообщение | [`paper/note-dan/dan.pdf`](paper/note-dan/dan.pdf) — для «Докладов РАН» |
+| Краткое сообщение | [`paper/note-dan/dan.pdf`](paper/note-dan/dan.pdf) — для «Докладов РАН» (5 стр.) |
 | Всё подробно: алгоритмы, кампании, отрицательные экраны | полная рукопись [`paper/chi4-43.pdf`](paper/chi4-43.pdf) (69 стр., электронное дополнение) |
 | Перепроверить пять оценок | `python -m chromatic_research.campaigns.verify_main_results` (из `audit-data/`) |
 
@@ -54,14 +54,11 @@ Chromatic/
 - **статья 2** — [`paper/article2/widths.tex`](paper/article2/widths.tex):
   ширина как ресурс — эйзенштейново тождество, лестницы ширин,
   ламинирование с численными кандидатами, строгие экраны индекса, мозаики;
-- **краткое сообщение**:
-  все пять оценок на страницах шаблона — явные конструкции 43/132/1029/7203
-  с точными инвариантами и продуктовое правило для 45619; двухстраничный
-  вариант без 45619;
-- **сообщение для Докладов РАН** — [`paper/note-dan/dan.tex`](paper/note-dan/dan.tex):
-  та же короткая статья для альтернативной площадки (5 стр.);
+- **краткое сообщение для Докладов РАН** — [`paper/note-dan/dan.tex`](paper/note-dan/dan.tex):
+  все пять оценок — явные конструкции 43/132/1029/7203 с точными
+  инвариантами и вывод 45619 (5 стр.);
 - **английская версия для arXiv** — [`paper/arxiv-en/bounds-en.tex`](paper/arxiv-en/bounds-en.tex):
-  все пять оценок с данными сертификатов (8 стр.).
+  все пять оценок с данными сертификатов (9 стр.).
 
 Пять заголовочных утверждений перепроверяются одной командой из `audit-data/`:
 `python -m chromatic_research.campaigns.verify_main_results` (флаг `--full`
